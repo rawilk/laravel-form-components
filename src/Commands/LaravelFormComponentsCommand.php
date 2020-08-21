@@ -1,12 +1,12 @@
 <?php
 
-namespace Rawilk\Skeleton\Commands;
+namespace Rawilk\LaravelFormComponents\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class LaravelFormComponentsCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-form-components';
 
     public $description = 'My command';
 

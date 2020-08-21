@@ -1,16 +1,16 @@
 {
-    "name": "rawilk/:package_name",
-    "description": ":package_description",
+    "name": "rawilk/laravel-form-components",
+    "description": "Set of Blade components for TailwindCSS forms.",
     "keywords": [
         "rawilk",
-        ":package_name"
+        "laravel-form-components"
     ],
-    "homepage": "https://github.com/rawilk/:package_name",
+    "homepage": "https://github.com/rawilk/laravel-form-components",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": ":author_email",
+            "name": "Randall Wilk",
+            "email": "randall@randallwilk.dev",
             "homepage": "https://randallwilk.dev",
             "role": "Developer"
         }
@@ -27,12 +27,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Rawilk\\Skeleton\\": "src"
+            "Rawilk\\LaravelFormComponents\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Rawilk\\Skeleton\\Tests\\": "tests"
+            "Rawilk\\LaravelFormComponents\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -47,10 +47,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Rawilk\\Skeleton\\SkeletonServiceProvider"
+                "Rawilk\\LaravelFormComponents\\LaravelFormComponentsServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "Rawilk\\Skeleton\\Facades\\SkeletonFacade"
+                "LaravelFormComponents": "Rawilk\\LaravelFormComponents\\Facades\\LaravelFormComponentsFacade"
             }
         }
     },

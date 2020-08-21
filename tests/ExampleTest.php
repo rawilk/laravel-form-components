@@ -1,6 +1,6 @@
 <?php
 
-namespace Rawilk\Skeleton\Tests;
+namespace Rawilk\LaravelFormComponents\Tests;
 
 class ExampleTest extends TestCase
 {

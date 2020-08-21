@@ -1,9 +1,9 @@
 <?php
 
-namespace Rawilk\Skeleton\Tests;
+namespace Rawilk\LaravelFormComponents\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
-use Rawilk\Skeleton\SkeletonServiceProvider;
+use Rawilk\LaravelFormComponents\LaravelFormComponentsServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -17,13 +17,13 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app): array
     {
         return [
-            SkeletonServiceProvider::class,
+            LaravelFormComponentsServiceProvider::class,
         ];
     }
 
     public function getEnvironmentSetUp($app)
     {
-        // include_once __DIR__ . '/../database/migrations/create_skeleton_table.php.stub';
+        // include_once __DIR__ . '/../database/migrations/create_laravel_form_components_table.php.stub';
         // (new \CreatePackageTable())->up();
     }
 }
