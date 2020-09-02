@@ -1,0 +1,8 @@
+.form-text {
+    @apply flex-1 block w-full px-3 py-2;
+    @apply transition duration-150 ease-in-out;
+
+    @screen sm {
+        @apply text-sm leading-5;
+    }
+}

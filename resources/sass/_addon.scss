@@ -1,0 +1,71 @@
+.leading-addon {
+    @apply inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500;
+
+    @screen sm {
+        @apply text-sm;
+    }
+}
+
+.inline-addon {
+    @apply absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none;
+
+    > span {
+        @apply text-gray-500;
+
+        @screen sm {
+            @apply text-sm leading-5;
+        }
+    }
+}
+
+.leading-icon {
+    @apply absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none;
+
+    svg {
+        @apply h-5 w-5 text-gray-400;
+    }
+}
+
+.trailing-addon {
+    @apply absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none;
+
+    > span {
+        @apply text-gray-500;
+
+        @screen sm {
+            @apply text-sm leading-5;
+        }
+    }
+}
+
+.trailing-icon {
+    @apply absolute inset-y-0 right-0 pr-3 flex items-center;
+
+    svg {
+        @apply h-5 w-5 text-gray-400;
+    }
+}
+
+.has-leading-addon {
+    @apply rounded-none rounded-r-md;
+}
+
+.has-leading-icon {
+    @apply pl-10;
+}
+
+.has-trailing-icon {
+    @apply pr-10;
+}
+
+.form-select + .trailing-addon {
+    right: 1.5rem;
+}
+
+.form-select + .trailing-icon {
+    right: 1.5rem;
+}
+
+.form-select.has-trailing-icon {
+    padding-right: 4rem;
+}

@@ -1,9 +1,9 @@
 <?php
 
-namespace Rawilk\LaravelFormComponents\Tests;
+namespace Rawilk\FormComponents\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
-use Rawilk\LaravelFormComponents\LaravelFormComponentsServiceProvider;
+use Rawilk\FormComponents\FormComponentsServiceProvider;
 
 class TestCase extends Orchestra
 {
@@ -17,7 +17,7 @@ class TestCase extends Orchestra
     protected function getPackageProviders($app): array
     {
         return [
-            LaravelFormComponentsServiceProvider::class,
+            FormComponentsServiceProvider::class,
         ];
     }
 

@@ -27,12 +27,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Rawilk\\LaravelFormComponents\\": "src"
+            "Rawilk\\FormComponents\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Rawilk\\LaravelFormComponents\\Tests\\": "tests"
+            "Rawilk\\FormComponents\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -47,11 +47,8 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Rawilk\\LaravelFormComponents\\LaravelFormComponentsServiceProvider"
-            ],
-            "aliases": {
-                "LaravelFormComponents": "Rawilk\\LaravelFormComponents\\Facades\\LaravelFormComponentsFacade"
-            }
+                "Rawilk\\FormComponents\\FormComponentsServiceProvider"
+            ]
         }
     },
     "minimum-stability": "dev",

@@ -1,0 +1,37 @@
+.form-group-inline {
+    @screen sm {
+        @apply grid grid-cols-3 gap-4 items-start;
+    }
+
+    &--border {
+        @screen sm {
+            @apply pt-5 border-t border-gray-200;
+        }
+    }
+}
+
+.form-error {
+    @apply mt-1 text-red-500 text-sm;
+}
+
+.form-help {
+    @apply mt-2 text-sm text-gray-500;
+}
+
+.has-error {
+    label {
+        @apply text-red-500;
+    }
+
+    .form-input {
+        @apply border-red-300 text-red-900;
+
+        &:focus {
+            @apply border-red-300 shadow-outline-red;
+        }
+
+        &::placeholder {
+            @apply text-red-300;
+        }
+    }
+}

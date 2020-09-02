@@ -1,0 +1,9 @@
+.form-label {
+    @apply block text-sm font-medium leading-5 text-gray-700;
+}
+
+input[disabled],
+textarea[disabled],
+select[disabled] {
+    @apply bg-gray-50 cursor-not-allowed;
+}
