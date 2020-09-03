@@ -1,0 +1,109 @@
+.leading-addon {
+    @apply inline-flex;
+    @apply items-center;
+    @apply px-3;
+    @apply rounded-l-md;
+    @apply border;
+    @apply border-r-0;
+    @apply border-gray-300;
+    @apply bg-gray-50;
+    @apply text-gray-500;
+
+    @screen sm {
+        @apply text-sm;
+    }
+}
+
+.inline-addon {
+    @apply absolute;
+    @apply inset-y-0;
+    @apply left-0;
+    @apply pl-3;
+    @apply flex;
+    @apply items-center;
+    @apply pointer-events-none;
+
+    > span {
+        @apply text-gray-500;
+
+        @screen sm {
+            @apply text-sm;
+            @apply leading-5;
+        }
+    }
+}
+
+.leading-icon {
+    @apply absolute;
+    @apply inset-y-0;
+    @apply left-0;
+    @apply pl-3;
+    @apply flex;
+    @apply items-center;
+    @apply pointer-events-none;
+
+    svg {
+        @apply h-5;
+        @apply w-5;
+        @apply text-gray-400;
+    }
+}
+
+.trailing-addon {
+    @apply absolute;
+    @apply inset-y-0;
+    @apply right-0;
+    @apply pr-3;
+    @apply flex;
+    @apply items-center;
+    @apply pointer-events-none;
+
+    > span {
+        @apply text-gray-500;
+
+        @screen sm {
+            @apply text-sm;
+            @apply leading-5;
+        }
+    }
+}
+
+.trailing-icon {
+    @apply absolute;
+    @apply inset-y-0;
+    @apply right-0;
+    @apply pr-3;
+    @apply flex;
+    @apply items-center;
+
+    svg {
+        @apply h-5;
+        @apply w-5;
+        @apply text-gray-400;
+    }
+}
+
+.has-leading-addon {
+    @apply rounded-none;
+    @apply rounded-r-md;
+}
+
+.has-leading-icon {
+    @apply pl-10;
+}
+
+.has-trailing-icon {
+    @apply pr-10;
+}
+
+.form-select + .trailing-addon {
+    right: 1.5rem;
+}
+
+.form-select + .trailing-icon {
+    right: 1.5rem;
+}
+
+.form-select.has-trailing-icon {
+    padding-right: 4rem;
+}

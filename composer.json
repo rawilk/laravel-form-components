@@ -16,10 +16,17 @@
         }
     ],
     "require": {
-        "php": "^7.4"
+        "php": "^7.4",
+        "ext-json": "*",
+        "illuminate/filesystem": "^7.0",
+        "illuminate/support": "^7.0",
+        "illuminate/view": "^7.0",
+        "nesbot/carbon": "^2.38"
     },
     "require-dev": {
+        "blade-ui-kit/blade-heroicons": "^0.2.1",
         "friendsofphp/php-cs-fixer": "^2.16",
+        "gajus/dindent": "^2.0",
         "orchestra/testbench": "^5.0",
         "phpunit/phpunit": "^9.0",
         "psalm/plugin-laravel": "^1.2",

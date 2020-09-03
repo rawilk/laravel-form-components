@@ -35,12 +35,13 @@ trait HasAddons
     }
 
     /**
-     * When certain props are set via slot instead of a prop (e.g. <x-slot name="leadingAddon"> instead of leading-addon="")
+     * When certain props are set via slot instead of a prop
+     * (e.g. <x-slot name="leadingAddon"> instead of leading-addon="")
      * we need to set them in the render method as they don't get set in the constructor.
      *
      * @param array $data
      */
-    protected function setSlotAttributes(array $data): void
+    protected function setSlotAddonAttributes(array $data): void
     {
         if ($data['leadingAddon'] !== false) {
             $this->leadingAddon = $data['leadingAddon'];

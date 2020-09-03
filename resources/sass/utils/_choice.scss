@@ -1,0 +1,26 @@
+.choice-container {
+    @apply relative;
+    @apply flex;
+    @apply items-start;
+}
+
+.choice-input {
+    @apply flex;
+    @apply items-center;
+    @apply h-5;
+}
+
+.choice-label {
+    @apply ml-3;
+    @apply text-sm;
+    @apply leading-5;
+
+    label {
+        @apply font-medium;
+        @apply text-gray-700;
+    }
+}
+
+.choice-description {
+    @apply text-gray-500;
+}

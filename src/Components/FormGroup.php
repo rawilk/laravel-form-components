@@ -4,43 +4,52 @@ namespace Rawilk\FormComponents\Components;
 
 use Rawilk\FormComponents\Concerns\HandlesValidationErrors;
 
-class FormGroup extends Component
+class FormGroup extends BladeComponent
 {
     use HandlesValidationErrors;
 
-    public string $name;
-    public string $label;
+    /** @var string */
+    public $name;
+
+    /** @var string */
+    public $label;
+
+    /** @var string */
+    public $inputId;
+
+    /** @var string */
+    public $helpText;
+
     public bool $inline;
-    public string $helpText;
     public bool $border;
-    public string $labelFor;
-    public bool $isCheckbox;
+    public bool $isCheckboxGroup;
 
     public function __construct(
         string $name = '',
-        string $label = '',
+        string $label = null,
+        string $inputId = null,
         bool $inline = false,
         bool $showErrors = true,
-        string $helpText = '',
+        string $helpText = null,
         bool $border = false,
-        string $labelFor = null,
-        bool $isCheckbox = false
-    ) {
+        bool $isCheckboxGroup = false
+    )
+    {
         $this->name = $name;
-        $this->labelFor = $labelFor ?? $this->name;
+        $this->inputId = $inputId ?? $name;
         $this->label = $label;
         $this->inline = $inline;
-        $this->showErrors = $name && $showErrors;
+        $this->showErrors = $showErrors;
         $this->helpText = $helpText;
         $this->border = $border;
-        $this->isCheckbox = $isCheckbox;
+        $this->isCheckboxGroup = $isCheckboxGroup;
     }
 
     public function groupClass(): string
     {
         $class = 'form-group';
 
-        if ($this->hasErrorAndShow($this->name)) {
+        if ($this->hasErrorsAndShow($this->name)) {
             $class .= ' has-error';
         }
 
