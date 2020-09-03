@@ -35,8 +35,7 @@ class Checkbox extends BladeComponent
         string $label = null,
         string $description = '',
         bool $checked = false
-    )
-    {
+    ) {
         $this->name = $name;
         $this->id = $id ?? $name;
         $this->value = $value;

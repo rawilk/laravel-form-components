@@ -33,8 +33,7 @@ class FormGroup extends BladeComponent
         string $helpText = null,
         bool $border = false,
         bool $isCheckboxGroup = false
-    )
-    {
+    ) {
         $this->name = $name;
         $this->inputId = $inputId ?? $name;
         $this->label = $label;
