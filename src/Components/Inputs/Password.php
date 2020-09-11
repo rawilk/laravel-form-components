@@ -23,8 +23,7 @@ class Password extends Input
         bool $showToggle = true,
         string $showPasswordIcon = null,
         string $hidePasswordIcon = null
-    )
-    {
+    ) {
         parent::__construct(
             $name,
             $id,

@@ -32,8 +32,7 @@ class Select extends Input
         $trailingAddon = false,
         $trailingAddonPadding = self::DEFAULT_TRAILING_ADDON_PADDING,
         $trailingIcon = false
-    )
-    {
+    ) {
         parent::__construct(
             $name,
             $id,
