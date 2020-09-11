@@ -26,6 +26,7 @@ class PasswordTest extends ComponentTestCase
 
         $expected = <<<HTML
         <div x-data="{ show: false }"
+             x-cloak
              class="form-text-container ">
             <input class="form-input form-text has-trailing-icon" name="password" id="password" :type="show ? 'text' : 'password'" />
 
@@ -76,6 +77,7 @@ class PasswordTest extends ComponentTestCase
 
         $expected = <<<HTML
         <div x-data="{ show: false }"
+             x-cloak
              class="form-text-container ">
              <span class="leading-addon">foo</span>
 
@@ -137,6 +139,7 @@ class PasswordTest extends ComponentTestCase
 
         $expected = <<<HTML
         <div x-data="{ show: false }"
+             x-cloak
              class="form-text-container ">
              <span class="leading-addon">foo</span>
 
