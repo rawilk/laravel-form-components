@@ -12,7 +12,7 @@ class SelectTest extends ComponentTestCase
         $this->withViewErrors([]);
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <select name="country" id="country" class="form-select"></select>
         </div>
         HTML;
@@ -33,7 +33,7 @@ class SelectTest extends ComponentTestCase
         HTML;
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <select name="country" id="country" class="form-select">
                 <option value="can">
                     Canada
@@ -58,7 +58,7 @@ class SelectTest extends ComponentTestCase
         HTML;
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <select name="country" id="country" class="form-select">
                 <option value="can">
                     Canada
@@ -83,7 +83,7 @@ class SelectTest extends ComponentTestCase
         HTML;
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <select name="country" id="country" class="form-select">
                 <option value="can" selected>
                     Canada
@@ -109,7 +109,7 @@ class SelectTest extends ComponentTestCase
         HTML;
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <select name="country" id="country_code" class="form-select px-4">
                 <option value="can">
                     Canada
@@ -134,7 +134,7 @@ class SelectTest extends ComponentTestCase
         HTML;
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <select name="country" id="country" multiple class="form-select">
                 <option value="can">
                     Canada
@@ -162,7 +162,7 @@ class SelectTest extends ComponentTestCase
         HTML;
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <select name="country" id="country" aria-invalid="true" aria-describedby="country-error" class="form-select input-error">
                 <option value="can">
                     Canada
@@ -193,7 +193,7 @@ class SelectTest extends ComponentTestCase
         HTML;
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <select name="country" id="country" class="form-select">
                 <option value="ger">Germany</option>
                 <option value="can">

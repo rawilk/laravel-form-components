@@ -14,12 +14,16 @@ class Select extends Input
 
     public bool $multiple;
 
+    /** @var string */
+    public $maxWidth;
+
     public function __construct(
         string $name = '',
         string $id = null,
         array $options = [],
         $value = null,
         bool $multiple = false,
+        string $maxWidth = null,
         bool $showErrors = true,
         $leadingAddon = false,
         $inlineAddon = false,
@@ -35,6 +39,7 @@ class Select extends Input
             $id,
             '',
             null,
+            $maxWidth,
             $showErrors,
             $leadingAddon,
             $inlineAddon,

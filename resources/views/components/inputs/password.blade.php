@@ -1,7 +1,8 @@
 <div @if ($showToggle)
         x-data="{ show: false }"
+        x-cloak
     @endif
-    class="form-text-container"
+    class="form-text-container {{ $maxWidth }}"
 >
     @include('form-components::partials.leading-addons')
 

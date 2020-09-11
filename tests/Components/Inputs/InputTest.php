@@ -15,7 +15,7 @@ class InputTest extends ComponentTestCase
         $this->withViewErrors([]);
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <input class="form-input form-text" name="search" id="search" type="text" />
         </div>
         HTML;
@@ -32,7 +32,7 @@ class InputTest extends ComponentTestCase
         $this->withViewErrors([]);
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <input class="form-input form-text p-4" name="confirm_password" id="confirmPassword" type="password" />
         </div>
         HTML;
@@ -50,7 +50,7 @@ class InputTest extends ComponentTestCase
         $this->withViewErrors([]);
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <input class="form-input form-text" name="search" id="search" type="text" value="Eloquent" />
         </div>
         HTML;
@@ -68,7 +68,7 @@ class InputTest extends ComponentTestCase
         $this->withViewErrors([]);
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <input class="form-input form-text" wire:model="search" name="search" id="search" type="text" />
         </div>
         HTML;
@@ -85,7 +85,7 @@ class InputTest extends ComponentTestCase
         $this->withViewErrors([]);
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <span class="leading-addon">foo</span>
 
             <input class="form-input form-text has-leading-addon" name="search" id="search" type="text" />
@@ -110,7 +110,7 @@ class InputTest extends ComponentTestCase
         HTML;
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <span class="leading-addon">foo</span>
 
             <input class="form-input form-text has-leading-addon" name="search" id="search" type="text" />
@@ -128,7 +128,7 @@ class InputTest extends ComponentTestCase
         $padding = Input::DEFAULT_INLINE_ADDON_PADDING;
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <div class="inline-addon">
                 <span>foo</span>
             </div>
@@ -144,7 +144,7 @@ class InputTest extends ComponentTestCase
 
         // With custom inline addon padding
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <div class="inline-addon">
                 <span>foo</span>
             </div>
@@ -173,7 +173,7 @@ class InputTest extends ComponentTestCase
         $padding = Input::DEFAULT_INLINE_ADDON_PADDING;
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <div class="inline-addon">
                 <span>foo</span>
             </div>
@@ -197,7 +197,7 @@ class InputTest extends ComponentTestCase
         HTML;
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <div class="leading-icon">icon here</div>
 
             <input class="form-input form-text has-leading-icon" name="search" id="search" type="text" />
@@ -219,7 +219,7 @@ class InputTest extends ComponentTestCase
         HTML;
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <span class="leading-addon">foo</span>
 
             <input class="form-input form-text has-leading-addon" name="search" id="search" type="text" />
@@ -237,7 +237,7 @@ class InputTest extends ComponentTestCase
         $padding = Input::DEFAULT_TRAILING_ADDON_PADDING;
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <input class="form-input form-text {$padding}" name="search" id="search" type="text" />
 
             <div class="trailing-addon">
@@ -253,7 +253,7 @@ class InputTest extends ComponentTestCase
 
         // With custom trailing addon padding
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <input class="form-input form-text pr-20" name="search" id="search" type="text" />
 
             <div class="trailing-addon">
@@ -282,7 +282,7 @@ class InputTest extends ComponentTestCase
         HTML;
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <input class="form-input form-text pr-20" name="search" id="search" type="text" />
 
             <div class="trailing-addon">
@@ -306,7 +306,7 @@ class InputTest extends ComponentTestCase
         HTML;
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <input class="form-input form-text has-trailing-icon" name="search" id="search" type="text" />
 
             <div class="trailing-icon">icon here</div>
@@ -328,7 +328,7 @@ class InputTest extends ComponentTestCase
         HTML;
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <input class="form-input form-text pr-12" name="search" id="search" type="text" />
 
             <div class="trailing-addon">
@@ -352,7 +352,7 @@ class InputTest extends ComponentTestCase
         HTML;
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <span class="leading-addon">foo</span>
 
             <input class="form-input form-text has-leading-addon has-trailing-icon" name="search" id="search" type="text" />
@@ -370,7 +370,7 @@ class InputTest extends ComponentTestCase
         $this->withViewErrors(['search' => 'required']);
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <input class="form-input form-text input-error" name="search" id="inputSearch" type="text" aria-invalid="true" aria-describedby="inputSearch-error" />
         </div>
         HTML;
@@ -387,7 +387,7 @@ class InputTest extends ComponentTestCase
         $this->withViewErrors(['search' => 'required']);
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <input class="form-input form-text input-error" aria-describedby="search-help search-error" name="search" id="search" type="text" aria-invalid="true" />
         </div>
         HTML;
@@ -396,5 +396,23 @@ class InputTest extends ComponentTestCase
             $expected,
             '<x-input name="search" aria-describedby="search-help" />'
         );
+    }
+
+    /** @test */
+    public function can_have_a_max_width_set_on_the_container(): void
+    {
+        $this->withViewErrors([]);
+
+        $template = <<<HTML
+        <x-input max-width="sm" name="name" />
+        HTML;
+
+        $expected = <<<HTML
+        <div class="form-text-container max-w-sm">
+            <input class="form-input form-text" name="name" id="name" type="text" />
+        </div>
+        HTML;
+
+        $this->assertComponentRenders($expected, $template);
     }
 }

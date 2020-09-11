@@ -1,4 +1,4 @@
-<div class="form-text-container">
+<div class="form-text-container {{ $maxWidth }}">
     @include('form-components::partials.leading-addons')
 
     <select name="{{ $name }}"

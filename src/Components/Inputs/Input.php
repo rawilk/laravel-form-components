@@ -30,11 +30,15 @@ class Input extends BladeComponent
     /** @var string|mixed */
     public $value;
 
+    /** @var string */
+    public $maxWidth;
+
     public function __construct(
         string $name = '',
         string $id = null,
         string $type = 'text',
         $value = null,
+        string $maxWidth = null,
         bool $showErrors = true,
         $leadingAddon = false,
         $inlineAddon = false,
@@ -48,6 +52,7 @@ class Input extends BladeComponent
         $this->id = $id ?? $name;
         $this->type = $type;
         $this->value = old($name, $value);
+        $this->maxWidth = $maxWidth ? "max-w-{$maxWidth}" : null;
 
         $this->showErrors = $showErrors;
 

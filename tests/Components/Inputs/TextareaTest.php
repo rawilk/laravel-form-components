@@ -12,7 +12,7 @@ class TextareaTest extends ComponentTestCase
         $this->withViewErrors([]);
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <textarea name="about" id="about" class="form-input form-text" rows="3"></textarea>
         </div>
         HTML;
@@ -29,7 +29,7 @@ class TextareaTest extends ComponentTestCase
         $this->withViewErrors([]);
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <textarea name="about" id="aboutMe" class="form-input form-text p-4" rows="5" cols="8">About me text</textarea>
         </div>
         HTML;
@@ -46,7 +46,7 @@ class TextareaTest extends ComponentTestCase
         $this->flashOld(['about' => 'About me text']);
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <textarea name="about" id="about" class="form-input form-text" rows="3">About me text</textarea>
         </div>
         HTML;

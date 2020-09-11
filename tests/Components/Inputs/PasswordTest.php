@@ -26,7 +26,7 @@ class PasswordTest extends ComponentTestCase
 
         $expected = <<<HTML
         <div x-data="{ show: false }"
-             class="form-text-container">
+             class="form-text-container ">
             <input class="form-input form-text has-trailing-icon" name="password" id="password" :type="show ? 'text' : 'password'" />
 
             <div @click="show = ! show"
@@ -55,7 +55,7 @@ class PasswordTest extends ComponentTestCase
         $this->withViewErrors([]);
 
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <input class="form-input form-text" name="password" id="password" type="password" />
         </div>
         HTML;
@@ -76,7 +76,7 @@ class PasswordTest extends ComponentTestCase
 
         $expected = <<<HTML
         <div x-data="{ show: false }"
-             class="form-text-container">
+             class="form-text-container ">
              <span class="leading-addon">foo</span>
 
             <input class="form-input form-text has-leading-addon has-trailing-icon" name="password" id="password" :type="show ? 'text' : 'password'" />
@@ -112,7 +112,7 @@ class PasswordTest extends ComponentTestCase
 
         // The "trailing-addon" should be regarded as a custom attribute instead
         $expected = <<<HTML
-        <div class="form-text-container">
+        <div class="form-text-container ">
             <input class="form-input form-text" trailing-addon="foo" name="password" id="password" type="password" />
         </div>
         HTML;
@@ -137,7 +137,7 @@ class PasswordTest extends ComponentTestCase
 
         $expected = <<<HTML
         <div x-data="{ show: false }"
-             class="form-text-container">
+             class="form-text-container ">
              <span class="leading-addon">foo</span>
 
             <input class="form-input form-text has-leading-addon has-trailing-icon" name="password" id="password" :type="show ? 'text' : 'password'" />

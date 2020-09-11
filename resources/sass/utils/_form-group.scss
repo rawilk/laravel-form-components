@@ -48,3 +48,21 @@
         @apply text-red-300;
     }
 }
+
+.form-group__inline-label {
+    @screen sm {
+        @apply mt-px;
+        @apply pt-2;
+    }
+}
+
+.form-group__content {
+    @apply mt-1;
+
+    &--inline {
+        @screen sm {
+            @apply mt-0;
+            @apply col-span-2;
+        }
+    }
+}

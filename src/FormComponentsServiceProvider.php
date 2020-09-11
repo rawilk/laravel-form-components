@@ -6,6 +6,7 @@ namespace Rawilk\FormComponents;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Compilers\BladeCompiler;
+use Rawilk\FormComponents\Console\PublishCommand;
 
 class FormComponentsServiceProvider extends ServiceProvider
 {
@@ -16,6 +17,10 @@ class FormComponentsServiceProvider extends ServiceProvider
 
         if ($this->app->runningInConsole()) {
             $this->bootForConsole();
+
+            $this->commands([
+                PublishCommand::class,
+            ]);
         }
     }
 
@@ -26,7 +31,7 @@ class FormComponentsServiceProvider extends ServiceProvider
 
     private function bootBladeComponents(): void
     {
-        $this->callAfterResolving(BladeCompiler::class, function (BladeCompiler $blade) {
+        $this->callAfterResolving(BladeCompiler::class, static function (BladeCompiler $blade) {
             $prefix = config('form-components.prefix', '');
 
             foreach (config('form-components.components', []) as $alias => $component) {

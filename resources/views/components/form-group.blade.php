@@ -1,15 +1,16 @@
 <div {{ $attributes->merge(['class' => $groupClass()]) }}>
-    <x-label :for="$inputId"
-             class="{{ $inline && ! $isCheckboxGroup ? 'sm:mt-px sm:pt-2' : '' }}"
+    <x-dynamic-component :component="formComponentName('label')"
+                         :for="$inputId"
+                         class="{{ $inline && ! $isCheckboxGroup ? 'form-group__inline-label' : '' }}"
     >
         {{ $label }}
-    </x-label>
+    </x-dynamic-component>
 
-    <div class="mt-1 {{ $inline ? 'sm:mt-0 sm:col-span-2' : '' }}">
+    <div class="form-group__content {{ $inline ? 'form-group__content--inline' : '' }}">
         {{ $slot }}
 
         @if ($hasErrorsAndShow($name))
-            <x-form-error :name="$name" :input-id="$inputId" />
+            <x-dynamic-component :component="formComponentName('form-error')" :name="$name" :input-id="$inputId" />
         @endif
 
         @if ($helpText)
