@@ -1,0 +1,19 @@
+.form-text-container {
+    @apply flex;
+    @apply rounded-sm;
+    @apply shadow-sm;
+    @apply relative;
+}
+
+.form-text {
+    @apply flex-1;
+    @apply block;
+    @apply w-full;
+    @apply px-3;
+    @apply py-2;
+
+    @screen sm {
+        @apply text-sm;
+        @apply leading-5;
+    }
+}

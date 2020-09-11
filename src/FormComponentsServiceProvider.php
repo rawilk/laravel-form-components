@@ -1,72 +1,58 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Rawilk\FormComponents;
 
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
-use Rawilk\FormComponents\Support\FormDataBinder;
+use Illuminate\View\Compilers\BladeCompiler;
+use Rawilk\FormComponents\Console\PublishCommand;
 
 class FormComponentsServiceProvider extends ServiceProvider
 {
     public function boot(): void
     {
+        $this->bootResources();
+        $this->bootBladeComponents();
+
         if ($this->app->runningInConsole()) {
             $this->bootForConsole();
+
+            $this->commands([
+                PublishCommand::class,
+            ]);
         }
-
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'form-components');
-
-        $this->registerDirectives();
-        $this->registerComponents();
     }
 
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/form-components.php', 'form-components');
-
-        $this->app->singleton(FormDataBinder::class, fn () => new FormDataBinder);
     }
 
-    protected function registerComponents(): void
+    private function bootBladeComponents(): void
     {
-        $prefix = config('form-components.prefix');
+        $this->callAfterResolving(BladeCompiler::class, static function (BladeCompiler $blade) {
+            $prefix = config('form-components.prefix', '');
 
-        Collection::make(config('form-components.components'))
-            ->each(fn ($component, $alias) => Blade::component($alias, $component['class'], $prefix));
+            foreach (config('form-components.components', []) as $alias => $component) {
+                $blade->component($component['class'], $alias, $prefix);
+            }
+        });
     }
 
-    protected function registerDirectives(): void
-    {
-        Blade::directive(
-            'bind',
-            fn ($bind) => '<?php app(\Rawilk\FormComponents\Support\FormDataBinder::class)->bind(' . $bind . '); ?>'
-        );
-
-        Blade::directive(
-            'endbind',
-            fn () => '<?php app(\Rawilk\FormComponents\Support\FormDataBinder::class)->pop(); ?>'
-        );
-
-        Blade::directive(
-            'wire',
-            fn () => '<?php app(\Rawilk\FormComponents\Support\FormDataBinder::class)->wire(); ?>'
-        );
-
-        Blade::directive(
-            'endwire',
-            fn () => '<?php app(\Rawilk\FormComponents\Support\FormDataBinder::class)->endWire(); ?>'
-        );
-    }
-
-    protected function bootForConsole(): void
+    private function bootForConsole(): void
     {
         $this->publishes([
-            __DIR__ . '/../config/form-components.php' => config_path('form-components.php'),
+            __DIR__ . '/../config/form-components.php' => $this->app->configPath('form-components.php'),
         ], 'config');
 
         $this->publishes([
-            __DIR__ . '/../resources/views' => base_path('resources/views/vendor/form-components'),
+            __DIR__ . '/../resources/views' => $this->app->resourcePath('views/vendor/form-components'),
         ], 'views');
+    }
+
+    private function bootResources(): void
+    {
+        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'form-components');
     }
 }

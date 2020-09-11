@@ -1,0 +1,15 @@
+.form-checkbox {
+    @apply w-4;
+    @apply h-4;
+    @apply text-blue-600;
+    @apply transition;
+    @apply duration-150;
+    @apply ease-in-out;
+}
+
+.form-checkbox-group {
+    @apply grid;
+    @apply grid-cols-3;
+    @apply gap-4;
+    @apply items-start;
+}

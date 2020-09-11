@@ -24,7 +24,7 @@ php artisan migrate
 
 You can publish the config file with:
 ```bash
-php artisan vendor:publish --provider="Rawilk\LaravelFormComponents\LaravelFormComponentsServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Rawilk\FormComponents\FormComponentsServiceProvider" --tag="config"
 ```
 
 This is the contents of the published config file:

@@ -1,0 +1,68 @@
+.form-group-inline {
+    @screen sm {
+        @apply grid;
+        @apply grid-cols-3;
+        @apply gap-4;
+        @apply items-start;
+    }
+
+    &--border {
+        @screen sm {
+            @apply pt-5;
+            @apply border-t;
+            @apply border-gray-200;
+        }
+    }
+}
+
+.form-error {
+    @apply mt-1;
+    @apply text-red-500;
+    @apply text-sm;
+}
+
+.form-help {
+    @apply mt-2;
+    @apply text-sm;
+    @apply text-gray-500;
+}
+
+.has-error {
+    label {
+        @apply text-red-500;
+    }
+}
+
+.input-error,
+.has-error .form-input,
+.has-error .form-select {
+    @apply border-red-300;
+    @apply text-red-900;
+
+    &:focus {
+        @apply border-red-300;
+        @apply shadow-outline-red;
+    }
+
+    &::placeholder {
+        @apply text-red-300;
+    }
+}
+
+.form-group__inline-label {
+    @screen sm {
+        @apply mt-px;
+        @apply pt-2;
+    }
+}
+
+.form-group__content {
+    @apply mt-1;
+
+    &--inline {
+        @screen sm {
+            @apply mt-0;
+            @apply col-span-2;
+        }
+    }
+}
