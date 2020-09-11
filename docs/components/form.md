@@ -63,7 +63,7 @@ To enable file uploads in a form you can make use of the `has-files` attribute:
 This will output the following HTML:
 
 ```html
-<form method="POST" action="http://example.com" enctype="multipart/form-data">
+<form method="POST" action="http://example.com" enctype="multipart/form-data" spellcheck="false">
     <input type="hidden" name="_token" value="...">
     
     Form fields...
