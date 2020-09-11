@@ -29,10 +29,10 @@ This will output the following HTML:
 </form>
 ```
 
-By default, a `POST` HTTP method will be set. Of course, you can customize this. You can also remove the `spellcheck="false"` attribute that is set by default as well:
+By default, a `POST` HTTP method will be set. Of course, you can customize this. You can also enable spellcheck (remove the `spellcheck="false"` attribute that is set by default) as well:
 
 ```html
-<x-form method="PUT" action="http://example.com" :spellcheck="false">
+<x-form method="PUT" action="http://example.com" spellcheck>
     Form fields...
 </x-form>
 ```
