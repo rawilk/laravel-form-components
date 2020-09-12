@@ -7,7 +7,8 @@ sort: 2
 - PHP **7.4** or greater
 - Laravel **8.0** or greater
 - TailwindUI for styling
-- AlpineJS 
+- AlpineJS
+- Blade Heroicons
 
 ## Version Matrix
 | Laravel | Minimum Version |
