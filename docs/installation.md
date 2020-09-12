@@ -140,3 +140,53 @@ php artisan fc:publish --views
 ```
 
 **Note:** This will also publish the package's configuration as well.
+
+## Styling
+
+Laravel Form Components includes some utility classes styled in `.scss` stylesheets. If you're using
+sass, you can pull in the package's styles into your stylesheets by importing the `form-components.scss` stylesheet.
+
+If you have a `./resources/sass/app.scss` stylesheet, you can do:
+
+```css
+@import '../../vendor/rawilk/laravel-form-components/resources/sass/form-components';
+
+/* Add your overrides here */
+```
+
+## Components
+
+Even though all components come enabled out-of-the-box, you might just want to
+only load the components you need in your app for performance reasons. To do so,
+first [publish the config file](#configuration), then remove the components
+you don't need from the `components` settings.
+
+You can also choose to use different classes and views for components. This allows you
+to either extend or completely change the component's functionality by using a custom class
+and/or view of your own.
+
+## Prefixing
+
+Using components from this library might conflict with other ones from a different
+library or components from our own app. To prevent this you can opt to prefixing
+Form Components components by default to prevent these collisions. You can do this by
+setting the `prefix` option in the config file:
+
+```php
+<?php
+
+return [
+    ...
+    'prefix' => 'tw',
+    ...
+];
+```
+
+Now all components can be referenced as usual but with the prefix before their name:
+
+```html
+<x-tw-form action="http://example.com" />
+```
+
+For obvious reasons, the docs don't use any prefix in their code examples. So keep
+this in mind when setting a prefix and copying/pasting code snippets.
