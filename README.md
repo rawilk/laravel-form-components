@@ -137,6 +137,10 @@ return [
 ];
 ```
 
+## Documentation
+
+For more documentation, please visit: https://randallwilk.dev/docs/laravel-form-components
+
 ## Testing
 
 ``` bash
