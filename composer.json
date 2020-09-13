@@ -3,7 +3,11 @@
     "description": "Set of Blade components for TailwindCSS forms.",
     "keywords": [
         "rawilk",
-        "laravel-form-components"
+        "laravel-form-components",
+        "Tailwind",
+        "form",
+        "Laravel",
+        "Blade"
     ],
     "homepage": "https://github.com/rawilk/laravel-form-components",
     "license": "MIT",
@@ -20,8 +24,7 @@
         "ext-json": "*",
         "illuminate/filesystem": "^8.0",
         "illuminate/support": "^8.0",
-        "illuminate/view": "^8.0",
-        "nesbot/carbon": "^2.38"
+        "illuminate/view": "^8.0"
     },
     "require-dev": {
         "blade-ui-kit/blade-heroicons": "^0.2.1",
