@@ -7,6 +7,7 @@ namespace Rawilk\FormComponents;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Compilers\BladeCompiler;
 use Rawilk\FormComponents\Console\PublishCommand;
+use Rawilk\FormComponents\Support\Timezone;
 
 class FormComponentsServiceProvider extends ServiceProvider
 {
@@ -27,6 +28,8 @@ class FormComponentsServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->mergeConfigFrom(__DIR__ . '/../config/form-components.php', 'form-components');
+
+        $this->registerTimezone();
     }
 
     private function bootBladeComponents(): void
@@ -54,5 +57,12 @@ class FormComponentsServiceProvider extends ServiceProvider
     private function bootResources(): void
     {
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'form-components');
+    }
+
+    private function registerTimezone(): void
+    {
+        if (config('form-components.enable_timezone')) {
+            $this->app->singleton('fc-timezone', fn () => new Timezone);
+        }
     }
 }
