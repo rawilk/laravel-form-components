@@ -38,7 +38,7 @@ class Timezone
 
     public function __construct()
     {
-        $this->only( config('form-components.timezone_subset', false));
+        $this->only(config('form-components.timezone_subset', false));
     }
 
     public function only($only): self
