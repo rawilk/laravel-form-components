@@ -88,6 +88,11 @@ return [
             'view' => 'form-components::components.form-error',
         ],
 
+        'timezone-select' => [
+            'class' => Components\Inputs\TimezoneSelect::class,
+            'view' => 'form-components::components.inputs.timezone-select',
+        ],
+
     ],
 
     /*
@@ -105,5 +110,32 @@ return [
     |
     */
     'prefix' => '',
+
+    /*
+    |--------------------------------------------------------------------------
+    | Enable Timezone Select
+    |--------------------------------------------------------------------------
+    |
+    | If you don't plan on using a timezone select in your app, you can disable
+    | it here. This will prevent the use of app('fc-timezone'). You should also
+    | remove the "timezone-select" from the registered components in the config
+    | as well.
+    |
+    */
+    'enable_timezone' => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default Timezone Subset
+    |--------------------------------------------------------------------------
+    |
+    | You may not always need the full list of timezones to choose from,
+    | so you may define a subset of regions to pull from instead. Set
+    | the value to `false` to use all regions.
+    |
+    | Example: [\Rawilk\FormComponents\Support\TimezoneRegion::AMERICA]
+    |
+    */
+    'timezone_subset' => false,
 
 ];
