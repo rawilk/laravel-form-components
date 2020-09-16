@@ -51,9 +51,4 @@ class TimezoneSelect extends Select
 
         $this->only = is_null($only) ? config('form-components.timezone_subset', false) : $only;
     }
-
-    public function timezones(): array
-    {
-
-    }
 }
