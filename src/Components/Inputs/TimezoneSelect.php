@@ -54,6 +54,5 @@ class TimezoneSelect extends Select
 
     public function timezones(): array
     {
-
     }
 }
