@@ -32,9 +32,14 @@ class Timezone
      *
      * @var bool|array
      */
-    protected $only = false;
+    protected $only;
 
     protected array $timezones;
+
+    public function __construct()
+    {
+        $this->only( config('form-components.timezone_subset', false));
+    }
 
     public function only($only): self
     {
@@ -49,7 +54,7 @@ class Timezone
 
     public function all(): array
     {
-        if (! empty($this->timezones) && $this->only === false) {
+        if (! empty($this->timezones) && $this->only === config('form-components.timezone_subset', false)) {
             return $this->timezones;
         }
 
