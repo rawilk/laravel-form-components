@@ -189,7 +189,7 @@ Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
 
 ## Security
 
-If you discover any security related issues, please email randall@randallwilk.dev instead of using the issue tracker.
+Please review [my security policy](../../security) on how to report security vulnerabilities.
 
 ## Credits
 
