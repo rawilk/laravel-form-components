@@ -1,6 +1,5 @@
 <div @if ($showToggle)
         x-data="{ show: false }"
-        x-cloak
     @endif
     class="form-text-container {{ $maxWidth }}"
 >
@@ -33,6 +32,7 @@
         <div @click="show = ! show"
              :title="show ? '{{ __('Hide') }}' : '{{ __('Show') }}'"
              class="trailing-icon clickable"
+             x-cloak
         >
             <span x-show="! show">
                 {{ svg($showPasswordIcon) }}
