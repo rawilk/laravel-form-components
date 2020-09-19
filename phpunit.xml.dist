@@ -11,7 +11,7 @@
          verbose="true"
 >
     <testsuites>
-        <testsuite name="Rawilk Test Suite">
+        <testsuite name="Form Components Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
