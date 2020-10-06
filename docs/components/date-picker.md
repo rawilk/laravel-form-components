@@ -15,8 +15,26 @@ We recommend that you install and compile the JavaScript libraries before you de
 - [Alpine.js](https://github.com/alpinejs/alpine) `^2.7`
 - [Flatpickr](https://flatpickr.js.org/) `4.6.3`
 
+Make sure you import flatpickr as `flatpickr` in your JavaScript, and make sure it's available globally:
+
+```js
+import flatpickr from 'flatpickr';
+
+window.flatpickr = flatpickr;
+```
+
 **Note:** There is a bug introduced to flatpickr with the latest release that affects chrome users on MacOS. For this reason,
 you should lock your version to `4.6.3` until a fix for this issue is released. See [the github issue](https://github.com/flatpickr/flatpickr/issues/2249) for more information.
+
+### Styling
+
+If you pull the `flatpickr` package in via npm, you should import the styles into your stylesheet:
+
+```css
+@import '~flatpickr/dist/flatpickr.min.css';
+```
+
+Be sure these styles are imported before the styles for this package so we can override the styles for flatpickr correctly.
 
 ## Basic Usage
 
