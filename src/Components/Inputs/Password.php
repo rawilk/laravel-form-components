@@ -6,6 +6,8 @@ namespace Rawilk\FormComponents\Components\Inputs;
 
 class Password extends Input
 {
+    protected static array $assets = ['alpine'];
+
     public bool $showToggle;
     public ?string $showPasswordIcon;
     public ?string $hidePasswordIcon;

@@ -10,7 +10,8 @@ By using it, you can simply add a date and/or time picker to your form with one 
 
 ## Installation
 
-We recommend that you install and compile the JavaScript libraries before you deploy to production:
+While the `date-picker` component works out-of-the-box when you've [set the directives](/docs/laravel-form-components/v1/installation#directives),
+we recommend that you install and compile the JavaScript libraries before you deploy to production:
 
 - [Alpine.js](https://github.com/alpinejs/alpine) `^2.7`
 - [Flatpickr](https://flatpickr.js.org/) `4.6.3`

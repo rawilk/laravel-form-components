@@ -6,6 +6,8 @@ namespace Rawilk\FormComponents\Components\Inputs;
 
 class DatePicker extends Input
 {
+    protected static array $assets = ['alpine', 'flatpickr'];
+
     public array $options;
     public $toggleIcon;
     public $clearIcon;

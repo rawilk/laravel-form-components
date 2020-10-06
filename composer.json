@@ -7,7 +7,8 @@
         "Tailwind",
         "form",
         "Laravel",
-        "Blade"
+        "Blade",
+        "date picker"
     ],
     "homepage": "https://github.com/rawilk/laravel-form-components",
     "license": "MIT",

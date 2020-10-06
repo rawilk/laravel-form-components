@@ -154,4 +154,23 @@ return [
     */
     'timezone_subset' => false,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Third Party Asset Libraries
+    |--------------------------------------------------------------------------
+    |
+    | These settings hold reference to all third party libraries and their
+    | asset files served through a CDN. Individual components can require
+    | these asset files through their static `$assets` property.
+    |
+    */
+    'assets' => [
+        'alpine' => 'https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.0/dist/alpine.min.js',
+
+        'flatpickr' => [
+            'https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css',
+            'https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.js',
+        ],
+    ],
+
 ];

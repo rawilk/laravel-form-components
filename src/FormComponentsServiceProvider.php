@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace Rawilk\FormComponents;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Str;
 use Illuminate\View\Compilers\BladeCompiler;
 use Rawilk\FormComponents\Console\PublishCommand;
 use Rawilk\FormComponents\Support\Timezone;
@@ -15,6 +17,7 @@ class FormComponentsServiceProvider extends ServiceProvider
     {
         $this->bootResources();
         $this->bootBladeComponents();
+        $this->bootDirectives();
 
         if ($this->app->runningInConsole()) {
             $this->bootForConsole();
@@ -34,11 +37,14 @@ class FormComponentsServiceProvider extends ServiceProvider
 
     private function bootBladeComponents(): void
     {
-        $this->callAfterResolving(BladeCompiler::class, static function (BladeCompiler $blade) {
+        $this->callAfterResolving(BladeCompiler::class, function (BladeCompiler $blade) {
             $prefix = config('form-components.prefix', '');
+            $assets = config('form-components.assets', []);
 
             foreach (config('form-components.components', []) as $alias => $component) {
                 $blade->component($component['class'], $alias, $prefix);
+
+                $this->registerAssets($component['class'], $assets);
             }
         });
     }
@@ -57,6 +63,32 @@ class FormComponentsServiceProvider extends ServiceProvider
     private function bootResources(): void
     {
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'form-components');
+    }
+
+    private function bootDirectives(): void
+    {
+        Blade::directive('fcStyles', function (string $expression) {
+            return "<?php echo Rawilk\\FormComponents\\FormComponents::outputStyles({$expression}); ?>";
+        });
+
+        Blade::directive('fcScripts', function (string $expression) {
+            return "<?php echo Rawilk\\FormComponents\\FormComponents::outputScripts({$expression}); ?>";
+        });
+    }
+
+    private function registerAssets($component, array $assets): void
+    {
+        foreach ($component::assets() as $asset) {
+            $files = (array) ($assets[$asset] ?? []);
+
+            collect($files)->filter(function (string $file) {
+                return Str::endsWith($file, '.css');
+            })->each(fn (string $style) => FormComponents::addStyle($style));
+
+            collect($files)->filter(function (string $file) {
+                return Str::endsWith($file, '.js');
+            })->each(fn (string $script) => FormComponents::addScript($script));
+        }
     }
 
     private function registerTimezone(): void
