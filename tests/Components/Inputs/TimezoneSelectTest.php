@@ -14,8 +14,6 @@ class TimezoneSelectTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        dd($this->generateTimezoneOptions());
-
         $expected = <<<HTML
         <div class="form-text-container ">
             <select name="timezone" id="timezone" class="form-select">
