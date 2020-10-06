@@ -93,6 +93,11 @@ return [
             'view' => 'form-components::components.inputs.timezone-select',
         ],
 
+        'date-picker' => [
+            'class' => Components\Inputs\DatePicker::class,
+            'view' => 'form-components::components.inputs.date-picker',
+        ],
+
     ],
 
     /*
