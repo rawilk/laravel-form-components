@@ -84,7 +84,6 @@ class Timezone
         $time = new DateTime('', new DateTimeZone($timezone));
         $offset = $time->format('P');
 
-        $timezone = substr($timezone, strlen($region) + 1);
         $timezone = str_replace(
             ['St_', '_'],
             ['St.', ' '],
