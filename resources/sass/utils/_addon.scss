@@ -9,6 +9,12 @@
     @apply bg-gray-50;
     @apply text-gray-500;
 
+    svg {
+        @apply h-5;
+        @apply w-5;
+        @apply text-gray-400;
+    }
+
     @screen sm {
         @apply text-sm;
     }

@@ -93,6 +93,22 @@ return [
             'view' => 'form-components::components.inputs.timezone-select',
         ],
 
+        'date-picker' => [
+            'class' => Components\Inputs\DatePicker::class,
+            'view' => 'form-components::components.inputs.date-picker',
+
+            /*
+             * This icon will be shown as a "toggle button" for the date picker.
+             */
+            'icon' => 'heroicon-s-calendar',
+
+            /*
+             * This icon will be shown when there is a value, and will allow you
+             * to clear the input.
+             */
+            'clear_icon' => 'heroicon-o-x-circle',
+        ],
+
     ],
 
     /*
