@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 1.2.1 - 2020-10-12
+### Changed
+- Only render the checkbox/radio label markup if a label or description is present
+
 ## 1.2.0 - 2020-10-06
 ### Added
 - Add a date picker component ([#7](https://github.com/rawilk/laravel-form-components/pull/7))
