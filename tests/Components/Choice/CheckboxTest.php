@@ -14,10 +14,6 @@ class CheckboxTest extends ComponentTestCase
             <div class="choice-input">
                 <input class="form-checkbox" name="remember_me" id="remember_me" type="checkbox" />
             </div>
-
-            <div class="choice-label">
-                <label for="remember_me"></label>
-            </div>
         </div>
         HTML;
 

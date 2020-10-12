@@ -9,17 +9,19 @@
         />
     </div>
 
-    <div class="choice-label">
-        <label for="{{ $id }}">
-            @if ($label)
-                {{ $label }}
-            @else
-                {{ $slot }}
-            @endif
-        </label>
+    @if (! $slot->isEmpty() || $label || $description)
+        <div class="choice-label">
+            <label for="{{ $id }}">
+                @if ($label)
+                    {{ $label }}
+                @else
+                    {{ $slot }}
+                @endif
+            </label>
 
-        @if ($description)
-            <p class="choice-description">{{ $description }}</p>
-        @endif
-    </div>
+            @if ($description)
+                <p class="choice-description">{{ $description }}</p>
+            @endif
+        </div>
+    @endif
 </div>

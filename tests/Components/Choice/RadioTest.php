@@ -14,10 +14,6 @@ class RadioTest extends ComponentTestCase
             <div class="choice-input">
                 <input class="form-radio" name="remember_me" id="remember_me" type="radio" />
             </div>
-
-            <div class="choice-label">
-                <label for="remember_me"></label>
-            </div>
         </div>
         HTML;
 
