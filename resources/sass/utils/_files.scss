@@ -42,3 +42,42 @@
     @apply border-blue-300;
     @apply shadow-outline-blue;
 }
+
+// FilePond style overrides
+/* purgecss start ignore */
+.filepond--panel-root {
+    @apply border-dashed;
+    @apply border-2;
+    @apply border-cool-gray-200;
+    @apply rounded-md;
+}
+
+.filepond--panel-root {
+    @apply bg-transparent;
+    @apply max-w-lg;
+    @apply transition;
+    @apply duration-150;
+    @apply ease-in-out;
+}
+
+.filepond--label-action {
+    @apply text-blue-600;
+    text-decoration-color: theme('colors.blue.600');
+    @apply transition;
+    @apply duration-100;
+    @apply ease-in-out;
+
+    &:hover,
+    &:focus {
+        @apply opacity-75;
+    }
+}
+
+.fc-filepond--desc {
+    @apply text-cool-gray-500;
+}
+
+.fc-filepond--sub-desc {
+    @apply text-xs #{!important};
+}
+/* purgecss end ignore */

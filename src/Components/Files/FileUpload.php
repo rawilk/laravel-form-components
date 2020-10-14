@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace Rawilk\FormComponents\Components\Files;
 
 use Rawilk\FormComponents\Components\BladeComponent;
+use Rawilk\FormComponents\Concerns\AcceptsFiles;
 use Rawilk\FormComponents\Concerns\HandlesValidationErrors;
 
 class FileUpload extends BladeComponent
 {
     use HandlesValidationErrors;
+    use AcceptsFiles;
 
     protected static array $assets = ['alpine'];
 
@@ -29,14 +31,6 @@ class FileUpload extends BladeComponent
      * Only applies if a "wire:model" attribute is set.
      */
     public bool $displayUploadProgress;
-
-    /**
-     * If specified, the component will fill out the "accept" property depending on
-     * which type is requested.
-     *
-     * @var string
-     */
-    public $type;
 
     protected ?bool $canShowUploadProgress = null;
 
@@ -73,26 +67,5 @@ class FileUpload extends BladeComponent
         }
 
         return $this->canShowUploadProgress = true;
-    }
-
-    public function accepts(): ?string
-    {
-        if (! $this->type) {
-            return null;
-        }
-
-        $excelTypes = '.csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
-
-        return [
-            'audio' => 'audio/*',
-            'image' => 'image/*',
-            'video' => 'video/*',
-            'pdf' => '.pdf',
-            'csv' => '.csv',
-            'spreadsheet' => $excelTypes,
-            'excel' => $excelTypes,
-            'text' => 'text/plain',
-            'html' => 'text/html',
-        ][$this->type] ?? null;
     }
 }

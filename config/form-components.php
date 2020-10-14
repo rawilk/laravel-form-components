@@ -114,6 +114,11 @@ return [
             'view' => 'form-components::components.files.file-upload',
         ],
 
+        'file-pond' => [
+            'class' => Components\Files\FilePond::class,
+            'view' => 'form-components::components.files.file-pond',
+        ],
+
     ],
 
     /*
@@ -175,6 +180,11 @@ return [
         'flatpickr' => [
             'https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css',
             'https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.js',
+        ],
+
+        'filepond' => [
+            'https://unpkg.com/filepond/dist/filepond.css',
+            'https://unpkg.com/filepond/dist/filepond.js',
         ],
     ],
 
