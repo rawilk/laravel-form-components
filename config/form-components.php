@@ -109,6 +109,11 @@ return [
             'clear_icon' => 'heroicon-o-x-circle',
         ],
 
+        'file-upload' => [
+            'class' => Components\Files\FileUpload::class,
+            'view' => 'form-components::components.files.file-upload',
+        ],
+
     ],
 
     /*
