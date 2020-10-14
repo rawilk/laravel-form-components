@@ -11,6 +11,8 @@ class FileUpload extends BladeComponent
 {
     use HandlesValidationErrors;
 
+    protected static array $assets = ['alpine'];
+
     /** @var string */
     public $name;
 
