@@ -112,3 +112,27 @@ specify an option callbacks, such as `server` that you need to:
     </x-slot>
 </x-file-pond>
 ```
+
+## Plugins
+
+The `file-pond` component doesn't make use of any FilePond plugins itself, but you can easily install and implement your own plugins.
+
+First, install the necessary JavaScript and CSS required by the plugin. A list of plugins [can be found here](https://pqina.nl/filepond/plugins.html).
+
+With the plugin's assets installed, you can make use of the `plugins` slot to initialize the plugin. The following example shows setting up the image
+preview FilePond Plugin.
+
+```html
+<x-file-pond wire:model="avatar">
+    <x-slot name="plugins">
+        FilePond.registerPlugin(FilePondPluginImagePreview);
+    </x-slot>
+</x-file-pond>
+```
+
+If you're into using CDNs, you can add these lines to your layout file for the above example:
+
+```html
+<link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+```
