@@ -3,6 +3,14 @@ title: Installation
 sort: 3
 ---
 
+## Notice
+
+Most of the components in this package are based on examples from Tailwind UI. I have my own license for Tailwind UI, but you might not have one.
+**Please do not use this package in your own projects without purchasing a Tailwind UI license**, or they'll have to tighten up the licensing
+and you'll ruin the fun for everyone.
+
+Purchase a license here: [https://tailwindui.com/](https://tailwindui.com)
+
 ## Installation
 
 You can install the package via composer:
