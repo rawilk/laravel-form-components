@@ -46,8 +46,7 @@ class FileUpload extends BladeComponent
         string $type = null,
         bool $displayUploadProgress = true,
         bool $showErrors = true
-    )
-    {
+    ) {
         $this->name = $name;
         $this->id = $id ?? $name;
         $this->multiple = $multiple;
