@@ -37,7 +37,8 @@ class FilePond extends BladeComponent
         bool $disabled = false,
         int $maxFiles = null,
         string $type = null,
-        string $description = null
+        string $description = null,
+        bool $showErrors = true
     ) {
         $this->multiple = $multiple;
         $this->allowDrop = $allowDrop;
@@ -47,6 +48,7 @@ class FilePond extends BladeComponent
         $this->type = $type;
         $this->options = $options;
         $this->description = $description;
+        $this->showErrors = $showErrors;
     }
 
     public function options(): array

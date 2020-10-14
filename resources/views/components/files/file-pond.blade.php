@@ -25,6 +25,10 @@
            type="file"
            style="display:none;"
            @if ($accepts()) accept="{{ $accepts() }}" @endif
+
+            @if ($hasErrorsAndShow($name))
+               aria-invalid="true"
+            @endif
            {{ $attributes->except('wire:model') }}
     />
 </div>
