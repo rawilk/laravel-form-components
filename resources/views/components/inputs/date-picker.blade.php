@@ -32,7 +32,7 @@
         {{ $attributes->merge(['class' => $inputClass()])->except('type')->whereDoesntStartWith('wire:model') }}
 
         name="{{ $name }}"
-        id="{{ $id }}"
+        @if ($id) id="{{ $id }}" @endif
         x-ref="input"
         x-bind:value="value"
         placeholder="{{ $placeholder }}"

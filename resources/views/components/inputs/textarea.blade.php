@@ -2,7 +2,7 @@
     @include('form-components::partials.leading-addons')
 
     <textarea name="{{ $name }}"
-              id="{{ $id }}"
+              @if ($id) id="{{ $id }}" @endif
               @if ($hasErrorsAndShow($name))
                   aria-invalid="true"
 

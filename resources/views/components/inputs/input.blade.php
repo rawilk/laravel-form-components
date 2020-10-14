@@ -5,7 +5,7 @@
         {{ $attributes->merge(['class' => $inputClass()]) }}
 
         name="{{ $name }}"
-        id="{{ $id }}"
+        @if ($id) id="{{ $id }}" @endif
         type="{{ $type }}"
 
         @if ($value && ! $attributes->whereStartsWith('wire:model')->first()) value="{{ $value }}" @endif

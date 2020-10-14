@@ -2,7 +2,7 @@
     @include('form-components::partials.leading-addons')
 
     <select name="{{ $name }}"
-            id="{{ $id }}"
+            @if ($id) id="{{ $id }}" @endif
             @if ($multiple) multiple @endif
 
             @if ($hasErrorsAndShow($name))
