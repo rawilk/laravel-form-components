@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 1.3.0 - 2020-10-14
+### Added
+- Add a file input component ([#2](https://github.com/rawilk/laravel-form-components/issues/2))
+- Add a [FilePond](https://pqina.nl/filepond/) component ([#2](https://github.com/rawilk/laravel-form-components/issues/2))
+
+### Changed
+- Only render the id attribute on inputs if an id is set on the component
+
 ## 1.2.1 - 2020-10-12
 ### Changed
 - Only render the checkbox/radio label markup if a label or description is present
