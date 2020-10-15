@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 1.3.1 - 2020-10-15
+### Added
+- Add a `wire:model` watcher to the `file-pond` component to watch for manual file deletions
+
 ## 1.3.0 - 2020-10-14
 ### Added
 - Add a file input component ([#2](https://github.com/rawilk/laravel-form-components/issues/2))
