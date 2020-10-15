@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 1.3.2 - 2020-10-15
+### Added
+- Add `file-pond-clear` event listener to clear out all files in the FilePond instance
+
 ## 1.3.1 - 2020-10-15
 ### Added
 - Add a `wire:model` watcher to the `file-pond` component to watch for manual file deletions
