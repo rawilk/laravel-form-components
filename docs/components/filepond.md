@@ -145,3 +145,17 @@ the `file-pond` component adds a watcher on your `wire:model` by using `@entangl
 will pick up on those changes and remove the removed files from the FilePond instance.
 
 You can opt out of this behavior by setting the boolean attribute `watch-value` to `false` on the component.
+
+## Clear Event Listener
+
+You may encounter some edge cases where you may need to clear the files out of the FilePond instance
+yourself. When using livewire, this can easily be accomplished by adding the following inside your
+component somewhere:
+
+```php
+$this->dispatchBrowserEvent('file-pond-clear', ['id' => $this->id]);
+```
+
+Each Livewire component has its own unique id assigned to it, so by passing `$this->id` into the
+event you're emitting, the component will be able to match the ids and clear the files for the correct
+component.

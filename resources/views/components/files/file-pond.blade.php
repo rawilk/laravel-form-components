@@ -1,6 +1,18 @@
 <div wire:ignore
      x-data="{ pond: null, @if ($shouldWatch($attributes)) value: @entangle($attributes->wire('model')), oldValue: undefined @endif }"
      x-cloak
+     x-on:file-pond-clear.window="
+         const id = $wire && $wire.__instance.id;
+         const sentId = $event.detail.id;
+         if (id && (sentId !== id)) {
+            return;
+         }
+         @if ($multiple)
+            pond.getFiles().forEach(file => pond.removeFile(file.id));
+         @else
+            pond.removeFile();
+         @endif
+     "
      x-init="
         {{ $plugins ?? '' }}
 
@@ -32,7 +44,7 @@
 
                     this.oldValue = value;
                 @else
-                    ! value && pond.removeFile()
+                    ! value && pond.removeFile();
                 @endif
             });
         @endif
