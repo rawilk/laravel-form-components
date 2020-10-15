@@ -136,3 +136,12 @@ If you're into using CDNs, you can add these lines to your layout file for the a
 <link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
 <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
 ```
+
+## Manually Deleting Files
+
+If you decide to do something like list out the files and delete them yourself manually instead of the revert button provided by FilePond, you will
+find that the files still appear to be in FilePond, even though Livewire has actually cleared out your `wire:model` value. To help with this,
+the `file-pond` component adds a watcher on your `wire:model` by using `@entangle`. Now, when you remove the files manually, the component
+will pick up on those changes and remove the removed files from the FilePond instance.
+
+You can opt out of this behavior by setting the boolean attribute `watch-value` to `false` on the component.

@@ -29,6 +29,15 @@ class FilePond extends BladeComponent
     /** @var string|null */
     public $description;
 
+    /**
+     * When set to true, the component will watch for changes to the wire:model
+     * and manually remove the files from the FilePond instance if they are
+     * still present.
+     *
+     * @var bool
+     */
+    public bool $watchValue;
+
     public function __construct(
         bool $multiple = false,
         bool $allowDrop = true,
@@ -38,6 +47,7 @@ class FilePond extends BladeComponent
         int $maxFiles = null,
         string $type = null,
         string $description = null,
+        bool $watchValue = true,
         bool $showErrors = true
     ) {
         $this->multiple = $multiple;
@@ -49,6 +59,7 @@ class FilePond extends BladeComponent
         $this->options = $options;
         $this->description = $description;
         $this->showErrors = $showErrors;
+        $this->watchValue = $watchValue;
     }
 
     public function options(): array
@@ -82,5 +93,11 @@ class FilePond extends BladeComponent
         }
 
         return '...' . json_encode((object) $this->options()) . ',';
+    }
+
+    public function shouldWatch($attributes): bool
+    {
+        return $this->watchValue
+            && (bool) $attributes->whereStartsWith('wire:model')->first();
     }
 }
