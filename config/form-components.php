@@ -68,6 +68,32 @@ return [
             'view' => 'form-components::components.inputs.select',
         ],
 
+        'custom-select' => [
+            'class' => Components\Inputs\CustomSelect::class,
+            'view' => 'form-components::components.inputs.custom-select',
+
+            // This icon will be shown on an option when it is selected.
+            'selected_icon' => 'heroicon-s-check',
+
+            /*
+             * This icon will be shown on a selected option on a select
+             * that allows clearing the value to indicate the option
+             * can be de-selected.
+             */
+            'uncheck_icon' => 'heroicon-o-x-circle',
+
+            /*
+             * This icon will be shown when an option is selected
+             * and the "optional" attribute is set to true.
+             */
+            'clear_icon' => 'heroicon-o-x',
+        ],
+
+        'custom-select-option' => [
+            'class' => Components\Inputs\CustomSelectOption::class,
+            'view' => 'form-components::components.inputs.custom-select-option',
+        ],
+
         'label' => [
             'class' => Components\Label::class,
             'view' => 'form-components::components.label',
@@ -188,4 +214,30 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Enable Third Party Assets
+    |--------------------------------------------------------------------------
+    |
+    | Set this to false to disable linking to third-party CDNs from
+    | the 'assets' key in this config. This is ignored if you pass `true`
+    | to either `@fcScripts` or `@fcStyles` directives.
+    |
+    */
+    'link_vendor_cdn_assets' => env('FC_LINK_VENDOR_CDN_ASSETS', null),
+
+    /*
+    |--------------------------------------------------------------------------
+    | FormComponents Assets URL
+    |--------------------------------------------------------------------------
+    |
+    | This value sets the path to the FormComponents JavaScript assets, for cases
+    | where your app's domain root is not the correct path. By default,
+    | FormComponents will load its JavaScript assets from the app's
+    | "relative root".
+    |
+    | Examples: "/assets", "myapp.com/app",
+    |
+    */
+    'asset_url' => null,
 ];
