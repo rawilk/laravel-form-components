@@ -29,7 +29,7 @@ export default {
         }),
         alias({
             entries: [
-                { find: '@', replacement: __dirname + '/resourecs/js' },
+                { find: '@', replacement: __dirname + '/resources/js' },
             ],
         }),
         // Mimic Laravel Mix's mix-manifest file for auto-cache-busting.
