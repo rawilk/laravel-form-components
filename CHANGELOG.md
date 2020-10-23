@@ -4,7 +4,7 @@ All notable changes to `laravel-form-components` will be documented in this file
 
 ## 1.4.0 - 2020-XX-XX
 ### Added
-- Add new `custom-select` component
+- Add new `custom-select` component ([#4](https://github.com/rawilk/laravel-form-components/issues/4))
 - Add new `@fcJavaScript` blade directive for custom package JavaScript
 
 ### Changed
