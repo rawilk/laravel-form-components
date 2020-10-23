@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 1.4.0 - 2020-XX-XX
+### Added
+- Add new `custom-select` component
+- Add new `@fcJavaScript` blade directive for custom package JavaScript
+
+### Changed
+- Modify `@fcScripts` to output package JavaScript that powers custom components
+
 ## 1.3.2 - 2020-10-15
 ### Added
 - Add `file-pond-clear` event listener to clear out all files in the FilePond instance
