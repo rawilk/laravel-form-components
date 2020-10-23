@@ -1,4 +1,4 @@
-<li @unless ($disabled)
+<li @unless ($disabled || $isGroup)
         x-on:mouseenter="onMouseEnter({{ $optionValue() }})"
         x-on:mouseleave="selected = null; currentIndex = -1"
         x-on:click="choose({{ $optionValue() }})"

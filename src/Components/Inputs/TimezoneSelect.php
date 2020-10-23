@@ -16,6 +16,12 @@ class TimezoneSelect extends Select
 
     public $only;
 
+    // Options that apply if using custom select...
+    public bool $useCustomSelect;
+    public bool $filterable;
+    public bool $optional;
+    public $placeholder;
+
     public function __construct(
         string $name = '',
         string $id = null,
@@ -30,7 +36,11 @@ class TimezoneSelect extends Select
         $trailingAddon = false,
         $trailingAddonPadding = self::DEFAULT_TRAILING_ADDON_PADDING,
         $trailingIcon = false,
-        $only = null
+        $only = null,
+        bool $useCustomSelect = false,
+        bool $filterable = true,
+        bool $optional = false,
+        string $placeholder = 'Select a timezone'
     ) {
         parent::__construct(
             $name,
@@ -50,5 +60,9 @@ class TimezoneSelect extends Select
         );
 
         $this->only = is_null($only) ? config('form-components.timezone_subset', false) : $only;
+        $this->useCustomSelect = $useCustomSelect;
+        $this->filterable = $filterable;
+        $this->optional = $optional;
+        $this->placeholder = $placeholder;
     }
 }

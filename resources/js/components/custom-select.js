@@ -47,7 +47,13 @@ export default function customSelect(state) {
 
             this.updateDisplay(this.value);
 
-            $watch('value', value => this.updateDisplay(value));
+            $watch('value', value => {
+                this.updateDisplay(value);
+
+                if (this.filterable) {
+                    this.refreshOptionsIfNeeded();
+                }
+            });
             $watch('query', value => this.filter(value));
             $watch('wireFilter', () => {
                 this.$nextTick(() => {
@@ -342,9 +348,24 @@ export default function customSelect(state) {
             this.open = ! this.open;
 
             if (this.open) {
-                this.$nextTick(() => this.positionMenu());
+                this.$nextTick(() => {
+                    this.positionMenu();
+                    this.refreshOptionsIfNeeded();
+                });
+
                 this.highlightSelectedOption();
                 this[this.filterable ? 'focusFilter' : 'focusMenu']();
+            }
+        },
+
+        // Note: this seems like a dirty hack for when wire:model is used on the select
+        // and probably should be revisited in the future to see how we can
+        // prevent each option from losing its id and data-index attributes.
+        refreshOptionsIfNeeded() {
+            const children = this.optionChildren();
+
+            if (! children.length || ! children[0].getAttribute('id')) {
+                this.options = this.parseOptions();
             }
         },
 
