@@ -84,8 +84,8 @@ class FormComponentsServiceProvider extends ServiceProvider
             return "<?php echo \\Rawilk\\FormComponents\\Facades\\FormComponents::outputScripts({$expression}); ?>";
         });
 
-        Blade::directive('fcJavaScript', function () {
-            return "<?php echo \\Rawilk\\FormComponents\\Facades\\FormComponents::javaScript(); ?>";
+        Blade::directive('fcJavaScript', function (string $expression) {
+            return "<?php echo \\Rawilk\\FormComponents\\Facades\\FormComponents::javaScript({$expression}); ?>";
         });
     }
 
