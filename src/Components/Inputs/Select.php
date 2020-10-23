@@ -44,7 +44,7 @@ class Select extends Input
             $inlineAddon,
             $inlineAddonPadding,
             $leadingIcon,
-            $trailingAddon,
+              $trailingAddon,
             $trailingAddonPadding,
             $trailingIcon
         );

@@ -1,0 +1,159 @@
+.custom-select-container .inline-addon,
+.custom-select-container .leading-icon {
+    z-index: 1;
+}
+
+.custom-select--menu-container {
+    @apply absolute;
+    @apply mt-1;
+    @apply w-full;
+    @apply rounded-md;
+    @apply bg-white;
+    @apply shadow-lg;
+
+    &.custom-menu-top {
+        @apply mt-0;
+        @apply mb-1;
+        bottom: 100%;
+    }
+}
+
+.custom-select--btn {
+    @apply cursor-default;
+    @apply relative;
+    @apply w-full;
+    @apply rounded-md;
+    @apply border;
+    @apply border-gray-300;
+    @apply bg-white;
+    @apply pl-3;
+    @apply pr-10;
+    @apply py-2;
+    @apply text-left;
+    @apply transition;
+    @apply ease-in-out;
+    @apply duration-150;
+
+    &:focus {
+        @apply outline-none;
+        @apply shadow-outline-blue;
+        @apply border-blue-300;
+    }
+
+    &[disabled] {
+        @apply bg-gray-100;
+        @apply text-gray-500;
+        @apply cursor-not-allowed;
+    }
+
+    @screen sm {
+        @apply text-sm;
+        @apply leading-5;
+    }
+}
+
+.custom-select--menu {
+    @apply max-h-60;
+    @apply rounded-md;
+    @apply py-1;
+    @apply text-base;
+    @apply leading-6;
+    @apply shadow-xs;
+    @apply overflow-auto;
+
+    &:focus {
+        @apply outline-none;
+    }
+
+    @screen sm {
+        @apply text-sm;
+        @apply leading-5;
+    }
+}
+
+.custom-select--filter {
+    @apply py-3 px-4;
+    @apply shadow-xs;
+    @apply rounded-t-md;
+    @apply border-b;
+    @apply relative;
+
+    + .custom-select--menu {
+        @apply rounded-t-none;
+    }
+
+    .form-text {
+        @apply py-1;
+    }
+}
+
+// clears the 'X' from Internet Explorer
+input.busy[type=search]::-ms-clear,
+input.busy[type=search]::-ms-reveal {
+    display: none;
+    width: 0;
+    height: 0;
+}
+
+// clears the 'X' from Chrome
+input.busy[type="search"]::-webkit-search-decoration,
+input.busy[type="search"]::-webkit-search-cancel-button,
+input.busy[type="search"]::-webkit-search-results-button,
+input.busy[type="search"]::-webkit-search-results-decoration {
+    display: none;
+}
+
+.custom-select--group {
+    @apply text-cool-gray-700;
+    @apply bg-cool-gray-200;
+    @apply font-semibold;
+    @apply select-none;
+    @apply relative;
+    @apply py-2;
+    @apply px-2;
+}
+
+.custom-select--option {
+    @apply text-gray-900;
+    @apply cursor-default;
+    @apply select-none;
+    @apply relative;
+    @apply py-2;
+    @apply pl-3;
+    @apply pr-4;
+
+    &.focused {
+        @apply text-white;
+        @apply bg-blue-500;
+    }
+
+    &:focus {
+        @apply outline-none;
+    }
+
+    &.selected {
+        .custom-select--option__text {
+            @apply font-semibold;
+        }
+    }
+}
+
+.custom-select--option--disabled {
+    @apply text-gray-400 #{!important};
+    @apply cursor-not-allowed;
+}
+
+.custom-select--option__text {
+    @apply font-normal;
+    @apply block;
+    @apply truncate;
+}
+
+.custom-select--placeholder {
+    @apply text-cool-gray-500;
+}
+
+.custom-select--display {
+    @apply flex;
+    @apply truncate;
+}
