@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 
 class CustomSelect extends Select
 {
+    protected static array $assets = ['alpine'];
+
     /** @var string|null */
     public $placeholder;
 
