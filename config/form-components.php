@@ -214,4 +214,30 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Enable Third Party Assets
+    |--------------------------------------------------------------------------
+    |
+    | Set this to false to disable linking to third-party CDNs from
+    | the 'assets' key in this config. This is ignored if you pass `true`
+    | to either `@fcScripts` or `@fcStyles` directives.
+    |
+    */
+    'link_vendor_cdn_assets' => env('FC_LINK_VENDOR_CDN_ASSETS', null),
+
+    /*
+    |--------------------------------------------------------------------------
+    | FormComponents Assets URL
+    |--------------------------------------------------------------------------
+    |
+    | This value sets the path to the FormComponents JavaScript assets, for cases
+    | where your app's domain root is not the correct path. By default,
+    | FormComponents will load its JavaScript assets from the app's
+    | "relative root".
+    |
+    | Examples: "/assets", "myapp.com/app",
+    |
+    */
+    'asset_url' => null,
 ];

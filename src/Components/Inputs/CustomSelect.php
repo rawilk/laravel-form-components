@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Rawilk\FormComponents\Components\Inputs;
 
+use Illuminate\Support\Str;
+
 class CustomSelect extends Select
 {
     /** @var string|null */
@@ -80,5 +82,23 @@ class CustomSelect extends Select
         return is_string($this->selectedKey)
             ? "'{$this->selectedKey}'"
             : $this->selectedKey;
+    }
+
+    public function config(): array
+    {
+        return [
+            'open' => false,
+            'selected' => '',
+            'optional' => $this->optional,
+            'multiple' => $this->multiple,
+            'filterable' => $this->filterable,
+            'placeholder' => $this->placeholder,
+            'selectId' => Str::random(8),
+        ];
+    }
+
+    public function configToJson(): string
+    {
+        return '...' . json_encode((object) $this->config()) . ',';
     }
 }

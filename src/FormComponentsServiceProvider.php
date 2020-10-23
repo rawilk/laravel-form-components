@@ -5,10 +5,13 @@ declare(strict_types=1);
 namespace Rawilk\FormComponents;
 
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\View\Compilers\BladeCompiler;
 use Rawilk\FormComponents\Console\PublishCommand;
+use Rawilk\FormComponents\Controllers\FormComponentsJavaScriptAssets;
+use Rawilk\FormComponents\Facades\FormComponents as FormComponentsFacade;
 use Rawilk\FormComponents\Support\Timezone;
 
 class FormComponentsServiceProvider extends ServiceProvider
@@ -16,6 +19,7 @@ class FormComponentsServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->bootResources();
+        $this->bootRoutes();
         $this->bootBladeComponents();
         $this->bootDirectives();
 
@@ -30,9 +34,14 @@ class FormComponentsServiceProvider extends ServiceProvider
 
     public function register(): void
     {
+        $this->registerFacade();
         $this->mergeConfigFrom(__DIR__ . '/../config/form-components.php', 'form-components');
-
         $this->registerTimezone();
+    }
+
+    private function registerFacade(): void
+    {
+        $this->app->singleton('form-components', FormComponents::class);
     }
 
     private function bootBladeComponents(): void
@@ -68,12 +77,22 @@ class FormComponentsServiceProvider extends ServiceProvider
     private function bootDirectives(): void
     {
         Blade::directive('fcStyles', function (string $expression) {
-            return "<?php echo Rawilk\\FormComponents\\FormComponents::outputStyles({$expression}); ?>";
+            return "<?php echo \\Rawilk\\FormComponents\\Facades\\FormComponents::outputStyles({$expression}); ?>";
         });
 
         Blade::directive('fcScripts', function (string $expression) {
-            return "<?php echo Rawilk\\FormComponents\\FormComponents::outputScripts({$expression}); ?>";
+            return "<?php echo \\Rawilk\\FormComponents\\Facades\\FormComponents::outputScripts({$expression}); ?>";
         });
+
+        Blade::directive('fcJavaScript', function () {
+            return "<?php echo \\Rawilk\\FormComponents\\Facades\\FormComponents::javaScript(); ?>";
+        });
+    }
+
+    private function bootRoutes(): void
+    {
+        Route::get('/form-components/form-components.js', [FormComponentsJavaScriptAssets::class, 'source']);
+        Route::get('/form-components/form-components.js.map', [FormComponentsJavaScriptAssets::class, 'maps']);
     }
 
     private function registerAssets($component, array $assets): void
@@ -83,11 +102,11 @@ class FormComponentsServiceProvider extends ServiceProvider
 
             collect($files)->filter(function (string $file) {
                 return Str::endsWith($file, '.css');
-            })->each(fn (string $style) => FormComponents::addStyle($style));
+            })->each(fn (string $style) => FormComponentsFacade::addStyle($style));
 
             collect($files)->filter(function (string $file) {
                 return Str::endsWith($file, '.js');
-            })->each(fn (string $script) => FormComponents::addScript($script));
+            })->each(fn (string $script) => FormComponentsFacade::addScript($script));
         }
     }
 

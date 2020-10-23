@@ -11,4 +11,7 @@
 /phpunit.xml.dist   export-ignore
 /psalm.xml.dist     export-ignore
 /tests              export-ignore
-
+/babel.config.js    export-ignore
+/package.json       export-ignore
+/package-lock.json  export-ignore
+/rollup.config.js   export-ignore

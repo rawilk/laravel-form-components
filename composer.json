@@ -62,7 +62,10 @@
         "laravel": {
             "providers": [
                 "Rawilk\\FormComponents\\FormComponentsServiceProvider"
-            ]
+            ],
+            "aliases": {
+                "FormComponents": "Rawilk\\FormComponents\\Facades\\FormComponents"
+            }
         }
     },
     "minimum-stability": "dev",
