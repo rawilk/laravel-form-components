@@ -90,3 +90,19 @@ In both cases, this will output:
 ```
 
 With both methods, you can use a boolean value `false` to include every timezone region available.
+
+## Custom Select Support
+
+As of version `1.4.0`, the timezone select can be rendered either as a native select input, or by using the
+[custom-select component](/docs/laravel-form-components/v1/components/custom-select). To use the custom-select
+component, simply pass in a true boolean value for the `use-custom-select` attribute on the timezone select.
+
+```html
+<x-timezone-select use-custom-timezone />
+```
+
+By default, the timezone select uses the native select input, so you will explicitly tell it to use
+the custom-select component any time you render the timezone select component.
+
+**Note:** If you want to render it as a custom-select, you need to ensure you have followed the
+[installation steps](/docs/laravel-form-components/v1/components/custom-select#installation) for the `custom-select` component.
