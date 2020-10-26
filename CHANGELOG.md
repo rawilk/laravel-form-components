@@ -2,6 +2,13 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 1.4.5 - 2020-10-26
+### Changed
+- Update how `custom-select` is initialized
+
+## 1.4.4 - 2020-10-26
+Patch release for 1.4.3
+
 ## 1.4.3 - 2020-10-26
 ### Fixed
 - [CustomSelect] Prevent trying to find children when $refs.menu is not present
