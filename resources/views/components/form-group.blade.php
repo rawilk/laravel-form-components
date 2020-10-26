@@ -2,6 +2,7 @@
     <x-dynamic-component :component="formComponentName('label')"
                          :for="$inputId"
                          class="{{ $inline && ! $isCheckboxGroup ? 'form-group__inline-label' : '' }}"
+                         :id="$labelId"
     >
         {{ $label }}
     </x-dynamic-component>

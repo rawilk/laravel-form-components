@@ -20,6 +20,9 @@ class FormGroup extends BladeComponent
     /** @var string */
     public $helpText;
 
+    /** @var null|string */
+    public $labelId;
+
     public bool $inline;
     public bool $border;
     public bool $isCheckboxGroup;
@@ -32,7 +35,8 @@ class FormGroup extends BladeComponent
         bool $showErrors = true,
         string $helpText = null,
         bool $border = false,
-        bool $isCheckboxGroup = false
+        bool $isCheckboxGroup = false,
+        string $labelId = null
     ) {
         $this->name = $name;
         $this->inputId = $inputId ?? $name;
@@ -42,6 +46,7 @@ class FormGroup extends BladeComponent
         $this->helpText = $helpText;
         $this->border = $border;
         $this->isCheckboxGroup = $isCheckboxGroup;
+        $this->labelId = $labelId;
     }
 
     public function groupClass(): string
