@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 1.4.3 - 2020-10-26
+### Fixed
+- [CustomSelect] Prevent trying to find children when $refs.menu is not present
+- [CustomSelect] Prevent menu and container from being referenced if not present
+
 ## 1.4.2 - 2020-10-26
 ### Changed
 - Allow form-group component to accept a `label-id` attribute to allow giving the label an id
