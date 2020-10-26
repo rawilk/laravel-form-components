@@ -10,6 +10,7 @@
     @apply rounded-md;
     @apply bg-white;
     @apply shadow-lg;
+    @apply z-10;
 
     &.custom-menu-top {
         @apply mt-0;
