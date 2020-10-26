@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 1.4.2 - 2020-10-26
+### Changed
+- Allow form-group component to accept a `label-id` attribute to allow giving the label an id
+
 ## 1.4.1 - 2020-10-26
 ### Fixed
 - Give custom select menu container a higher z-index to prevent it from appearing under other form inputs
