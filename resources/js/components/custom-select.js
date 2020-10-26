@@ -316,11 +316,11 @@ export default function customSelect(state) {
         },
 
         focusFilter() {
-            this.$nextTick(() => this.$refs.filter.focus());
+            this.$nextTick(() => this.$refs.filter && this.$refs.filter.focus());
         },
 
         focusMenu() {
-            this.$nextTick(() => this.$refs.menu.focus());
+            this.$nextTick(() => this.$refs.menu && this.$refs.menu.focus());
         },
 
         onShiftTab() {
@@ -376,6 +376,10 @@ export default function customSelect(state) {
         },
 
         positionMenu() {
+            if (! this.$refs.container) {
+                return;
+            }
+
             this.$refs.container.classList.remove('custom-menu-top');
 
             // give a little bit of breathing room at the bottom of the screen.
