@@ -39,6 +39,13 @@ export default function customSelect(state) {
         },
 
         init($watch) {
+            if (! this.$refs.container || ! this.$refs.menu) {
+                // Keep trying to init until we see them...
+                setTimeout(() => this.init($watch), 250);
+
+                return;
+            }
+
             this.options = this.parseOptions();
 
             if (this.value && this.multiple && ! Array.isArray(this.value)) {
@@ -353,15 +360,24 @@ export default function customSelect(state) {
         toggle() {
             this.open = ! this.open;
 
-            if (this.open) {
-                this.$nextTick(() => {
-                    this.positionMenu();
-                    this.refreshOptionsIfNeeded();
-                });
+            this.open && this.openMenu();
+        },
 
-                this.highlightSelectedOption();
-                this[this.filterable ? 'focusFilter' : 'focusMenu']();
+        openMenu() {
+            if (! this.$refs.container || ! this.$refs.menu) {
+                // Keep trying to perform these steps until the element appears...
+                setTimeout(() => this.openMenu(), 250);
+
+                return;
             }
+
+            this.$nextTick(() => {
+                this.positionMenu();
+                this.refreshOptionsIfNeeded();
+            });
+
+            this.highlightSelectedOption();
+            this[this.filterable ? 'focusFilter' : 'focusMenu']();
         },
 
         // Note: this seems like a dirty hack for when wire:model is used on the select
@@ -377,6 +393,9 @@ export default function customSelect(state) {
 
         positionMenu() {
             if (! this.$refs.container) {
+                // Try again later...
+                setTimeout(() => this.positionMenu(), 250);
+
                 return;
             }
 
