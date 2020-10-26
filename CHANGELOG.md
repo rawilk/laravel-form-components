@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 1.4.1 - 2020-10-26
+### Fixed
+- Give custom select menu container a higher z-index to prevent it from appearing under other form inputs
+
 ## 1.4.0 - 2020-10-25
 ### Added
 - Add new `custom-select` component ([#4](https://github.com/rawilk/laravel-form-components/issues/4))
