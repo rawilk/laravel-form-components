@@ -166,6 +166,10 @@ export default function customSelect(state) {
 
         // Excludes any "optgroup" elements
         optionChildren() {
+            if (! this.$refs.menu) {
+                return [];
+            }
+
             return Array.from(this.$refs.menu.children)
                 .filter(child => child.classList.contains('custom-select--option'));
         },
@@ -175,14 +179,16 @@ export default function customSelect(state) {
                 return this.display = this.placeholderMarkup;
             }
 
-            if (this.multiple) {
-                return this.updateDisplayForMultiple(value);
-            }
+            this.$nextTick(() => {
+                if (this.multiple) {
+                    return this.updateDisplayForMultiple(value);
+                }
 
-            const $li = this.optionChildren()[this.optionIndex(value)];
-            this.display = $li
-                ? $li.children[0].innerHTML
-                : this.placeholderMarkup;
+                const $li = this.optionChildren()[this.optionIndex(value)];
+                this.display = $li
+                    ? $li.children[0].innerHTML
+                    : this.placeholderMarkup;
+            });
         },
 
         updateDisplayForMultiple(value) {
