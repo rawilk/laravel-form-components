@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 1.4.6 - 2020-10-26
+### Fixed
+- Add `wire:ignore` to the `custom-select` button display to prevent livewire from re-rendering it
+
 ## 1.4.5 - 2020-10-26
 ### Changed
 - Update how `custom-select` is initialized
