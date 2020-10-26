@@ -35,7 +35,7 @@
                         disabled
                     @endif
             >
-                <span class="custom-select--display space-x-2" x-html="display"></span>
+                <span wire:ignore class="custom-select--display space-x-2" x-html="display"></span>
                 @if ($optional && $clearIcon)
                     <button x-on:click="clear()"
                             x-show.transition.opacity.150ms="hasValue"
