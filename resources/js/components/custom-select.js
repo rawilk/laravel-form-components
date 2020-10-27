@@ -17,6 +17,8 @@ export default function customSelect(state) {
         options: [],
         currentIndex: -1,
         query: '',
+        previousDisplay: '',
+        canMakeSelection: true,
 
         get activeDescendant() {
             return this.currentIndex > -1
@@ -56,10 +58,6 @@ export default function customSelect(state) {
 
             $watch('value', value => {
                 this.updateDisplay(value);
-
-                if (this.filterable) {
-                    this.refreshOptionsIfNeeded();
-                }
             });
             $watch('query', value => this.filter(value));
             $watch('wireFilter', () => {
@@ -143,6 +141,14 @@ export default function customSelect(state) {
         },
 
         choose(value) {
+            if (! this.canMakeSelection) {
+                return;
+            }
+
+            // Attempt to prevent options from being selected and de-selected in the same click sometimes...
+            this.canMakeSelection = false;
+            setTimeout(() => this.canMakeSelection = true, 250);
+
             if (this.multiple) {
                 return this.chooseForMultiple(value);
             }
@@ -201,16 +207,19 @@ export default function customSelect(state) {
         updateDisplayForMultiple(value) {
             const length = value.length;
             if (length === 0) {
+                this.previousDisplay = '';
+
                 return this.display = this.placeholderMarkup;
             }
 
             const $li = this.optionChildren()[this.optionIndex(value[0])];
 
-            if (! $li) {
+            if (! $li && ! this.previousDisplay) {
                 return this.display = `${length} Selected`;
             }
 
-            let display = $li.children[0].innerHTML;
+            let display = $li ? $li.children[0].innerHTML : this.previousDisplay;
+            this.previousDisplay = display;
             if ((length - 1) > 0) {
                 display += `<span class="text-xs text-cool-gray-500">+ ${length - 1}</span>`;
             }
