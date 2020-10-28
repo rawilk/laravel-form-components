@@ -21,7 +21,6 @@
             <button x-on:click="toggle()"
                     x-on:keydown.arrow-up.stop.prevent="toggle()"
                     x-on:keydown.arrow-down.stop.prevent="toggle()"
-                    x-on:keydown.tab.prevent="toggle()"
                     x-bind:aria-expanded="JSON.stringify(open)"
                     x-ref="button"
                     x-cloak
@@ -40,7 +39,7 @@
                     <button x-on:click="clear()"
                             x-show.transition.opacity.150ms="hasValue"
                             type="button"
-                            class="absolute top-2 right-8 flex justify-center items-center h-6 w-6 rounded-full text-cool-gray-500 transition duration-150 ease-in-out hover:bg-cool-gray-300 focus:outline-black"
+                            class="custom-select-clear"
                     >
                         <span class="sr-only">{{ __('Clear selected') }}</span>
                         <x-dynamic-component :component="$clearIcon" class="h-4 w-4" />
@@ -59,7 +58,7 @@
              x-cloak
              x-ref="container"
              x-on:click.away="open = false"
-             x-on:keydown.escape.window="open = false"
+             x-on:keydown.escape.window.prevent.stop="closeMenu()"
              x-on:keydown.arrow-up.prevent="onArrowUp()"
              x-on:keydown.arrow-down.prevent="onArrowDown()"
              x-on:keydown.enter.stop.prevent="onOptionSelect()"

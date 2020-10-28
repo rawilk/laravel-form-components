@@ -2,6 +2,15 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 1.4.7 - 2020-10-28
+### Fixed
+- Fix z-index issue on custom select container
+- Preserve custom select display if selected option disappears
+- Prevent custom select options from being selected and de-selected in the same click
+- Allow tab to work normally when pressed and custom select button trigger is focused
+- Re-focus custom select trigger button when `esc` key is pressed and menu is opened
+- Make custom select clear button always vertically centered
+
 ## 1.4.6 - 2020-10-26
 ### Fixed
 - Add `wire:ignore` to the `custom-select` button display to prevent livewire from re-rendering it

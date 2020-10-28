@@ -158,3 +158,28 @@ input.busy[type="search"]::-webkit-search-results-decoration {
     @apply flex;
     @apply truncate;
 }
+
+.custom-select-clear {
+    @apply absolute;
+    @apply right-8;
+    @apply flex;
+    @apply items-center;
+    @apply justify-center;
+    @apply h-6;
+    @apply w-6;
+    @apply rounded-full;
+    @apply text-cool-gray-500;
+    @apply transition;
+    @apply duration-150;
+    @apply ease-in-out;
+    top: 50%;
+    transform: translateY(-50%);
+
+    &:hover {
+        @apply bg-cool-gray-300;
+    }
+
+    &:focus {
+        @apply outline-black;
+    }
+}
