@@ -18,7 +18,7 @@ export default function customSelect(state) {
         currentIndex: -1,
         query: '',
         previousDisplay: '',
-        canMakeSelection: true,
+        needsHiddenInput: false,
 
         get activeDescendant() {
             return this.currentIndex > -1
@@ -67,6 +67,24 @@ export default function customSelect(state) {
             });
 
             $watch('selected', value => this.onSelectedChanged(value));
+
+            this.needsHiddenInput = this.multiple && this.wireFilter !== undefined;
+            this.createHiddenInput();
+        },
+
+        // Kind of a hacky way to keep track of selected options when we have a
+        // multiple, wire:filterable select...
+        createHiddenInput() {
+            if (! this.needsHiddenInput) {
+                return;
+            }
+
+            const input = document.createElement('input');
+            input.setAttribute('type', 'hidden');
+            input.setAttribute('id', this.selectId + '_last_event');
+            input.setAttribute('class', 'custom-select-last-event');
+            input.setAttribute('data-selected', JSON.stringify(this.value));
+            document.body.appendChild(input);
         },
 
         filter(value) {
@@ -127,8 +145,14 @@ export default function customSelect(state) {
             if (! this.isChosen(value)) {
                 this.value.push(value);
             } else if (this.optional || this.value.length > 1) {
-                this.value.splice(this.value.indexOf(value), 1);
+                this.value.splice(this.value.indexOf(String(value)), 1);
                 this.updateDisplay(this.value);
+            }
+
+            if (this.needsHiddenInput) {
+                const input = document.getElementById(this.selectId + '_last_event');
+
+                input && input.setAttribute('data-selected', JSON.stringify(this.value));
             }
 
             if (this.value.length === 0) {
@@ -140,14 +164,10 @@ export default function customSelect(state) {
             this.value = this.multiple ? [] : null;
         },
 
-        choose(value) {
-            if (! this.canMakeSelection) {
+        choose(value, $event) {
+            if (! this.shouldChoose($event)) {
                 return;
             }
-
-            // Attempt to prevent options from being selected and de-selected in the same click sometimes...
-            this.canMakeSelection = false;
-            setTimeout(() => this.canMakeSelection = true, 250);
 
             if (this.multiple) {
                 return this.chooseForMultiple(value);
@@ -158,6 +178,27 @@ export default function customSelect(state) {
                 : value;
 
             this.closeMenu();
+        },
+
+        // This feels really hacky, and should probably be re-visited at some point...
+        shouldChoose($event = null) {
+            if (! this.needsHiddenInput || ! $event) {
+                return true;
+            }
+
+            const input = document.getElementById(this.selectId + '_last_event');
+
+            if (String(input.getAttribute('value')) !== String($event.timeStamp)) {
+                input.setAttribute('value', $event.timeStamp);
+
+                return true;
+            }
+
+            const selected = JSON.parse(input.dataset.selected);
+            this.value = [];
+            this.value = selected;
+
+            return false;
         },
 
         closeMenu() {
@@ -221,7 +262,7 @@ export default function customSelect(state) {
             let display = $li ? $li.children[0].innerHTML : this.previousDisplay;
             this.previousDisplay = display;
             if ((length - 1) > 0) {
-                display += `<span class="text-xs text-cool-gray-500">+ ${length - 1}</span>`;
+                display += `<span class="text-xs text-cool-gray-500 flex items-center">+ ${length - 1}</span>`;
             }
 
             this.display = display;
