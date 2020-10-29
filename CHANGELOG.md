@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 1.4.8 - 2020-10-29
+### Fixed
+- Adjust how selected options are tracked for custom selects that are multiple selectable and wire filterable
+- Adjust selected display styling for multi custom-select
+
 ## 1.4.7 - 2020-10-28
 ### Fixed
 - Fix z-index issue on custom select container
