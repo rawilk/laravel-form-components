@@ -69,22 +69,6 @@ export default function customSelect(state) {
             $watch('selected', value => this.onSelectedChanged(value));
 
             this.needsHiddenInput = this.multiple && this.wireFilter !== undefined;
-            this.createHiddenInput();
-        },
-
-        // Kind of a hacky way to keep track of selected options when we have a
-        // multiple, wire:filterable select...
-        createHiddenInput() {
-            if (! this.needsHiddenInput) {
-                return;
-            }
-
-            const input = document.createElement('input');
-            input.setAttribute('type', 'hidden');
-            input.setAttribute('id', this.selectId + '_last_event');
-            input.setAttribute('class', 'custom-select-last-event');
-            input.setAttribute('data-selected', JSON.stringify(this.value));
-            document.body.appendChild(input);
         },
 
         filter(value) {
@@ -149,23 +133,34 @@ export default function customSelect(state) {
                 this.updateDisplay(this.value);
             }
 
-            if (this.needsHiddenInput) {
-                const input = document.getElementById(this.selectId + '_last_event');
-
-                input && input.setAttribute('data-selected', JSON.stringify(this.value));
-            }
+            this.setHiddenInputSelection(this.value);
 
             if (this.value.length === 0) {
                 this.closeMenu();
             }
         },
 
+        setHiddenInputSelection(value) {
+            if (! this.needsHiddenInput) {
+                return;
+            }
+
+            window.sessionStorage.setItem(`cs-${this.selectId}-selected`, JSON.stringify(value));
+        },
+
         clear() {
-            this.value = this.multiple ? [] : null;
+            if (! this.needsHiddenInput) {
+                return this.value = this.multiple ? [] : null;
+            }
+
+            this.value.forEach(v => this.choose(v));
+
+            window.sessionStorage.removeItem(`cs-${this.selectId}-selected`);
+            window.sessionStorage.setItem(`cs-${this.selectId}-cleared`, '1');
         },
 
         choose(value, $event) {
-            if (! this.shouldChoose($event)) {
+            if (! this.shouldChoose(value, $event)) {
                 return;
             }
 
@@ -181,20 +176,35 @@ export default function customSelect(state) {
         },
 
         // This feels really hacky, and should probably be re-visited at some point...
-        shouldChoose($event = null) {
+        shouldChoose(value, $event = null) {
             if (! this.needsHiddenInput || ! $event) {
                 return true;
             }
 
-            const input = document.getElementById(this.selectId + '_last_event');
+            const lastEvent = window.sessionStorage.getItem(`cs-${this.selectId}-last-event`);
 
-            if (String(input.getAttribute('value')) !== String($event.timeStamp)) {
-                input.setAttribute('value', $event.timeStamp);
+            if (window.sessionStorage.getItem(`cs-${this.selectId}-cleared`) !== null) {
+                window.sessionStorage.removeItem(`cs-${this.selectId}-cleared`);
+                window.sessionStorage.setItem(`cs-${this.selectId}-temp-selected`, JSON.stringify([]));
+            }
+
+            if (lastEvent !== String($event.timeStamp)) {
+                window.sessionStorage.setItem(`cs-${this.selectId}-last-event`, String($event.timeStamp));
 
                 return true;
             }
 
-            const selected = JSON.parse(input.dataset.selected);
+            let selected = JSON.parse(
+                window.sessionStorage.getItem(`cs-${this.selectId}-selected`) || JSON.stringify([])
+            );
+
+            if (window.sessionStorage.getItem(`cs-${this.selectId}-temp-selected`) !== null) {
+                selected = selected.filter(o => o === value);
+
+                window.sessionStorage.removeItem(`cs-${this.selectId}-temp-selected`);
+                window.sessionStorage.setItem(`cs-${this.selectId}-selected`, JSON.stringify(selected));
+            }
+
             this.value = [];
             this.value = selected;
 
