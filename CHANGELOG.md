@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 1.4.9 - 2020-10-30
+### Changed
+- Change custom select option selection tracking to use session storage
+
 ## 1.4.8 - 2020-10-29
 ### Fixed
 - Adjust how selected options are tracked for custom selects that are multiple selectable and wire filterable -- see [livewire issue #763](https://github.com/livewire/livewire/issues/763)
