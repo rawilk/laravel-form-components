@@ -13,6 +13,21 @@ By default, the component shows a toggle icon, which allows the user to show and
 
 - AlpineJS
 - Blade Heroicons (different icons can be specified in the config file)
+- Proper tailwind configuration
+
+As of version 1.4.10, you will need to specify a `focus-within` utility for the `box-shadow` styles so that focus can be properly shown
+on the password inputs that are toggleable. In your `tailwind.config.js` file, you should add the following variant to it:
+
+```js
+module.exports = {
+    // ...
+    variants: {
+        boxShadow: ['responsive', 'hover', 'focus', 'focus-within'],
+    },
+}
+```
+
+See the [Tailwind documentation](https://tailwindcss.com/docs/pseudo-class-variants#focus-within) for more information.
 
 ## Basic Usage
 
