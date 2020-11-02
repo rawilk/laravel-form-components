@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 1.4.10 - 2020-11-02
+### Fixed
+- Prevent toggle icon from overlapping with icons injected into the password input by password managers such as Lastpass
+
 ## 1.4.9 - 2020-10-30
 ### Changed
 - Change custom select option selection tracking to use session storage
