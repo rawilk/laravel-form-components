@@ -17,3 +17,15 @@
         @apply leading-5;
     }
 }
+
+.password-toggleable {
+    @apply border-r-0;
+    @apply rounded-r-none;
+
+    &:focus {
+        @apply shadow-none;
+        @apply border;
+        border-color: #d2d6dc;
+        @apply border-r-0;
+    }
+}

@@ -52,9 +52,18 @@ class Password extends Input
         $class = parent::inputClass();
 
         if ($this->showToggle) {
-            $class .= ' has-trailing-icon';
+            $class .= ' password-toggleable has-trailing-icon';
         }
 
         return $class;
+    }
+
+    public function containerClass(): string
+    {
+        return collect([
+            'form-text-container',
+            $this->maxWidth,
+            $this->showToggle ? 'focus-within:shadow-outline-blue rounded-md' : null,
+        ])->filter()->implode(' ');
     }
 }

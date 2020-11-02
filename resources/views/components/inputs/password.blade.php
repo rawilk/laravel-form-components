@@ -1,7 +1,7 @@
 <div @if ($showToggle)
         x-data="{ show: false }"
-    @endif
-    class="form-text-container {{ $maxWidth }}"
+     @endif
+     class="{{ $containerClass() }}"
 >
     @include('form-components::partials.leading-addons')
 
@@ -31,7 +31,7 @@
     @if ($showToggle)
         <div @click="show = ! show"
              :title="show ? '{{ __('Hide') }}' : '{{ __('Show') }}'"
-             class="trailing-icon clickable"
+             class="trailing-icon password-toggle clickable"
              x-cloak
         >
             <span x-show="! show">

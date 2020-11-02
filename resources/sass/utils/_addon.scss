@@ -75,18 +75,29 @@
 }
 
 .trailing-icon {
-    @apply absolute;
-    @apply inset-y-0;
-    @apply right-0;
     @apply pr-3;
     @apply flex;
     @apply items-center;
+
+    &:not(.password-toggle) {
+        @apply absolute;
+        @apply inset-y-0;
+        @apply right-0;
+    }
 
     svg {
         @apply h-5;
         @apply w-5;
         @apply text-gray-400;
     }
+}
+
+.password-toggle {
+    @apply bg-white;
+    @apply border;
+    @apply rounded-md;
+    @apply rounded-l-none;
+    @apply border-l-0;
 }
 
 .has-leading-addon {
