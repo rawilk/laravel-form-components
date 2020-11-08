@@ -135,6 +135,17 @@ works for both single and multi-select modes, and provides a clear button next t
 <x-custom-select :options="$options" optional />
 ```
 
+## Fixed Positioning
+
+By default, the custom select menu is positioned absolutely. In most cases, this should be fine, but there
+may be times where this breaks the layout of your form. In those cases, you may tell the menu to be
+fixed positioned. This will tell the menu to calculate where the menu should be positioned when
+it is opened.
+
+```html
+<x-custom-select :options="$options" fixed-position />
+```
+
 ## Addons
 
 The custom select component supports leading addons, but since there are already elements appended to the end
