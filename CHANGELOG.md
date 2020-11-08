@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 1.4.12 - 2020-11-08
+### Changed
+- Allow timezone custom select to be fixed positioned
+
 ## 1.4.11 - 2020-11-08
 ### Changed
 - Allow custom select menu to be fixed positioned instead of absolute
