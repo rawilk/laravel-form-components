@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 1.4.11 - 2020-11-08
+### Changed
+- Allow custom select menu to be fixed positioned instead of absolute
+- Tweak password input styling
+
 ## 1.4.10 - 2020-11-02
 ### Fixed
 - Prevent toggle icon from overlapping with icons injected into the password input by password managers such as Lastpass
