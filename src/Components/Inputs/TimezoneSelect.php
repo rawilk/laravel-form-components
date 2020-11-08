@@ -21,6 +21,7 @@ class TimezoneSelect extends Select
     public bool $filterable;
     public bool $optional;
     public $placeholder;
+    public bool $fixedPosition;
 
     public function __construct(
         string $name = '',
@@ -40,7 +41,8 @@ class TimezoneSelect extends Select
         bool $useCustomSelect = false,
         bool $filterable = true,
         bool $optional = false,
-        string $placeholder = 'Select a timezone'
+        string $placeholder = 'Select a timezone',
+        bool $fixedPosition = false
     ) {
         parent::__construct(
             $name,
@@ -64,5 +66,6 @@ class TimezoneSelect extends Select
         $this->filterable = $filterable;
         $this->optional = $optional;
         $this->placeholder = $placeholder;
+        $this->fixedPosition = $fixedPosition;
     }
 }

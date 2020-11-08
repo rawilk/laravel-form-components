@@ -1,4 +1,11 @@
-<x-custom-select :filterable="$filterable" :optional="$optional" :placeholder="$placeholder" :multiple="$multiple"  {{ $attributes }}>
+<x-custom-select :filterable="$filterable"
+                 :optional="$optional"
+                 :placeholder="$placeholder"
+                 :multiple="$multiple"
+                 :fixed-position="$fixedPosition"
+                 :max-width="$maxWidth"
+                 {{ $attributes }}
+>
     {{ $slot }}
 
     @foreach (app('fc-timezone')->only($only)->all() as $region => $regionTimezones)
