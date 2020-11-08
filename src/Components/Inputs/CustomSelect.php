@@ -19,6 +19,7 @@ class CustomSelect extends Select
     public bool $filterable;
     public $clearIcon;
     public bool $disabled;
+    public bool $fixedPosition;
 
     public function __construct(
         string $name = '',
@@ -38,7 +39,8 @@ class CustomSelect extends Select
         string $textKey = 'text',
         bool $filterable = false,
         string $clearIcon = null,
-        bool $disabled = false
+        bool $disabled = false,
+        bool $fixedPosition = false
     ) {
         parent::__construct(
             $name,
@@ -64,6 +66,7 @@ class CustomSelect extends Select
         $this->filterable = $filterable;
         $this->clearIcon = $clearIcon ?? config('form-components.components.custom-select.clear_icon');
         $this->disabled = $disabled;
+        $this->fixedPosition = $fixedPosition;
     }
 
     public function buttonClass(): string
@@ -96,6 +99,7 @@ class CustomSelect extends Select
             'filterable' => $this->filterable,
             'placeholder' => $this->placeholder,
             'selectId' => Str::random(8),
+            'fixedPosition' => $this->fixedPosition,
         ];
     }
 

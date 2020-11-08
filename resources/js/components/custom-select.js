@@ -459,6 +459,12 @@ export default function customSelect(state) {
                 return;
             }
 
+            if (this.fixedPosition) {
+                this.positionFixedMenu();
+
+                return;
+            }
+
             this.$refs.container.classList.remove('custom-menu-top');
 
             // give a little bit of breathing room at the bottom of the screen.
@@ -471,6 +477,32 @@ export default function customSelect(state) {
             if (top > largestHeight) {
                 this.$refs.container.classList.add('custom-menu-top');
             }
+        },
+
+        positionFixedMenu() {
+            // So we can accurately determine where it should be placed...
+            this.$refs.container.style.position = 'absolute';
+            this.$refs.container.style.top = null;
+
+            const { width, left: buttonLeft, top: buttonTop } = this.$refs.button.getBoundingClientRect();
+
+            // give a little bit of breathing room at the bottom of the screen.
+            const tolerance = 10;
+            const menuHeight = this.$refs.menu.offsetHeight;
+            const largestHeight = window.innerHeight - menuHeight - tolerance;
+
+            const { top } = this.$refs.menu.getBoundingClientRect();
+
+            if (top > largestHeight) {
+                const menuTop = buttonTop - menuHeight - tolerance;
+                this.$refs.container.style.top = `${menuTop}px`;
+            } else {
+                this.$refs.container.style.top = `${top}px`;
+            }
+
+            this.$refs.container.style.position = 'fixed';
+            this.$refs.container.style.width = `${width}px`;
+            this.$refs.container.style.left = `${buttonLeft}px`;
         },
     };
 }

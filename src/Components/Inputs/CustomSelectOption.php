@@ -63,7 +63,7 @@ class CustomSelectOption extends BladeComponent
 
         if ($option instanceof Model) {
             return [
-                'value' => $option->{$this->valueKey},
+                'value' => (string) $option->{$this->valueKey},
                 'text' => $option->{$this->textKey},
             ];
         }
@@ -73,7 +73,7 @@ class CustomSelectOption extends BladeComponent
         }
 
         return [
-            'value' => $option,
+            'value' => (string) $option,
             'text' => $option,
         ];
     }
@@ -85,13 +85,13 @@ class CustomSelectOption extends BladeComponent
             $key = array_key_first($option);
 
             return [
-                'value' => $key,
+                'value' => (string) $key,
                 'text' => $option[$key],
             ];
         }
 
         return [
-            'value' => $option[$this->valueKey] ?? '',
+            'value' => (string) ($option[$this->valueKey] ?? ''),
             'text' => $option[$this->textKey] ?? '',
         ];
     }
