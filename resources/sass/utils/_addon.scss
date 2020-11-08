@@ -100,6 +100,10 @@
     @apply border-l-0;
 }
 
+.input-error + .password-toggle {
+    @apply border-red-300;
+}
+
 .has-leading-addon {
     @apply rounded-none;
     @apply rounded-r-md;

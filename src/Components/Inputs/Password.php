@@ -60,10 +60,14 @@ class Password extends Input
 
     public function containerClass(): string
     {
+        $shadowColor = $this->hasErrorsAndShow($this->name)
+            ? 'red'
+            : 'blue';
+
         return collect([
             'form-text-container',
             $this->maxWidth,
-            $this->showToggle ? 'focus-within:shadow-outline-blue rounded-md' : null,
+            $this->showToggle ? "focus-within:shadow-outline-{$shadowColor} rounded-md" : null,
         ])->filter()->implode(' ');
     }
 }

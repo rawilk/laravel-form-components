@@ -24,8 +24,10 @@
 
     &:focus {
         @apply shadow-none;
-        @apply border;
-        border-color: #d2d6dc;
         @apply border-r-0;
+
+        &:not(.input-error) + .password-toggle {
+            @apply border-blue-300;
+        }
     }
 }

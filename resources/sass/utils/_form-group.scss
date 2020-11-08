@@ -41,7 +41,10 @@
 
     &:focus {
         @apply border-red-300;
-        @apply shadow-outline-red;
+
+        &:not(.password-toggleable) {
+            @apply shadow-outline-red;
+        }
     }
 
     &::placeholder {
