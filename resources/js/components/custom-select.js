@@ -119,10 +119,11 @@ export default function customSelect(state) {
                     this.value = [this.value];
                 }
 
-                return this.value.includes(value);
+                // Using "some" so I can properly check the values.
+                return this.value.some(v => String(v) === value);
             }
 
-            return value === this.value;
+            return value === String(this.value);
         },
 
         chooseForMultiple(value) {
@@ -279,7 +280,7 @@ export default function customSelect(state) {
         },
 
         optionIndex(value) {
-            return this.options.findIndex(o => o.value === value);
+            return this.options.findIndex(o => o.value === String(value));
         },
 
         onMouseEnter(value) {
