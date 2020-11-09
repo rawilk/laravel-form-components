@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 1.4.14 - 2020-11-09
+### Changed
+- Change how custom select values are compared
+
 ## 1.4.13 - 2020-11-09
 ### Changed
 - Change how custom select options are selected
