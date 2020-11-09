@@ -1,14 +1,13 @@
 <li @unless ($disabled || $isGroup)
-        x-on:mouseenter="onMouseEnter($event.currentTarget.dataset.value)"
+        x-on:mouseenter="onMouseEnter({{ $optionValue() }})"
         x-on:mouseleave="selected = null; currentIndex = -1"
-        x-on:click="choose($event.currentTarget.dataset.value, $event)"
+        x-on:click="choose({{ $optionValue() }}, $event)"
     @endunless
 
     @unless ($isGroup)
         role="option"
         x-bind:class="{ 'focused': selected === {{ $optionValue() }}, 'selected': isChosen({{ $optionValue() }}) }"
         data-option="{{ json_encode($option) }}"
-        data-value="{{ $option['value'] }}"
         x-bind:aria-selected="JSON.stringify(isChosen({{ $optionValue() }}))"
     @endunless
 
