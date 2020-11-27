@@ -29,7 +29,7 @@
     />
 
     @if ($showToggle)
-        <div @click="show = ! show"
+        <div x-on:click="show = ! show"
              :title="show ? '{{ __('Hide') }}' : '{{ __('Show') }}'"
              class="trailing-icon password-toggle clickable"
              x-cloak

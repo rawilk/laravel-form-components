@@ -1,6 +1,5 @@
 .file-upload {
-    @apply flex;
-    @apply items-center;
+    @apply flex items-center;
 }
 
 .file-upload__input {
@@ -8,28 +7,22 @@
 }
 
 .file-upload__label {
-    @apply cursor-pointer;
-    @apply py-2;
-    @apply px-3;
-    @apply border;
-    @apply border-gray-300;
-    @apply rounded-md;
-    @apply text-sm;
-    @apply leading-4;
-    @apply font-medium;
-    @apply text-cool-gray-700;
-    @apply transition;
-    @apply duration-150;
-    @apply ease-in-out;
-    @apply shadow-sm;
-
-    &:hover {
-        @apply text-cool-gray-500;
-    }
+    @apply cursor-pointer
+        py-2
+        px-3
+        border
+        border-blue-gray-300
+        rounded-md
+        text-sm
+        leading-4
+        font-medium
+        text-blue-gray-700
+        transition
+        shadow-sm
+        hover:text-blue-gray-500;
 
     &:active {
-        @apply bg-gray-50;
-        @apply text-cool-gray-800;
+        @apply bg-blue-gray-50 text-blue-gray-800;
     }
 
     [role="button"] {
@@ -38,43 +31,33 @@
 }
 
 .file-upload__label--focused {
-    @apply outline-none;
-    @apply border-blue-300;
-    @apply shadow-outline-blue;
+    @apply outline-none
+        border-primary-300
+        ring-primary-300;
 }
 
 // FilePond style overrides
 /* purgecss start ignore */
 .filepond--panel-root {
-    @apply border-dashed;
-    @apply border-2;
-    @apply border-cool-gray-200;
-    @apply rounded-md;
+    @apply border-dashed
+        border-2
+        border-blue-gray-200
+        rounded-md;
 }
 
 .filepond--panel-root {
-    @apply bg-transparent;
-    @apply max-w-lg;
-    @apply transition;
-    @apply duration-150;
-    @apply ease-in-out;
+    @apply bg-transparent
+        max-w-lg
+        transition;
 }
 
 .filepond--label-action {
-    @apply text-blue-600;
-    text-decoration-color: theme('colors.blue.600');
-    @apply transition;
-    @apply duration-100;
-    @apply ease-in-out;
-
-    &:hover,
-    &:focus {
-        @apply opacity-75;
-    }
+    @apply text-primary-600 transition hover:opacity-75 focus:opacity-75;
+    text-decoration-color: theme('colors.primary.600');
 }
 
 .fc-filepond--desc {
-    @apply text-cool-gray-500;
+    @apply text-blue-gray-500;
 }
 
 .fc-filepond--sub-desc {

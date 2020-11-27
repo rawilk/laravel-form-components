@@ -1,71 +1,52 @@
 .form-group-inline {
-    @screen sm {
-        @apply grid;
-        @apply grid-cols-3;
-        @apply gap-4;
-        @apply items-start;
-    }
+    @apply sm:grid
+        sm:grid-cols-3
+        sm:gap-4
+        sm:items-start;
+}
 
-    &--border {
-        @screen sm {
-            @apply pt-5;
-            @apply border-t;
-            @apply border-gray-200;
-        }
-    }
+.form-group-inline--border {
+    @apply sm:pt-5
+        sm:border-t
+        sm:border-blue-gray-200;
 }
 
 .form-error {
-    @apply mt-1;
-    @apply text-red-500;
-    @apply text-sm;
+    @apply mt-1 text-danger-500 text-sm;
 }
 
 .form-help {
-    @apply mt-2;
-    @apply text-sm;
-    @apply text-gray-500;
+    @apply mt-2 text-sm text-secondary-500;
 }
 
-.has-error {
-    label {
-        @apply text-red-500;
-    }
+.has-error label {
+    @apply text-danger-500;
 }
 
 .input-error,
 .has-error .form-input,
 .has-error .form-select {
-    @apply border-red-300;
-    @apply text-red-900;
+    @apply border-danger-300
+        text-danger-900
+        focus:border-danger-300;
 
-    &:focus {
-        @apply border-red-300;
-
-        &:not(.password-toggleable) {
-            @apply shadow-outline-red;
-        }
+    &:not(.password-toggleable) {
+        @apply focus:ring-danger-400 focus:ring-opacity-50;
     }
 
     &::placeholder {
-        @apply text-red-300;
+        @apply text-danger-300;
     }
 }
 
 .form-group__inline-label {
-    @screen sm {
-        @apply mt-px;
-        @apply pt-2;
-    }
+    @apply sm:mt-px sm:pt-2;
 }
 
 .form-group__content {
     @apply mt-1;
+}
 
-    &--inline {
-        @screen sm {
-            @apply mt-0;
-            @apply col-span-2;
-        }
-    }
+.form-group__content--inline {
+    @apply sm:mt-0 sm:col-span-2;
 }

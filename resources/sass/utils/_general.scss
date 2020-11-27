@@ -1,14 +1,13 @@
 .form-label {
-    @apply block;
-    @apply text-sm;
-    @apply font-medium;
-    @apply leading-5;
-    @apply text-gray-700;
+    @apply block
+        text-sm
+        font-medium
+        leading-5
+        text-blue-gray-700;
 }
 
 input[disabled],
 textarea[disabled],
 select[disabled] {
-    @apply bg-gray-50;
-    @apply cursor-not-allowed;
+    @apply bg-blue-gray-50 cursor-not-allowed;
 }

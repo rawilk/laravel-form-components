@@ -1,0 +1,1 @@
+export const RX_ARRAY_NOTATION = /\[(\d+)]/g;

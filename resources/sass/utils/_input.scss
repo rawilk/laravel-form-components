@@ -1,33 +1,32 @@
 .form-text-container {
-    @apply flex;
-    @apply rounded-sm;
-    @apply shadow-sm;
-    @apply relative;
+    @apply flex rounded-sm shadow-sm relative;
 }
 
 .form-text {
-    @apply flex-1;
-    @apply block;
-    @apply w-full;
-    @apply px-3;
-    @apply py-2;
+    @apply flex-1
+        block
+        w-full
+        px-3
+        py-2
+        border-blue-gray-300
+        rounded-md
+        sm:text-sm;
 
-    @screen sm {
-        @apply text-sm;
-        @apply leading-5;
+    &:not(.password-toggleable) {
+        @apply focus:border-primary-300
+            focus:ring-opacity-50
+            focus:ring-4
+            focus:ring-primary-400;
     }
 }
 
 .password-toggleable {
-    @apply border-r-0;
-    @apply rounded-r-none;
+    @apply border-r-0
+        rounded-r-none
+        focus:ring-0
+        focus:border-blue-gray-300;
 
-    &:focus {
-        @apply shadow-none;
-        @apply border-r-0;
-
-        &:not(.input-error) + .password-toggle {
-            @apply border-blue-300;
-        }
+    &:not(.input-error) + .password-toggle {
+        @apply focus:border-primary-300;
     }
 }

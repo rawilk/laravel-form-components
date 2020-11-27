@@ -1,8 +1,7 @@
 .form-radio {
-    @apply h-4;
-    @apply w-4;
-    @apply text-blue-600;
-    @apply transition;
-    @apply duration-150;
-    @apply ease-in-out;
+    @apply h-4
+        w-4
+        text-primary-600
+        border-blue-gray-300
+        focus:ring-primary-500;
 }

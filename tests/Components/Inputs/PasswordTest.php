@@ -9,6 +9,9 @@ use Rawilk\FormComponents\Tests\Components\ComponentTestCase;
 
 class PasswordTest extends ComponentTestCase
 {
+    /** @var string */
+    protected const DEFAULT_CONTAINER_CLASS = 'form-text-container focus-within:ring-4 focus-within:ring-opacity-50 focus-within:ring-primary-400 focus-within:border-primary-300 rounded-md';
+
     protected function getPackageProviders($app): array
     {
         return array_merge(parent::getPackageProviders($app), [
@@ -23,13 +26,14 @@ class PasswordTest extends ComponentTestCase
 
         $showIcon = svg(config('form-components.components.password.show_password_icon'))->toHtml();
         $hideIcon = svg(config('form-components.components.password.hide_password_icon'))->toHtml();
+        $containerClass = self::DEFAULT_CONTAINER_CLASS;
 
         $expected = <<<HTML
         <div x-data="{ show: false }"
-             class="form-text-container focus-within:shadow-outline-blue rounded-md">
+             class="{$containerClass}">
             <input class="form-input form-text password-toggleable has-trailing-icon" name="password" id="password" :type="show ? 'text' : 'password'" />
 
-            <div @click="show = ! show"
+            <div x-on:click="show = ! show"
                  :title="show ? 'Hide' : 'Show'"
                  class="trailing-icon password-toggle clickable"
                  x-cloak>
@@ -74,15 +78,16 @@ class PasswordTest extends ComponentTestCase
 
         $showIcon = svg(config('form-components.components.password.show_password_icon'))->toHtml();
         $hideIcon = svg(config('form-components.components.password.hide_password_icon'))->toHtml();
+        $containerClass = self::DEFAULT_CONTAINER_CLASS;
 
         $expected = <<<HTML
         <div x-data="{ show: false }"
-             class="form-text-container focus-within:shadow-outline-blue rounded-md">
+             class="{$containerClass}">
              <span class="leading-addon">foo</span>
 
             <input class="form-input form-text has-leading-addon password-toggleable has-trailing-icon" name="password" id="password" :type="show ? 'text' : 'password'" />
 
-            <div @click="show = ! show"
+            <div x-on:click="show = ! show"
                  :title="show ? 'Hide' : 'Show'"
                  class="trailing-icon password-toggle clickable"
                  x-cloak>
@@ -136,15 +141,16 @@ class PasswordTest extends ComponentTestCase
 
         $showIcon = svg(config('form-components.components.password.show_password_icon'))->toHtml();
         $hideIcon = svg(config('form-components.components.password.hide_password_icon'))->toHtml();
+        $containerClass = self::DEFAULT_CONTAINER_CLASS;
 
         $expected = <<<HTML
         <div x-data="{ show: false }"
-             class="form-text-container focus-within:shadow-outline-blue rounded-md">
+             class="{$containerClass}">
              <span class="leading-addon">foo</span>
 
             <input class="form-input form-text has-leading-addon password-toggleable has-trailing-icon" name="password" id="password" :type="show ? 'text' : 'password'" />
 
-            <div @click="show = ! show"
+            <div x-on:click="show = ! show"
                  :title="show ? 'Hide' : 'Show'"
                  class="trailing-icon password-toggle clickable"
                  x-cloak>

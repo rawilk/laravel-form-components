@@ -1,20 +1,17 @@
 .form-select {
-    @apply block;
-    @apply w-full;
-    @apply pl-3;
-    @apply pr-10;
-    @apply py-2;
-
-    &:focus {
-        @apply outline-none;
-        @apply shadow-outline-blue;
-        @apply border-blue-300;
-    }
-
-    @screen sm {
-        @apply text-sm;
-        @apply leading-5;
-    }
+    @apply block
+        w-full
+        pl-3
+        pr-10
+        py-2
+        rounded-md
+        border-blue-gray-300
+        sm:text-sm
+        focus:outline-none
+        focus:border-primary-300
+        focus:ring-4
+        focus:ring-opacity-50
+        focus:ring-primary-400;
 }
 
 .form-select[multiple] {

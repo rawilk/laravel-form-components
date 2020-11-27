@@ -53,11 +53,13 @@
              x-cloak
              class="trailing-icon"
         >
-            {{ svg($clearIcon, [
-                'x-on:click' => 'value = null; fp.setDate(value)',
-                'role' => 'button',
-                'class' => 'transition duration-150 ease-in-out hover:text-red-500',
-            ]) }}
+            <div x-on:click="value = null; fp.setDate(value)"
+                 class="form-input-clear"
+                 role="button"
+            >
+                {{ svg($clearIcon) }}
+            </div>
+
         </div>
     @else
         @include('form-components::partials.trailing-addons')

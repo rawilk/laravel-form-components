@@ -89,11 +89,6 @@ return [
             'clear_icon' => 'heroicon-o-x',
         ],
 
-        'custom-select-option' => [
-            'class' => Components\Inputs\CustomSelectOption::class,
-            'view' => 'form-components::components.inputs.custom-select-option',
-        ],
-
         'label' => [
             'class' => Components\Label::class,
             'view' => 'form-components::components.label',
@@ -132,7 +127,7 @@ return [
              * This icon will be shown when there is a value, and will allow you
              * to clear the input.
              */
-            'clear_icon' => 'heroicon-o-x-circle',
+            'clear_icon' => 'heroicon-s-x',
         ],
 
         'file-upload' => [

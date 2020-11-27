@@ -7,7 +7,8 @@ class Select extends Input
     /** @var string */
     public const DEFAULT_TRAILING_ADDON_PADDING = 'pr-14';
 
-    public array $options;
+    /** @var array */
+    public $options;
 
     /** @var string */
     public $selectedKey;

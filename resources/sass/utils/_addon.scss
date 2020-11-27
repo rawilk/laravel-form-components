@@ -1,112 +1,89 @@
 .leading-addon {
-    @apply inline-flex;
-    @apply items-center;
-    @apply px-3;
-    @apply rounded-l-md;
-    @apply border;
-    @apply border-r-0;
-    @apply border-gray-300;
-    @apply bg-gray-50;
-    @apply text-gray-500;
+    @apply inline-flex
+        items-center
+        px-3
+        rounded-l-md
+        border
+        border-r-0
+        border-blue-gray-300
+        bg-blue-gray-50
+        text-blue-gray-500
+        sm:text-sm;
 
     svg {
-        @apply h-5;
-        @apply w-5;
-        @apply text-gray-400;
-    }
-
-    @screen sm {
-        @apply text-sm;
+        @apply h-5 w-5 text-blue-gray-400;
     }
 }
 
 .inline-addon {
-    @apply absolute;
-    @apply inset-y-0;
-    @apply left-0;
-    @apply pl-3;
-    @apply flex;
-    @apply items-center;
-    @apply pointer-events-none;
+    @apply absolute
+        inset-y-0
+        left-0
+        pl-3
+        flex
+        items-center
+        pointer-events-none;
 
     > span {
-        @apply text-gray-500;
-
-        @screen sm {
-            @apply text-sm;
-            @apply leading-5;
-        }
+        @apply text-gray-500 sm:text-sm sm:leading-5;
     }
 }
 
 .leading-icon {
-    @apply absolute;
-    @apply inset-y-0;
-    @apply left-0;
-    @apply pl-3;
-    @apply flex;
-    @apply items-center;
-    @apply pointer-events-none;
+    @apply absolute
+        inset-y-0
+        left-0
+        pl-3
+        flex
+        items-center
+        pointer-events-none;
 
     svg {
-        @apply h-5;
-        @apply w-5;
-        @apply text-gray-400;
+        @apply h-5 w-5 text-blue-gray-400;
     }
 }
 
 .trailing-addon {
-    @apply absolute;
-    @apply inset-y-0;
-    @apply right-0;
-    @apply pr-3;
-    @apply flex;
-    @apply items-center;
-    @apply pointer-events-none;
+    @apply absolute
+        inset-y-0
+        right-0
+        pr-3
+        flex
+        items-center
+        pointer-events-none;
 
     > span {
-        @apply text-gray-500;
-
-        @screen sm {
-            @apply text-sm;
-            @apply leading-5;
-        }
+        @apply text-blue-gray-500 sm:text-sm sm:leading-5;
     }
 }
 
 .trailing-icon {
-    @apply pr-3;
-    @apply flex;
-    @apply items-center;
+    @apply pr-3 flex items-center;
 
     &:not(.password-toggle) {
-        @apply absolute;
-        @apply inset-y-0;
-        @apply right-0;
+        @apply absolute inset-y-0 right-0;
     }
 
     svg {
-        @apply h-5;
-        @apply w-5;
-        @apply text-gray-400;
+        @apply h-5 w-5 text-blue-gray-400;
     }
 }
 
 .password-toggle {
-    @apply bg-white;
-    @apply border;
-    @apply rounded-md;
-    @apply rounded-l-none;
-    @apply border-l-0;
+    @apply bg-white
+        border
+        border-blue-gray-300
+        rounded-md
+        rounded-l-none
+        border-l-0;
 }
 
 .input-error + .password-toggle {
-    @apply border-red-300;
+    @apply border-danger-300;
 }
 
 .has-leading-addon {
-    @apply rounded-none;
-    @apply rounded-r-md;
+    @apply rounded-none rounded-r-md;
 }
 
 .has-leading-icon {
@@ -127,4 +104,16 @@
 
 .form-select.has-trailing-icon {
     padding-right: 4rem;
+}
+
+.form-input-clear {
+    @apply transition-colors
+        rounded-full
+        p-2
+        hover:bg-blue-gray-200
+        focus:outline-blue-gray;
+
+    svg {
+        @apply h-4 w-4;
+    }
 }
