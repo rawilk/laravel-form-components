@@ -17,6 +17,7 @@ All notable changes to `laravel-form-components` will be documented in this file
 - Add `optionDisplay` slot to `<x-custom-select>` component
 - Add `wireListeners` property to `<x-custom-select>` component
 - Add `$maxOptions` property to `<x-custom-select>` component
+- Add ability for custom select options to be dependent on other custom selects
 - Add php 8 support
 
 ### Removed

@@ -189,6 +189,44 @@ works for both single and multi-select modes, and provides a clear button next t
 <x-custom-select :options="$options" optional />
 ```
 
+## Dependent Selects
+
+If you have a custom select whose options depend on the selection of another select, or just some kind of condition to be met, you can
+livewire events to update the options in the select.
+
+In your component definition, pass in an array of livewire event names the select should listen for:
+
+```html
+<x-custom-select :options="$options" :wire-listeners="['some-event-name']" />
+```
+
+Now in your livewire component, you just need to emit the event(s) you are passing in to the select whenever the options need to be updated:
+
+```php
+<?php
+
+namespace App\Http\Livewire;
+
+use Livewire\Component;
+
+class MyComponent extends Component
+{
+    public function someMethodToBeTriggered()
+    {
+        // Retrieve your options based on your component state
+        $options = [
+            ['value' => 'foo', 'text' => 'bar'],
+        ];   
+
+        // Emit your event, passing in your options as the payload
+        $this->emit('some-event-name', $options);
+    }
+}
+```
+
+Our JavaScript event listener is expecting an array of options as the payload from the event, so be sure
+to pass the event emitter your options.
+
 ## Fixed Positioning
 
 By default, the custom select menu is positioned absolutely. In most cases, this should be fine, but there
