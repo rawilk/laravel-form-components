@@ -18,12 +18,12 @@ export const normalizeOption = (option, fields = {}, key = null) => {
 
         // Otherwise create an `<option>` object.
         return {
+            ...option,
+
             value: isUndefined(value) ? key || text : value,
             text: String(isUndefined(text) ? key : text),
             disabled: Boolean(get(option, fields.disabledField || 'disabled')),
         };
-
-        return option;
     }
 
     // Otherwise create an `<option>` object from the given value.
