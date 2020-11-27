@@ -2,7 +2,7 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
-## 2.0.0 - 2020-11-XX
+## 2.0.0 - 2020-11-27
 ### Changed
 - Change styling to be compatible with TailwindCSS v2
 - Change color classes to more abstract names like `primary` or `danger` - see the [upgrade guide](https://randallwilk.dev/docs/laravel-form-components/v2/upgrade#styling) for more info
@@ -17,6 +17,7 @@ All notable changes to `laravel-form-components` will be documented in this file
 - Add `optionDisplay` slot to `<x-custom-select>` component
 - Add `wireListeners` property to `<x-custom-select>` component
 - Add `$maxOptions` property to `<x-custom-select>` component
+- Add php 8 support
 
 ### Removed
 - Remove `<x-custom-select-option>` blade component
