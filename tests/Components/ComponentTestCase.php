@@ -13,12 +13,13 @@ abstract class ComponentTestCase extends TestCase
 {
     use InteractsWithViews;
 
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        // $this->artisan('view:clear');
-    }
+    // protected function setUp(): void
+    // {
+    //     parent::setUp();
+    //
+    //     // TODO: get this line to work in github tests workflow for php8 -- prefer lowest test
+    //     // $this->artisan('view:clear');
+    // }
 
     protected function flashOld(array $input): void
     {
