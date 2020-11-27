@@ -23,9 +23,9 @@
     "require": {
         "php": "^7.4|^8.0",
         "ext-json": "*",
-        "illuminate/filesystem": "^8.1",
-        "illuminate/support": "^8.1",
-        "illuminate/view": "^8.1"
+        "illuminate/filesystem": "^8.12",
+        "illuminate/support": "^8.12",
+        "illuminate/view": "^8.12"
     },
     "require-dev": {
         "blade-ui-kit/blade-heroicons": "^0.3",
