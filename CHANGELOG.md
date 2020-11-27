@@ -2,6 +2,24 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 2.0.0 - 2020-11-XX
+### Changed
+- Change styling to be compatible with TailwindCSS v2
+- Change color classes to more abstract names like `primary` or `danger` - see the [upgrade guide](https://randallwilk.dev/docs/laravel-form-components/v2/upgrade#styling) for more info
+- `<x-custom-select>` component now renders options in an `x-for` loop and only accepts an array of options now
+- `<x-custom-select>` component now uses `wire:filter` as a livewire method name to perform server-side filtering
+- Change how alpine click event is registered on password component (from `@click` to `x-on:click`)
+
+### Added
+- Add `buttonDisplay` slot to `<x-custom-select>` component
+- Add `optionDisplay` slot to `<x-custom-select>` component
+- Add `wireListeners` property to `<x-custom-select>` component
+- Add `$maxOptions` property to `<x-custom-select>` component
+
+### Removed
+- Remove `<x-custom-select-option>` blade component
+- Remove `array` type hint on `$options` attribute on `<x-custom-select>` to allow for more flexibility (i.e. passing in Collections)
+
 ## 1.4.14 - 2020-11-09
 ### Changed
 - Change how custom select values are compared
