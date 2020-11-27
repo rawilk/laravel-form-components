@@ -105,7 +105,7 @@ class CustomSelect extends Select
         }
 
         if ($convertValuesToString) {
-            $this->options = array_map(function ($option) use ($convertValuesToString) {
+            $this->options = array_map(function ($option) {
                 $option[$this->valueField] = (string) $option[$this->valueField];
 
                 return $option;
