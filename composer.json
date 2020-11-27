@@ -23,15 +23,15 @@
     "require": {
         "php": "^7.4|^8.0",
         "ext-json": "*",
-        "illuminate/filesystem": "^8.16",
-        "illuminate/support": "^8.16",
-        "illuminate/view": "^8.16"
+        "illuminate/filesystem": "^8.12",
+        "illuminate/support": "^8.12",
+        "illuminate/view": "^8.12"
     },
     "require-dev": {
         "blade-ui-kit/blade-heroicons": "^0.3",
         "friendsofphp/php-cs-fixer": "^2.16",
         "gajus/dindent": "^2.0",
-        "orchestra/testbench": "^6.2",
+        "orchestra/testbench": "^6.4",
         "phpunit/phpunit": "^9.4",
         "psalm/plugin-laravel": "^1.4",
         "vimeo/psalm": "^4.0"
