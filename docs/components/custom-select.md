@@ -12,7 +12,7 @@ custom option markup while still providing usability functionalities such as key
 ## Installation
 
 The custom select component requires Alpine.js, as well as some custom JavaScript written into the package to work.
-Ensure you have the proper [directives](/docs/laravel-form-components/v1/installation#directives) in your layout file.
+Ensure you have the proper [directives](/docs/laravel-form-components/v2/installation#directives) in your layout file.
 In production, we recommend you install and compile the JavaScript libraries before you deploy:
 
 - [Alpine.js](https://github.com/alpinejs/alpine) `^2.7`
@@ -25,14 +25,14 @@ You can use the select menu by providing some basic options.
 <x-custom-select :options="['foo', 'bar']" />
 ```
 
-This will output a custom select menu with options for `foo` and `bar`. The menu is toggled open and closed by using a `<button` element,
+This will output a custom select menu with options for `foo` and `bar`. The menu is toggled open and closed by using a `<button>` element,
 and renders each option in an `<li>` tag inside of a `<ul>`. We have done our best to include all of the necessary aria attributes for
 accessiblity, but we are by no means accessibility experts. If you notice any accessibility issues, please submit a PR to the github
 repository to fix them.
 
 ## Options
 
-There are multiple ways ot provide options to the component. The primary way is to provide an array of options via the `options` attribute.
+The custom select component accepts either an array or collection via the `options` attribute.
 If you provide an array of strings, the component will use the strings as both the key and values of the options. For most cases however, you
 should provide an array of keyed arrays for each option, or you can even pass in an array of Eloquent models as options.
 
@@ -50,47 +50,88 @@ should provide an array of keyed arrays for each option, or you can even pass in
 
 By default, the component will look for a `value` key for the option value, and a `text` key for the option text. When you are using Eloquent models
 for options, most of the time this won't work. For this reason, you can specify which keys the option should use for the value and text
-of the option via `value-key` and `text-key`.
+of the option via `value-field` and `text-field`.
 
-### Manually Creating Options
+### Customizing the option display
 
-Instead of passing in options to the custom select component, you can also create your own options via the default slot in the component by
-using the `custom-select-option` component. This component accepts an `option` attribute, and optionally a `value-key` attribute for the
-option's value, and `text-key` attribute for the option's text content.
+By using the `optionDisplay` slot, you can customize how each option is rendered.
 
 ```html
-<x-custom-select-option :option="$user" value-key="id" text-key="name" />
-``` 
-
-The `custom-select-option` also has a default slot which will allow you to customize the markup of the content of the option.
-
-```html
-<x-custom-select-option :option="$user" value-key="id" text-key="name">
-    {{ $user->name }} <span class="text-xs">@{{ $user->email }}</span>
-</x-custom-select-option>
+<x-custom-select :options="['foo', 'bar']">
+    <x-slot name="optionDisplay">
+        <div class="flex items-center space-x-2">
+            <span class="block bg-green-500 rounded-full w-4 h-4"></span>
+            <span x-html="option.text"></span>            
+        </div>
+    </x-slot>
+</x-custom-select>
 ```
 
-In either case, you still need to provide the `option` attribute, and then any value/text mapping you need. The `option` attribute
-is used by the package's JavaScript to help with keyboard navigation and also for local [filtering](#server-side-filtering) of options if you
-have filters enabled on the select.
+In this example, we are prepending a green dot in front of the option text for each option. As you can see, any kind of markup
+is allowed here, so you are able to add whatever kind of html you need for each option.
 
-**Note:** Any content you place inside of the option will also be displayed on the button when the option is selected.
+Since each option is rendered in an `x-for` loop via alpine, you will need to use directives such as `x-text` or `x-html` to render
+an option's text. In the `optionDisplay` slot, you will have access to following JavaScript properties:
+
+- `index`: The index of the current option
+- `option`: The JavaScript representation of the current option.
+
+**Note:** Each `option` object will have whatever properties you included on the object when you passed them into the `options` attribute, however they will
+always have the `value`, `text`, and `disabled` attributes on each option object. If you have any of those keys on your object, they will be overwritten
+when the component parses your options.
+
+### Customizing the selected option display
+
+New in v2, you can customize the button text when there is a selected option via the `buttonDisplay` slot. By default, the `text` of an option is used
+as a display in the button, but you can customize this to match how your options are displayed in the dropdown list.
+
+```html
+<x-custom-select :options="['foo', 'bar']">
+    <x-slot name="buttonDisplay">
+        <div class="space-x-2 flex items-center">
+            <span class="block w-5 h-5 rounded-full bg-green-500"></span>
+            <span x-text="optionDisplay(value)"></span>
+        </div>
+    </x-slot>
+</x-custom-select>
+```
+
+Since `value` is the actual value of the selected option, you will need to find the option first and then render the option's text. This has been made easier
+by using the component's `optionDisplay()` helper method, which takes the value of the option you're trying to find in as a parameter. If it finds an option,
+it will return the `text` of the found option. If you need a different attribute, you can find the option yourself by:
+
+```html
+<span x-text="data.find(option => option.value === value).someOtherField"></span>
+```
+
+It is recommended to use `data` instead of `options` to find the selected option, since `options` will get mutated if you have a filter in place.
 
 ### Disabling Options
 
-You may disable specific options by providing a boolean value of true to the component:
+You may disable specific options by setting `disabled` to true on the option:
 
 ```html
-<x-custom-select-option :option="$option" disabled />
+<x-custom-select :options="[['value' => 'foo', 'text' => 'Foo', 'disabled' => true]]" />
+```
+
+You can use a different key for `disabled` on the option, by specifying it via the `disabled-field` attribute on the select.
+
+```html
+<x-custom-select :options="[['value' => 'foo', 'text' => 'Foo', 'inactive' => true]]" disabled-field="inactive" />
 ```
 
 ### Opt Groups
 
-You can specify an option as an "optgroup" header by passing in a boolean true value to the `is-group` attribute:
+You can specify an option as an "optgroup" header by using a "label" key on the option object:
 
 ```html
-<x-custom-select-option is-group>Group Name</x-custom-select-option>
+<x-custom-select :options="[
+    ['label' => 'Opt Group', 'options' => ['foo', 'bar']]
+]"/>
 ```
+
+In this example, an opt group with the label "Opt Group" will be rendered, as well as the options underneath for "foo" and "bar". You must include
+the `label` and `options` keys on the optgroup option object.
 
 ## Filtering
 
@@ -107,12 +148,12 @@ This will provide basic search functionality, which will hide any non-matching o
 If you use Livewire, you can easily add server-side filtering of options via a custom `wire:filter` attribute on the component.
 
 ```html
-<x-custom-select :options="$options" filterable wire:filter="selectSearch" />
+<x-custom-select :options="$options" filterable wire:filter="searchMethod" />
 ```
 
-Behind-the-scenes, the custom select component will convert that to a `wire:model` on the filter input in the select and bind it to
-your public property on your livewire component. From there, you can filter out your options based on the value of the filter. Modifiers
-such as `.lazy` or `.defer` are also supported on the `wire:filter` attribute.
+In this example, this will require you to have a method called `searchMethod` on your livewire component. Our JavaScript will
+call that method via livewire's JavaScript API and expects an array or collection of your filtered options to be returned. The
+component debounces the search input by `300ms` so each keystroke is not triggering another ajax request to your server.
 
 ```html
 <x-custom-select :options="$options" filterable wire:filter.lazy="selectSearch" />
@@ -125,6 +166,19 @@ You can easily make a select accept multiple selected options by using the `mult
 ```html
 <x-custom-select :options="$options" multiple />
 ```
+
+If you are customizing the selected text via the `buttonDisplay` slot, you should use `optionDisplay(value[0])`
+if you are referencing the option text like that, since `value` will be an array.
+
+### Max selected
+
+With multiple selects, you may limit the number of options a user may select with the `max` attribute.
+
+```html
+<x-custom-select :options="$options" multiple max="3" />
+```
+
+In this example, the user will only be able to select a maximum of 3 options.
 
 ## Optional Selects
 
@@ -149,4 +203,4 @@ it is opened.
 ## Addons
 
 The custom select component supports leading addons, but since there are already elements appended to the end
-of the button trigger, trailing addons are not supported. For more information on addons, see [the input documentation](/docs/laravel-form-components/v1/components/input#addons).
+of the button trigger, trailing addons are not supported. For more information on addons, see [the input documentation](/docs/laravel-form-components/v2/components/input#addons).
