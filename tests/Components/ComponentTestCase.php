@@ -17,7 +17,7 @@ abstract class ComponentTestCase extends TestCase
     {
         parent::setUp();
 
-        $this->artisan('view:clear');
+        // $this->artisan('view:clear');
     }
 
     protected function flashOld(array $input): void
