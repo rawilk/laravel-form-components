@@ -24,6 +24,7 @@
      wire:ignore.self
      class="custom-select-container form-text-container {{ $maxWidth }}"
 >
+    @include('form-components::partials.leading-addons')
     @include('form-components::partials.custom-select-button')
 
     <div x-show="open"
