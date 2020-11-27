@@ -9,6 +9,7 @@ All notable changes to `laravel-form-components` will be documented in this file
 - `<x-custom-select>` component now renders options in an `x-for` loop and only accepts an array of options now
 - `<x-custom-select>` component now uses `wire:filter` as a livewire method name to perform server-side filtering
 - Change how alpine click event is registered on password component (from `@click` to `x-on:click`)
+- Make `<x-timezone-select>` compatible with new api for `<x-custom-select>`
 
 ### Added
 - Add `buttonDisplay` slot to `<x-custom-select>` component

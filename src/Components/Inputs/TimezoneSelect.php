@@ -68,4 +68,17 @@ class TimezoneSelect extends Select
         $this->placeholder = $placeholder;
         $this->fixedPosition = $fixedPosition;
     }
+
+    public function optionsForCustomSelect(): array
+    {
+        return collect(app('fc-timezone')->only($this->only)->all())
+            ->map(function (array $timezones, string $region) {
+                return [
+                    'label' => $region,
+                    'options' => collect($timezones)->map(fn (string $text, string $value) => compact('value', 'text'))->values()->toArray(),
+                ];
+            })
+            ->values()
+            ->toArray();
+    }
 }
