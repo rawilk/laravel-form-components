@@ -1,6 +1,6 @@
 <div x-data="customSelect({
         {{ $configToJson() }}
-        @if ($attributes->whereStartsWith('wire:model')->first())
+        @if ($hasWireModel = $attributes->whereStartsWith('wire:model')->first())
             value: @entangle($attributes->wire('model')),
         @else
             value: {{ $selectedKeyToJS() }},
@@ -9,9 +9,6 @@
             wireFilter: '{{ $attributes->wire('filter')->value() }}',
         @endif
      })"
-     @if ($attributes->whereStartsWith('wire:model')->first())
-         {{ $attributes->wire('model') }}
-     @endif
      x-init="init($wire || null)"
      x-on:click.away="close()"
      x-on:keydown.escape="close()"
@@ -82,4 +79,8 @@
             </template>
         </ul>
     </div>
+
+    @unless ($hasWireModel)
+        <input type="hidden" x-bind:value="JSON.stringify(value)" name="{{ $name }}">
+    @endif
 </div>
