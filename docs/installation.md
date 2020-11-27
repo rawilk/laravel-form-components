@@ -57,8 +57,7 @@ If you always want these directives to be executed, even when `app.debug` is dis
 links by passing a `true` boolean:
 
 ```html
-@fcStyles(true)
-@fcScripts(true)
+@fcStyles(true) @fcScripts(true)
 ```
 
 Libraries are only loaded for components that are enabled through the `components` config option. You can learn more about
@@ -82,7 +81,7 @@ sass, you can pull in the package's styles into your stylesheets by importing th
 If you have a `./resources/sass/app.scss` stylesheet, you can do:
 
 ```css
-@import '../../vendor/rawilk/laravel-form-components/resources/sass/form-components';
+@import "../../vendor/rawilk/laravel-form-components/resources/sass/form-components";
 
 /* Add your overrides here */
 ```
@@ -90,9 +89,9 @@ If you have a `./resources/sass/app.scss` stylesheet, you can do:
 **Note:** It's important to note here that our sass is assuming you have the following color variants available, with variants for each
 color ranging from `50` to `900`:
 
-- `primary` (blue)
-- `danger` (red)
-- `blue-gray`
+-   `primary` (blue)
+-   `danger` (red)
+-   `blue-gray`
 
 There also needs to be `blue-gray` outline variant defined as well in your tailwind config. See the [upgrade guide](/docs/laravel-form-components/v2/upgrade#styling) for more information.
 
@@ -115,6 +114,7 @@ you are using any components that depend on this JavaScript, be sure you are pul
 `@fcJavaScript` or `@fcScripts` blade directives in your layout file. See [directives](#directives) for more information.
 
 ### Asset URL
+
 For cases where your app's root domain is not the correct path for retrieving assets, you may set a custom root path that
 FormComponents will use to link to its JavaScript assets. You may specify a custom root path either in the config file,
 or as a parameter option through the blade directive:
