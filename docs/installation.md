@@ -87,6 +87,15 @@ If you have a `./resources/sass/app.scss` stylesheet, you can do:
 /* Add your overrides here */
 ```
 
+**Note:** It's important to note here that our sass is assuming you have the following color variants available, with variants for each
+color ranging from `50` to `900`:
+
+- `primary` (blue)
+- `danger` (red)
+- `blue-gray`
+
+There also needs to be `blue-gray` outline variant defined as well in your tailwind config. See the [upgrade guide](/docs/laravel-form-components/v2/upgrade#styling) for more information.
+
 ## Components
 
 Even though all components come enabled out-of-the-box, you might just want to
