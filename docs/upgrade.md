@@ -14,31 +14,31 @@ were also some changes to how colors are referenced in both the blade templates 
 is assuming you have the following variants configured in your `tailwind.config.js` file:
 
 ```js
-const colors = require('tailwindcss/colors');
+const colors = require("tailwindcss/colors");
 
 module.exports = {
     // ...
     theme: {
         colors: {
-            'blue-gray': colors.blueGray,
+            "blue-gray": colors.blueGray,
         },
 
         extend: {
             colors: {
                 primary: {
-                    50: colors.blue['50'],
-                    100: colors.blue['100'],
+                    50: colors.blue["50"],
+                    100: colors.blue["100"],
                     // continue all the way down to 900
                 },
                 danger: {
-                    50: colors.red['50'],
+                    50: colors.red["50"],
                     // add keys for 50 - 900 as well
-                }
+                },
             },
-    
+
             outline: {
-                'blue-gray': [`2px dotted ${colors.blueGray['500']}`, '2px'],            
-            },   
+                "blue-gray": [`2px dotted ${colors.blueGray["500"]}`, "2px"],
+            },
         },
     },
 };
@@ -57,7 +57,7 @@ There have been major changes to the `<x-custom-select>` component.
 #### Options
 
 Rendering options through the default slot is no longer supported. You must pass in options via the `options` attribute for now on. "Optgroups" are now
-specified by using the `label` key on an option object, and must have an `options` key on the object containing an array or collection of the group's options. 
+specified by using the `label` key on an option object, and must have an `options` key on the object containing an array or collection of the group's options.
 
 #### `value-key` and `text-key`
 
