@@ -155,10 +155,6 @@ In this example, this will require you to have a method called `searchMethod` on
 call that method via livewire's JavaScript API and expects an array or collection of your filtered options to be returned. The
 component debounces the search input by `300ms` so each keystroke is not triggering another ajax request to your server.
 
-```html
-<x-custom-select :options="$options" filterable wire:filter.lazy="selectSearch" />
-```
-
 ## Multiple Select
 
 You can easily make a select accept multiple selected options by using the `multiple` attribute.
