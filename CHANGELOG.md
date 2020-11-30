@@ -2,6 +2,16 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 2.0.1 - 2020-11-30
+### Added
+- Add `custom-select-value-changed` event emitted on custom select
+
+### Fixed
+- Fix custom select empty id issue
+- Fix custom select filter loading icon styles
+- Fix date picker clear button styles
+- Fix date picker styles when livewire re-renders it
+
 ## 2.0.0 - 2020-11-27
 ### Changed
 - Change styling to be compatible with TailwindCSS v2
