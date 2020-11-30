@@ -13,16 +13,14 @@
             <span class="custom-select__placeholder" x-text="placeholder"></span>
         </template>
 
-        <template x-if="hasSelection()">
-            <div class="custom-select__display" wire:ignore>
-                @if ($buttonDisplay)
-                    {{-- user has opted to customize the "selected text" on the button --}}
-                    {!! $buttonDisplay !!}
-                @else
-                    <span x-html="buttonDisplay"></span>
-                @endif
-            </div>
-        </template>
+        <div class="custom-select__display" x-show="hasSelection()" wire:ignore>
+            @if ($buttonDisplay)
+                {{-- user has opted to customize the "selected text" on the button --}}
+                {!! $buttonDisplay !!}
+            @else
+                <span x-html="buttonDisplay"></span>
+            @endif
+        </div>
 
         @if ($optional && $clearIcon)
             <button x-on:click="clear()"
