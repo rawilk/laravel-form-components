@@ -9,7 +9,7 @@
             wireFilter: '{{ $attributes->wire('filter')->value() }}',
         @endif
      })"
-     x-init="init($wire || null)"
+     x-init="init($wire || null, $dispatch)"
      x-on:click.away="close()"
      x-on:keydown.escape="close()"
      x-on:keydown.enter.stop.prevent="onEnter()"
@@ -49,9 +49,9 @@
 
                 @if ($hasWireFilter)
                     <span wire:loading.class.remove="hidden"
-                          class="absolute top-4 right-4 animate-spin hidden"
+                          class="absolute top-4 -mt-0.5 right-4 animate-spin hidden"
                     >
-                        <x-heroicon-o-refresh class="h-5 w-5 text-primary-400" />
+                        <x-heroicon-o-refresh class="h-4 w-4 text-primary-400" />
                     </span>
                 @endif
             </div>

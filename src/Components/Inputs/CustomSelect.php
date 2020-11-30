@@ -149,7 +149,7 @@ class CustomSelect extends Select
             'disabledField' => $this->disabledField,
             'max' => $this->maxOptionsSelected,
             'wireListeners' => $this->wireListeners,
-            'selectId' => $this->id ?? Str::random(8),
+            'selectId' => empty($this->id) ? Str::random(8) : $this->id,
             'fixedPosition' => $this->fixedPosition,
         ];
     }
