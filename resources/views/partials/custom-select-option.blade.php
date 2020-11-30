@@ -6,7 +6,7 @@
     x-bind:class="optionClasses(option, index)"
     x-bind:role="isOptgroup(option) ? null : 'option'"
     x-bind:aria-selected="isOptgroup(option) ? false : (index === focusedOptionIndex)"
-    class="custom-select__option"
+    class="custom-select__option group"
 >
     {{-- "optgroup" --}}
     <template x-if="isOptgroup(option)">
