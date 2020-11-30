@@ -148,7 +148,7 @@ export default function customSelect(config) {
             return this.value === value;
         },
 
-        init($wire = null) {
+        init($wire = null, $dispatch = null) {
             this.data = [...normalizeOptions(this.data, this.fieldNames)];
             this.options = this.data;
 
@@ -165,6 +165,10 @@ export default function customSelect(config) {
             } else if (! this.multiple && this.value) {
                 this.selectedOption = this.options.find(o => ! this.isOptgroup(o) && o.value === this.value);
             }
+
+            this.$watch('value', value => {
+                $dispatch && $dispatch('custom-select-value-changed', { id: this.selectId, value });
+            });
 
             // Allow local filtering if user has not specified wire:filter on the custom select component.
             this.$watch('search', value => {
@@ -205,6 +209,9 @@ export default function customSelect(config) {
                     });
                 });
             }
+
+            // Emit our value changed event right away for any listeners...
+            $dispatch && $dispatch('custom-select-value-changed', { id: this.selectId, value: this.value });
         },
 
         onMouseover(option, index) {
