@@ -2,6 +2,13 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 2.0.2 - 2020-11-30
+### Added
+- Add class `group` to custom select option elements
+
+### Changed
+- Change `x-if` to `x-show` on custom select button display
+
 ## 2.0.1 - 2020-11-30
 ### Added
 - Add `custom-select-value-changed` event emitted on custom select
