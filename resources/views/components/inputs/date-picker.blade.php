@@ -31,6 +31,7 @@
     <input
         {{ $attributes->merge(['class' => $inputClass()])->except('type')->whereDoesntStartWith('wire:model') }}
 
+        wire:ignore
         name="{{ $name }}"
         @if ($id) id="{{ $id }}" @endif
         x-ref="input"
@@ -49,17 +50,16 @@
     />
 
     @if ($clearable)
-        <div x-show="Boolean(value)"
-             x-cloak
-             class="trailing-icon"
-        >
-            <div x-on:click="value = null; fp.setDate(value)"
-                 class="form-input-clear"
-                 role="button"
+        <div class="trailing-icon">
+            <button x-show.transition.opacity.150ms="Boolean(value)"
+                    x-on:click="value = null; fp.setDate(value)"
+                    x-cloak
+                    class="form-input-clear"
+                    type="button"
             >
+                <span class="sr-only">{{ __('Clear selected') }}</span>
                 {{ svg($clearIcon) }}
-            </div>
-
+            </button>
         </div>
     @else
         @include('form-components::partials.trailing-addons')
