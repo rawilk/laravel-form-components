@@ -67,7 +67,7 @@ class Timezone
             $timezones[$region] = [];
 
             foreach ($regionTimezones as $timezone) {
-                $timezones[$region][$timezone] = $this->format($timezone, $region);
+                $timezones[$region][$timezone] = $this->format(timezone: $timezone);
             }
         }
 
