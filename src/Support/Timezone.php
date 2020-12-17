@@ -27,12 +27,10 @@ class Timezone
         TimeZoneRegion::PACIFIC => DateTimeZone::PACIFIC,
     ];
 
-    /**
+    /*
      * Specify a subset of regions to return.
-     *
-     * @var bool|array
      */
-    protected $only;
+    protected bool|array|string|null $only;
 
     protected array $timezones;
 
@@ -41,7 +39,7 @@ class Timezone
         $this->only(config('form-components.timezone_subset', false));
     }
 
-    public function only($only): self
+    public function only(array|string|bool|null $only): self
     {
         if (is_string($only)) {
             $only = [$only];
@@ -79,7 +77,7 @@ class Timezone
         return $this->timezones = $timezones;
     }
 
-    protected function format(string $timezone, string $region): string
+    protected function format(string $timezone): string
     {
         $time = new DateTime('', new DateTimeZone($timezone));
         $offset = $time->format('P');
