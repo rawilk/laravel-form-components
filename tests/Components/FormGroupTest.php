@@ -197,4 +197,26 @@ class FormGroupTest extends ComponentTestCase
 
         $this->assertComponentRenders($expected, $template);
     }
+
+    /** @test */
+    public function label_can_be_omitted(): void
+    {
+        $this->withViewErrors([]);
+
+        $template = <<<HTML
+        <x-form-group :label="\$label" name="name">
+            Name field
+        </x-form-group>
+        HTML;
+
+        $expected = <<<HTML
+        <div class="form-group">
+            <div class="form-group__content ">
+                Name field
+            </div>
+        </div>
+        HTML;
+
+        $this->assertComponentRenders($expected, $template, ['label' => false]);
+    }
 }

@@ -11,6 +11,7 @@ class PublishCommand extends Command
 {
     protected $signature = 'fc:publish
                             {--views : Publish the views as well}
+                            {--lang : Publish the lang files}
     ';
 
     protected $description = 'Publish the config file for form-components.';
@@ -27,6 +28,14 @@ class PublishCommand extends Command
             $this->call('vendor:publish', [
                 '--provider' => FormComponentsServiceProvider::class,
                 '--tag' => 'views',
+                '--force' => true,
+            ]);
+        }
+
+        if ($this->option('lang')) {
+            $this->call('vendor:publish', [
+                '--provider' => FormComponentsServiceProvider::class,
+                '--tag' => 'lang',
                 '--force' => true,
             ]);
         }

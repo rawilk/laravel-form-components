@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Rawilk\FormComponents\Components\Inputs;
 
+use Closure;
 use Rawilk\FormComponents\Components\BladeComponent;
 use Rawilk\FormComponents\Concerns\HandlesValidationErrors;
 use Rawilk\FormComponents\Concerns\HasAddons;
@@ -18,28 +19,14 @@ class Input extends BladeComponent
     /** @var string */
     public const DEFAULT_TRAILING_ADDON_PADDING = 'pr-12';
 
-    /** @var string */
-    public $name;
-
-    /** @var string */
-    public $id;
-
-    /** @var string */
-    public $type;
-
-    /** @var string|mixed */
-    public $value;
-
-    /** @var string */
-    public $maxWidth;
-
     public function __construct(
-        string $name = '',
-        string $id = null,
-        string $type = 'text',
-        $value = null,
-        string $maxWidth = null,
+        public null|string $name = null,
+        public null|string $id = null,
+        public string $type = 'text',
+        public mixed $value = null,
+        public null|string $maxWidth = null,
         bool $showErrors = true,
+        public null|string $containerClass = null,
         $leadingAddon = false,
         $inlineAddon = false,
         $inlineAddonPadding = self::DEFAULT_INLINE_ADDON_PADDING,
@@ -48,11 +35,9 @@ class Input extends BladeComponent
         $trailingAddonPadding = self::DEFAULT_TRAILING_ADDON_PADDING,
         $trailingIcon = false
     ) {
-        $this->name = $name;
-        $this->id = $id ?? $name;
-        $this->type = $type;
-        $this->value = old($name, $value);
-        $this->maxWidth = $maxWidth ? "max-w-{$maxWidth}" : null;
+        $this->id = $this->id ?? $this->name;
+        $this->value = old($this->name, $this->value);
+        $this->resolveMaxWidth();
 
         $this->showErrors = $showErrors;
 
@@ -68,16 +53,15 @@ class Input extends BladeComponent
 
     public function inputClass(): string
     {
-        $class = "form-input form-text {$this->getAddonClass()}";
-
-        if ($this->hasErrorsAndShow($this->name)) {
-            $class .= ' input-error';
-        }
-
-        return $class;
+        return collect([
+            'form-input',
+            'form-text',
+            $this->getAddonClass(),
+            $this->hasErrorsAndShow($this->name) ? 'input-error' : null,
+        ])->filter()->implode(' ');
     }
 
-    public function render(bool $returnPathOnly = true)
+    public function render(bool $returnPathOnly = true): Closure
     {
         return function (array $data) use ($returnPathOnly) {
             $this->setSlotAddonAttributes($data);
@@ -88,5 +72,21 @@ class Input extends BladeComponent
 
             return parent::render($returnPathOnly);
         };
+    }
+
+    public function getContainerClass(): string
+    {
+        return collect([
+            'form-text-container',
+            $this->maxWidth,
+            $this->containerClass,
+        ])->filter()->implode(' ');
+    }
+
+    protected function resolveMaxWidth(): void
+    {
+        if ($this->maxWidth) {
+            $this->maxWidth = "max-w-{$this->maxWidth}";
+        }
     }
 }

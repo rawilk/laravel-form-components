@@ -16,7 +16,7 @@
                    class="sr-only"
                    type="file"
                    @if ($multiple) multiple @endif
-                   name="{{ $name }}"
+                   @if ($name) name="{{ $name }}" @endif
                    @if ($id) id="{{ $id }}" @endif
                    @if ($accepts()) accept="{{ $accepts() }}" @endif
 
@@ -49,7 +49,7 @@
         <div class="relative" x-show.transition.opacity.duration.150ms="isUploading" x-cloak>
             <div class="flex mb-2 items-center justify-between">
                 <div class="file-upload__badge inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-green-100 text-green-800">
-                    {{ __('Processing...') }}
+                    {{ __('form-components::messages.file_upload_processing') }}
                 </div>
 
                 <div class="text-right">

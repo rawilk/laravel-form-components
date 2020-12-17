@@ -15,44 +15,28 @@ class FileUpload extends BladeComponent
 
     protected static array $assets = ['alpine'];
 
-    /** @var string */
-    public $name;
-
-    /** @var string */
-    public $id;
-
-    /** @var string */
-    public $label;
-
-    public bool $multiple;
-
-    /*
-     * Display the file upload progress if using livewire.
-     * Only applies if a "wire:model" attribute is set.
-     */
-    public bool $displayUploadProgress;
-
-    protected ?bool $canShowUploadProgress = null;
+    protected null|bool $canShowUploadProgress = null;
+    public null|string $label;
 
     public function __construct(
-        string $name = null,
-        string $id = null,
-        string $label = 'Select File',
-        bool $multiple = false,
-        string $type = null,
-        bool $displayUploadProgress = true,
+        public null|string $name = null,
+        public null|string $id = null,
+        null|string $label = 'form-components::messages.file_upload_label',
+        public bool $multiple = false,
+        null|string $type = null,
+        // Display the file upload progress if using livewire.
+        // Only applies if a "wire:model" attribute is set.
+        public bool $displayUploadProgress = true,
         bool $showErrors = true
     ) {
-        $this->name = $name;
-        $this->id = $id ?? $name;
-        $this->multiple = $multiple;
-        $this->label = $label;
-        $this->displayUploadProgress = $displayUploadProgress;
+        $this->id = $this->id ?? $this->name;
         $this->showErrors = $showErrors;
         $this->type = $type;
+
+        $this->label = __($label);
     }
 
-    public function canShowUploadProgress($attributes)
+    public function canShowUploadProgress($attributes): bool
     {
         if (! is_null($this->canShowUploadProgress)) {
             return $this->canShowUploadProgress;

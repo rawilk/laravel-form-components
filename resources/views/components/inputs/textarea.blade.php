@@ -1,7 +1,7 @@
-<div class="form-text-container {{ $maxWidth }}">
+<div class="{{ $getContainerClass() }}">
     @include('form-components::partials.leading-addons')
 
-    <textarea name="{{ $name }}"
+    <textarea @if ($name) name="{{ $name }}" @endif
               @if ($id) id="{{ $id }}" @endif
               @if ($hasErrorsAndShow($name))
                   aria-invalid="true"

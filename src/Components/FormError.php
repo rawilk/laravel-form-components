@@ -6,23 +6,14 @@ use Illuminate\Support\ViewErrorBag;
 
 class FormError extends BladeComponent
 {
-    /** @var string */
-    public $name;
-
-    /** @var string */
-    public $inputId;
-
-    /** @var string */
-    public $bag;
-
-    public string $tag;
-
-    public function __construct(string $name = null, string $inputId = null, string $bag = 'default', string $tag = 'p')
-    {
-        $this->name = str_replace(['[', ']'], ['.', ''], $name);
-        $this->inputId = $inputId ?? $name;
-        $this->bag = $bag;
-        $this->tag = $tag;
+    public function __construct(
+        public null|string $name = null,
+        public null|string $inputId = null,
+        public string $bag = 'default',
+        public string $tag = 'p',
+    ) {
+        $this->name = str_replace(['[', ']'], ['.', ''], $this->name);
+        $this->inputId = $this->inputId ?? $this->name;
     }
 
     public function messages(ViewErrorBag $errors): array

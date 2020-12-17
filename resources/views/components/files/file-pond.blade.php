@@ -68,7 +68,7 @@
 >
     <input x-ref="input"
            type="file"
-           style="display:none;"
+           style="display: none;"
            @if ($accepts()) accept="{{ $accepts() }}" @endif
 
             @if ($hasErrorsAndShow($name))

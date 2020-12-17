@@ -15,57 +15,31 @@ class FilePond extends BladeComponent
 
     protected static array $assets = ['alpine', 'filepond'];
 
-    public bool $multiple;
-    public bool $allowDrop;
-    public bool $disabled;
-    public array $options;
-
-    /** @var string|null */
-    public $name;
-
-    /** @var int|null */
-    public $maxFiles;
-
-    /** @var string|null */
-    public $description;
-
-    /**
-     * When set to true, the component will watch for changes to the wire:model
-     * and manually remove the files from the FilePond instance if they are
-     * still present.
-     *
-     * @var bool
-     */
-    public bool $watchValue;
-
     public function __construct(
-        bool $multiple = false,
-        bool $allowDrop = true,
-        string $name = null,
-        array $options = [],
-        bool $disabled = false,
-        int $maxFiles = null,
-        string $type = null,
-        string $description = null,
-        bool $watchValue = true,
+        public bool $multiple = false,
+        public bool $allowDrop = true,
+        public null|string $name = null,
+        public array $options = [],
+        public bool $disabled = false,
+        public null|int $maxFiles = null,
+        null|string $type = null,
+        public null|string $description = null,
+        /*
+         * When set to true, the component will watch for changes to the wire:model
+         * and manually remove the files from the FilePond instance if they are
+         * still present.
+         */
+        public bool $watchValue = true,
         bool $showErrors = true
     ) {
-        $this->multiple = $multiple;
-        $this->allowDrop = $allowDrop;
-        $this->name = $name;
-        $this->disabled = $disabled;
-        $this->maxFiles = $maxFiles;
         $this->type = $type;
-        $this->options = $options;
-        $this->description = $description;
         $this->showErrors = $showErrors;
-        $this->watchValue = $watchValue;
     }
 
     public function options(): array
     {
         $label = array_filter([
-            '<span class="filepond--label-action">Upload a file</span> or drag and drop',
+            __('form-components::messages.filepond_instructions'),
             $this->description,
         ]);
 

@@ -2,29 +2,22 @@
 
 namespace Rawilk\FormComponents\Components\Inputs;
 
+use Illuminate\Support\Collection;
+
 class Select extends Input
 {
+    public mixed $selectedKey;
+
     /** @var string */
     public const DEFAULT_TRAILING_ADDON_PADDING = 'pr-14';
 
-    /** @var array */
-    public $options;
-
-    /** @var string */
-    public $selectedKey;
-
-    public bool $multiple;
-
-    /** @var string */
-    public $maxWidth;
-
     public function __construct(
-        string $name = '',
-        string $id = null,
-        array $options = [],
-        $value = null,
-        bool $multiple = false,
-        string $maxWidth = null,
+        public null|string $name = null,
+        public null|string $id = null,
+        public array|Collection $options = [],
+        public mixed $value = null,
+        public bool $multiple = false,
+        public null|string $maxWidth = null,
         bool $showErrors = true,
         $leadingAddon = false,
         $inlineAddon = false,
@@ -32,28 +25,26 @@ class Select extends Input
         $leadingIcon = false,
         $trailingAddon = false,
         $trailingAddonPadding = self::DEFAULT_TRAILING_ADDON_PADDING,
-        $trailingIcon = false
+        $trailingIcon = false,
+        public null|string $containerClass = null,
     ) {
         parent::__construct(
-            $name,
-            $id,
-            '',
-            null,
-            $maxWidth,
-            $showErrors,
-            $leadingAddon,
-            $inlineAddon,
-            $inlineAddonPadding,
-            $leadingIcon,
-            $trailingAddon,
-            $trailingAddonPadding,
-            $trailingIcon
+            name: $name,
+            id: $id,
+            value: $value,
+            maxWidth: $maxWidth,
+            showErrors: $showErrors,
+            containerClass: $containerClass,
+            leadingAddon: $leadingAddon,
+            inlineAddon: $inlineAddon,
+            inlineAddonPadding: $inlineAddonPadding,
+            leadingIcon: $leadingIcon,
+            trailingAddon: $trailingAddon,
+            trailingAddonPadding: $trailingAddonPadding,
+            trailingIcon: $trailingIcon,
         );
 
-        $this->options = $options;
-        $this->multiple = $multiple;
-
-        $this->selectedKey = old($name, $value);
+        $this->selectedKey = old($this->name, $this->value);
     }
 
     public function isSelected($key): bool
@@ -62,21 +53,15 @@ class Select extends Input
             return true;
         }
 
-        if (is_array($this->selectedKey) && in_array($key, $this->selectedKey, false)) {
-            return true;
-        }
-
-        return false;
+        return is_array($this->selectedKey) && in_array($key, $this->selectedKey, false);
     }
 
     public function inputClass(): string
     {
-        $class = "form-select {$this->getAddonClass()}";
-
-        if ($this->hasErrorsAndShow($this->name)) {
-            $class .= ' input-error';
-        }
-
-        return $class;
+        return collect([
+            'form-select',
+            $this->getAddonClass(),
+            $this->hasErrorsAndShow($this->name) ? 'input-error' : null,
+        ])->filter()->implode(' ');
     }
 }

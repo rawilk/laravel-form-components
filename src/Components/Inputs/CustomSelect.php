@@ -11,91 +11,58 @@ class CustomSelect extends Select
 {
     protected static array $assets = ['alpine'];
 
-    /** @var string|null */
-    public $placeholder;
-
-    public bool $optional;
-    public $valueField;
-    public $textField;
-    public $disabledField;
-    public bool $filterable;
-    public $clearIcon;
-    public bool $disabled;
-    public bool $fixedPosition;
-    public $selectedIcon;
-    public $uncheckIcon;
-    public $maxOptionsSelected;
-    public $optionDisplay;
-    public $buttonDisplay;
-    public string $emptyText;
-    public array $wireListeners;
+    public null|string $placeholder;
+    public null|string $emptyText;
 
     public function __construct(
-        string $name = '',
-        string $id = null,
-        $options = [],
-        $value = null,
-        bool $multiple = false,
-        string $maxWidth = null,
+        public null|string $name = null,
+        public null|string $id = null,
+        public array|Collection $options = [],
+        public mixed $value = null,
+        public bool $multiple = false,
+        public null|string $maxWidth = null,
         bool $showErrors = true,
         $leadingAddon = false,
         $inlineAddon = false,
         $inlineAddonPadding = self::DEFAULT_INLINE_ADDON_PADDING,
         $leadingIcon = false,
-        $placeholder = 'Select an option',
-        $optional = false,
-        string $valueField = 'value',
-        string $textField = 'text',
-        string $disabledField = 'disabled',
-        bool $filterable = false,
-        string $clearIcon = null,
-        bool $disabled = false,
-        bool $fixedPosition = false,
-        string $selectedIcon = null,
-        string $uncheckIcon = null,
-        $maxOptionsSelected = false,
-        $optionDisplay = false,
-        $buttonDisplay = false,
-        array $wireListeners = [],
-        string $emptyText = 'No options available...',
-        bool $convertValuesToString = false
+        null|string $placeholder = 'form-components::messages.custom_select_placeholder',
+        public bool $optional = false,
+        public string $valueField = 'value',
+        public string $textField = 'text',
+        public string $disabledField = 'disabled',
+        public bool $filterable = false,
+        public null|string $clearIcon = null,
+        public bool $disabled = false,
+        public bool $fixedPosition = false,
+        public null|string $selectedIcon = null,
+        public null|string $uncheckIcon = null,
+        public bool $maxOptionsSelected = false,
+        public bool|null|string $optionDisplay = false,
+        public bool|null|string $buttonDisplay = false,
+        public array $wireListeners = [],
+        null|string $emptyText = 'form-components::messages.custom_select_empty_text',
+        public bool $convertValuesToString = false,
+        public null|string $containerClass = null,
     ) {
         parent::__construct(
-            $name,
-            $id,
-            [],
-            $value,
-            $multiple,
-            $maxWidth,
-            $showErrors,
-            $leadingAddon,
-            $inlineAddon,
-            $inlineAddonPadding,
-            $leadingIcon,
-            null,
-            null,
-            null
+            name: $name,
+            id: $id,
+            value: $value,
+            multiple: $multiple,
+            maxWidth: $maxWidth,
+            showErrors: $showErrors,
+            leadingAddon: $leadingAddon,
+            inlineAddon: $inlineAddon,
+            inlineAddonPadding: $inlineAddonPadding,
+            leadingIcon: $leadingIcon,
+            containerClass: $containerClass,
         );
 
-        $this->options = $options;
-        $this->placeholder = $placeholder;
-        $this->optional = $optional;
-        $this->valueField = $valueField;
-        $this->textField = $textField;
-        $this->disabledField = $disabledField;
-        $this->filterable = $filterable;
-        $this->clearIcon = $clearIcon ?? config('form-components.components.custom-select.clear_icon');
-        $this->disabled = $disabled;
-        $this->fixedPosition = $fixedPosition;
-        $this->maxOptionsSelected = $maxOptionsSelected;
-        $this->optionDisplay = $optionDisplay;
-        $this->buttonDisplay = $buttonDisplay;
-        $this->wireListeners = $wireListeners;
-        $this->selectedIcon = $selectedIcon ?? config('form-components.components.custom-select.selected_icon');
-        $this->uncheckIcon = $uncheckIcon ?? config('form-components.components.custom-select.uncheck_icon');
-        $this->emptyText = $emptyText;
-
+        $this->resolveIcons();
         $this->normalizeOptions($convertValuesToString);
+        $this->placeholder = __($placeholder);
+        $this->emptyText = __($emptyText);
     }
 
     private function normalizeOptions(bool $convertValuesToString): void
@@ -115,14 +82,14 @@ class CustomSelect extends Select
 
     public function buttonClass(): string
     {
-        return implode(' ', array_filter([
+        return collect([
             'custom-select__button',
             $this->getAddonClass(),
             $this->hasErrorsAndShow($this->name) ? 'input-error' : null,
-        ]));
+        ])->filter()->implode(' ');
     }
 
-    public function selectedKeyToJS()
+    public function selectedKeyToJS(): mixed
     {
         if (is_null($this->selectedKey)) {
             return "''";
@@ -131,6 +98,16 @@ class CustomSelect extends Select
         return is_string($this->selectedKey)
             ? "'{$this->selectedKey}'"
             : $this->selectedKey;
+    }
+
+    public function getContainerClass(): string
+    {
+        return collect([
+            'custom-select-container',
+            'form-text-container',
+            $this->maxWidth,
+            $this->containerClass,
+        ])->filter()->implode(' ');
     }
 
     public function config(): array
@@ -157,5 +134,12 @@ class CustomSelect extends Select
     public function configToJson(): string
     {
         return '...' . json_encode((object) $this->config()) . ',';
+    }
+
+    private function resolveIcons(): void
+    {
+        $this->clearIcon = $this->clearIcon ?? config('form-components.components.custom-select.clear_icon');
+        $this->selectedIcon = $this->selectedIcon ?? config('form-components.components.custom-select.selected_icon');
+        $this->uncheckIcon = $this->uncheckIcon ?? config('form-components.components.custom-select.uncheck_icon');
     }
 }

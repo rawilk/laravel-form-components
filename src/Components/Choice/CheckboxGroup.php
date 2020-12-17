@@ -6,10 +6,5 @@ use Rawilk\FormComponents\Components\BladeComponent;
 
 class CheckboxGroup extends BladeComponent
 {
-    public bool $stacked;
-
-    public function __construct(bool $stacked = true)
-    {
-        $this->stacked = $stacked;
-    }
+    public function __construct(public bool $stacked = true) {}
 }

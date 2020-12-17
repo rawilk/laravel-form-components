@@ -15,23 +15,36 @@ trait HasAddons
 
     protected function getAddonClass(): string
     {
-        $class = '';
+        return collect([
+            $this->leadingAddonClass(),
+            $this->trailingAddonClass(),
+        ])->filter()->implode(' ');
+    }
 
+    protected function leadingAddonClass(): null|string
+    {
         if ($this->leadingAddon) {
-            $class .= ' has-leading-addon';
-        } elseif ($this->inlineAddon) {
-            $class .= " {$this->inlineAddonPadding}";
-        } elseif ($this->leadingIcon) {
-            $class .= ' has-leading-icon';
+            return 'has-leading-addon';
+        }
+
+        if ($this->inlineAddon) {
+            return $this->inlineAddonPadding;
+        }
+
+        return $this->leadingIcon ? 'has-leading-icon' : null;
+    }
+
+    protected function trailingAddonClass(): null|string
+    {
+        if (property_exists($this, 'ignoreAddons') && $this->ignoreAddons) {
+            return null;
         }
 
         if ($this->trailingAddon) {
-            $class .= " {$this->trailingAddonPadding}";
-        } elseif ($this->trailingIcon) {
-            $class .= ' has-trailing-icon';
+            return $this->trailingAddonPadding;
         }
 
-        return $class;
+        return $this->trailingIcon ? 'has-trailing-icon' : null;
     }
 
     /**

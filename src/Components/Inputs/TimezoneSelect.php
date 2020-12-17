@@ -6,29 +6,14 @@ namespace Rawilk\FormComponents\Components\Inputs;
 
 class TimezoneSelect extends Select
 {
-    /** @var string */
-    public $selectedKey;
-
-    public bool $multiple;
-
-    /** @var string */
-    public $maxWidth;
-
-    public $only;
-
-    // Options that apply if using custom select...
-    public bool $useCustomSelect;
-    public bool $filterable;
-    public bool $optional;
-    public $placeholder;
-    public bool $fixedPosition;
+    public null|string $placeholder;
 
     public function __construct(
-        string $name = '',
-        string $id = null,
-        $value = null,
-        bool $multiple = false,
-        string $maxWidth = null,
+        public null|string $name = null,
+        public null|string $id = null,
+        public mixed $value = null,
+        public bool $multiple = false,
+        public null|string $maxWidth = null,
         bool $showErrors = true,
         $leadingAddon = false,
         $inlineAddon = false,
@@ -37,36 +22,33 @@ class TimezoneSelect extends Select
         $trailingAddon = false,
         $trailingAddonPadding = self::DEFAULT_TRAILING_ADDON_PADDING,
         $trailingIcon = false,
-        $only = null,
-        bool $useCustomSelect = false,
-        bool $filterable = true,
-        bool $optional = false,
-        string $placeholder = 'Select a timezone',
-        bool $fixedPosition = false
+        public bool|array|string|null $only = null,
+        public bool $useCustomSelect = false,
+        public bool $filterable = true,
+        public bool $optional = false,
+        null|string $placeholder = 'form-components::messages.timezone_select_placeholder',
+        public bool $fixedPosition = false,
+        public null|string $containerClass = null,
     ) {
         parent::__construct(
-            $name,
-            $id,
-            [],
-            $value,
-            $multiple,
-            $maxWidth,
-            $showErrors,
-            $leadingAddon,
-            $inlineAddon,
-            $inlineAddonPadding,
-            $leadingIcon,
-            $trailingAddon,
-            $trailingAddonPadding,
-            $trailingIcon
+            name: $name,
+            id: $id,
+            value: $value,
+            multiple: $multiple,
+            maxWidth: $maxWidth,
+            showErrors: $showErrors,
+            leadingAddon: $leadingAddon,
+            inlineAddon: $inlineAddon,
+            inlineAddonPadding: $inlineAddonPadding,
+            leadingIcon: $leadingIcon,
+            trailingAddon: $trailingAddon,
+            trailingAddonPadding: $trailingAddonPadding,
+            trailingIcon: $trailingIcon,
+            containerClass: $containerClass,
         );
 
         $this->only = is_null($only) ? config('form-components.timezone_subset', false) : $only;
-        $this->useCustomSelect = $useCustomSelect;
-        $this->filterable = $filterable;
-        $this->optional = $optional;
-        $this->placeholder = $placeholder;
-        $this->fixedPosition = $fixedPosition;
+        $this->placeholder = __($placeholder);
     }
 
     public function optionsForCustomSelect(): array

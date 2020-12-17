@@ -67,11 +67,17 @@ class FormComponentsServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../resources/views' => $this->app->resourcePath('views/vendor/form-components'),
         ], 'views');
+
+        $this->publishes([
+            __DIR__ . '/../resources/lang' => $this->app->resourcePath('lang/vendor/form-components'),
+        ], 'lang');
     }
 
     private function bootResources(): void
     {
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'form-components');
+
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'form-components');
     }
 
     private function bootDirectives(): void

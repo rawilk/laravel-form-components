@@ -31,10 +31,10 @@ class PasswordTest extends ComponentTestCase
         $expected = <<<HTML
         <div x-data="{ show: false }"
              class="{$containerClass}">
-            <input class="form-input form-text password-toggleable has-trailing-icon" name="password" id="password" :type="show ? 'text' : 'password'" />
+            <input class="form-input form-text password-toggleable has-trailing-icon" name="password" id="password" x-bind:type="show ? 'text' : 'password'" />
 
             <div x-on:click="show = ! show"
-                 :title="show ? 'Hide' : 'Show'"
+                 x-bind:title="show ? 'Hide' : 'Show'"
                  class="trailing-icon password-toggle clickable"
                  x-cloak>
                 <span x-show="! show">
@@ -85,10 +85,10 @@ class PasswordTest extends ComponentTestCase
              class="{$containerClass}">
              <span class="leading-addon">foo</span>
 
-            <input class="form-input form-text has-leading-addon password-toggleable has-trailing-icon" name="password" id="password" :type="show ? 'text' : 'password'" />
+            <input class="form-input form-text has-leading-addon password-toggleable has-trailing-icon" name="password" id="password" x-bind:type="show ? 'text' : 'password'" />
 
             <div x-on:click="show = ! show"
-                 :title="show ? 'Hide' : 'Show'"
+                 x-bind:title="show ? 'Hide' : 'Show'"
                  class="trailing-icon password-toggle clickable"
                  x-cloak>
                 <span x-show="! show">
@@ -148,10 +148,10 @@ class PasswordTest extends ComponentTestCase
              class="{$containerClass}">
              <span class="leading-addon">foo</span>
 
-            <input class="form-input form-text has-leading-addon password-toggleable has-trailing-icon" name="password" id="password" :type="show ? 'text' : 'password'" />
+            <input class="form-input form-text has-leading-addon password-toggleable has-trailing-icon" name="password" id="password" x-bind:type="show ? 'text' : 'password'" />
 
             <div x-on:click="show = ! show"
-                 :title="show ? 'Hide' : 'Show'"
+                 x-bind:title="show ? 'Hide' : 'Show'"
                  class="trailing-icon password-toggle clickable"
                  x-cloak>
                 <span x-show="! show">
@@ -166,5 +166,37 @@ class PasswordTest extends ComponentTestCase
         HTML;
 
         $this->assertComponentRenders($expected, $template);
+    }
+
+    /** @test */
+    public function accepts_a_container_class(): void
+    {
+        $this->withViewErrors([]);
+
+        $expected = <<<HTML
+        <div class="form-text-container foo">
+            <input class="form-input form-text" name="name" id="name" type="password" />
+        </div>
+        HTML;
+
+        $data = [
+            'show' => false,
+        ];
+
+        $this->assertComponentRenders($expected, '<x-password :show-toggle="$show" name="name" container-class="foo" />', $data);
+    }
+
+    /** @test */
+    public function name_can_be_omitted(): void
+    {
+        $this->withViewErrors([]);
+
+        $expected = <<<HTML
+        <div class="form-text-container">
+            <input class="form-input form-text" type="password" />
+        </div>
+        HTML;
+
+        $this->assertComponentRenders($expected, '<x-password :show-toggle="$show" />', ['show' => false]);
     }
 }

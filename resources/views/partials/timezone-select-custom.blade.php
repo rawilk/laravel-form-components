@@ -5,5 +5,6 @@
                  :fixed-position="$fixedPosition"
                  :max-width="$maxWidth"
                  :options="$optionsForCustomSelect()"
+                 :container-class="$containerClass"
                  {{ $attributes }}
 />

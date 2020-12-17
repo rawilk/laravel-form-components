@@ -11,36 +11,15 @@ class Checkbox extends BladeComponent
 
     public string $type = 'checkbox';
 
-    /** @var string */
-    public $name;
-
-    /** @var string */
-    public $id;
-
-    /** @var string */
-    public $label;
-
-    /** @var mixed */
-    public $value;
-
-    /** @var string */
-    public $description;
-
-    public bool $checked;
-
     public function __construct(
-        string $name = '',
-        string $id = null,
-        $value = null,
-        string $label = null,
-        string $description = '',
-        bool $checked = false
+        public null|string $name = null,
+        public null|string $id = null,
+        public mixed $value = null,
+        public null|string $label = null,
+        public null|string $description = '',
+        public bool $checked = false
     ) {
-        $this->name = $name;
-        $this->id = $id ?? $name;
-        $this->value = $value;
-        $this->description = $description;
-        $this->label = $label;
-        $this->checked = (bool) old($name, $checked);
+        $this->id = $this->id ?? $this->name;
+        $this->checked = (bool) old($this->name, $this->checked);
     }
 }

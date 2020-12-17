@@ -1,10 +1,10 @@
-<div class="form-text-container {{ $maxWidth }}">
+<div class="{{ $getContainerClass() }}">
     @include('form-components::partials.leading-addons')
 
     <input
         {{ $attributes->merge(['class' => $inputClass()]) }}
 
-        name="{{ $name }}"
+        @if ($name) name="{{ $name }}" @endif
         @if ($id) id="{{ $id }}" @endif
         type="{{ $type }}"
 

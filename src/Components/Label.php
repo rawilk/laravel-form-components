@@ -6,13 +6,7 @@ use Illuminate\Support\Str;
 
 class Label extends BladeComponent
 {
-    /** @var string */
-    public $for;
-
-    public function __construct(string $for = '')
-    {
-        $this->for = $for;
-    }
+    public function __construct(public string $for = '') {}
 
     public function fallback(): string
     {

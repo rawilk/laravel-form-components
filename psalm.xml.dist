@@ -18,4 +18,8 @@
     <plugins>
         <pluginClass class="Psalm\LaravelPlugin\Plugin"/>
     </plugins>
+
+    <issueHandlers>
+        <UndefinedThisPropertyFetch errorLevel="suppress" />
+    </issueHandlers>
 </psalm>

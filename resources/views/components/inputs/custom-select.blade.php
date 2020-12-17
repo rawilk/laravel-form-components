@@ -19,7 +19,7 @@
      x-on:keydown.end.prevent="onEnd()"
      x-on:keydown.tab="close()"
      wire:ignore.self
-     class="custom-select-container form-text-container {{ $maxWidth }}"
+     class="{{ $getContainerClass() }}"
 >
     @include('form-components::partials.leading-addons')
     @include('form-components::partials.custom-select-button')
@@ -43,7 +43,7 @@
                        @endif
                        x-model.debounce.300ms="search"
                        type="search"
-                       placeholder="{{ __('Search...') }}"
+                       placeholder="{{ __('form-components::messages.custom_select_filter_placeholder') }}"
                        class="custom-select__filter-input"
                 />
 

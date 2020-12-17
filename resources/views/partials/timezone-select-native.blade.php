@@ -1,7 +1,7 @@
-<div class="form-text-container {{ $maxWidth }}">
+<div class="{{ $getContainerClass() }}">
     @include('form-components::partials.leading-addons')
 
-    <select name="{{ $name }}"
+    <select @if ($name) name="{{ $name }}" @endif
             @if ($id) id="{{ $id }}" @endif
             @if ($multiple) multiple @endif
 

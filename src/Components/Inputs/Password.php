@@ -7,55 +7,47 @@ namespace Rawilk\FormComponents\Components\Inputs;
 class Password extends Input
 {
     protected static array $assets = ['alpine'];
-
-    public bool $showToggle;
-    public ?string $showPasswordIcon;
-    public ?string $hidePasswordIcon;
+    protected bool $ignoreAddons = true;
 
     public function __construct(
-        string $name = '',
-        string $id = null,
-        $value = null,
-        string $maxWidth = null,
+        public null|string $name = null,
+        public null|string $id = null,
+        public mixed $value = null,
+        public null|string $maxWidth = null,
         bool $showErrors = true,
         $leadingAddon = false,
         $inlineAddon = false,
         $inlineAddonPadding = self::DEFAULT_INLINE_ADDON_PADDING,
         $leadingIcon = false,
-        bool $showToggle = true,
-        string $showPasswordIcon = null,
-        string $hidePasswordIcon = null
+        public bool $showToggle = true,
+        public null|string $showPasswordIcon = null,
+        public null|string $hidePasswordIcon = null,
+        public null|string $containerClass = null,
     ) {
         parent::__construct(
-            $name,
-            $id,
-            'password',
-            $value,
-            $maxWidth,
-            $showErrors,
-            $leadingAddon,
-            $inlineAddon,
-            $inlineAddonPadding,
-            $leadingIcon,
-            null,
-            null,
-            null
+            name: $name,
+            id: $id,
+            type: 'password',
+            value: $value,
+            maxWidth: $maxWidth,
+            showErrors: $showErrors,
+            containerClass: $containerClass,
+            leadingAddon: $leadingAddon,
+            inlineAddon: $inlineAddon,
+            inlineAddonPadding: $inlineAddonPadding,
+            leadingIcon: $leadingIcon,
         );
 
-        $this->showToggle = $showToggle;
-        $this->showPasswordIcon = $showPasswordIcon ?? config('form-components.components.password.show_password_icon');
-        $this->hidePasswordIcon = $hidePasswordIcon ?? config('form-components.components.password.hide_password_icon');
+        $this->showPasswordIcon = $this->showPasswordIcon ?? config('form-components.components.password.show_password_icon');
+        $this->hidePasswordIcon = $this->hidePasswordIcon ?? config('form-components.components.password.hide_password_icon');
     }
 
     public function inputClass(): string
     {
-        $class = parent::inputClass();
-
-        if ($this->showToggle) {
-            $class .= ' password-toggleable has-trailing-icon';
-        }
-
-        return $class;
+        return collect([
+            parent::inputClass(),
+            $this->showToggle ? 'password-toggleable has-trailing-icon' : null,
+        ])->filter()->implode(' ');
     }
 
     public function containerClass(): string
@@ -65,8 +57,7 @@ class Password extends Input
             : 'primary';
 
         return collect([
-            'form-text-container',
-            $this->maxWidth,
+            $this->getContainerClass(),
             $this->showToggle ? "focus-within:ring-4 focus-within:ring-opacity-50 focus-within:ring-{$shadowColor}-400 focus-within:border-{$shadowColor}-300 rounded-md" : null,
         ])->filter()->implode(' ');
     }

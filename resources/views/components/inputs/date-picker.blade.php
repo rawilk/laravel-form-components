@@ -14,7 +14,7 @@
         {{ $optionsSlot ?? '' }}
      })"
      x-on:change="value = $event.target.value; fp.setDate(value)"
-     class="form-text-container {{ $maxWidth }}"
+     class="{{ $getContainerClass() }}"
 >
     @if ($toggleIcon !== false)
         <span x-on:click="fp.open()"
@@ -32,7 +32,7 @@
         {{ $attributes->merge(['class' => $inputClass()])->except('type')->whereDoesntStartWith('wire:model') }}
 
         wire:ignore
-        name="{{ $name }}"
+        @if ($name) name="{{ $name }}" @endif
         @if ($id) id="{{ $id }}" @endif
         x-ref="input"
         x-bind:value="value"

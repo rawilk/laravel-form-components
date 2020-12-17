@@ -17,3 +17,12 @@
 .choice-description {
     @apply text-blue-gray-500;
 }
+
+// Disabled state
+.form-checkbox,
+.form-radio {
+    &[disabled],
+    &.disabled {
+        @apply opacity-75 text-blue-gray-300;
+    }
+}

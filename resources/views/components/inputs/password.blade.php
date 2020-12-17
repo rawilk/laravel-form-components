@@ -8,11 +8,11 @@
     <input
         {{ $attributes->merge(['class' => $inputClass()]) }}
 
-        name="{{ $name }}"
+        @if ($name) name="{{ $name }}" @endif
         @if ($id) id="{{ $id }}" @endif
 
         @if ($showToggle)
-            :type="show ? 'text' : 'password'"
+            x-bind:type="show ? 'text' : 'password'"
         @else
             type="password"
         @endif
@@ -30,7 +30,7 @@
 
     @if ($showToggle)
         <div x-on:click="show = ! show"
-             :title="show ? '{{ __('Hide') }}' : '{{ __('Show') }}'"
+             x-bind:title="show ? '{{ __('Hide') }}' : '{{ __('Show') }}'"
              class="trailing-icon password-toggle clickable"
              x-cloak
         >

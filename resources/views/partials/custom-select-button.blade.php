@@ -28,7 +28,7 @@
                     type="button"
                     class="custom-select-clear"
             >
-                <span class="sr-only">{{ __('Clear selected') }}</span>
+                <span class="sr-only">{{ __('form-components::messages.custom_select_clear_button') }}</span>
                 <x-dynamic-component :component="$clearIcon" class="h-4 w-4" />
             </button>
         @endif
