@@ -48,6 +48,7 @@ class CustomSelect extends Select
         parent::__construct(
             name: $name,
             id: $id,
+            options: $options,
             value: $value,
             multiple: $multiple,
             maxWidth: $maxWidth,
