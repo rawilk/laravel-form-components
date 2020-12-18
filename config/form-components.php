@@ -63,6 +63,11 @@ return [
             'view' => 'form-components::components.choice.checkbox-or-radio',
         ],
 
+        'switch-toggle' => [
+            'class' => Components\Choice\SwitchToggle::class,
+            'view' => 'form-components::components.choice.switch-toggle',
+        ],
+
         'select' => [
             'class' => Components\Inputs\Select::class,
             'view' => 'form-components::components.inputs.select',

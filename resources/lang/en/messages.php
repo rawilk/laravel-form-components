@@ -10,4 +10,5 @@ return [
     'custom_select_empty_text' => 'No options available...',
     'date_picker_placeholder' => 'Y-m-d',
     'timezone_select_placeholder' => 'Select a timezone',
+    'switch_button_label' => 'Turn on',
 ];

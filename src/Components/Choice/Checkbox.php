@@ -17,7 +17,7 @@ class Checkbox extends BladeComponent
         public mixed $value = null,
         public null|string $label = null,
         public null|string $description = '',
-        public bool $checked = false
+        public bool $checked = false,
     ) {
         $this->id = $this->id ?? $this->name;
         $this->checked = (bool) old($this->name, $this->checked);
