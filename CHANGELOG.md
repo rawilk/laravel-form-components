@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 3.0.1 - 2020-12-18
+### Fixed
+- Fix issue on `custom-select` where options were always empty
+
 ## 3.0.0 - 2020-12-18
 ### Breaking Changes
 - Drop support for php 7
