@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 3.0.0 - 2020-12-18
+### Breaking Changes
+- Drop support for php 7
+
+### Added
+- Add `container-class` prop to inputs
+- Add language file for any text used in components
+- Add switch toggle component (`<x-switch-toggle />`)
+
+### Changed
+- Allow `form-group` component label to be omitted by passing in `false` for `label`
+- Update alpine dependency to version `2.8.0`
+- Lighten up input placeholder color (apply `placeholder-gray-400` to inputs)
+
 ## 2.0.2 - 2020-11-30
 ### Added
 - Add class `group` to custom select option elements
