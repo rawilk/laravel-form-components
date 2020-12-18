@@ -10,10 +10,10 @@ By using it, you can simply add a date and/or time picker to your form with one 
 
 ## Installation
 
-While the `date-picker` component works out-of-the-box when you've [set the directives](/docs/laravel-form-components/v2/installation#directives),
+While the `date-picker` component works out-of-the-box when you've [set the directives](/docs/laravel-form-components/v3/installation#directives),
 we recommend that you install and compile the JavaScript libraries before you deploy to production:
 
-- [Alpine.js](https://github.com/alpinejs/alpine) `^2.7`
+- [Alpine.js](https://github.com/alpinejs/alpine) `^2.8`
 - [Flatpickr](https://flatpickr.js.org/) `4.6.3`
 
 Make sure you import flatpickr as `flatpickr` in your JavaScript, and make sure it's available globally:
@@ -157,4 +157,4 @@ For more information on the callbacks available, please consult [the events api]
 Like the other inputs, the date picker can also have leading and trailing addons, however by default you cannot add them.
 To add leading addons, you must disable the toggle icon, and for trailing addons, you must set `clearable` to `false`.
 
-See the [input documentation](/docs/laravel-form-components/v2/components/input#addons) for more information.
+See the [input documentation](/docs/laravel-form-components/v3/components/input#addons) for more information.

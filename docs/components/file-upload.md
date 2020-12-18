@@ -13,7 +13,7 @@ as well just by adding a `wire:model` to the input.
 Even though the `file-upload` component will work out-of-the-box if you're using the script blade directives in your layout (`@fcScripts`),
 we recommend that you install and compile the JavaScript libraries before you deploy to production.
 
-- [Alpine.js](https://github.com/alpinejs/alpine) `^2.7`
+- [Alpine.js](https://github.com/alpinejs/alpine) `^2.8`
 
 ## Basic Usage
 

@@ -3,6 +3,14 @@ title: Upgrade
 sort: 4
 ---
 
+## Upgrading from v2 to v3
+
+The only major requirement for upgrading from v2 is to ensure your server and/or local dev environment is running on php version 8. As with any release,
+you should make sure you are re-compiling your css assets (if pulling in the package's styles) and also clear your cached views (`php artisan view:clear`)
+to ensure the correct views are being used.
+
+If you published the package's config file, make sure you update it to match any changes made to it.
+
 ## Upgrading from v1 to v2
 
 Version 2 introduced some breaking changes, which are outlined below:
