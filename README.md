@@ -64,10 +64,6 @@ try one of these alternatives if your needs differ:
 - [Blade UI Kit](https://blade-ui-kit.com/)
 - [Laravel Form Components](https://github.com/protonemedia/laravel-form-components)
 
-## Roadmap
-
-- Add more form components, such as file inputs and date pickers.
-
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
