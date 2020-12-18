@@ -5,10 +5,10 @@ sort: 2
 
 ## General Requirements
 
--   PHP **7.4** or greater
+-   PHP **8.0** or greater
 -   Laravel **8.0** or greater
 -   TailwindUI for styling
--   AlpineJS
+-   Alpine.js
 -   Blade Heroicons
 
 ## Version Matrix
