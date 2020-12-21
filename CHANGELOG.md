@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 3.0.2 - 2020-12-21
+### Fixed
+- Fix issue with `checked` attribute always being set to `false` on checkbox component
+
 ## 3.0.1 - 2020-12-18
 ### Fixed
 - Fix issue on `custom-select` where options were always empty
