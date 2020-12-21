@@ -20,6 +20,9 @@ class Checkbox extends BladeComponent
         public bool $checked = false,
     ) {
         $this->id = $this->id ?? $this->name;
-        $this->checked = (bool) old($this->name, $this->checked);
+
+        if ($this->name) {
+            $this->checked = (bool) old($this->name, $this->checked);
+        }
     }
 }
