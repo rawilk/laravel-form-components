@@ -49,6 +49,10 @@ class Input extends BladeComponent
         $this->trailingAddon = $trailingAddon;
         $this->trailingAddonPadding = $trailingAddonPadding;
         $this->trailingIcon = $trailingIcon;
+
+        if (is_array($this->value)) {
+            $this->value = json_encode($this->value);
+        }
     }
 
     public function inputClass(): string
