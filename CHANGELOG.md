@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 3.0.3 - 2021-01-08
+### Fixed
+- Fix array to string conversion error with `<x-input>` on value field
+
 ## 3.0.2 - 2020-12-21
 ### Fixed
 - Fix issue with `checked` attribute always being set to `false` on checkbox component
