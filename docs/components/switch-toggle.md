@@ -139,5 +139,7 @@ toggle component allows you to specify icons to display on the button for both "
 </x-switch-toggle>
 ```
 
-In this example, you will see an "x" icon when the switch is "off", and a checkmark icon when the switch is "on". **Note:** This example requires the 
+In this example, you will see an "x" icon when the switch is "off", and a checkmark icon when the switch is "on".
+
+> {note} This example requires the 
 [blade heroicon](https://github.com/blade-ui-kit/blade-heroicons) package.
