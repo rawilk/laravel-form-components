@@ -71,7 +71,7 @@ You may override the views, either by using your own views and specifying them i
 php artisan fc:publish --views
 ```
 
-**Note:** This will also publish the package's configuration as well.
+> {note} This will also publish the package's configuration as well.
 
 ## Styling
 
