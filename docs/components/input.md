@@ -25,12 +25,10 @@ This will output the following HTML:
 </div>
 ```
 
-{.tip}
-> **Note:** The class 'form-input' comes from Tailwind UI, so be sure to have those styles pulled
-> into your project. The class 'form-text' is a custom style from this package, so be sure to include
+> {note} The class 'form-text' is a custom style from this package, so be sure to include
 > the package's stylesheet in your build as well.
 
-By default a `text` type will be set for the input field as well as an `id` that allows
+By default, a `text` type will be set for the input field as well as an `id` that allows
 it to be easily referenced by a `label` element.
 
 Of course, you can also specify a `type` and `id` attribute manually too:
@@ -229,6 +227,5 @@ This will output:
 </div>
 ```
 
-{.tip}
-> **Note:** The leading and trailing addons can also be applied the same way to the textarea, select, email, and password
+> {tip} The leading and trailing addons can also be applied the same way to the textarea, select, email, and password
 > inputs provided by this package.
