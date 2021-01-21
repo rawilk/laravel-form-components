@@ -81,8 +81,7 @@ that flatpickr generates. If you want to prevent the button/icon from being disp
 <x-date-picker :toggle-icon="false" />
 ```
 
-{.tip}
-> If you disable the toggle button, be sure to set `click-opens` to `true` on the component.
+> {tip} If you disable the toggle button, be sure to set `click-opens` to `true` on the component.
 
 You can also change the icon that is used for the toggle button either by setting the `toggle-icon` attribute, or by changing
 it globally [in the config](https://github.com/rawilk/laravel-form-components/blob/master/config/form-components.php#L103).
@@ -130,8 +129,7 @@ to be available as well. By default, the component sets this value to `false`.
 If you pass a format (e.g. `Y-m-d`) attribute to the component, it will set the `dateFormat` option on flatpickr. This option
 defines how the date is displayed in the input, but **also how it is sent to the server**.
 
-{.tip}
-> Please note that only scalar values are supported. You cannot use any JavaScript language specific options
+> {tip} Please note that only scalar values are supported. You cannot use any JavaScript language specific options
 > like callbacks.
 
 ## Callbacks
