@@ -190,7 +190,6 @@ This will output:
 </div>
 ```
 
-{.tip}
-> **Tip:** To help space your form elements evenly in a form, you should use a `space-y-*` utility class
+> {tip} To help space your form elements evenly in a form, you should use a `space-y-*` utility class
 > provided by tailwind on the wrapping element (usually `<form>`).
 >
