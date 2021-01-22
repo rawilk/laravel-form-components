@@ -55,7 +55,7 @@ This will output the following HTML:
 </div>
 ```
 
-**Note:** Since the component applies a class of `sr-only` (hides the input) to the input itself, the input must have an id assigned to it
+> {note} Since the component applies a class of `sr-only` (hides the input) to the input itself, the input must have an id assigned to it
 for the label to be able to trigger a click on the input. By default, the component assigns the `id` to the `name` attribute if you don't
 provide an `id` to it.
 
@@ -71,7 +71,7 @@ for the `display-upload-progress` attribute.
 <x-file-upload wire:model="avatar" :display-upload-progress="false" />
 ```
 
-**Note:** Since the upload progress hooks into livewire events, it will not be shown unless you provide a `wire:model` to it.
+> {note} Since the upload progress hooks into livewire events, it will not be shown unless you provide a `wire:model` to it.
 
 ## Custom Button Label
 
