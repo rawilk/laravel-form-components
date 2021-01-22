@@ -14,7 +14,7 @@ While the `date-picker` component works out-of-the-box when you've [set the dire
 we recommend that you install and compile the JavaScript libraries before you deploy to production:
 
 - [Alpine.js](https://github.com/alpinejs/alpine) `^2.7`
-- [Flatpickr](https://flatpickr.js.org/) `4.6.3`
+- [Flatpickr](https://flatpickr.js.org/) `^4.6.9`
 
 Make sure you import flatpickr as `flatpickr` in your JavaScript, and make sure it's available globally:
 
@@ -23,9 +23,6 @@ import flatpickr from 'flatpickr';
 
 window.flatpickr = flatpickr;
 ```
-
-**Note:** There is a bug introduced to flatpickr with the latest release that affects chrome users on MacOS. For this reason,
-you should lock your version to `4.6.3` until a fix for this issue is released. See [the github issue](https://github.com/flatpickr/flatpickr/issues/2249) for more information.
 
 ### Styling
 
