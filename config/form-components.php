@@ -205,7 +205,7 @@ return [
 
         'flatpickr' => [
             'https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css',
-            'https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.3/flatpickr.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.js',
         ],
 
         'filepond' => [
