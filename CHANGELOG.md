@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 3.0.4 - 2021-01-22
+### Updated
+- Update flatpickr dependency to version `4.6.9`
+
 ## 3.0.3 - 2021-01-08
 ### Fixed
 - Fix array to string conversion error with `<x-input>` on value field
