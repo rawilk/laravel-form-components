@@ -74,7 +74,7 @@ In either case, you still need to provide the `option` attribute, and then any v
 is used by the package's JavaScript to help with keyboard navigation and also for local [filtering](#server-side-filtering) of options if you
 have filters enabled on the select.
 
-**Note:** Any content you place inside of the option will also be displayed on the button when the option is selected.
+> {note} Any content you place inside of the option will also be displayed on the button when the option is selected.
 
 ### Disabling Options
 

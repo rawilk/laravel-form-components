@@ -14,7 +14,7 @@ While the `date-picker` component works out-of-the-box when you've [set the dire
 we recommend that you install and compile the JavaScript libraries before you deploy to production:
 
 - [Alpine.js](https://github.com/alpinejs/alpine) `^2.7`
-- [Flatpickr](https://flatpickr.js.org/) `4.6.3`
+- [Flatpickr](https://flatpickr.js.org/) `^4.6.9`
 
 Make sure you import flatpickr as `flatpickr` in your JavaScript, and make sure it's available globally:
 
@@ -23,9 +23,6 @@ import flatpickr from 'flatpickr';
 
 window.flatpickr = flatpickr;
 ```
-
-**Note:** There is a bug introduced to flatpickr with the latest release that affects chrome users on MacOS. For this reason,
-you should lock your version to `4.6.3` until a fix for this issue is released. See [the github issue](https://github.com/flatpickr/flatpickr/issues/2249) for more information.
 
 ### Styling
 
@@ -81,10 +78,9 @@ that flatpickr generates. If you want to prevent the button/icon from being disp
 <x-date-picker :toggle-icon="false" />
 ```
 
-{.tip}
-> If you disable the toggle button, be sure to set `click-opens` to `true` on the component.
+> {note} If you disable the toggle button, be sure to set `click-opens` to `true` on the component.
 
-You can also change the icon that is used for the toggle button either by setting the `toggle-icon` attribute, or by changing
+> {tip} You can also change the icon that is used for the toggle button either by setting the `toggle-icon` attribute, or by changing
 it globally [in the config](https://github.com/rawilk/laravel-form-components/blob/master/config/form-components.php#L103).
 
 ## Clearing
@@ -130,8 +126,7 @@ to be available as well. By default, the component sets this value to `false`.
 If you pass a format (e.g. `Y-m-d`) attribute to the component, it will set the `dateFormat` option on flatpickr. This option
 defines how the date is displayed in the input, but **also how it is sent to the server**.
 
-{.tip}
-> Please note that only scalar values are supported. You cannot use any JavaScript language specific options
+> {note} Please note that only scalar values are supported. You cannot use any JavaScript language specific options
 > like callbacks.
 
 ## Callbacks

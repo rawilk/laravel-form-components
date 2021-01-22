@@ -79,7 +79,7 @@ The show and hide icons can be configured via config:
 ],
 ```
 
-**Note:** The icons set here are rendered via the `svg` helper function provided by Blade Heroicons. If you are using a different icon set, make sure that helper function exists.
+> {note} The icons set here are rendered via the `svg` helper function provided by Blade Heroicons. If you are using a different icon set, make sure that helper function exists.
 
 ## Show Password Toggle
 
