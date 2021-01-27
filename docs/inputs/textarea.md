@@ -1,6 +1,6 @@
 ---
 title: Textarea
-sort: 6
+sort: 2
 ---
 
 ## Introduction

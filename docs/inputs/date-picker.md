@@ -1,6 +1,6 @@
 ---
 title: Date Picker
-sort: 15
+sort: 8
 ---
 
 ## Introduction

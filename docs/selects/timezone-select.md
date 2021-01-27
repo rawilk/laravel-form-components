@@ -1,6 +1,6 @@
 ---
 title: Timezone Select
-sort: 14
+sort: 3
 ---
 
 ## Introduction

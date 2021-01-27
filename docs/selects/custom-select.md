@@ -1,6 +1,6 @@
 ---
 title: Custom Select
-sort: 8
+sort: 2
 ---
 
 ## Introduction

@@ -1,6 +1,6 @@
 ---
 title: Label
-sort: 11
+sort: 2
 ---
 
 ## Introduction

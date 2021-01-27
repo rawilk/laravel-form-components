@@ -1,6 +1,6 @@
 ---
 title: Password
-sort: 5
+sort: 3
 ---
 
 ## Introduction

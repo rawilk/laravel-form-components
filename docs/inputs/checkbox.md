@@ -1,6 +1,6 @@
 ---
 title: Checkbox
-sort: 9
+sort: 6
 ---
 
 ## Introduction

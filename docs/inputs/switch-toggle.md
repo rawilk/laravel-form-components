@@ -1,6 +1,6 @@
 ---
 title: Switch Toggle
-sort: 18
+sort: 9
 ---
 
 ## Introduction

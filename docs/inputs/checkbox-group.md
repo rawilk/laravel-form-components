@@ -1,6 +1,6 @@
 ---
 title: Checkbox Group
-sort: 10
+sort: 5
 ---
 
 ## Introduction
