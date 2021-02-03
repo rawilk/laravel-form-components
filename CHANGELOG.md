@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 3.0.5 - 2021-02-03
+### Fixed
+- Fix bug with multiple custom select "selectedOption" not updating correctly and throwing JS errors
+
 ## 3.0.4 - 2021-01-22
 ### Updated
 - Update flatpickr dependency to version `4.6.9`
