@@ -15,3 +15,4 @@
 /package.json       export-ignore
 /package-lock.json  export-ignore
 /rollup.config.js   export-ignore
+/bin                export-ignore
