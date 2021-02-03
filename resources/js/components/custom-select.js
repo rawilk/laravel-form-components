@@ -321,7 +321,7 @@ export default function customSelect(config) {
             if (this.value.includes(option.value)) {
                 if (this.optional || this.value.length > 1) {
                     this.value.splice(this.value.indexOf(option.value), 1);
-                    this.selectedOption.splice(this.selectedOption.findIndex(o => o.value === option.value), 1);
+                    this.selectedOption = [...this.value];
                 }
 
                 if (this.value.length === 0) {
@@ -335,7 +335,7 @@ export default function customSelect(config) {
 
             if (! this.max || Number(this.max) > this.value.length) {
                 this.value.push(option.value);
-                this.selectedOption.push(option);
+                this.selectedOption = [...this.value];
             }
         },
 
