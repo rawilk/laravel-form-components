@@ -49,7 +49,13 @@ class Select extends Input
 
     public function isSelected($key): bool
     {
-        if ($this->selectedKey === $key) {
+        /*
+         * Not using a strict comparison so that numeric key values can be shown
+         * as "selected" too. e.g. 1 == '1'
+         *
+         * See: https://github.com/rawilk/laravel-form-components/issues/11
+         */
+        if ($this->selectedKey == $key) {
             return true;
         }
 
