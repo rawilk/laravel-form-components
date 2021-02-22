@@ -43,7 +43,7 @@ should provide an array of keyed arrays for each option, or you can even pass in
 ]" />
 
 <!-- using models -->
-<x-custom-select :options="[\App\Models\User::get(['id', 'name'])]" value-key="id" text-key="name" />
+<x-custom-select :options="[\App\Models\User::get(['id', 'name'])]" value-field="id" text-field="name" />
 ```
 
 ### Option Values & Text
