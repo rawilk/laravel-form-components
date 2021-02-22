@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 3.0.6 - 2021-02-22
+### Fixed
+- Stop using strict comparison for finding a "selected" option in select component ([#11](https://github.com/rawilk/laravel-form-components/issues/11))
+
 ## 3.0.5 - 2021-02-03
 ### Fixed
 - Fix bug with multiple custom select "selectedOption" not updating correctly and throwing JS errors
