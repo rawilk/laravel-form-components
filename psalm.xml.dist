@@ -20,6 +20,7 @@
     </plugins>
 
     <issueHandlers>
-        <UndefinedThisPropertyFetch errorLevel="suppress" />
+        <UndefinedThisPropertyFetch errorLevel="suppress"/>
+        <UndefinedClass errorLevel="suppress"/>
     </issueHandlers>
 </psalm>
