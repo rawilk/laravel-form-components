@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 3.1.0 - 2021-02-24
+### Added
+- Add `extra-attributes` property to inputs to allow more options for attribute forwarding
+
 ## 3.0.6 - 2021-02-22
 ### Fixed
 - Stop using strict comparison for finding a "selected" option in select component ([#11](https://github.com/rawilk/laravel-form-components/issues/11))
