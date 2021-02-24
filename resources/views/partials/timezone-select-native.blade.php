@@ -13,7 +13,7 @@
                 @endif
             @endif
 
-            {{ $attributes->class($inputClass()) }}
+            {{ $attributes->merge(['class' => $inputClass()]) }}
             {{ $extraAttributes }}
     >
         {{ $slot }}
