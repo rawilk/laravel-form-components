@@ -29,6 +29,7 @@ class TimezoneSelect extends Select
         null|string $placeholder = 'form-components::messages.timezone_select_placeholder',
         public bool $fixedPosition = false,
         public null|string $containerClass = null,
+        public $extraAttributes = '',
     ) {
         parent::__construct(
             name: $name,
@@ -45,6 +46,7 @@ class TimezoneSelect extends Select
             trailingAddonPadding: $trailingAddonPadding,
             trailingIcon: $trailingIcon,
             containerClass: $containerClass,
+            extraAttributes: $extraAttributes,
         );
 
         $this->only = is_null($only) ? config('form-components.timezone_subset', false) : $only;

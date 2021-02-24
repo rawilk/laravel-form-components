@@ -27,6 +27,7 @@ class Select extends Input
         $trailingAddonPadding = self::DEFAULT_TRAILING_ADDON_PADDING,
         $trailingIcon = false,
         public null|string $containerClass = null,
+        public $extraAttributes = '',
     ) {
         parent::__construct(
             name: $name,
@@ -42,6 +43,7 @@ class Select extends Input
             trailingAddon: $trailingAddon,
             trailingAddonPadding: $trailingAddonPadding,
             trailingIcon: $trailingIcon,
+            extraAttributes: $extraAttributes,
         );
 
         $this->selectedKey = old($this->name, $this->value);

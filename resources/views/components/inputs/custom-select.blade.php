@@ -20,6 +20,7 @@
      x-on:keydown.tab="close()"
      wire:ignore.self
      class="{{ $getContainerClass() }}"
+     {{ $extraAttributes }}
 >
     @include('form-components::partials.leading-addons')
     @include('form-components::partials.custom-select-button')

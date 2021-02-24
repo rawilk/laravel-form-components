@@ -29,6 +29,7 @@
                    @endif
 
                    {{ $attributes->except('class') }}
+                   {{ $extraAttributes }}
             />
 
             <label for="{{ $id }}"

@@ -15,6 +15,7 @@
      }"
      wire:ignore.self
      class="{{ $getContainerClass() }}"
+     {{ $extraAttributes }}
 >
     @if ($label && $labelPosition === 'left')
         <span x-on:click="$refs.button.click(); $refs.button.focus();"

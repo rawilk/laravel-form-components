@@ -3,6 +3,7 @@
 
     <textarea @if ($name) name="{{ $name }}" @endif
               @if ($id) id="{{ $id }}" @endif
+              {{ $extraAttributes }}
               @if ($hasErrorsAndShow($name))
                   aria-invalid="true"
 

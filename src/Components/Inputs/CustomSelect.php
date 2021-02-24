@@ -44,6 +44,7 @@ class CustomSelect extends Select
         null|string $emptyText = 'form-components::messages.custom_select_empty_text',
         public bool $convertValuesToString = false,
         public null|string $containerClass = null,
+        public $extraAttributes = '',
     ) {
         parent::__construct(
             name: $name,
@@ -58,6 +59,7 @@ class CustomSelect extends Select
             inlineAddonPadding: $inlineAddonPadding,
             leadingIcon: $leadingIcon,
             containerClass: $containerClass,
+            extraAttributes: $extraAttributes,
         );
 
         $this->resolveIcons();

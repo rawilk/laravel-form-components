@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Rawilk\FormComponents\Tests\Components\Inputs;
 
+use Illuminate\Support\HtmlString;
 use Rawilk\FormComponents\Components\Inputs\Input;
 use Rawilk\FormComponents\Tests\Components\ComponentTestCase;
 
@@ -442,5 +443,29 @@ class InputTest extends ComponentTestCase
         HTML;
 
         $this->assertComponentRenders($expected, '<x-input />');
+    }
+
+    /** @test */
+    public function can_have_extra_attributes(): void
+    {
+        $this->withViewErrors([]);
+
+        $attributes = new HtmlString(implode(PHP_EOL, [
+            'x-data',
+            'x-ref="foo"',
+            'x-on:keydown="$wire.submit()"',
+        ]));
+
+        $template = <<<HTML
+        <x-input name="foo" :extra-attributes="\$attributes" />
+        HTML;
+
+        $expected = <<<HTML
+        <div class="form-text-container">
+            <input class="form-input form-text" x-data x-ref="foo" x-on:keydown="\$wire.submit()" name="foo" id="foo" type="text" />
+        </div>
+        HTML;
+
+        $this->assertComponentRenders($expected, $template, ['attributes' => $attributes]);
     }
 }

@@ -7,6 +7,7 @@
 
     <input
         {{ $attributes->merge(['class' => $inputClass()]) }}
+        {{ $extraAttributes }}
 
         @if ($name) name="{{ $name }}" @endif
         @if ($id) id="{{ $id }}" @endif

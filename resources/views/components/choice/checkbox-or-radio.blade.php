@@ -6,6 +6,7 @@
                type="{{ $type }}"
                @if ($value) value="{{ $value }}" @endif
                @if ($checked && ! $attributes->whereStartsWith('wire:model')->first()) checked @endif
+               {{ $extraAttributes }}
         />
     </div>
 

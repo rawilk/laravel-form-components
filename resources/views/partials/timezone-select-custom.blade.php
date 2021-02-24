@@ -6,5 +6,6 @@
                  :max-width="$maxWidth"
                  :options="$optionsForCustomSelect()"
                  :container-class="$containerClass"
+                 :extra-attributes="$extraAttributes"
                  {{ $attributes }}
 />

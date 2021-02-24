@@ -27,7 +27,8 @@ class FileUpload extends BladeComponent
         // Display the file upload progress if using livewire.
         // Only applies if a "wire:model" attribute is set.
         public bool $displayUploadProgress = true,
-        bool $showErrors = true
+        bool $showErrors = true,
+        public $extraAttributes = '',
     ) {
         $this->id = $this->id ?? $this->name;
         $this->showErrors = $showErrors;

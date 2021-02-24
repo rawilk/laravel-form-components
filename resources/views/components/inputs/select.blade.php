@@ -4,6 +4,7 @@
     <select @if ($name) name="{{ $name }}" @endif
             @if ($id) id="{{ $id }}" @endif
             @if ($multiple) multiple @endif
+            {{ $extraAttributes }}
 
             @if ($hasErrorsAndShow($name))
                 aria-invalid="true"

@@ -31,6 +31,7 @@ class SwitchToggle extends BladeComponent
         public null|string $buttonLabel = 'form-components::messages.switch_button_label',
         public null|string $size = null,
         public bool $disabled = false,
+        public $extraAttributes = '',
     ) {
         $this->id = $this->id ?? $this->name;
         $this->labelId = $this->id ?? Str::random(8);

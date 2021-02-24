@@ -1,4 +1,5 @@
 <div wire:ignore
+     {{ $extraAttributes }}
      x-data="{ pond: null, @if ($shouldWatch($attributes)) value: @entangle($attributes->wire('model')), oldValue: undefined @endif }"
      x-cloak
      x-on:file-pond-clear.window="

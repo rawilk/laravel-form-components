@@ -15,6 +15,7 @@
      })"
      x-on:change="value = $event.target.value; fp.setDate(value)"
      class="{{ $getContainerClass() }}"
+     {{ $extraAttributes }}
 >
     @if ($toggleIcon !== false)
         <span x-on:click="fp.open()"

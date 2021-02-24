@@ -23,6 +23,7 @@ class Password extends Input
         public null|string $showPasswordIcon = null,
         public null|string $hidePasswordIcon = null,
         public null|string $containerClass = null,
+        public $extraAttributes = '',
     ) {
         parent::__construct(
             name: $name,
@@ -36,6 +37,7 @@ class Password extends Input
             inlineAddon: $inlineAddon,
             inlineAddonPadding: $inlineAddonPadding,
             leadingIcon: $leadingIcon,
+            extraAttributes: $extraAttributes,
         );
 
         $this->showPasswordIcon = $this->showPasswordIcon ?? config('form-components.components.password.show_password_icon');

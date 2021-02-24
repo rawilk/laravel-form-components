@@ -30,7 +30,8 @@ class FilePond extends BladeComponent
          * still present.
          */
         public bool $watchValue = true,
-        bool $showErrors = true
+        bool $showErrors = true,
+        public $extraAttributes = '',
     ) {
         $this->type = $type;
         $this->showErrors = $showErrors;

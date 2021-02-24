@@ -2,7 +2,8 @@
     @include('form-components::partials.leading-addons')
 
     <input
-        {{ $attributes->merge(['class' => $inputClass()]) }}
+        {{ $attributes->class($inputClass()) }}
+        {{ $extraAttributes }}
 
         @if ($name) name="{{ $name }}" @endif
         @if ($id) id="{{ $id }}" @endif

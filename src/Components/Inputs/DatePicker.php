@@ -33,6 +33,7 @@ class DatePicker extends Input
         public null|string  $toggleIcon = null,
         public null|string $clearIcon = null,
         public null|string $containerClass = null,
+        public $extraAttributes = '',
     ) {
         parent::__construct(
             name: $name,
@@ -47,7 +48,8 @@ class DatePicker extends Input
             leadingIcon: $leadingIcon,
             trailingAddon: $trailingAddon,
             trailingAddonPadding: $trailingAddonPadding,
-            trailingIcon: $trailingIcon
+            trailingIcon: $trailingIcon,
+            extraAttributes: $extraAttributes,
         );
 
         $this->resolveIcons();
