@@ -37,7 +37,7 @@ class Input extends BladeComponent
         public $extraAttributes = '',
     ) {
         $this->id = $this->id ?? $this->name;
-        $this->value = old($this->name, $this->value);
+        $this->value = $this->name ? old($this->name, $this->value) : $this->value;
         $this->resolveMaxWidth();
 
         $this->showErrors = $showErrors;
