@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 3.1.1 - 2021-03-01
+### Fixed
+- Prevent inputs from rendering the string `[]` when name is omitted
+
 ## 3.1.0 - 2021-02-24
 ### Added
 - Add `extra-attributes` property to inputs to allow more options for attribute forwarding
