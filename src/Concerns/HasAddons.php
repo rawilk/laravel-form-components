@@ -2,6 +2,8 @@
 
 namespace Rawilk\FormComponents\Concerns;
 
+use Illuminate\Support\Str;
+
 trait HasAddons
 {
     public $leadingAddon;
@@ -68,6 +70,39 @@ trait HasAddons
             $this->trailingAddon = $data['trailingAddon'];
         } elseif ($data['trailingIcon'] !== false) {
             $this->trailingIcon = $data['trailingIcon'];
+        }
+    }
+
+    protected function setSvgHtml (false|string $path): false|string
+    {
+        $svgPath = config('form-components.svg_path');
+
+        if (is_null($svgPath)) {
+            return false;
+        }
+
+        $svgAttributes = config('form-components.svg_attributes', []);
+        try {
+            $path = 'fci-' . str_replace('/', '-', trim($path));
+            $svg = app(\BladeUI\Icons\Factory::class)->svg($path, '', $svgAttributes)->toHtml();
+        } catch (\BladeUI\Icons\Exceptions\SvgNotFound $e) {
+            $svg = false;
+        }
+
+        if (!is_null($svg)) {
+            return $svg;
+        }
+
+        return false;
+    }
+
+    protected function resolveSvgIcons(bool $hasTrailingIcon = true): void
+    {
+        if ($this->leadingIcon && ! Str::contains($this->leadingIcon, ['<', '>'])) {
+            $this->leadingIcon = $this->setSvgHtml($this->leadingIcon);
+        }
+        if ($hasTrailingIcon && $this->trailingIcon && ! Str::contains($this->trailingIcon, ['<', '>'])) {
+            $this->trailingIcon = $this->setSvgHtml($this->trailingIcon);
         }
     }
 }

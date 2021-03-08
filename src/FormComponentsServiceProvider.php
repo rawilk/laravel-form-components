@@ -37,6 +37,7 @@ class FormComponentsServiceProvider extends ServiceProvider
         $this->registerFacade();
         $this->mergeConfigFrom(__DIR__ . '/../config/form-components.php', 'form-components');
         $this->registerTimezone();
+        $this->registerSvgIcons();
     }
 
     private function registerFacade(): void
@@ -120,6 +121,20 @@ class FormComponentsServiceProvider extends ServiceProvider
     {
         if (config('form-components.enable_timezone')) {
             $this->app->singleton('fc-timezone', fn () => new Timezone);
+        }
+    }
+
+    protected function registerSvgIcons (): void
+    {
+        $svgPath = config("form-components.svg_path");
+
+        if (!is_null($svgPath)) {
+            $this->callAfterResolving(\BladeUI\Icons\Factory::class, function (\BladeUI\Icons\Factory $factory) use ($svgPath) {
+                $factory->add('fcIcons', [
+                    'path'   => $this->app->resourcePath($svgPath),
+                    'prefix' => 'fci',
+                ]);
+            });
         }
     }
 }

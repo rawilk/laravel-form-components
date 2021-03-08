@@ -42,6 +42,7 @@ class Password extends Input
 
         $this->showPasswordIcon = $this->showPasswordIcon ?? config('form-components.components.password.show_password_icon');
         $this->hidePasswordIcon = $this->hidePasswordIcon ?? config('form-components.components.password.hide_password_icon');
+        $this->resolveSvgIcons(false);
     }
 
     public function inputClass(): string

@@ -54,6 +54,8 @@ class Input extends BladeComponent
         if (is_array($this->value)) {
             $this->value = json_encode($this->value);
         }
+
+        $this->resolveSvgIcons();
     }
 
     public function inputClass(): string
