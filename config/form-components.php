@@ -212,6 +212,8 @@ return [
             'https://unpkg.com/filepond/dist/filepond.css',
             'https://unpkg.com/filepond/dist/filepond.js',
         ],
+
+        'popper' => 'https://unpkg.com/@popperjs/core@2',
     ],
 
     /*

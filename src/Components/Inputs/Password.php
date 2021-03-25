@@ -48,19 +48,28 @@ class Password extends Input
     {
         return collect([
             parent::inputClass(),
-            $this->showToggle ? 'password-toggleable has-trailing-icon' : null,
+            $this->showToggle ? 'password-toggleable border-r-0 rounded-r-none focus:ring-0 focus:border-blue-gray-300' : null,
+            $this->showToggle && ! $this->hasErrorsAndShow($this->name) ? 'focus:border-blue-300' : null,
         ])->filter()->implode(' ');
+    }
+
+    public function isPasswordToggleable(): bool
+    {
+        return $this->showToggle;
     }
 
     public function containerClass(): string
     {
-        $shadowColor = $this->hasErrorsAndShow($this->name)
-            ? 'danger'
-            : 'primary';
+        $colorClasses = $this->hasErrorsAndShow($this->name)
+            ? 'focus-within:ring-red-400 focus-within:border-red-300'
+            : 'focus-within:ring-blue-400 focus-within:border-blue-300';
 
         return collect([
             $this->getContainerClass(),
-            $this->showToggle ? "focus-within:ring-4 focus-within:ring-opacity-50 focus-within:ring-{$shadowColor}-400 focus-within:border-{$shadowColor}-300 rounded-md" : null,
+            'group',
+            'password-input-container',
+            $this->showToggle ? "focus-within:ring-4 focus-within:ring-opacity-50 rounded-lg" : null,
+            $this->showToggle ? $colorClasses : null,
         ])->filter()->implode(' ');
     }
 }

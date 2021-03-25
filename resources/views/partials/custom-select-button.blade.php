@@ -1,4 +1,4 @@
-<span class="inline-block w-full rounded-md shadow-sm z-1">
+<span class="inline-block w-full rounded-md shadow-sm z-1 custom-select__button-container">
     <button x-ref="button"
             x-cloak
             x-on:click="toggle()"
@@ -10,10 +10,10 @@
             @if ($disabled) disabled @endif
     >
         <template x-if="! hasSelection()">
-            <span class="custom-select__placeholder" x-text="placeholder"></span>
+            <span class="custom-select__placeholder text-blue-gray-500 block truncate" x-text="placeholder"></span>
         </template>
 
-        <div class="custom-select__display" x-show="hasSelection()" wire:ignore>
+        <div class="custom-select__display flex truncate items-center" x-show="hasSelection()" wire:ignore>
             @if ($buttonDisplay)
                 {{-- user has opted to customize the "selected text" on the button --}}
                 {!! $buttonDisplay !!}
@@ -26,7 +26,7 @@
             <button x-on:click="clear()"
                     x-show.transition.opacity.150ms="hasSelection()"
                     type="button"
-                    class="custom-select-clear"
+                    class="custom-select-clear absolute right-8 flex items-center justify-center h-6 w-6 rounded-full text-blue-gray-500 transition-colors hover:bg-blue-gray-300 focus:outline-blue-gray"
             >
                 <span class="sr-only">{{ __('form-components::messages.custom_select_clear_button') }}</span>
                 <x-dynamic-component :component="$clearIcon" class="h-4 w-4" />

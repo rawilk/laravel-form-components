@@ -24,14 +24,14 @@ trait HasAddons
     protected function leadingAddonClass(): null|string
     {
         if ($this->leadingAddon) {
-            return 'has-leading-addon';
+            return 'has-leading-addon rounded-none rounded-r-md';
         }
 
         if ($this->inlineAddon) {
             return $this->inlineAddonPadding;
         }
 
-        return $this->leadingIcon ? 'has-leading-icon' : null;
+        return $this->leadingIcon ? 'has-leading-icon pl-10' : null;
     }
 
     protected function trailingAddonClass(): null|string
@@ -44,7 +44,7 @@ trait HasAddons
             return $this->trailingAddonPadding;
         }
 
-        return $this->trailingIcon ? 'has-trailing-icon' : null;
+        return $this->trailingIcon ? 'has-trailing-icon pr-10' : null;
     }
 
     /**

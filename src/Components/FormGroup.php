@@ -15,9 +15,10 @@ class FormGroup extends BladeComponent
         public bool $inline = false,
         bool $showErrors = true,
         public null|string $helpText = null,
-        public bool $border = false,
+        public bool $border = true,
         public bool $isCheckboxGroup = false,
         public null|string $labelId = null,
+        public bool $marginBottom = true,
     ) {
         $this->inputId = $this->inputId ?? $this->name;
         $this->showErrors = $showErrors;
@@ -28,8 +29,9 @@ class FormGroup extends BladeComponent
         return collect([
             'form-group',
             $this->hasErrorsAndShow($this->name) ? 'has-error' : null,
-            $this->inline ? 'form-group-inline' : null,
-            $this->inline && $this->border ? 'form-group-inline--border' : null,
+            $this->inline ? 'form-group-inline sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start' : null,
+            $this->inline && $this->border ? 'form-group-inline--border sm:pt-5 sm:border-t sm:border-blue-gray-200 first:sm:pt-0 first:sm:border-none' : null,
+            $this->marginBottom ? 'mb-5 last:mb-0' : null,
         ])->filter()->implode(' ');
     }
 }

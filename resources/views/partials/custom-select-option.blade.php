@@ -6,7 +6,7 @@
     x-bind:class="optionClasses(option, index)"
     x-bind:role="isOptgroup(option) ? null : 'option'"
     x-bind:aria-selected="isOptgroup(option) ? false : (index === focusedOptionIndex)"
-    class="custom-select__option group"
+    class="custom-select__option group relative py-2 pl-3 pr-9 cursor-default select-none focus:outline-blue-gray"
 >
     {{-- "optgroup" --}}
     <template x-if="isOptgroup(option)">

@@ -27,7 +27,6 @@ class TimezoneSelect extends Select
         public bool $filterable = true,
         public bool $optional = false,
         null|string $placeholder = 'form-components::messages.timezone_select_placeholder',
-        public bool $fixedPosition = false,
         public null|string $containerClass = null,
         public $extraAttributes = '',
     ) {
