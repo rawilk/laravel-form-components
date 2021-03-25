@@ -2,6 +2,26 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 4.0.0 - 2021-03-25
+### Changed
+- Inline most tailwind class names on form components
+- Remove majority of styles from stylesheet
+- Change styling from sass to css/postcss
+- Enable border by default on `<x-form-group>` when it is inline and not the first child in a container
+- Enable margins on `<x-form-group>` by default
+- Change how `<x-custom-select>` "scrolls" to each option
+
+### Added
+- Add ability to specify grid columns on `<x-checkbox-group>` component (when inline)
+
+### Removed
+- Remove `$fixedPosition` prop from `<x-custom-select>`
+
+### Fixed
+- Fix array to string conversion error on textarea when no value is passed in to it
+- Prevent `$wire` from breaking `<x-custom-select>` when not used in a livewire component
+- `<x-custom-select>` will now position itself correctly and will not require the `fixed-position` prop anymore (requires Popper.js)
+
 ## 3.1.1 - 2021-03-01
 ### Fixed
 - Prevent inputs from rendering the string `[]` when name is omitted
