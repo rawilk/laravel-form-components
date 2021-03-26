@@ -46,6 +46,7 @@ class Select extends Input
             extraAttributes: $extraAttributes,
         );
 
+        $this->resolveSvgIcons();
         $this->selectedKey = old($this->name, $this->value);
     }
 

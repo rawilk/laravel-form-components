@@ -53,6 +53,7 @@ class DatePicker extends Input
         );
 
         $this->resolveIcons();
+        $this->resolveSvgIcons();
         $this->placeholder = __($placeholder);
     }
 

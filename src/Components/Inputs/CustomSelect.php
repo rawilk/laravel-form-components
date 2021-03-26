@@ -63,6 +63,7 @@ class CustomSelect extends Select
         );
 
         $this->resolveIcons();
+        $this->resolveSvgIcons(false);
         $this->normalizeOptions($convertValuesToString);
         $this->placeholder = __($placeholder);
         $this->emptyText = __($emptyText);

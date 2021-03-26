@@ -49,6 +49,7 @@ class TimezoneSelect extends Select
             extraAttributes: $extraAttributes,
         );
 
+        $this->resolveSvgIcons();
         $this->only = is_null($only) ? config('form-components.timezone_subset', false) : $only;
         $this->placeholder = __($placeholder);
     }

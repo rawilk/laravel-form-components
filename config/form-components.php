@@ -240,4 +240,33 @@ return [
     |
     */
     'asset_url' => null,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Svg Icons (optional)
+    |
+    | Examples:
+    |
+    | Example icon directory tree:
+    | - resources
+    |   └── svg
+    |      └── icons
+    |         │─ outline
+    |         │  └── home.svg
+    |         └── home.svg
+    |
+    | 'svg_path' => 'svg/icons'
+    |
+    | <x-input leading-icon="home"
+    | <x-input leading-icon="outline.home"
+    |--------------------------------------------------------------------------
+    */
+    'svg_path' => null, // null = disable
+    'svg_attributes' => [
+        'xmlns'       => 'http://www.w3.org/2000/svg',
+        'viewBox'     => '0 0 20 20',
+        'fill'        => 'currentColor',
+        'aria-hidden' => 'true',
+        'class'       => 'h-6 w-6 text-gray'
+    ],
 ];
