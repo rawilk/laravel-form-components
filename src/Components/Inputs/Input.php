@@ -11,7 +11,8 @@ use Rawilk\FormComponents\Concerns\HasAddons;
 
 class Input extends BladeComponent
 {
-    use HandlesValidationErrors, HasAddons;
+    use HandlesValidationErrors;
+    use HasAddons;
 
     /** @var string */
     public const DEFAULT_INLINE_ADDON_PADDING = 'pl-16 sm:pl-14';
