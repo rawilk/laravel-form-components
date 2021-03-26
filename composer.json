@@ -29,9 +29,9 @@
     "require-dev": {
         "blade-ui-kit/blade-heroicons": "^1.0",
         "friendsofphp/php-cs-fixer": "^2.16",
-        "gajus/dindent": "^2.0",
-        "orchestra/testbench": "^6.4",
-        "phpunit/phpunit": "^9.4",
+        "gajus/dindent": "^2.0.2",
+        "orchestra/testbench": "^6.15",
+        "phpunit/phpunit": "^9.5",
         "psalm/plugin-laravel": "^1.4",
         "spatie/phpunit-snapshot-assertions": "^4.2",
         "vimeo/psalm": "^4.0"
