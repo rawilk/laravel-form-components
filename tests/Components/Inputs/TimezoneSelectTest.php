@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Rawilk\FormComponents\Tests\Components\Inputs;
 
+use Carbon\Carbon;
 use Rawilk\FormComponents\Support\TimeZoneRegion;
 use Rawilk\FormComponents\Tests\Components\ComponentTestCase;
 use Spatie\Snapshots\MatchesSnapshots;
@@ -15,6 +16,8 @@ class TimezoneSelectTest extends ComponentTestCase
     /** @test */
     public function can_be_rendered(): void
     {
+        Carbon::setTestNow('2021-01-01');
+
         $this->withViewErrors([]);
 
         $this->assertMatchesSnapshot(
