@@ -9,7 +9,7 @@
             wireFilter: '{{ $attributes->wire('filter')->value() }}',
         @endif
      })"
-     x-init="init($wire || null, $dispatch)"
+     x-init="init({{ $hasWireModel ? '$wire' : 'null' }}, $dispatch)"
      x-on:click.away="close()"
      x-on:keydown.escape="close()"
      x-on:keydown.enter.stop.prevent="onEnter()"
@@ -22,20 +22,13 @@
      class="{{ $getContainerClass() }}"
      {{ $extraAttributes }}
 >
-    @include('form-components::partials.leading-addons')
-    @include('form-components::partials.custom-select-button')
-
-    <div x-show="open"
-         x-cloak
+    <div x-cloak
          x-ref="container"
-         x-transition:leave="transition ease-in duration-100"
-         x-transition:leave-start="opacity-100"
-         x-transition:leave-end="opacity-0"
-         x-bind:class="{ 'custom-select__menu-container--open': open, 'custom-menu-top': positionOnTop }"
-         class="custom-select__menu-container"
+         x-bind:class="{ 'custom-select__menu-container--open ring-blue-400 ring-opacity-50 ring-2': open, 'invisible': ! open }"
+         class="custom-select__menu-container absolute w-full rounded-md bg-white shadow-lg z-10"
     >
         @if ($filterable)
-            <div class="custom-select__filter">
+            <div class="custom-select__filter relative py-2 px-2 border-b border-blue-gray-200">
                 <input x-ref="search"
                        x-show="open"
                        @if ($hasWireFilter)
@@ -45,7 +38,7 @@
                        x-model.debounce.300ms="search"
                        type="search"
                        placeholder="{{ __('form-components::messages.custom_select_filter_placeholder') }}"
-                       class="custom-select__filter-input"
+                       class="custom-select__filter-input py-1 h-full w-full border-blue-gray-300 rounded-md bg-white focus:border-blue-gray-400 focus:ring-0 text-sm focus:outline-none"
                 />
 
                 @if ($hasWireFilter)
@@ -62,7 +55,7 @@
             x-bind:aria-activedescendant="focusedOptionIndex !== null ? selectId + '_option_' + focusedOptionIndex : null"
             role="listbox"
             tabindex="-1"
-            class="custom-select__menu"
+            class="custom-select__menu py-1 overflow-auto text-base leading-6 rounded-md shadow-sm max-h-60 focus:outline-none sm:text-sm sm:leading-5 @if ($filterable) rounded-t-none @endif"
             @if ($multiple)
                 aria-multiselectable="true"
             @endif
@@ -74,12 +67,15 @@
             </template>
 
             <template x-if="! options.length">
-                <li class="custom-select__option custom-select__option-no-results">
+                <li class="custom-select__option custom-select__option-no-results relative py-2 pl-3 pr-9 cursor-default select-none focus:outline-blue-gray italic text-blue-gray-600">
                     {{ $emptyText }}
                 </li>
             </template>
         </ul>
     </div>
+
+    @include('form-components::partials.leading-addons')
+    @include('form-components::partials.custom-select-button')
 
     @unless ($hasWireModel)
         <input type="hidden" x-bind:value="JSON.stringify(value)" name="{{ $name }}">

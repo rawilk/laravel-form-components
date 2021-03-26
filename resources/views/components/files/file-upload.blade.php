@@ -1,4 +1,4 @@
-<div class="file-upload space-x-5 {{ $attributes['class'] ?? '' }}">
+<div class="file-upload flex items-center space-x-5 {{ $attributes['class'] ?? '' }}">
     {{ $slot }}
 
     <div x-data="{ focused: false, isUploading: false, progress: 0 }"
@@ -10,7 +10,7 @@
          @endif
         class="space-y-4 w-full"
     >
-        <span class="file-upload__input">
+        <span class="file-upload__input rounded-md">
             <input x-on:focus="focused = true"
                    x-on:blur="focused = false"
                    class="sr-only"
@@ -33,12 +33,13 @@
             />
 
             <label for="{{ $id }}"
-                   x-bind:class="{ 'file-upload__label--focused': focused }"
-                   class="file-upload__label"
+                   x-bind:class="{ 'file-upload__label--focused outline-none border-blue-300 ring-blue-300': focused }"
+                   class="file-upload__label cursor-pointer py-2 px-3 border border-blue-gray-300 rounded-md text-sm leading-4 font-medium text-blue-gray-700 transition shadow-sm hover:text-blue-gray-500 active:bg-blue-gray-50 active:text-blue-gray-800"
             >
                 <span role="button"
                       aria-controls="{{ $id }}"
                       tabindex="0"
+                      class="outline-none"
                 >
                     {{ $label }}
                 </span>

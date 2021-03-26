@@ -1,5 +1,5 @@
 @if ($hasLabel($slot))
-<label @if ($for) for="{{ $for }}" @endif {{ $attributes->merge(['class' => 'form-label']) }}>
+<label @if ($for) for="{{ $for }}" @endif {{ $attributes->merge(['class' => 'form-label block text-sm font-medium leading-5 text-blue-gray-700']) }}>
     @if ($slot->isEmpty())
         {{ $fallback }}
     @else

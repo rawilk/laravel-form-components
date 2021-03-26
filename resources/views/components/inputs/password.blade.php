@@ -32,15 +32,15 @@
     @if ($showToggle)
         <div x-on:click="show = ! show"
              x-bind:title="show ? '{{ __('Hide') }}' : '{{ __('Show') }}'"
-             class="trailing-icon password-toggle clickable"
+             class="trailing-icon password-toggle clickable pr-3 flex items-center bg-white border rounded-md rounded-l-none border-l-0 {{ $hasErrorsAndShow($name) ? 'border-red-300' : 'border-blue-gray-300 group-focus:border-blue-300' }}"
              x-cloak
         >
-            <span x-show="! show">
-                {{ svg($showPasswordIcon) }}
+            <span x-show="! show" class="h-5 w-5 text-blue-gray-400">
+                <x-dynamic-component :component="$showPasswordIcon" />
             </span>
 
-            <span x-show="show">
-                {{ svg($hidePasswordIcon) }}
+            <span x-show="show" class="h-5 w-5 text-blue-gray-400">
+                <x-dynamic-component :component="$hidePasswordIcon" />
             </span>
         </div>
     @endif

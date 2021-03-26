@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace Rawilk\FormComponents\Tests\Components;
 
+use Spatie\Snapshots\MatchesSnapshots;
+
 class ComponentPrefixTest extends ComponentTestCase
 {
+    use MatchesSnapshots;
+
     protected function getEnvironmentSetUp($app): void
     {
         parent::getEnvironmentSetUp($app);
@@ -16,12 +20,8 @@ class ComponentPrefixTest extends ComponentTestCase
     /** @test */
     public function a_custom_prefix_can_be_used(): void
     {
-        $expected = <<<HTML
-        <form method="POST" action="http://example.com" spellcheck="false">
-            <input type="hidden" name="_token" value="">
-        </form>
-        HTML;
-
-        $this->assertComponentRenders($expected, '<x-tw-form action="http://example.com" />');
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-tw-form action="http://example.com" />')
+        );
     }
 }

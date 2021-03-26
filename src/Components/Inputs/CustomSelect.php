@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 
 class CustomSelect extends Select
 {
-    protected static array $assets = ['alpine'];
+    protected static array $assets = ['alpine', 'popper'];
 
     public null|string $placeholder;
     public null|string $emptyText;
@@ -34,7 +34,7 @@ class CustomSelect extends Select
         public bool $filterable = false,
         public null|string $clearIcon = null,
         public bool $disabled = false,
-        public bool $fixedPosition = false,
+        // public bool $fixedPosition = false,
         public null|string $selectedIcon = null,
         public null|string $uncheckIcon = null,
         public bool $maxOptionsSelected = false,
@@ -87,8 +87,12 @@ class CustomSelect extends Select
     {
         return collect([
             'custom-select__button',
+            'cursor-default relative w-full rounded-md border border-blue-gray-300 bg-white pl-3 pr-10 py-2 text-left transition',
+            'focus:outline-none focus:ring-4 focus:ring-opacity-50 focus:ring-blue-400',
+            'sm:text-sm',
             $this->getAddonClass(),
             $this->hasErrorsAndShow($this->name) ? 'input-error' : null,
+            $this->disabled ? 'bg-blue-gray-50 text-blue-gray-500 cursor-not-allowed' : null,
         ])->filter()->implode(' ');
     }
 
@@ -108,6 +112,7 @@ class CustomSelect extends Select
         return collect([
             'custom-select-container',
             'form-text-container',
+            'flex rounded-sm shadow-sm relative',
             $this->maxWidth,
             $this->containerClass,
         ])->filter()->implode(' ');
@@ -130,7 +135,6 @@ class CustomSelect extends Select
             'max' => $this->maxOptionsSelected,
             'wireListeners' => $this->wireListeners,
             'selectId' => empty($this->id) ? Str::random(8) : $this->id,
-            'fixedPosition' => $this->fixedPosition,
         ];
     }
 

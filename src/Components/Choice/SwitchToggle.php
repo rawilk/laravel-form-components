@@ -47,9 +47,22 @@ class SwitchToggle extends BladeComponent
         return collect([
             'switch-toggle',
             $this->short ? 'switch-toggle-short' : 'switch-toggle-simple',
-            $this->size ? "switch-toggle--{$this->size}" : null,
+            $this->toggleSize(),
             $this->disabled ? 'disabled' : null,
         ])->filter()->implode(' ');
+    }
+
+    private function toggleSize(): string
+    {
+        /*
+         * We are defining the size classes explicitly here to prevent
+         * tailwind from purging them.
+         */
+        return match($this->size ?? '') {
+            'sm' => 'switch-toggle--sm',
+            'lg' => 'switch-toggle--lg',
+            default => 'switch-toggle--base',
+        };
     }
 
     public function getContainerClass(): string

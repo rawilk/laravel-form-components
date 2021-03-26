@@ -1,0 +1,25 @@
+{
+    "name": "@rawilk/laravel-form-components-styles",
+    "version": "1.0.0",
+    "homepage": "https://randallwilk.dev/docs/laravel-form-components",
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "ssh://git@github.com/rawilk/laravel-form-components.git",
+        "directory": "resources/js/laravel-form-components-styles"
+    },
+    "author": "Randall Wilk",
+    "main": "dist/styles.css",
+    "scripts": {
+        "build": "postcss src/styles.css --output dist/styles.css --env production --use tailwindcss --verbose",
+        "build:dev": "postcss src/styles.css --output dist/styles.css --use tailwindcss --verbose",
+        "watch": "postcss src/styles.css --output dist/styles.css --watch --use tailwindcss --verbose"
+    },
+    "dependencies": {
+        "postcss": "^8.2.8",
+        "postcss-cli": "^8.3.1",
+        "tailwindcss": "^2.0.4"
+    }
+}

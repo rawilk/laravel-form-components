@@ -4,53 +4,20 @@ declare(strict_types=1);
 
 namespace Rawilk\FormComponents\Tests\Components\Inputs;
 
-use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use Rawilk\FormComponents\Tests\Components\ComponentTestCase;
+use Spatie\Snapshots\MatchesSnapshots;
 
 class PasswordTest extends ComponentTestCase
 {
-    /** @var string */
-    protected const DEFAULT_CONTAINER_CLASS = 'form-text-container focus-within:ring-4 focus-within:ring-opacity-50 focus-within:ring-primary-400 focus-within:border-primary-300 rounded-md';
-
-    protected function getPackageProviders($app): array
-    {
-        return array_merge(parent::getPackageProviders($app), [
-            BladeHeroiconsServiceProvider::class,
-        ]);
-    }
+    use MatchesSnapshots;
 
     /** @test */
     public function can_render_component(): void
     {
         $this->withViewErrors([]);
 
-        $showIcon = svg(config('form-components.components.password.show_password_icon'))->toHtml();
-        $hideIcon = svg(config('form-components.components.password.hide_password_icon'))->toHtml();
-        $containerClass = self::DEFAULT_CONTAINER_CLASS;
-
-        $expected = <<<HTML
-        <div x-data="{ show: false }"
-             class="{$containerClass}">
-            <input class="form-input form-text password-toggleable has-trailing-icon" name="password" id="password" x-bind:type="show ? 'text' : 'password'" />
-
-            <div x-on:click="show = ! show"
-                 x-bind:title="show ? 'Hide' : 'Show'"
-                 class="trailing-icon password-toggle clickable"
-                 x-cloak>
-                <span x-show="! show">
-                    {$showIcon}
-                </span>
-
-                <span x-show="show">
-                    {$hideIcon}
-                </span>
-            </div>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders(
-            $expected,
-            '<x-password name="password" />'
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-password name="password" />')
         );
     }
 
@@ -59,15 +26,8 @@ class PasswordTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <input class="form-input form-text" name="password" id="password" type="password" />
-        </div>
-        HTML;
-
-        $this->assertComponentRenders(
-            $expected,
-            '<x-password name="password" :show-toggle="false" />'
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-password name="password" :show-toggle="false" />')
         );
     }
 
@@ -76,35 +36,8 @@ class PasswordTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $showIcon = svg(config('form-components.components.password.show_password_icon'))->toHtml();
-        $hideIcon = svg(config('form-components.components.password.hide_password_icon'))->toHtml();
-        $containerClass = self::DEFAULT_CONTAINER_CLASS;
-
-        $expected = <<<HTML
-        <div x-data="{ show: false }"
-             class="{$containerClass}">
-             <span class="leading-addon">foo</span>
-
-            <input class="form-input form-text has-leading-addon password-toggleable has-trailing-icon" name="password" id="password" x-bind:type="show ? 'text' : 'password'" />
-
-            <div x-on:click="show = ! show"
-                 x-bind:title="show ? 'Hide' : 'Show'"
-                 class="trailing-icon password-toggle clickable"
-                 x-cloak>
-                <span x-show="! show">
-                    {$showIcon}
-                </span>
-
-                <span x-show="show">
-                    {$hideIcon}
-                </span>
-            </div>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders(
-            $expected,
-            '<x-password name="password" leading-addon="foo" />'
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-password name="password" leading-addon="foo" />')
         );
     }
 
@@ -113,18 +46,9 @@ class PasswordTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
-        <x-password name="password" :show-toggle="false" trailing-addon="foo" />
-        HTML;
-
-        // The "trailing-addon" should be regarded as a custom attribute instead
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <input class="form-input form-text" trailing-addon="foo" name="password" id="password" type="password" />
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-password name="password" :show-toggle="false" trailing-addon="foo" />')
+        );
     }
 
     /** @test */
@@ -139,33 +63,7 @@ class PasswordTest extends ComponentTestCase
         </x-password>
         HTML;
 
-        $showIcon = svg(config('form-components.components.password.show_password_icon'))->toHtml();
-        $hideIcon = svg(config('form-components.components.password.hide_password_icon'))->toHtml();
-        $containerClass = self::DEFAULT_CONTAINER_CLASS;
-
-        $expected = <<<HTML
-        <div x-data="{ show: false }"
-             class="{$containerClass}">
-             <span class="leading-addon">foo</span>
-
-            <input class="form-input form-text has-leading-addon password-toggleable has-trailing-icon" name="password" id="password" x-bind:type="show ? 'text' : 'password'" />
-
-            <div x-on:click="show = ! show"
-                 x-bind:title="show ? 'Hide' : 'Show'"
-                 class="trailing-icon password-toggle clickable"
-                 x-cloak>
-                <span x-show="! show">
-                    {$showIcon}
-                </span>
-
-                <span x-show="show">
-                    {$hideIcon}
-                </span>
-            </div>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot($this->renderComponent($template));
     }
 
     /** @test */
@@ -173,17 +71,9 @@ class PasswordTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
-        <div class="form-text-container foo">
-            <input class="form-input form-text" name="name" id="name" type="password" />
-        </div>
-        HTML;
-
-        $data = [
-            'show' => false,
-        ];
-
-        $this->assertComponentRenders($expected, '<x-password :show-toggle="$show" name="name" container-class="foo" />', $data);
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-password :show-toggle="false" name="name" container-class="foo" />')
+        );
     }
 
     /** @test */
@@ -191,12 +81,8 @@ class PasswordTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <input class="form-input form-text" type="password" />
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, '<x-password :show-toggle="$show" />', ['show' => false]);
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-password :show-toggle="false" />')
+        );
     }
 }

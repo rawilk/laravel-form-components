@@ -19,11 +19,13 @@
 >
     @if ($toggleIcon !== false)
         <span x-on:click="fp.open()"
-              class="leading-addon cursor-pointer"
+              class="leading-addon cursor-pointer inline-flex items-center px-3 rounded-l-md border border-r-0 border-blue-gray-300 bg-blue-gray-50 text-blue-gray-500 sm:text-sm"
               role="button"
               title="{{ __('Select a date') }}"
         >
-            {{ svg($toggleIcon) }}
+            <span class="h-5 w-5 text-blue-gray-400">
+                {{ svg($toggleIcon) }}
+            </span>
         </span>
     @else
         @include('form-components::partials.leading-addons')
@@ -51,15 +53,15 @@
     />
 
     @if ($clearable)
-        <div class="trailing-icon">
+        <div class="trailing-icon pr-3 flex items-center absolute inset-y-0 right-0">
             <button x-show.transition.opacity.150ms="Boolean(value)"
                     x-on:click="value = null; fp.setDate(value)"
                     x-cloak
-                    class="form-input-clear"
+                    class="form-input-clear h-6 w-6 group rounded-full p-1 hover:bg-blue-gray-200 focus:outline-blue-gray transition-colors"
                     type="button"
             >
                 <span class="sr-only">{{ __('Clear selected') }}</span>
-                {{ svg($clearIcon) }}
+                <span class="h-4 w-4 text-blue-gray-400 group-hover:text-blue-gray-600">{{ svg($clearIcon) }}</span>
             </button>
         </div>
     @else

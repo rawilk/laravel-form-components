@@ -11,7 +11,8 @@ use Rawilk\FormComponents\Concerns\HasAddons;
 
 class Input extends BladeComponent
 {
-    use HandlesValidationErrors, HasAddons;
+    use HandlesValidationErrors;
+    use HasAddons;
 
     /** @var string */
     public const DEFAULT_INLINE_ADDON_PADDING = 'pl-16 sm:pl-14';
@@ -61,9 +62,20 @@ class Input extends BladeComponent
         return collect([
             'form-input',
             'form-text',
+            'flex-1 block w-full px-3 py-2 border-blue-gray-300 rounded-md placeholder-blue-gray-400 sm:text-sm',
+            $this->isPasswordToggleable() ? null : 'focus:border-blue-300 focus:ring-opacity-50 focus:ring-4 focus:ring-blue-400',
             $this->getAddonClass(),
             $this->hasErrorsAndShow($this->name) ? 'input-error' : null,
         ])->filter()->implode(' ');
+    }
+
+    /*
+     * Should always return false, except on the Password input class when
+     * $showToggle is set to true.
+     */
+    public function isPasswordToggleable(): bool
+    {
+        return false;
     }
 
     public function render(bool $returnPathOnly = true): Closure
@@ -83,6 +95,7 @@ class Input extends BladeComponent
     {
         return collect([
             'form-text-container',
+            'flex rounded-sm shadow-sm relative',
             $this->maxWidth,
             $this->containerClass,
         ])->filter()->implode(' ');

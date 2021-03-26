@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Rawilk\FormComponents\Tests\Components;
 
+use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
+use BladeUI\Icons\BladeIconsServiceProvider;
 use Gajus\Dindent\Indenter;
 use Orchestra\Testbench\TestCase;
 use Rawilk\FormComponents\FormComponentsServiceProvider;
@@ -30,7 +32,11 @@ abstract class ComponentTestCase extends TestCase
 
     protected function getPackageProviders($app): array
     {
-        return [FormComponentsServiceProvider::class];
+        return [
+            BladeIconsServiceProvider::class,
+            BladeHeroiconsServiceProvider::class,
+            FormComponentsServiceProvider::class,
+        ];
     }
 
     public function assertComponentRenders(string $expected, string $template, array $data = []): void
@@ -48,6 +54,11 @@ abstract class ComponentTestCase extends TestCase
         $expected = $this->trimExcessWhitespace($expected);
 
         self::assertSame($expected, $cleaned);
+    }
+
+    protected function renderComponent(string $template, array $data = []): string
+    {
+        return (string) $this->blade($template, $data);
     }
 
     protected function trimExcessWhitespace(string $content): string

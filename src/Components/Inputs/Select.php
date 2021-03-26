@@ -46,7 +46,7 @@ class Select extends Input
             extraAttributes: $extraAttributes,
         );
 
-        $this->selectedKey = old($this->name, $this->value);
+        $this->selectedKey = $this->name ? old($this->name, $this->value) : $this->value;
     }
 
     public function isSelected($key): bool
@@ -68,6 +68,7 @@ class Select extends Input
     {
         return collect([
             'form-select',
+            'block w-full pl-3 pr-10 py-2 rounded-md border-blue-gray-300 sm:text-sm focus:outline-none focus:border-blue-300 focus:ring-4 focus:ring-opacity-50 focus:ring-blue-400',
             $this->getAddonClass(),
             $this->hasErrorsAndShow($this->name) ? 'input-error' : null,
         ])->filter()->implode(' ');

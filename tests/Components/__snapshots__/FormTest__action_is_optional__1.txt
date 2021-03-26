@@ -1,0 +1,11 @@
+<form method="POST"
+      
+     
+            spellcheck="false"
+    
+     
+>
+            <input type="hidden" name="_token" value="">    
+    
+    Form fields...
+</form>

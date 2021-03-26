@@ -11,6 +11,8 @@ import findLastIndex from '../util/findLastIndex';
 import { normalizeOptions } from '../util/options';
 import { isArray } from '../util/inspect';
 
+let createPopper;
+
 export default function customSelect(config) {
     return {
         focusedOptionIndex: null,
@@ -31,8 +33,7 @@ export default function customSelect(config) {
         disabledField: 'disabled',
         labelField: 'label', // used for an "optgroup"'s label
         optionsField: 'options', // used when creating "optgroups"
-        fixedPosition: false,
-        positionOnTop: false,
+        popper: null,
         ...config,
 
         get buttonDisplay() {
@@ -63,6 +64,11 @@ export default function customSelect(config) {
             this.open = false;
             this.focusedOptionIndex = null;
             this.search = '';
+
+            if (this.popper) {
+                this.popper.destroy();
+                this.popper = null;
+            }
         },
 
         clear() {
@@ -149,6 +155,12 @@ export default function customSelect(config) {
         },
 
         init($wire = null, $dispatch = null) {
+            createPopper = window.Popper ? window.Popper.createPopper : window.createPopper;
+
+            if (typeof createPopper !== 'function') {
+                throw new TypeError(`<x-custom-select> requires Popper (https://popper.js.org)`);
+            }
+
             this.data = [...normalizeOptions(this.data, this.fieldNames)];
             this.options = this.data;
 
@@ -253,6 +265,30 @@ export default function customSelect(config) {
                 this.focusedOptionIndex = this.options.findIndex(o => ! o.disabled && ! this.isOptgroup(o));
             }
 
+            this.popper = createPopper(this.$refs.button, this.$refs.container, {
+                placement: 'bottom-start',
+                modifiers: [
+                    {
+                        name: 'offset',
+                        options: {
+                            offset: [0, 4],
+                        },
+                    },
+                    {
+                        name: 'preventOverflow',
+                        options: {
+                            boundary: 'clippingParents',
+                        },
+                    },
+                    {
+                        name: 'flip',
+                        options: {
+                            padding: 30,
+                        },
+                    },
+                ],
+            });
+
             this.open = true;
 
             this.$nextTick(() => {
@@ -261,8 +297,6 @@ export default function customSelect(config) {
                         preventScroll: true,
                     });
                 }
-
-                this.positionMenu();
 
                 this.scrollToOption(this.focusedOptionIndex);
             });
@@ -353,9 +387,11 @@ export default function customSelect(config) {
             }
 
             try {
-                this.$refs.listbox.children[index].scrollIntoView({
-                    block: 'center',
-                });
+                const child = this.$refs.listbox.children[index];
+                const offsetTop = child.offsetTop;
+                this.$refs.listbox.scrollTop = offsetTop || 0;
+
+                this.$refs.listbox.children[index].focus();
             } catch (e) {}
         },
 
@@ -365,54 +401,6 @@ export default function customSelect(config) {
             }
 
             this.openMenu();
-        },
-
-        positionMenu() {
-            if (this.fixedPosition) {
-                return this.positionFixedMenu();
-            }
-
-            this.$refs.container.style.marginTop = null;
-            this.positionOnTop = false;
-
-            // give a little bit of breathing room at the bottom of the screen.
-            const tolerance = 10;
-            const menuHeight = this.$refs.listbox.offsetHeight;
-            const largestHeight = window.innerHeight - menuHeight - tolerance;
-
-            const { top } = this.$refs.listbox.getBoundingClientRect();
-
-            if (top > largestHeight) {
-                this.positionOnTop = true;
-                this.$refs.container.style.marginTop = `-${this.$refs.button.offsetHeight + menuHeight + 20}px`
-            }
-        },
-
-        positionFixedMenu() {
-            // So we can accurately determine where it should be placed...
-            this.$refs.container.style.position = 'absolute';
-            this.$refs.container.style.top = null;
-
-            const { width, left: buttonLeft, top: buttonTop } = this.$refs.button.getBoundingClientRect();
-
-            // give a little breathing room at the bottom of the screen.
-            const tolerance = 40;
-            const menuHeight = this.$refs.listbox.offsetHeight;
-            const largestHeight = window.innerHeight - menuHeight - tolerance;
-
-            const { top } = this.$refs.container.getBoundingClientRect();
-
-            if (top > largestHeight) {
-                const buttonHeight = this.$refs.button.offsetHeight;
-                const menuTop = buttonTop - menuHeight - 25 - buttonHeight;
-                this.$refs.container.style.top = `${menuTop}px`;
-            } else {
-                this.$refs.container.style.top = `${top}px`;
-            }
-
-            this.$refs.container.style.position = 'fixed';
-            this.$refs.container.style.width = `${width}px`;
-            this.$refs.container.style.left = `${buttonLeft}px`;
         },
     };
 };

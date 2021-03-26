@@ -4,25 +4,30 @@ declare(strict_types=1);
 
 namespace Rawilk\FormComponents\Tests\Components\Inputs;
 
+use Carbon\Carbon;
 use Rawilk\FormComponents\Support\TimeZoneRegion;
 use Rawilk\FormComponents\Tests\Components\ComponentTestCase;
+use Spatie\Snapshots\MatchesSnapshots;
 
 class TimezoneSelectTest extends ComponentTestCase
 {
+    use MatchesSnapshots;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Carbon::setTestNow('2021-01-01');
+    }
+
     /** @test */
     public function can_be_rendered(): void
     {
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <select name="timezone" id="timezone" class="form-select">
-                {$this->generateTimezoneOptions()}
-            </select>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, '<x-timezone-select name="timezone" />');
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-timezone-select name="timezone" />')
+        );
     }
 
     /** @test */
@@ -30,19 +35,9 @@ class TimezoneSelectTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
-        <x-timezone-select name="timezone" only="America" />
-        HTML;
-
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <select name="timezone" id="timezone" class="form-select">
-                {$this->generateTimezoneOptions(['America'])}
-            </select>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-timezone-select name="timezone" only="America" />')
+        );
     }
 
     /** @test */
@@ -56,15 +51,7 @@ class TimezoneSelectTest extends ComponentTestCase
 
         $regions = [TimeZoneRegion::GENERAL, TimeZoneRegion::ASIA];
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <select name="timezone" id="timezone" class="form-select">
-                {$this->generateTimezoneOptions($regions)}
-            </select>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template, ['only' => $regions]);
+        $this->assertMatchesSnapshot($this->renderComponent($template, ['only' => $regions]));
     }
 
     /** @test */
@@ -74,22 +61,9 @@ class TimezoneSelectTest extends ComponentTestCase
 
         config(['form-components.timezone_subset' => TimeZoneRegion::GENERAL]);
 
-        $template = <<<HTML
-        <x-timezone-select name="timezone" />
-        HTML;
-
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <select name="timezone" id="timezone" class="form-select">
-                <optgroup label="General">
-                    <option value="GMT">GMT</option>
-                    <option value="UTC">UTC</option>
-                </optgroup>
-            </select>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-timezone-select name="timezone" />')
+        );
     }
 
     /** @test */
@@ -99,18 +73,9 @@ class TimezoneSelectTest extends ComponentTestCase
 
         config(['form-components.timezone_subset' => TimeZoneRegion::GENERAL]);
 
-        $expected = <<<HTML
-        <div class="form-text-container foo">
-            <select name="timezone" id="timezone" class="form-select">
-                <optgroup label="General">
-                    <option value="GMT">GMT</option>
-                    <option value="UTC">UTC</option>
-                </optgroup>
-            </select>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, '<x-timezone-select name="timezone" container-class="foo" />');
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-timezone-select name="timezone" container-class="foo" />')
+        );
     }
 
     /** @test */
@@ -120,40 +85,8 @@ class TimezoneSelectTest extends ComponentTestCase
 
         config(['form-components.timezone_subset' => TimeZoneRegion::GENERAL]);
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <select class="form-select">
-                <optgroup label="General">
-                    <option value="GMT">GMT</option>
-                    <option value="UTC">UTC</option>
-                </optgroup>
-            </select>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, '<x-timezone-select />');
-    }
-
-    private function generateTimezoneOptions($only = false): string
-    {
-        $timezones = app('fc-timezone')->only($only)->all();
-
-        $html = '';
-
-        foreach ($timezones as $region => $regionTimezones) {
-            $html .= <<<HTML
-            <optgroup label="{$region}">\n
-            HTML;
-
-            foreach ($regionTimezones as $key => $display) {
-                $html .= <<<HTML
-                <option value="{$key}">{$display}</option>\n
-                HTML;
-            }
-
-            $html .= "</optgroup>\n";
-        }
-
-        return $html;
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-timezone-select />')
+        );
     }
 }

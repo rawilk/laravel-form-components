@@ -1,0 +1,12 @@
+<div class="form-group mb-5 last:mb-0">
+            <label  for="first_name"  class="form-label block text-sm font-medium leading-5 text-blue-gray-700">
+            First name
+    </label>
+    
+    <div class="form-group__content mt-1 ">
+        Name field
+
+        
+                    <p class="form-help mt-2 text-sm text-blue-gray-500" id="first_name-description">Some help text</p>
+            </div>
+</div>

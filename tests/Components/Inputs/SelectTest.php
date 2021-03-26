@@ -3,23 +3,19 @@
 namespace Rawilk\FormComponents\Tests\Components\Inputs;
 
 use Rawilk\FormComponents\Tests\Components\ComponentTestCase;
+use Spatie\Snapshots\MatchesSnapshots;
 
 class SelectTest extends ComponentTestCase
 {
+    use MatchesSnapshots;
+
     /** @test */
     public function can_be_rendered(): void
     {
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <select name="country" id="country" class="form-select"></select>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders(
-            $expected,
-            '<x-select name="country" id="country" />'
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-select name="country" id="countrySelect" />')
         );
     }
 
@@ -32,20 +28,7 @@ class SelectTest extends ComponentTestCase
         <x-select name="country" :options="['can' => 'Canada', 'usa' => 'United States']" />
         HTML;
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <select name="country" id="country" class="form-select">
-                <option value="can">
-                    Canada
-                </option>
-                <option value="usa">
-                    United States
-                </option>
-            </select>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot($this->renderComponent($template));
     }
 
     /** @test */
@@ -57,20 +40,7 @@ class SelectTest extends ComponentTestCase
         <x-select name="country" :options="['can' => 'Canada', 'usa' => 'United States']" />
         HTML;
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <select name="country" id="country" class="form-select">
-                <option value="can">
-                    Canada
-                </option>
-                <option value="usa" selected>
-                    United States
-                </option>
-            </select>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot($this->renderComponent($template));
     }
 
     /** @test */
@@ -82,20 +52,7 @@ class SelectTest extends ComponentTestCase
         <x-select name="country" :options="['can' => 'Canada', 'usa' => 'United States']" value="can" />
         HTML;
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <select name="country" id="country" class="form-select">
-                <option value="can" selected>
-                    Canada
-                </option>
-                <option value="usa">
-                    United States
-                </option>
-            </select>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot($this->renderComponent($template));
     }
 
     /** @test */
@@ -108,20 +65,7 @@ class SelectTest extends ComponentTestCase
         <x-select name="country" id="country_code" class="px-4" value="can" :options="['can' => 'Canada', 'usa' => 'United States']" />
         HTML;
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <select name="country" id="country_code" class="form-select px-4">
-                <option value="can">
-                    Canada
-                </option>
-                <option value="usa" selected>
-                    United States
-                </option>
-            </select>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot($this->renderComponent($template));
     }
 
     /** @test */
@@ -133,23 +77,7 @@ class SelectTest extends ComponentTestCase
         <x-select name="country" multiple :options="['can' => 'Canada', 'usa' => 'United States', 'mex' => 'Mexico']" />
         HTML;
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <select name="country" id="country" multiple class="form-select">
-                <option value="can">
-                    Canada
-                </option>
-                <option value="usa" selected>
-                    United States
-                </option>
-                <option value="mex" selected>
-                    Mexico
-                </option>
-            </select>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot($this->renderComponent($template));
     }
 
     /** @test */
@@ -161,20 +89,7 @@ class SelectTest extends ComponentTestCase
         <x-select name="country" :options="['can' => 'Canada', 'usa' => 'United States']" />
         HTML;
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <select name="country" id="country" aria-invalid="true" aria-describedby="country-error" class="form-select input-error">
-                <option value="can">
-                    Canada
-                </option>
-                <option value="usa">
-                    United States
-                </option>
-            </select>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot($this->renderComponent($template));
     }
 
     /** @test */
@@ -192,22 +107,7 @@ class SelectTest extends ComponentTestCase
         </x-select>
         HTML;
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <select name="country" id="country" class="form-select">
-                <option value="ger">Germany</option>
-                <option value="can">
-                    Canada
-                </option>
-                <option value="usa" selected>
-                    United States
-                </option>
-                <option value="fra">France</option>
-            </select>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot($this->renderComponent($template));
     }
 
     /** @test */
@@ -215,13 +115,9 @@ class SelectTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <select class="form-select"></select>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, '<x-select />');
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-select />')
+        );
     }
 
     /** @test */
@@ -229,12 +125,8 @@ class SelectTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
-        <div class="form-text-container foo">
-            <select class="form-select"></select>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, '<x-select container-class="foo" />');
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-select container-class="foo" />')
+        );
     }
 }

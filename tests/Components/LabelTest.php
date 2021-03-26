@@ -2,20 +2,17 @@
 
 namespace Rawilk\FormComponents\Tests\Components;
 
+use Spatie\Snapshots\MatchesSnapshots;
+
 class LabelTest extends ComponentTestCase
 {
+    use MatchesSnapshots;
+
     /** @test */
     public function can_be_rendered(): void
     {
-        $expected = <<<HTML
-        <label for="first_name" class="form-label">
-            First name
-        </label>
-        HTML;
-
-        $this->assertComponentRenders(
-            $expected,
-            '<x-label for="first_name" />'
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-label for="first_name" />')
         );
     }
 
@@ -28,30 +25,24 @@ class LabelTest extends ComponentTestCase
         </x-label>
         HTML;
 
-        $expected = <<<HTML
-        <label for="first_name" class="form-label">
-            My custom label
-        </label>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot(
+            $this->renderComponent($template)
+        );
     }
 
     /** @test */
     public function for_attribute_is_optional(): void
     {
-        $expected = <<<HTML
-        <label class="form-label">
-            Label...
-        </label>
-        HTML;
-
-        $this->assertComponentRenders($expected, '<x-label>Label...</x-label>');
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-label>Label...</x-label>')
+        );
     }
 
     /** @test */
     public function nothing_is_rendered_if_label_is_empty(): void
     {
-        $this->assertComponentRenders('', '<x-label />');
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-label />')
+        );
     }
 }

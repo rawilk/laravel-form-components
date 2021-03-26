@@ -1,0 +1,9 @@
+<div class="choice-container relative flex items-start">
+    <div class="choice-input flex items-center h-5">
+        <input class="form-checkbox h-4 w-4 text-blue-600 border-blue-gray-300 rounded focus:ring-blue-500"
+                name="remember_me"                 id="remember_me"                type="checkbox"
+                                             
+        />
+    </div>
+
+    </div>

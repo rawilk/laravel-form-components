@@ -1,0 +1,14 @@
+<div class="form-group has-error mb-5 last:mb-0">
+            <label  for="name"  class="form-label block text-sm font-medium leading-5 text-blue-gray-700">
+            First name
+    </label>
+    
+    <div class="form-group__content mt-1 ">
+        Name field
+
+                    <p class="form-error mt-1 text-red-500 text-sm" id="name-error">
+                    Name is required.
+            </p>
+        
+            </div>
+</div>
