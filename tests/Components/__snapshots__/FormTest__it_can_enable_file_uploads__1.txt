@@ -1,0 +1,13 @@
+<form method="POST"
+                action="http://example.com"
+      
+              enctype="multipart/form-data"
+     
+            spellcheck="false"
+    
+     
+>
+            <input type="hidden" name="_token" value="">    
+            <input type="hidden" name="_method" value="PUT">    
+    Form fields...
+</form>

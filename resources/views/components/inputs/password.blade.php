@@ -36,11 +36,11 @@
              x-cloak
         >
             <span x-show="! show" class="h-5 w-5 text-blue-gray-400">
-                {{ svg($showPasswordIcon) }}
+                <x-dynamic-component :component="$showPasswordIcon" />
             </span>
 
             <span x-show="show" class="h-5 w-5 text-blue-gray-400">
-                {{ svg($hidePasswordIcon) }}
+                <x-dynamic-component :component="$hidePasswordIcon" />
             </span>
         </div>
     @endif

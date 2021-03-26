@@ -2,8 +2,12 @@
 
 namespace Rawilk\FormComponents\Tests\Components;
 
+use Spatie\Snapshots\MatchesSnapshots;
+
 class FormTest extends ComponentTestCase
 {
+    use MatchesSnapshots;
+
     /** @test */
     public function can_be_rendered(): void
     {
@@ -13,15 +17,9 @@ class FormTest extends ComponentTestCase
         </x-form>
         HTML;
 
-        $expected = <<<HTML
-        <form method="POST" action="http://example.com" spellcheck="false">
-            <input type="hidden" name="_token" value="">
-            Form fields...
-
-        </form>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot(
+            $this->renderComponent($template)
+        );
     }
 
     /** @test */
@@ -33,16 +31,9 @@ class FormTest extends ComponentTestCase
         </x-form>
         HTML;
 
-        $expected = <<<HTML
-        <form method="POST" action="http://example.com" spellcheck="false">
-            <input type="hidden" name="_token" value="">
-            <input type="hidden" name="_method" value="PUT">
-            Form fields...
-
-        </form>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot(
+            $this->renderComponent($template)
+        );
     }
 
     /** @test */
@@ -54,16 +45,9 @@ class FormTest extends ComponentTestCase
         </x-form>
         HTML;
 
-        $expected = <<<HTML
-        <form method="POST" action="http://example.com" enctype="multipart/form-data" spellcheck="false">
-            <input type="hidden" name="_token" value="">
-            <input type="hidden" name="_method" value="PUT">
-            Form fields...
-
-        </form>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot(
+            $this->renderComponent($template)
+        );
     }
 
     /** @test */
@@ -75,15 +59,9 @@ class FormTest extends ComponentTestCase
         </x-form>
         HTML;
 
-        $expected = <<<HTML
-        <form method="POST" action="http://example.com">
-            <input type="hidden" name="_token" value="">
-            Form fields...
-
-        </form>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot(
+            $this->renderComponent($template)
+        );
     }
 
     /** @test */
@@ -95,15 +73,9 @@ class FormTest extends ComponentTestCase
         </x-form>
         HTML;
 
-        $expected = <<<HTML
-        <form method="POST" spellcheck="false">
-            <input type="hidden" name="_token" value="">
-            Form fields...
-
-        </form>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot(
+            $this->renderComponent($template)
+        );
     }
 
     /**
@@ -119,13 +91,9 @@ class FormTest extends ComponentTestCase
         </x-form>
         HTML;
 
-        $expected = <<<HTML
-        <form method="{$method}" spellcheck="false">
-            Form fields...
-        </form>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot(
+            $this->renderComponent($template)
+        );
     }
 
     /** @test */
@@ -137,13 +105,9 @@ class FormTest extends ComponentTestCase
         </x-form>
         HTML;
 
-        $expected = <<<HTML
-        <form method="GET" action="http://example.test" spellcheck="false" wire:submit.prevent="submit">
-            Form fields...
-        </form>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot(
+            $this->renderComponent($template)
+        );
     }
 
     public function formMethodsWithoutCsrf(): array

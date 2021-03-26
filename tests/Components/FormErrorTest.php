@@ -2,22 +2,19 @@
 
 namespace Rawilk\FormComponents\Tests\Components;
 
+use Spatie\Snapshots\MatchesSnapshots;
+
 class FormErrorTest extends ComponentTestCase
 {
+    use MatchesSnapshots;
+
     /** @test */
     public function can_be_rendered(): void
     {
         $this->withViewErrors(['first_name' => 'Name is required.']);
 
-        $expected = <<<HTML
-        <p class="form-error" id="first_name-error">
-            Name is required.
-        </p>
-        HTML;
-
-        $this->assertComponentRenders(
-            $expected,
-            '<x-form-error name="first_name" />'
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-form-error name="first_name" />')
         );
     }
 
@@ -36,15 +33,6 @@ class FormErrorTest extends ComponentTestCase
         </x-form-error>
         HTML;
 
-        $expected = <<<HTML
-        <div class="form-error" id="first_name-error">
-            <ul>
-                <li>Incorrect first name.</li>
-                <li>Needs at least 5 characters.</li>
-            </ul>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot($this->renderComponent($template));
     }
 }

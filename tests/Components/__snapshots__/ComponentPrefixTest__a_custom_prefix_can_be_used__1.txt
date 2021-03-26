@@ -1,0 +1,12 @@
+<form method="POST"
+                action="http://example.com"
+      
+     
+            spellcheck="false"
+    
+     
+>
+            <input type="hidden" name="_token" value="">    
+    
+    
+</form>

@@ -5,44 +5,19 @@ declare(strict_types=1);
 namespace Rawilk\FormComponents\Tests\Components\Files;
 
 use Rawilk\FormComponents\Tests\Components\ComponentTestCase;
+use Spatie\Snapshots\MatchesSnapshots;
 
 class FileUploadTest extends ComponentTestCase
 {
+    use MatchesSnapshots;
+
     /** @test */
     public function can_be_rendered(): void
     {
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
-        <div class="file-upload space-x-5 ">
-            <div x-data="{ focused: false, isUploading: false, progress: 0 }"
-                 class="space-y-4 w-full">
-                <span class="file-upload__input">
-                    <input x-on:focus="focused = true"
-                           x-on:blur="focused = false"
-                           class="sr-only"
-                           type="file"
-                           name="file"
-                           id="file"
-                    />
-
-                    <label for="file"
-                           x-bind:class="{ 'file-upload__label--focused': focused }"
-                           class="file-upload__label">
-                        <span role="button"
-                              aria-controls="file"
-                              tabindex="0">
-                            Select File
-                        </span>
-                    </label>
-                </span>
-            </div>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders(
-            $expected,
-            '<x-file-upload name="file" />'
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-file-upload name="file" />')
         );
     }
 
@@ -51,59 +26,8 @@ class FileUploadTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
-        <div class="file-upload space-x-5 ">
-            <div x-data="{ focused: false, isUploading: false, progress: 0 }"
-                 x-on:livewire-upload-start="isUploading = true"
-                 x-on:livewire-upload-finish="isUploading = false"
-                 x-on:livewire-upload-error="isUploading = false"
-                 x-on:livewire-upload-progress="progress = \$event.detail.progress"
-                 class="space-y-4 w-full">
-                <span class="file-upload__input">
-                    <input x-on:focus="focused = true"
-                           x-on:blur="focused = false"
-                           class="sr-only"
-                           type="file"
-                           name="file"
-                           id="file"
-                           wire:model="file"
-                    />
-
-                    <label for="file"
-                           x-bind:class="{ 'file-upload__label--focused': focused }"
-                           class="file-upload__label">
-                        <span role="button"
-                              aria-controls="file"
-                              tabindex="0">
-                            Select File
-                        </span>
-                    </label>
-                </span>
-
-                <div class="relative" x-show.transition.opacity.duration.150ms="isUploading" x-cloak>
-                    <div class="flex mb-2 items-center justify-between">
-                        <div class="file-upload__badge inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium leading-4 bg-green-100 text-green-800">
-                            Processing...
-                        </div>
-
-                        <div class="text-right">
-                            <span class="text-xs font-semibold inline-block text-green-600" x-text="progress + '%'">
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="file-upload__progress overflow-hidden h-2 mb-4 text-xs flex rounded bg-green-200">
-                        <div class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500"
-                             x-bind:style="'width: ' + progress + '%;'"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders(
-            $expected,
-            '<x-file-upload name="file" wire:model="file" />'
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-file-upload name="file" wire:model="file" />')
         );
     }
 
@@ -112,38 +36,8 @@ class FileUploadTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
-        <div class="file-upload space-x-5 ">
-            <div x-data="{ focused: false, isUploading: false, progress: 0 }"
-                 class="space-y-4 w-full">
-                <span class="file-upload__input">
-                    <input x-on:focus="focused = true"
-                           x-on:blur="focused = false"
-                           class="sr-only"
-                           type="file"
-                           name="file"
-                           id="file"
-                           wire:model="file"
-                    />
-
-                    <label for="file"
-                           x-bind:class="{ 'file-upload__label--focused': focused }"
-                           class="file-upload__label">
-                        <span role="button"
-                              aria-controls="file"
-                              tabindex="0">
-                            Select File
-                        </span>
-                    </label>
-                </span>
-            </div>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders(
-            $expected,
-            '<x-file-upload name="file" wire:model="file" :display-upload-progress="$show" />',
-            ['show' => false],
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-file-upload name="file" wire:model="file" :display-upload-progress="false" />')
         );
     }
 
@@ -160,36 +54,7 @@ class FileUploadTest extends ComponentTestCase
         </x-file-upload>
         HTML;
 
-        $expected = <<<HTML
-        <div class="file-upload space-x-5 ">
-            <div x-data="{ focused: false, isUploading: false, progress: 0 }"
-                 class="space-y-4 w-full">
-                <span class="file-upload__input">
-                    <input x-on:focus="focused = true"
-                           x-on:blur="focused = false"
-                           class="sr-only"
-                           type="file"
-                           name="file"
-                           id="file"
-                    />
-
-                    <label for="file"
-                           x-bind:class="{ 'file-upload__label--focused': focused }"
-                           class="file-upload__label">
-                        <span role="button"
-                              aria-controls="file"
-                              tabindex="0">
-                            Select File
-                        </span>
-                    </label>
-                </span>
-            </div>
-
-            <div>After slot content...</div>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot($this->renderComponent($template));
     }
 
     /** @test */
@@ -203,36 +68,7 @@ class FileUploadTest extends ComponentTestCase
         </x-file-upload>
         HTML;
 
-        $expected = <<<HTML
-        <div class="file-upload space-x-5 ">
-            <div>Default slot content...</div>
-
-            <div x-data="{ focused: false, isUploading: false, progress: 0 }"
-                 class="space-y-4 w-full">
-                <span class="file-upload__input">
-                    <input x-on:focus="focused = true"
-                           x-on:blur="focused = false"
-                           class="sr-only"
-                           type="file"
-                           name="file"
-                           id="file"
-                    />
-
-                    <label for="file"
-                           x-bind:class="{ 'file-upload__label--focused': focused }"
-                           class="file-upload__label">
-                        <span role="button"
-                              aria-controls="file"
-                              tabindex="0">
-                            Select File
-                        </span>
-                    </label>
-                </span>
-            </div>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot($this->renderComponent($template));
     }
 
     /** @test */
@@ -240,36 +76,8 @@ class FileUploadTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
-        <div class="file-upload space-x-5 foo">
-            <div x-data="{ focused: false, isUploading: false, progress: 0 }"
-                 class="space-y-4 w-full">
-                <span class="file-upload__input">
-                    <input x-on:focus="focused = true"
-                           x-on:blur="focused = false"
-                           class="sr-only"
-                           type="file"
-                           name="file"
-                           id="file"
-                    />
-
-                    <label for="file"
-                           x-bind:class="{ 'file-upload__label--focused': focused }"
-                           class="file-upload__label">
-                        <span role="button"
-                              aria-controls="file"
-                              tabindex="0">
-                            Select File
-                        </span>
-                    </label>
-                </span>
-            </div>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders(
-            $expected,
-            '<x-file-upload name="file" class="foo" />'
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-file-upload name="file" class="foo" />')
         );
     }
 
@@ -278,38 +86,8 @@ class FileUploadTest extends ComponentTestCase
     {
         $this->withViewErrors(['file' => 'required']);
 
-        $expected = <<<HTML
-        <div class="file-upload space-x-5 ">
-            <div x-data="{ focused: false, isUploading: false, progress: 0 }"
-                 class="space-y-4 w-full">
-                <span class="file-upload__input">
-                    <input x-on:focus="focused = true"
-                           x-on:blur="focused = false"
-                           class="sr-only"
-                           type="file"
-                           name="file"
-                           id="file"
-                           aria-invalid="true"
-                           aria-describedby="file-error"
-                    />
-
-                    <label for="file"
-                           x-bind:class="{ 'file-upload__label--focused': focused }"
-                           class="file-upload__label">
-                        <span role="button"
-                              aria-controls="file"
-                              tabindex="0">
-                            Select File
-                        </span>
-                    </label>
-                </span>
-            </div>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders(
-            $expected,
-            '<x-file-upload name="file" />'
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-file-upload name="file" />')
         );
     }
 
@@ -317,44 +95,13 @@ class FileUploadTest extends ComponentTestCase
      * @test
      * @dataProvider acceptsTypes
      * @param string $type
-     * @param string $shouldAccept
      */
-    public function can_be_told_to_accept_certain_preset_types(string $type, string $shouldAccept): void
+    public function can_be_told_to_accept_certain_preset_types(string $type): void
     {
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
-        <div class="file-upload space-x-5 ">
-            <div x-data="{ focused: false, isUploading: false, progress: 0 }"
-                 class="space-y-4 w-full">
-                <span class="file-upload__input">
-                    <input x-on:focus="focused = true"
-                           x-on:blur="focused = false"
-                           class="sr-only"
-                           type="file"
-                           name="file"
-                           id="file"
-                           accept="{$shouldAccept}"
-                    />
-
-                    <label for="file"
-                           x-bind:class="{ 'file-upload__label--focused': focused }"
-                           class="file-upload__label">
-                        <span role="button"
-                              aria-controls="file"
-                              tabindex="0">
-                            Select File
-                        </span>
-                    </label>
-                </span>
-            </div>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders(
-            $expected,
-            '<x-file-upload name="file" :type="$type" />',
-            compact('type')
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-file-upload name="file" :type="$type" />', ['type' => $type])
         );
     }
 

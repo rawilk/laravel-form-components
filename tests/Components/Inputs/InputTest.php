@@ -5,25 +5,20 @@ declare(strict_types=1);
 namespace Rawilk\FormComponents\Tests\Components\Inputs;
 
 use Illuminate\Support\HtmlString;
-use Rawilk\FormComponents\Components\Inputs\Input;
 use Rawilk\FormComponents\Tests\Components\ComponentTestCase;
+use Spatie\Snapshots\MatchesSnapshots;
 
 class InputTest extends ComponentTestCase
 {
+    use MatchesSnapshots;
+
     /** @test */
     public function can_be_rendered(): void
     {
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <input class="form-input form-text" name="search" id="search" type="text" />
-        </div>
-        HTML;
-
-        $this->assertComponentRenders(
-            $expected,
-            '<x-input name="search" />'
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-input name="search" />')
         );
     }
 
@@ -32,15 +27,8 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <input class="form-input form-text p-4" name="confirm_password" id="confirmPassword" type="password" />
-        </div>
-        HTML;
-
-        $this->assertComponentRenders(
-            $expected,
-            '<x-input name="confirm_password" id="confirmPassword" type="password" class="p-4" />'
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-input name="confirm_password" id="confirmPassword" type="password" class="p-4" />')
         );
     }
 
@@ -50,15 +38,8 @@ class InputTest extends ComponentTestCase
         $this->flashOld(['search' => 'Eloquent']);
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <input class="form-input form-text" name="search" id="search" type="text" value="Eloquent" />
-        </div>
-        HTML;
-
-        $this->assertComponentRenders(
-            $expected,
-            '<x-input name="search" />'
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-input name="search" />')
         );
     }
 
@@ -68,15 +49,8 @@ class InputTest extends ComponentTestCase
         $this->flashOld(['search' => 'Eloquent']);
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <input class="form-input form-text" wire:model="search" name="search" id="search" type="text" />
-        </div>
-        HTML;
-
-        $this->assertComponentRenders(
-            $expected,
-            '<x-input name="search" wire:model="search" />'
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-input name="search" wire:model="search" />')
         );
     }
 
@@ -85,17 +59,8 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <span class="leading-addon">foo</span>
-
-            <input class="form-input form-text has-leading-addon" name="search" id="search" type="text" />
-        </div>
-        HTML;
-
-        $this->assertComponentRenders(
-            $expected,
-            '<x-input name="search" leading-addon="foo" />'
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-input name="search" leading-addon="foo" />')
         );
     }
 
@@ -110,15 +75,7 @@ class InputTest extends ComponentTestCase
         </x-input>
         HTML;
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <span class="leading-addon">foo</span>
-
-            <input class="form-input form-text has-leading-addon" name="search" id="search" type="text" />
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot($this->renderComponent($template));
     }
 
     /** @test */
@@ -126,37 +83,18 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $padding = Input::DEFAULT_INLINE_ADDON_PADDING;
-
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <div class="inline-addon">
-                <span>foo</span>
-            </div>
-
-            <input class="form-input form-text {$padding}" name="search" id="search" type="text" />
-        </div>
-        HTML;
-
-        $this->assertComponentRenders(
-            $expected,
-            '<x-input name="search" inline-addon="foo" />'
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-input name="search" inline-addon="foo" />')
         );
+    }
 
-        // With custom inline addon padding
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <div class="inline-addon">
-                <span>foo</span>
-            </div>
+    /** @test */
+    public function can_have_custom_inline_addon_padding(): void
+    {
+        $this->withViewErrors([]);
 
-            <input class="form-input form-text pl-20" name="search" id="search" type="text" />
-        </div>
-        HTML;
-
-        $this->assertComponentRenders(
-            $expected,
-            '<x-input name="search" inline-addon="foo" inline-addon-padding="pl-20" />'
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-input name="search" inline-addon="foo" inline-addon-padding="pl-20" />')
         );
     }
 
@@ -171,19 +109,7 @@ class InputTest extends ComponentTestCase
         </x-input>
         HTML;
 
-        $padding = Input::DEFAULT_INLINE_ADDON_PADDING;
-
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <div class="inline-addon">
-                <span>foo</span>
-            </div>
-
-            <input class="form-input form-text {$padding}" name="search" id="search" type="text" />
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot($this->renderComponent($template));
     }
 
     /** @test */
@@ -197,15 +123,7 @@ class InputTest extends ComponentTestCase
         </x-input>
         HTML;
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <div class="leading-icon">icon here</div>
-
-            <input class="form-input form-text has-leading-icon" name="search" id="search" type="text" />
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot($this->renderComponent($template));
     }
 
     /** @test */
@@ -213,21 +131,14 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
+        // leading-addon should be the only one rendered.
         $template = <<<HTML
         <x-input name="search" leading-addon="foo" inline-addon="bar">
             <x-slot name="leadingIcon">icon here</x-slot>
         </x-input>
         HTML;
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <span class="leading-addon">foo</span>
-
-            <input class="form-input form-text has-leading-addon" name="search" id="search" type="text" />
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot($this->renderComponent($template));
     }
 
     /** @test */
@@ -235,37 +146,18 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $padding = Input::DEFAULT_TRAILING_ADDON_PADDING;
-
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <input class="form-input form-text {$padding}" name="search" id="search" type="text" />
-
-            <div class="trailing-addon">
-                <span>foo</span>
-            </div>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders(
-            $expected,
-            '<x-input name="search" trailing-addon="foo" />'
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-input name="search" trailing-addon="foo" />')
         );
+    }
 
-        // With custom trailing addon padding
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <input class="form-input form-text pr-20" name="search" id="search" type="text" />
+    /** @test */
+    public function can_have_custom_trailing_addon_padding(): void
+    {
+        $this->withViewErrors([]);
 
-            <div class="trailing-addon">
-                <span>foo</span>
-            </div>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders(
-            $expected,
-            '<x-input name="search" trailing-addon="foo" trailing-addon-padding="pr-20" />'
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-input name="search" trailing-addon="foo" trailing-addon-padding="pr-20" />')
         );
     }
 
@@ -282,17 +174,7 @@ class InputTest extends ComponentTestCase
         </x-input>
         HTML;
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <input class="form-input form-text pr-20" name="search" id="search" type="text" />
-
-            <div class="trailing-addon">
-                <span>foo slotted</span>
-            </div>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot($this->renderComponent($template));
     }
 
     /** @test */
@@ -306,15 +188,7 @@ class InputTest extends ComponentTestCase
         </x-input>
         HTML;
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <input class="form-input form-text has-trailing-icon" name="search" id="search" type="text" />
-
-            <div class="trailing-icon">icon here</div>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot($this->renderComponent($template));
     }
 
     /** @test */
@@ -322,23 +196,14 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
+        // should only render the trailing-addon.
         $template = <<<HTML
         <x-input name="search" trailing-addon="foo">
             <x-slot name="trailingIcon">icon here</x-slot>
         </x-input>
         HTML;
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <input class="form-input form-text pr-12" name="search" id="search" type="text" />
-
-            <div class="trailing-addon">
-                <span>foo</span>
-            </div>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot($this->renderComponent($template));
     }
 
     /** @test */
@@ -352,17 +217,7 @@ class InputTest extends ComponentTestCase
         </x-input>
         HTML;
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <span class="leading-addon">foo</span>
-
-            <input class="form-input form-text has-leading-addon has-trailing-icon" name="search" id="search" type="text" />
-
-            <div class="trailing-icon">icon here</div>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot($this->renderComponent($template));
     }
 
     /** @test */
@@ -370,15 +225,8 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors(['search' => 'required']);
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <input class="form-input form-text input-error" name="search" id="inputSearch" type="text" aria-invalid="true" aria-describedby="inputSearch-error" />
-        </div>
-        HTML;
-
-        $this->assertComponentRenders(
-            $expected,
-            '<x-input name="search" id="inputSearch" />'
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-input name="search" id="inputSearch" />')
         );
     }
 
@@ -387,15 +235,8 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors(['search' => 'required']);
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <input class="form-input form-text input-error" aria-describedby="search-help search-error" name="search" id="search" type="text" aria-invalid="true" />
-        </div>
-        HTML;
-
-        $this->assertComponentRenders(
-            $expected,
-            '<x-input name="search" aria-describedby="search-help" />'
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-input name="search" aria-describedby="search-help" />')
         );
     }
 
@@ -408,13 +249,7 @@ class InputTest extends ComponentTestCase
         <x-input max-width="sm" name="name" />
         HTML;
 
-        $expected = <<<HTML
-        <div class="form-text-container max-w-sm">
-            <input class="form-input form-text" name="name" id="name" type="text" />
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot($this->renderComponent($template));
     }
 
     /** @test */
@@ -422,13 +257,9 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
-        <div class="form-text-container foo">
-            <input class="form-input form-text" name="name" id="name" type="text" />
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, '<x-input name="name" container-class="foo" />');
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-input name="name" container-class="foo" />')
+        );
     }
 
     /** @test */
@@ -436,13 +267,9 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <input class="form-input form-text" type="text" />
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, '<x-input />');
+        $this->assertMatchesSnapshot(
+            $this->renderComponent('<x-input />')
+        );
     }
 
     /** @test */
@@ -460,12 +287,6 @@ class InputTest extends ComponentTestCase
         <x-input name="foo" :extra-attributes="\$attributes" />
         HTML;
 
-        $expected = <<<HTML
-        <div class="form-text-container">
-            <input class="form-input form-text" x-data x-ref="foo" x-on:keydown="\$wire.submit()" name="foo" id="foo" type="text" />
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template, ['attributes' => $attributes]);
+        $this->assertMatchesSnapshot($this->renderComponent($template, compact('attributes')));
     }
 }

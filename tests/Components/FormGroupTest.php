@@ -2,8 +2,12 @@
 
 namespace Rawilk\FormComponents\Tests\Components;
 
+use Spatie\Snapshots\MatchesSnapshots;
+
 class FormGroupTest extends ComponentTestCase
 {
+    use MatchesSnapshots;
+
     /** @test */
     public function can_be_rendered(): void
     {
@@ -15,19 +19,9 @@ class FormGroupTest extends ComponentTestCase
         </x-form-group>
         HTML;
 
-        $expected = <<<HTML
-        <div class="form-group">
-            <label for="first_name" class="form-label">
-                First name
-            </label>
-
-            <div class="form-group__content ">
-                Name input
-            </div>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot(
+            $this->renderComponent($template)
+        );
     }
 
     /** @test */
@@ -41,21 +35,9 @@ class FormGroupTest extends ComponentTestCase
         </x-form-group>
         HTML;
 
-        $expected = <<<HTML
-        <div class="form-group">
-            <label for="first_name" class="form-label">
-                First name
-            </label>
-
-            <div class="form-group__content ">
-                Name field
-
-                <p class="form-help" id="first_name-description">Some help text</p>
-            </div>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot(
+            $this->renderComponent($template)
+        );
     }
 
     /** @test */
@@ -73,21 +55,9 @@ class FormGroupTest extends ComponentTestCase
         </x-form-group>
         HTML;
 
-        $expected = <<<HTML
-        <div class="form-group">
-            <label for="first_name" class="form-label">
-                First name
-            </label>
-
-            <div class="form-group__content ">
-                Name field
-
-                <p class="form-help" id="first_name-description">Some help text</p>
-            </div>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot(
+            $this->renderComponent($template)
+        );
     }
 
     /** @test */
@@ -101,45 +71,25 @@ class FormGroupTest extends ComponentTestCase
         </x-form-group>
         HTML;
 
-        $expected = <<<HTML
-        <div class="form-group form-group-inline">
-            <label for="first_name" class="form-label form-group__inline-label">
-                First name
-            </label>
-
-            <div class="form-group__content form-group__content--inline">
-                Name field
-            </div>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot(
+            $this->renderComponent($template)
+        );
     }
 
     /** @test */
-    public function can_have_a_top_border_when_inline(): void
+    public function border_top_can_be_disabled_when_inline(): void
     {
         $this->withViewErrors([]);
 
         $template = <<<HTML
-        <x-form-group label="First name" name="first_name" inline border>
+        <x-form-group label="First name" name="first_name" inline :border="false">
             Name field
         </x-form-group>
         HTML;
 
-        $expected = <<<HTML
-        <div class="form-group form-group-inline form-group-inline--border">
-            <label for="first_name" class="form-label form-group__inline-label">
-                First name
-            </label>
-
-            <div class="form-group__content form-group__content--inline">
-                Name field
-            </div>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot(
+            $this->renderComponent($template)
+        );
     }
 
     /** @test */
@@ -153,23 +103,9 @@ class FormGroupTest extends ComponentTestCase
         </x-form-group>
         HTML;
 
-        $expected = <<<HTML
-        <div class="form-group has-error">
-            <label for="name" class="form-label">
-                First name
-            </label>
-
-            <div class="form-group__content ">
-                Name field
-
-                <p class="form-error" id="name-error">
-                    Name is required.
-                </p>
-            </div>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot(
+            $this->renderComponent($template)
+        );
     }
 
     /** @test */
@@ -183,19 +119,9 @@ class FormGroupTest extends ComponentTestCase
         </x-form-group>
         HTML;
 
-        $expected = <<<HTML
-        <div class="form-group form-group-inline">
-            <label for="name" class="form-label">
-                First name
-            </label>
-
-            <div class="form-group__content form-group__content--inline">
-                Name field
-            </div>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template);
+        $this->assertMatchesSnapshot(
+            $this->renderComponent($template)
+        );
     }
 
     /** @test */
@@ -204,19 +130,13 @@ class FormGroupTest extends ComponentTestCase
         $this->withViewErrors([]);
 
         $template = <<<HTML
-        <x-form-group :label="\$label" name="name">
+        <x-form-group :label="false" name="name">
             Name field
         </x-form-group>
         HTML;
 
-        $expected = <<<HTML
-        <div class="form-group">
-            <div class="form-group__content ">
-                Name field
-            </div>
-        </div>
-        HTML;
-
-        $this->assertComponentRenders($expected, $template, ['label' => false]);
+        $this->assertMatchesSnapshot(
+            $this->renderComponent($template)
+        );
     }
 }
