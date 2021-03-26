@@ -331,7 +331,6 @@
                                     <option value="Australia/Adelaide">(GMT/UTC +10:30) Australia/Adelaide</option>
                                     <option value="Australia/Brisbane">(GMT/UTC +10:00) Australia/Brisbane</option>
                                     <option value="Australia/Broken_Hill">(GMT/UTC +10:30) Australia/Broken Hill</option>
-                                    <option value="Australia/Currie">(GMT/UTC +11:00) Australia/Currie</option>
                                     <option value="Australia/Darwin">(GMT/UTC +09:30) Australia/Darwin</option>
                                     <option value="Australia/Eucla">(GMT/UTC +08:45) Australia/Eucla</option>
                                     <option value="Australia/Hobart">(GMT/UTC +11:00) Australia/Hobart</option>

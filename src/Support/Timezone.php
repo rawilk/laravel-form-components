@@ -67,7 +67,13 @@ class Timezone
             $timezones[$region] = [];
 
             foreach ($regionTimezones as $timezone) {
-                $timezones[$region][$timezone] = $this->format(timezone: $timezone);
+                $format = $this->format($timezone);
+
+                if ($format === false) {
+                    continue;
+                }
+
+                $timezones[$region][$timezone] = $format;
             }
         }
 
@@ -77,10 +83,14 @@ class Timezone
         return $this->timezones = $timezones;
     }
 
-    protected function format(string $timezone): string
+    protected function format(string $timezone): bool|string
     {
         $time = new DateTime('', new DateTimeZone($timezone));
         $offset = $this->normalizeOffset($timezone, $time->format('P'));
+
+        if ($offset === false) {
+            return false;
+        }
 
         $timezone = str_replace(
             ['St_', '_'],
@@ -96,11 +106,12 @@ class Timezone
      * timezone offsets for certain timezones than when tests are
      * ran locally. This may need to be addressed in the future...
      */
-    private function normalizeOffset(string $timezone, $offset): string
+    private function normalizeOffset(string $timezone, $offset): bool|string
     {
         return match($timezone) {
             'Africa/Juba' => '+02:00',
             'Europe/Volgograd' => '+03:00',
+            'Australia/Currie' => false,
             default => $offset,
         };
     }
