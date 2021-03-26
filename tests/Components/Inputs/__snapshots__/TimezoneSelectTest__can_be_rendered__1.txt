@@ -37,7 +37,7 @@
                                     <option value="Africa/Gaborone">(GMT/UTC +02:00) Africa/Gaborone</option>
                                     <option value="Africa/Harare">(GMT/UTC +02:00) Africa/Harare</option>
                                     <option value="Africa/Johannesburg">(GMT/UTC +02:00) Africa/Johannesburg</option>
-                                    <option value="Africa/Juba">(GMT/UTC +03:00) Africa/Juba</option>
+                                    <option value="Africa/Juba">(GMT/UTC +02:00) Africa/Juba</option>
                                     <option value="Africa/Kampala">(GMT/UTC +03:00) Africa/Kampala</option>
                                     <option value="Africa/Khartoum">(GMT/UTC +02:00) Africa/Khartoum</option>
                                     <option value="Africa/Kigali">(GMT/UTC +02:00) Africa/Kigali</option>
@@ -397,7 +397,7 @@
                                     <option value="Europe/Vatican">(GMT/UTC +01:00) Europe/Vatican</option>
                                     <option value="Europe/Vienna">(GMT/UTC +01:00) Europe/Vienna</option>
                                     <option value="Europe/Vilnius">(GMT/UTC +02:00) Europe/Vilnius</option>
-                                    <option value="Europe/Volgograd">(GMT/UTC +04:00) Europe/Volgograd</option>
+                                    <option value="Europe/Volgograd">(GMT/UTC +03:00) Europe/Volgograd</option>
                                     <option value="Europe/Warsaw">(GMT/UTC +01:00) Europe/Warsaw</option>
                                     <option value="Europe/Zagreb">(GMT/UTC +01:00) Europe/Zagreb</option>
                                     <option value="Europe/Zaporozhye">(GMT/UTC +02:00) Europe/Zaporozhye</option>

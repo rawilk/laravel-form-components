@@ -13,11 +13,16 @@ class TimezoneSelectTest extends ComponentTestCase
 {
     use MatchesSnapshots;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        Carbon::setTestNow('2021-01-01');
+    }
+
     /** @test */
     public function can_be_rendered(): void
     {
-        Carbon::setTestNow('2021-01-01');
-
         $this->withViewErrors([]);
 
         $this->assertMatchesSnapshot(
