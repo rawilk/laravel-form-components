@@ -126,7 +126,7 @@ class FormComponentsServiceProvider extends ServiceProvider
 
     protected function registerSvgIcons (): void
     {
-        $svgPath = config("form-components.svg_path");
+        $svgPath = config('form-components.svg_path');
 
         if (!is_null($svgPath)) {
             $this->callAfterResolving(\BladeUI\Icons\Factory::class, function (\BladeUI\Icons\Factory $factory) use ($svgPath) {
