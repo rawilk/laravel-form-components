@@ -101,6 +101,7 @@ trait HasAddons
         if ($this->leadingIcon && ! Str::contains($this->leadingIcon, ['<', '>'])) {
             $this->leadingIcon = $this->setSvgHtml($this->leadingIcon);
         }
+        
         if ($hasTrailingIcon && $this->trailingIcon && ! Str::contains($this->trailingIcon, ['<', '>'])) {
             $this->trailingIcon = $this->setSvgHtml($this->trailingIcon);
         }
