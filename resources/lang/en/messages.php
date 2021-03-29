@@ -12,4 +12,8 @@ return [
     'timezone_select_placeholder' => 'Select a timezone',
     'switch_button_label' => 'Turn on',
     'optional' => 'Optional',
+    'date_picker_toggle_icon_title' => 'Select a date',
+    'date_picker_clear_button' => 'Clear selected',
+    'password_show_toggle_title' => 'Show',
+    'password_hide_toggle_title' => 'Hide',
 ];

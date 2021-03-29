@@ -31,7 +31,7 @@
 
     @if ($showToggle)
         <div x-on:click="show = ! show"
-             x-bind:title="show ? '{{ __('Hide') }}' : '{{ __('Show') }}'"
+             x-bind:title="show ? '{{ __('form-components::messages.password_hide_toggle_title') }}' : '{{ __('form-components::messages.password_show_toggle_title') }}'"
              class="trailing-icon password-toggle clickable pr-3 flex items-center bg-white border rounded-md rounded-l-none border-l-0 {{ $hasErrorsAndShow($name) ? 'border-red-300' : 'border-blue-gray-300 group-focus:border-blue-300' }}"
              x-cloak
         >
