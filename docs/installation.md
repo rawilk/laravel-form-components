@@ -84,7 +84,7 @@ This is assuming your stylesheet is located in the `./resources/css/` directory 
 ### Directly in Blade/HTML
 You could copy the built CSS from `vendor/rawilk/laravel-components/resources/js/laravel-form-components-styles/dist/styles.css` into your public folder, and then use a `link` tag in your blade/html to get it: `<link rel="stylesheet" href="{{ asset('css/laravel-form-components.css') }}">`.
 
-If you would like to customize the CSS we provide, header over to [the section on Customizing CSS](/docs/laravel-form-components/v4/advanced-usage/customizing-css).
+If you would like to customize the CSS we provide, head over to [the section on Customizing CSS](/docs/laravel-form-components/v4/advanced-usage/customizing-css).
 
 > {tip} If you are using Purge CSS or Tailwind's JIT compiler, you should check out the section on [Purge CSS](/docs/laravel-form-components/v4/advanced-usage/customizing-css#purge-csstailwind-jit)
 > to prevent styles from being lost in production or at compile time.
