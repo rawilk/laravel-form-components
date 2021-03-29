@@ -17,51 +17,6 @@ The most basic usage of the timezone select involves setting a name attribute:
 <x-timezone-select name="timezone" />
 ```
 
-This will output:
-
-```html
-<div class="form-text-container ">
-    <select name="timezone" id="timezone" class="form-select">
-        <optgroup label="General">
-            <option value="GMT">GMT</option>
-            <option value="UTC">UTC</option>
-        </optgroup>
-        <optgroup label="Africa">
-            ...
-        </optgroup>
-        <optgroup label="America">
-            ...
-            <option value="America/Chicago">(GMT/UTC -05:00) America/Chicago</option>
-            ...
-        </optgroup>
-        <optgroup label="Antarctica">
-            ...
-        </optgroup>
-        <optgroup label="Arctic">
-            ...
-        </optgroup>
-        <optgroup label="Asia">
-            ...
-        </optgroup>
-        <optgroup label="Atlantic">
-            ...
-        </optgroup>
-        <optgroup label="Australia">
-            ...
-        </optgroup>
-        <optgroup label="Europe">
-            ...
-        </optgroup>
-        <optgroup label="Indian">
-            ...
-        </optgroup>
-        <optgroup label="Pacific">
-            ...
-        </optgroup>
-    </select>
-</div>
-```
-
 ## Excluding Regions
 
 You may not always want or need to show a list of every timezone region. You can specify a specific region or group or regions to
@@ -78,31 +33,20 @@ Via prop:
 <x-timezone-select name="timezone" :only="['America']" />
 ```
 
-In both cases, this will output:
-```html
-<div class="form-text-container ">
-    <select name="timezone" id="timezone" class="form-select">
-        <optgroup label="America">
-            ...
-        </optgroup>
-    </select>
-</div>
-```
-
 With both methods, you can use a boolean value `false` to include every timezone region available.
 
 ## Custom Select Support
 
 As of version `1.4.0`, the timezone select can be rendered either as a native select input, or by using the
-[custom-select component](/docs/laravel-form-components/v3/components/custom-select). To use the custom-select
+[custom-select component](/docs/laravel-form-componentsvalue-fieldcomponents/custom-select). To use the custom-select
 component, simply pass in a true boolean value for the `use-custom-select` attribute on the timezone select.
 
 ```html
-<x-timezone-select use-custom-timezone />
+<x-timezone-select use-custom-select />
 ```
 
 By default, the timezone select uses the native select input, so you will explicitly tell it to use
 the custom-select component any time you render the timezone select component.
 
 > {note} If you want to render it as a custom-select, you need to ensure you have followed the
-[installation steps](/docs/laravel-form-components/v3/components/custom-select#installation) for the `custom-select` component.
+[installation steps](/docs/laravel-form-components/v4/selects/custom-select#installation) for the `custom-select` component.

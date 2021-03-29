@@ -30,7 +30,7 @@ using a `name` attribute:
 This will output:
 
 ```html
-<p class="form-error" id="first_name-error">
+<p class="form-error mt-1 text-red-500 text-sm" id="first_name-error">
     Incorrect first name.
 </p>
 ```
@@ -54,7 +54,7 @@ Let's assume we have the following validation errors:
     'first_name' => [
         'Incorrect first name.',
         'Needs at least 5 characters.',
-    ]
+    ],
 ]
 ```
 

@@ -17,34 +17,10 @@ The most basic usage of the component involves setting a `name` attribute:
 <x-select name="state" />
 ```
 
-This will output:
-
-```html
-<div class="form-text-container">
-    <select name="state"
-            id="state"
-            class="form-select"
-    >
-    </select>
-</div>
-```
-
 Of course, the `id` attribute can easily be overridden:
 
 ```html
 <x-select name="state" id="state_id" />
-```
-
-This will output:
-
-```html
-<div class="form-text-container">
-    <select name="state"
-            id="state_id"
-            class="form-select"
-    >
-    </select>
-</div>
 ```
 
 ## Options
@@ -59,19 +35,6 @@ key/value pairs. This will allow the select component to automatically determine
 <x-select name="state" :options="['al' => 'Alabama', 'wi' => 'Wisconsin']" />
 ```
 
-This will output:
-```html
-<div class="form-text-container">
-    <select name="state"
-            id="state"
-            class="form-select"
-    >
-        <option value="al">Alabama</option>
-        <option value="wi">Wisconsin</option>
-    </select>
-</div>
-```
-
 ### Via Default Slot
 
 Another way is to use the default slot on the component:
@@ -82,19 +45,7 @@ Another way is to use the default slot on the component:
 </x-select>
 ```
 
-This will output:
-
-```html
-<div class="form-text-container">
-    <select name="state"
-            id="state"
-            class="form-select"
-    >
-        <option value="al">Alabama</option>
-        <option value="wi">Wisconsin</option>
-    </select>
-</div>
-```
+> {note} When using the default slot, the select component will not be able to determine if the options in the slot are selected or not automatically for you.
 
 ### Via The Append Slot
 
@@ -110,20 +61,6 @@ add your slotted options **after** the passed in options:
 </x-select>
 ```
 
-This will output:
-```html
-<div class="form-text-container">
-    <select name="state"
-            id="state"
-            class="form-select"
-    >
-        <option value="ny">New York</option>
-        <option value="al">Alabama</option>
-        <option value="wi">Wisconsin</option>
-    </select>
-</div>
-```
-
 ### Combining Methods
 You can also pass in options using multiple methods. For example, if you pass options in using the `options`
 attribute, and also via the default slot, your slotted options will be rendered **before** the passed in options:
@@ -135,20 +72,6 @@ attribute, and also via the default slot, your slotted options will be rendered 
 </x-select>
 ```
 
-This will output:
-```html
-<div class="form-text-container">
-    <select name="state"
-            id="state"
-            class="form-select"
-    >
-        <option value="al">Alabama</option>
-        <option value="wi">Wisconsin</option>
-        <option value="ny">New York</option>
-    </select>
-</div>
-```
-
 ## Multiple Select
 
 You can easily create a multiple select by setting `multiple` to `true`:
@@ -157,21 +80,7 @@ You can easily create a multiple select by setting `multiple` to `true`:
 <x-select name="state" :options="['al' => 'Alabama', 'wi' => 'Wisconsin']" multiple />
 ```
 
-This will output:
-```html
-<div class="form-text-container">
-    <select name="state"
-            id="state"
-            class="form-select"
-            multiple
-    >
-        <option value="al">Alabama</option>
-        <option value="wi">Wisconsin</option>
-    </select>
-</div>
-```
-
 ## Reference
 
-Since the select component extends the [input component](/docs/laravel-form-components/v3/components/input), you are able
+Since the select component extends the [input component](/docs/laravel-form-components/v4/inputs/input), you are able
 to do a lot of the same things you can with the input element, such as error handling and addons.

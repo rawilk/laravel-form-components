@@ -9,7 +9,8 @@ sort: 2
 -   Laravel **8.0** or greater
 -   TailwindUI for styling
 -   Alpine.js
--   Blade Heroicons
+-   Popper.js (when using components like custom-select)
+-   Blade Heroicons (can easily swap for icon libraries)
 
 ## Version Matrix
 

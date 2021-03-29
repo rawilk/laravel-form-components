@@ -3,6 +3,45 @@ title: Upgrade
 sort: 4
 ---
 
+## Upgrading from v3 to v4
+
+Version 4 introduced some breaking changes, which are outlined below:
+
+### Styling
+
+In v4, laravel-form-components is now inlining a lot of the class names for form components instead of using `@apply` in a stylesheet with a custom class name. For backwards compatibility, the custom class names are still included with each component to prevent breaking any style overrides you may have written. 
+
+Another major change with the styling is laravel-form-components now uses a single `.css` stylesheet for any complex styles required instead of using `.sass` stylesheets. This will allow the usage of postcss and/or tailwind's JIT compiler in your projects with these styles. If you're still using SASS, you should still be able to pull the styles in as you were before; you'll just need to update the path to the stylesheet.
+
+In addition, we have stopped using the `primary` and `danger` variant names in favor of `blue` and `red` respectively. Be sure to update your tailwind config and stylesheets accordingly.
+
+For more info on styling, please see [the Customizing CSS section](/docs/laravel-form-components/advanced-usage/customizing-css).
+
+### Added Dependencies
+Some components, such as the `custom-select` component, have a dependency on `Popper.js` now for positioning the menu. This will require you to ensure that dependency is installed in your project. If you customized the package's configuration file, you should make sure you pull in any updates to the configuration as well.
+
+See [the custom select docs](/docs/laravel-form-components/v4/selects/custom-select#installation) for more information.
+
+### Custom Select
+
+One change for the custom-select component is it no longer has the `fixed-position` attribute on it. It now relies on Popper.js for positioning the menu.
+
+### Form Group
+
+One change for the form-group component is now all `inline` form-groups now render a border above each group after the first group. If you do not want borders to be rendered on inline groups, be sure to set `border` to `false`:
+
+```html
+<x-form-group label="My label" inline :border="false">...</x-form-group>
+```
+
+Another change is all form-groups have a `mb-5` margin bottom utility class added by default for spacing. The last form-group element will have a `sm:mb-0` utility class added to it so no extra margin is applied. You can prevent a margin from being added by setting the `margin-bottom` attribute to `false`:
+
+```html
+<x-form-group label="My label" :margin="false">...</x-form-group>
+```
+
+> {note} If you are using `space-y-*` utility classes for spacing, those will take precedence over the margin utilities added by the form-group component.
+
 ## Upgrading from v2 to v3
 
 The only major requirement for upgrading from v2 is to ensure your server and/or local dev environment is running on php version 8. As with any release,

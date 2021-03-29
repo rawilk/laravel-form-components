@@ -17,15 +17,7 @@ The most basic usage of the component is like this:
 <x-email name="email" />
 ```
 
-This will output:
-
-```html
-<div class="form-text-container">
-    <input class="form-input form-text" name="email" id="email" type="email" />
-</div>
-```
-
 By default an `email` type will be set for the input field as well as an `id` that allows it to be
 easily referenced by a `label` element.
 
-Besides this, the email element behaves exactly the same as the [input component](/docs/laravel-form-components/v3/components/input).
+Besides this, the email element behaves exactly the same as the [input component](/docs/laravel-form-components/v4/inputs/input).

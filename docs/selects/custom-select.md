@@ -11,11 +11,14 @@ custom option markup while still providing usability functionalities such as key
 
 ## Installation
 
-The custom select component requires Alpine.js, as well as some custom JavaScript written into the package to work.
-Ensure you have the proper [directives](/docs/laravel-form-components/v3/installation#directives) in your layout file.
+The custom select component requires Alpine.js and Popper.js, as well as some custom JavaScript written into the package to work.
+Ensure you have the proper [directives](/docs/laravel-form-componentsvalue-fieldinstallation#directives) in your layout file.
 In production, we recommend you install and compile the JavaScript libraries before you deploy:
 
 - [Alpine.js](https://github.com/alpinejs/alpine) `^2.8`
+- [Popper.js](https://popper.js.org/) `^2.9.1`
+
+> {tip} See the [JavaScript Dependencies section](/docs/laravel-form-components/v4/installation#javascript-dependencies) for more information on installing them.
 
 ## Basic Usage
 
@@ -223,18 +226,12 @@ class MyComponent extends Component
 Our JavaScript event listener is expecting an array of options as the payload from the event, so be sure
 to pass the event emitter your options.
 
-## Fixed Positioning
+## Positioning
 
-By default, the custom select menu is positioned absolutely. In most cases, this should be fine, but there
-may be times where this breaks the layout of your form. In those cases, you may tell the menu to be
-fixed positioned. This will tell the menu to calculate where the menu should be positioned when
-it is opened.
-
-```html
-<x-custom-select :options="$options" fixed-position />
-```
+As of v4, the custom-select component makes use of Popper.js for positioning the select menu. This should remove the need for fixed positioning
+the select menu now. In addition to positioning the menu when opened, Popper.js will also re-position the menu as needed when the page is scrolled.
 
 ## Addons
 
 The custom select component supports leading addons, but since there are already elements appended to the end
-of the button trigger, trailing addons are not supported. For more information on addons, see [the input documentation](/docs/laravel-form-components/v3/components/input#addons).
+of the button trigger, trailing addons are not supported. For more information on addons, see [the input documentation](/docs/laravel-form-components/v4/inputs/input#addons).

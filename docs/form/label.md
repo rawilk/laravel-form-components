@@ -21,21 +21,10 @@ The most basic usage of the component is as follows:
 <x-label for="first_name" />
 ```
 
-This will output:
-
-```html
-<label for="first_name" class="form-label">First name</label>
-```
-
-As you can see it'll generate the title within the `label` tag. It's important to note
-that only keys with `_` are supported and no camelcased or other variants. You can of course
+It's important to note
+that only keys with `_` are supported and no camelCased or other variants. You can of course
 provide your own label in the default slot:
 
 ```html
 <x-label for="first_name">My custom label</x-label>
-```
-
-This will output:
-```html
-<label for="first_name" class="form-label">My custom label</label>
 ```

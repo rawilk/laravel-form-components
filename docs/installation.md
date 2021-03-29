@@ -75,25 +75,19 @@ php artisan fc:publish --views
 
 ## Styling
 
-Laravel Form Components includes some utility classes styled in `.scss` stylesheets. If you're using
-sass, you can pull in the package's styles into your stylesheets by importing the `form-components.scss` stylesheet.
+You have a couple options for how you can use the UI components' CSS, depending on you and your project's needs:
 
-If you have a `./resources/sass/app.scss` stylesheet, you can do:
+### Using Laravel Mix or Webpack with CSS-Loader
+You can import the built CSS in your own CSS files using `@import '../../vendor/rawilk/laravel-form-components/resources/js/laravel-form-components-styles/dist/styles.css';`.
+This is assuming your stylesheet is located in the `./resources/css/` directory of your project.
 
-```css
-@import "../../vendor/rawilk/laravel-form-components/resources/sass/form-components";
+### Directly in Blade/HTML
+You should copy the built CSS from `vendor/rawilk/laravel-components/resources/js/laravel-form-components-styles/dist/styles.css` into your public folder, and then use a `link` tag in your blade/html to get it: `<link rel="stylesheet" href="{{ asset('css/laravel-form-components.css') }}">`.
 
-/* Add your overrides here */
-```
+If you would like to customize the CSS we provide, hover over to [the section on Customizing CSS](/docs/laravel-form-components/v4/advanced-usage/customizing-css).
 
-**Note:** It's important to note here that our sass is assuming you have the following color variants available, with variants for each
-color ranging from `50` to `900`:
-
--   `primary` (blue)
--   `danger` (red)
--   `blue-gray`
-
-There also needs to be `blue-gray` outline variant defined as well in your tailwind config. See the [upgrade guide](/docs/laravel-form-components/v3/upgrade#styling) for more information.
+> {tip} If you are using Purge CSS or Tailwind's JIT compiler, you should check out the section on [Purge CSS](/docs/laravel-form-components/v4/advanced-usage/customizing-css#purge-csstailwind-jit)
+> to prevent styles from being lost in production or at compile time.
 
 ## Components
 
@@ -108,10 +102,45 @@ and/or view of your own.
 
 ## Component JavaScript
 
-Some components, such as the [custom select component](/docs/laravel-form-components/v3/components/custom-select), require custom
+Some components, such as the [custom select component](/docs/laravel-form-components/v4/selects/custom-select), require custom
 JavaScript to run. The JavaScript is extracted to an external file since it is pretty substantial and should be minified. If
 you are using any components that depend on this JavaScript, be sure you are pulling the scripts in through either the
 `@fcJavaScript` or `@fcScripts` blade directives in your layout file. See [directives](#directives) for more information.
+
+## JavaScript Dependencies
+
+For any external JavaScript dependency, we recommend you install them through npm or yarn, and then require them in your project's JavaScript. To install each of the dependencies this package makes use of, run this command in the terminal:
+
+```bash
+npm install -D alpinejs @popperjs/core filepond flatpickr
+```
+
+> {tip} You can pick and choose which dependencies you need to install based on which components your project is actually using.
+
+In your JavaScript, add the following lines to pull each of the external dependencies you previously installed in:
+
+```js
+import 'alpinejs';
+import flatpickr from 'flatpickr';
+import * as FilePond from 'filepond';
+import { createPopper } from '@popperjs/core';
+
+window.flatpickr = flatpickr;
+window.FilePond = FilePond;
+window.createPopper = createPopper;
+```
+
+### Dependency Styling
+
+Some of the dependencies this package has also have their own styling they provide. If you followed the directions above for installing the JavaScript, you can easily pull in their styles into your project as well:
+
+```css
+/* app.css */
+@import 'filepond/dist/filepond.min.css';
+@import 'flatpickr/dist/flatpickr.min.css';
+```
+
+> {note} Be sure to include these styles **above** the styles for this package so any overrides this package uses for the dependencies gets applied correctly.
 
 ### Asset URL
 

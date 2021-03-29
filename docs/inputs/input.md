@@ -17,17 +17,6 @@ The most basic usage of the component exists in setting a `name` attribute.
 <x-input name="search" />
 ```
 
-This will output the following HTML:
-
-```html
-<div class="form-text-container">
-    <input class="form-input form-text" name="search" id="search" type="text" />
-</div>
-```
-
-> {note} The class 'form-text' is a custom style from this package, so be sure to include
-> the package's stylesheet in your build as well.
-
 By default, a `text` type will be set for the input field as well as an `id` that allows
 it to be easily referenced by a `label` element.
 
@@ -35,14 +24,6 @@ Of course, you can also specify a `type` and `id` attribute manually too:
 
 ```html
 <x-input name="confirm_password" id="confirmPassword" type="password" />
-```
-
-This will output the following HTML:
-
-```html
-<div class="form-text-container">
-    <input class="form-input form-text" name="confirm_password" id="confirmPassword" type="password" />
-</div>
 ```
 
 ## Old Values
@@ -56,8 +37,8 @@ When re-rendering the form, the `input` component will remember the old value.
 <input class="form-input form-text" name="search" id="search" type="text" value="Eloquent" />
 ```
 
-**Note:** This doesn't apply when using `wire:model`, as livewire will take care of setting the value instead
-and the component will not set the `value` attribute itself.
+> {note} This doesn't apply when using `wire:model`, as livewire will take care of setting the value instead
+> and the component will not set the `value` attribute itself.
 
 ## Error Handling
 
@@ -66,8 +47,8 @@ When there are errors for a field, the `aria-invalid` and `aria-describedby` att
 `input-error` will be added to it, allowing you to add styles targeted towards it.
 
 ```html
-<div class="form-text-container">
-    <input class="form-input form-text input-error" 
+<div class="form-text-container ...">
+    <input class="form-input form-text input-error ..." 
            name="first_name"
            id="first_name"
            type="text"
@@ -78,7 +59,7 @@ When there are errors for a field, the `aria-invalid` and `aria-describedby` att
 ```
 
 The actual error message won't be rendered from the input component itself, but it can be automatically rendered for you
-by wrapping the `<x-input />` component inside of a `<x-form-group />` component. Please refer to the [form-group documentation](/docs/laravel-form-components/v3/components/form-group#error-handling) for more information.
+by wrapping the `<x-input />` component inside of a `<x-form-group />` component. Please refer to the [form-group documentation](/docs/laravel-form-components/v4/form/form-group#error-handling) for more information.
 
 The `aria-describedby` attribute takes the `name` attribute and appends `-error` to it, which will be the id given to the error message rendered by the `<x-form-group />` component. If you already have `aria-describedby` set on the input, the attribute
 value will be merged with the error attribute value.
@@ -111,15 +92,6 @@ Via slot:
 </x-input>
 ```
 
-Both will result in:
-```html
-<div class="form-text-container">
-    <span class="leading-addon">https://</span>
-    
-    <input class="form-input form-text has-leading-addon" name="url" id="url" type="text" />
-</div>
-```
-
 ### Inline Addon
 
 Inline addon is similar to leading addon, however there is no background behind the text. You are also responsible
@@ -140,17 +112,6 @@ Via slot:
 </x-input>
 ```
 
-Both will output:
-```html
-<div class="form-text-container">
-    <div class="inline-addon">
-        <span>https://</span>
-    </div>
-
-    <input class="form-input form-text pl-16 sm:pl-14" name="url" id="url" type="text" />
-</div>
-```
-
 ### Leading Icon
 
 Instead of text, you can prepend an icon to the input instead. The package is styled for 
@@ -165,16 +126,6 @@ To prepend an icon, use the `leadingIcon` slot:
         icon svg...
     </x-slot>
 </x-input>
-```
-
-This will output:
-
-```html
-<div class="form-text-container">
-    <div class="leading-icon">icon svg...</div>
-
-    <input class="form-input form-text has-leading-icon" name="url" id="url" type="text" />
-</div>
 ```
 
 ### Trailing Addon
@@ -197,17 +148,6 @@ Via slot:
 </x-input>
 ```
 
-Both will output:
-```html
-<div class="form-text-container">
-    <input class="form-input form-text pr-12" name="amount" id="amount" type="text" />
-    
-    <div class="trailing-addon">
-        <span>USD</span>
-    </div>
-</div>
-```
-
 ### Trailing Icon
 
 You can append an icon to an input similar to prepending one. You can do so using the `trailingIcon` slot:
@@ -216,15 +156,6 @@ You can append an icon to an input similar to prepending one. You can do so usin
 <x-input name="search">
     <x-slot name="trailingIcon">search icon...</x-slot>
 </x-input>
-```
-
-This will output:
-```html
-<div class="form-text-container">
-    <input class="form-input form-text has-trailing-icon" name="search" id="search" type="text" />
-
-    <div class="trailing-icon">search icon...</div>
-</div>
 ```
 
 > {tip} The leading and trailing addons can also be applied the same way to the textarea, select, email, and password

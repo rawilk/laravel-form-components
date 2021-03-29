@@ -23,38 +23,6 @@ In its most basic usage, you can use it as a self-closing component and pass it 
 <x-file-upload name="avatar" />
 ```
 
-This will output the following HTML:
-
-```html
-<div class="file-upload space-x-5">
-    <div x-data="{ focused: false, isUploading: false, progress: 0 }"
-         class="space-y-4 w-full"
-    >
-        <span class="file-upload__input">
-            <input x-on:focus="focused = true"
-                   x-on:blur="focused = false"
-                   class="sr-only"
-                   type="file"
-                   name="avatar"
-                   id="avatar"
-            />
-
-            <label for="avatar"
-                   x-bind:class="{ 'file-upload__label--focused': focused }"
-                   class="file-upload__label"
-            >
-                <span role="button"
-                      aria-controls="avatar"
-                      tabindex="0"
-                >
-                    Select File
-                </span>
-            </label>
-        </span>        
-    </div>
-</div>
-```
-
 > {note} Since the component applies a class of `sr-only` (hides the input) to the input itself, the input must have an id assigned to it
 for the label to be able to trigger a click on the input. By default, the component assigns the `id` to the `name` attribute if you don't
 provide an `id` to it.

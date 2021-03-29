@@ -18,18 +18,6 @@ At its most basic usage, you can render the input group with a label and your ma
 </x-form-group>
 ```
 
-This will render output:
-
-```html
-<div class="form-group">
-    <label for="first_name" class="form-label">First name</label>
-
-    <div class="form-group__content">
-        Input element    
-    </div>
-</div>
-```
-
 The form group will default the input id to the `name` attribute, but you can specify a different id by
 using the `input-id` attribute. The `name` attribute will be used for detecting and rendering errors
 thrown by your backend validation.
@@ -38,17 +26,6 @@ thrown by your backend validation.
 <x-form-group label="First name" name="first_name" input-id="firstName">
     Input element
 </x-form-group>
-```
-
-This will result in:
-```html
-<div class="form-group">
-    <label for="firstName" class="form-label">First name</label>
-
-    <div class="form-group__content">
-        Input element
-    </div>
-</div>
 ```
 
 ## Error Handling
@@ -60,20 +37,6 @@ group root element for styling.
 <x-form-group label="First name" name="first_name">
     Input element
 </x-form-group>
-```
-
-This will result in:
-
-```html
-<div class="form-group has-error">
-    <label for="first_name" class="form-label">First name</label>
-
-    <div class="form-group__content">
-        Input element
-    
-        <p class="form-error" id="first_name-error">The error message...</p>
-    </div>
-</div>
 ```
 
 If you use any of the inputs provided by this package, the `aria-describedby` attribute will be set on the input
@@ -105,18 +68,23 @@ Via slot:
 </x-form-group>
 ```
 
-Both will result in:
+## Hint
+
+Similar to help text, you may provide a "hint" text to the user. This will render the "hint" text to the right of the label above an input,
+or left-aligned below in input when the form-group is set to `inline`. We like to use this to let an end-user know that the input is
+optional.
+
 ```html
-<div class="form-group">
-    <label for="first_name" class="form-label">First name</label>
-
-    <div class="form-group__content">
-        Input element
-
-        <p class="form-help" id="first_name-description">Some helpful text...</p>
-    </div>
-</div>
+<x-form-group label="First name" name="first_name" hint="Optional">...</x-form-group>
 ```
+
+You can also have the component render the text `Optional` automatically for you by passing in `true` for the `optional` attribute.
+
+```html
+<x-form-group label="First name" name="first_name" optional>...</x-form-group>
+```
+
+You can customize this text by modifying the config value for `optional_hint_text`.
 
 ### Accessibility
 
@@ -134,39 +102,17 @@ a form group inline, set the `inline` attribute to `true`.
 </x-form-group>
 ```
 
-This will output:
-```html
-<div class="form-group form-group-inline">
-    <label for="first_name" class="form-label form-group__inline-label">First name</label>
-
-    <div class="form-group__content form-group__content--inline">
-        Input element
-    </div>
-</div>
-```
-
 The `form-group-inline` utility class provided by this package splits group into a grid, giving the label
 one column, and the input two columns across. If you use an input provided by this package, they default
 to full width, but you can limit the width by utilizing a `max-w-*` utility class from tailwind on the element.
 
-If you want to render a border to the top of the inline form group you can use `border` attribute. **Note:** This only
-applies to inline form groups.
+### Inline Group Borders
+
+As of v4, by default the form-group component will render a border on top of each inline form group component after the first group.
+You can prevent this behavior by passing in `false` to the `border` attribute.
 
 ```html
-<x-form-group label="First name" name="first_name" inline border>
-    Input element
-</x-form-group>
-```
-
-This will output:
-```html
-<div class="form-group form-group-inline form-group-inline--border">
-    <label for="first_name" class="form-label form-group__inline-label">First name</label>
-
-    <div class="form-group__content form-group__content--inline">
-        Input element
-    </div>
-</div>
+<x-form-group label="First name" name="first_name" inline :border="false">...</x-form-group>
 ```
 
 By default, the styles will add some padding to the label's column to center align it with the input, but that
@@ -179,16 +125,15 @@ set the `is-checkbox-group` attribute to `true`, and it will not add padding to 
 </x-form-group>
 ```
 
-This will output:
-```html
-<div class="form-group form-group-inline">
-    <label for="first_name" class="form-label">First name</label>
+## Margins
 
-    <div class="form-group__content form-group__content--inline">
-        Input element
-    </div>
-</div>
+As of v4, the form-group component will now add a `mb-5` margin utility class to each form-group component, so each form-group has a little
+bit of breathing room from each other. The last form-group child in a container will have no margin bottom because of the `last:mb-0` utility class. If you don't want margins to be added to each form-group, you can do the following:
+
+```html
+<x-form-group label="First name" :margin-bottom="false">...</x-form-group>
 ```
 
-> {tip} To help space your form elements evenly in a form, you should use a `space-y-*` utility class
-> provided by tailwind on the wrapping element (usually `<form>`).
+> {tip} To help space your form elements evenly in a form, you could also use a `space-y-*` utility class
+> provided by tailwind on the wrapping element (usually `<form>`). This **will take precedence** over the margin
+> utility class added by the component.

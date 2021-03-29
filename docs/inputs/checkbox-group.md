@@ -20,15 +20,6 @@ The most basic usage is like this:
 </x-checkbox-group>
 ```
 
-This will output:
-
-```html
-<div class="space-y-4">
-    checkbox 1
-    checkbox 2
-</div>
-```
-
 ## Inline Groups
 
 By default, the `checkbox-group` is designed to stack your checkboxes and radio inputs, but you can display them inline
@@ -41,13 +32,12 @@ with each other, by setting the `stacked` attribute to `false`. This will displa
 </x-checkbox-group>
 ```
 
-This will output:
-```html
-<div class="form-checkbox-group">
-    checkbox 1
-    checkbox 2
-</div>
-```
+### Inline Group Columns
 
-If you want a different amount of columns for your groups, you should override the `.form-checkbox-group` class in
-your stylesheets.
+By default, the checkbox-group renders checkboxes in rows with 3 columns when it is rendered inline. To render a different amount of columns, you can specify the `grid-cols` attribute:
+
+```html
+<x-checkbox-group :stacked="false" grid-cols="5">
+    ...
+</x-checkbox-group>
+```

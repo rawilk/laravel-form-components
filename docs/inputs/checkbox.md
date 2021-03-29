@@ -17,24 +17,6 @@ The most basic usage of the component exists in setting a `name` attribute:
 <x-checkbox name="remember_me" />
 ```
 
-This will output:
-
-```html
-<div class="choice-container">
-    <div class="choice-input">
-        <input class="form-checkbox"
-               name="remember_me"
-               id="remember_me"
-               type="checkbox" 
-        />
-    </div>
-
-    <div class="choice-label">
-        <label for="remember_me"></label>
-    </div>
-</div>
-```
-
 ## Labels
 
 You can easily add a label to a checkbox by using the `label` attribute, or by using the `default slot`:
@@ -51,23 +33,6 @@ Via slot:
 </x-checkbox>
 ```
 
-Both will output:
-```html
-<div class="choice-container">
-    <div class="choice-input">
-        <input class="form-checkbox"
-               name="remember_me"
-               id="remember_me"
-               type="checkbox" 
-        />
-    </div>
-
-    <div class="choice-label">
-        <label for="remember_me">Remember</label>
-    </div>
-</div>
-```
-
 ## Description
 
 You can also add a description (help text) for a checkbox by either setting the `description` attribute or 
@@ -82,25 +47,6 @@ Via prop:
 <x-checkbox name="remember_me" label="Remember">
     <x-slot name="description">Keep me logged in</x-slot>
 </x-checkbox>
-```
-
-Both will output:
-```html
-<div class="choice-container">
-    <div class="choice-input">
-        <input class="form-checkbox"
-               name="remember_me"
-               id="remember_me"
-               type="checkbox" 
-        />
-    </div>
-
-    <div class="choice-label">
-        <label for="remember_me">Remember</label>
-        
-        <p class="choice-description">Keep me logged in</p>
-    </div>
-</div>
 ```
 
 ## Old Values

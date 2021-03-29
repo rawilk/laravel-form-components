@@ -12,7 +12,7 @@ for more info.
 
 ## Installation
 
-While the `switch-toggle` component works out-of-the-box when you've [set the directive](/docs/laravel-form-components/v3/installation#directives),
+While the `switch-toggle` component works out-of-the-box when you've [set the directive](/docs/laravel-form-components/v4/installation#directives),
 we recommend that you install and compile the JavaScript libraries before you deploy to production:
 
 - [Alpine.js](https://github.com/alpinejs/alpine) `^2.8`

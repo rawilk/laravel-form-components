@@ -10,7 +10,7 @@ By using it, you can simply add a date and/or time picker to your form with one 
 
 ## Installation
 
-While the `date-picker` component works out-of-the-box when you've [set the directives](/docs/laravel-form-components/v3/installation#directives),
+While the `date-picker` component works out-of-the-box when you've [set the directives](/docs/laravel-form-componentsvalue-fieldinstallation#directives),
 we recommend that you install and compile the JavaScript libraries before you deploy to production:
 
 - [Alpine.js](https://github.com/alpinejs/alpine) `^2.8`
@@ -29,10 +29,10 @@ window.flatpickr = flatpickr;
 If you pull the `flatpickr` package in via npm, you should import the styles into your stylesheet:
 
 ```css
-@import '~flatpickr/dist/flatpickr.min.css';
+@import 'flatpickr/dist/flatpickr.min.css';
 ```
 
-Be sure these styles are imported before the styles for this package so we can override the styles for flatpickr correctly.
+> {note} Be sure these styles are imported before the styles for this package so we can override the styles for flatpickr correctly.
 
 ## Basic Usage
 
@@ -42,26 +42,7 @@ In its most basic usage, you can use it as a self-closing component and pass it 
 <x-date-picker name="birthday" />
 ```
 
-This will output the following HTML *(inline JS has been omitted)*
-```html
-<div class="form-text-container">
-    <span class="leading-addon cursor-pointer"
-          role="button"
-          title="Select a date"
-    >
-        toggle icon    
-    </span>
-
-    <input
-        class="form-input form-text has-leading-addon has-trailing-icon"
-        name="birthday"
-        id="birthday"
-        placeholder="Y-m-d"
-    />
-</div>
-```
-
-As you can see, the component sets a couple of nice defaults for your date picker.
+The component sets a couple of nice defaults for your date picker.
 The `placeholder` is automatically set the default format used by flatpickr, but this
 can easily be changed by passing in the placeholder to the component.
 
@@ -152,4 +133,4 @@ For more information on the callbacks available, please consult [the events api]
 Like the other inputs, the date picker can also have leading and trailing addons, however by default you cannot add them.
 To add leading addons, you must disable the toggle icon, and for trailing addons, you must set `clearable` to `false`.
 
-See the [input documentation](/docs/laravel-form-components/v3/components/input#addons) for more information.
+See the [input documentation](/docs/laravel-form-components/v4/inputs/input#addons) for more information.
