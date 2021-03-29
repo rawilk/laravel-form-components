@@ -1,19 +1,19 @@
 <div {{ $attributes->merge(['class' => $groupClass()]) }}>
-    @unless ($label === false)
-        <x-dynamic-component :component="formComponentName('label')"
-                             :for="$inputId"
-                             class="{{ $inline && ! $isCheckboxGroup ? 'form-group__inline-label sm:mt-px sm:pt-2' : '' }}"
-                             :id="$labelId"
-        >
-            {{ $label }}
-        </x-dynamic-component>
-    @endunless
+    @include('form-components::partials.form-group-label')
 
     <div class="form-group__content mt-1 {{ $inline ? 'form-group__content--inline sm:mt-0 sm:col-span-2' : '' }}">
         {{ $slot }}
 
         @if ($hasErrorsAndShow($name))
             <x-dynamic-component :component="formComponentName('form-error')" :name="$name" :input-id="$inputId" />
+        @endif
+
+        @if ($inline && $hint)
+            <span class="text-sm mt-1 text-blue-gray-500 hidden sm:block"
+                  @if ($inputId) id="{{ $inputId }}-hint-inline" @endif
+            >
+                {{ $hint }}
+            </span>
         @endif
 
         @if ($helpText)

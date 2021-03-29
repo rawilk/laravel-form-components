@@ -139,4 +139,50 @@ class FormGroupTest extends ComponentTestCase
             $this->renderComponent($template)
         );
     }
+
+    /** @test */
+    public function can_have_optional_help_text(): void
+    {
+        config()->set('form-components.optional_hint_text', 'Optional');
+
+        $this->withViewErrors([]);
+
+        $template = <<<HTML
+        <x-form-group name="foo" optional>
+            <x-input name="foo" aria-describedby="foo-hint" />
+        </x-form-group>
+        HTML;
+
+        $this->assertMatchesSnapshot($this->renderComponent($template));
+    }
+
+    /** @test */
+    public function can_have_optional_hint_when_inline(): void
+    {
+        config()->set('form-components.optional_hint_text', 'Optional');
+
+        $this->withViewErrors([]);
+
+        $template = <<<HTML
+        <x-form-group name="foo" optional inline>
+            <x-input name="foo" aria-describedby="foo-hint foo-hint-inline" />
+        </x-form-group>
+        HTML;
+
+        $this->assertMatchesSnapshot($this->renderComponent($template));
+    }
+
+    /** @test */
+    public function can_have_custom_hint_text(): void
+    {
+        $this->withViewErrors([]);
+
+        $template = <<<HTML
+        <x-form-group name="foo" hint="My hint text">
+            <x-input name="foo" aria-describedby="foo-hint" />
+        </x-form-group>
+        HTML;
+
+        $this->assertMatchesSnapshot($this->renderComponent($template));
+    }
 }

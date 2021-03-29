@@ -192,6 +192,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Global Optional Hint
+    |--------------------------------------------------------------------------
+    |
+    | You may set a global "optional" hint text for all optional form inputs
+    | when you set the `optional` attribute on `<x-form-group>` components
+    | to `true`. Set to `null` to disable showing it. The default provided
+    | by the package is a translation key which will be translated
+    | automatically for you.
+    |
+    */
+    'optional_hint_text' => 'form-components::messages.optional',
+
+    /*
+    |--------------------------------------------------------------------------
     | Third Party Asset Libraries
     |--------------------------------------------------------------------------
     |

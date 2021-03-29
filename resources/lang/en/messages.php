@@ -11,4 +11,5 @@ return [
     'date_picker_placeholder' => 'Y-m-d',
     'timezone_select_placeholder' => 'Select a timezone',
     'switch_button_label' => 'Turn on',
+    'optional' => 'Optional',
 ];

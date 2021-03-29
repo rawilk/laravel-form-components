@@ -19,9 +19,15 @@ class FormGroup extends BladeComponent
         public bool $isCheckboxGroup = false,
         public null|string $labelId = null,
         public bool $marginBottom = true,
+        public null|string $hint = null,
+        public bool $optional = false,
     ) {
         $this->inputId = $this->inputId ?? $this->name;
         $this->showErrors = $showErrors;
+
+        if ($this->optional && ! $this->hint) {
+            $this->hint = __(config('form-components.optional_hint_text'));
+        }
     }
 
     public function groupClass(): string

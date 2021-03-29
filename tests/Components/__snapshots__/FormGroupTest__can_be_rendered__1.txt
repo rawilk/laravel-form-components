@@ -1,11 +1,15 @@
 <div class="form-group mb-5 last:mb-0">
-            <label  for="first_name"  class="form-label block text-sm font-medium leading-5 text-blue-gray-700">
+    <div class="">
+                    <label  for="first_name"  class="form-label block text-sm font-medium leading-5 text-blue-gray-700">
             First name
     </label>
-    
+        
+            </div>
+
     <div class="form-group__content mt-1 ">
         Name input
 
+        
         
             </div>
 </div>
