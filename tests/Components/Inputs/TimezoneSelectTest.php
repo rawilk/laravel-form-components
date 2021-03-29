@@ -26,7 +26,7 @@ class TimezoneSelectTest extends ComponentTestCase
         $this->withViewErrors([]);
 
         $this->assertMatchesSnapshot(
-            $this->renderComponent('<x-timezone-select name="timezone" />')
+            $this->renderComponent('<x-timezone-select name="timezone" only="General" />')
         );
     }
 
@@ -36,7 +36,7 @@ class TimezoneSelectTest extends ComponentTestCase
         $this->withViewErrors([]);
 
         $this->assertMatchesSnapshot(
-            $this->renderComponent('<x-timezone-select name="timezone" only="America" />')
+            $this->renderComponent('<x-timezone-select name="timezone" only="General" />')
         );
     }
 
@@ -49,7 +49,7 @@ class TimezoneSelectTest extends ComponentTestCase
         <x-timezone-select name="timezone" :only="\$only" />
         HTML;
 
-        $regions = [TimeZoneRegion::GENERAL, TimeZoneRegion::ASIA];
+        $regions = [TimeZoneRegion::GENERAL, TimeZoneRegion::ANTARCTICA];
 
         $this->assertMatchesSnapshot($this->renderComponent($template, ['only' => $regions]));
     }
