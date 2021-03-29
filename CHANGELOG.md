@@ -24,6 +24,7 @@ All notable changes to `laravel-form-components` will be documented in this file
 - Prevent `$wire` from breaking `<x-custom-select>` when not used in a livewire component
 - `<x-custom-select>` will now position itself correctly and will not require the `fixed-position` prop anymore (requires Popper.js)
 - Add missing translations to form-components translation file
+- Render timezone-select with correctly when using a component name prefix [#16](https://github.com/rawilk/laravel-form-components/pull/16)
 
 ## 3.1.1 - 2021-03-01
 ### Fixed
