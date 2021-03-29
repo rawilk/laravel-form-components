@@ -34,7 +34,6 @@ class CustomSelect extends Select
         public bool $filterable = false,
         public null|string $clearIcon = null,
         public bool $disabled = false,
-        // public bool $fixedPosition = false,
         public null|string $selectedIcon = null,
         public null|string $uncheckIcon = null,
         public bool $maxOptionsSelected = false,
