@@ -2,7 +2,7 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
-## 4.0.0 - 2021-03-25
+## 4.0.0 - 2021-03-29
 ### Changed
 - Inline most tailwind class names on form components
 - Remove majority of styles from stylesheet
@@ -10,9 +10,11 @@ All notable changes to `laravel-form-components` will be documented in this file
 - Enable border by default on `<x-form-group>` when it is inline and not the first child in a container
 - Enable margins on `<x-form-group>` by default
 - Change how `<x-custom-select>` "scrolls" to each option
+- Switch any icons rendered with `svg()` helper to be rendered with `<x-dynamic-component />` blade component instead
 
 ### Added
 - Add ability to specify grid columns on `<x-checkbox-group>` component (when inline)
+- Add `$optional` and `$hint` attributes to `<x-form-group>` component
 
 ### Removed
 - Remove `$fixedPosition` prop from `<x-custom-select>`
@@ -21,6 +23,7 @@ All notable changes to `laravel-form-components` will be documented in this file
 - Fix array to string conversion error on textarea when no value is passed in to it
 - Prevent `$wire` from breaking `<x-custom-select>` when not used in a livewire component
 - `<x-custom-select>` will now position itself correctly and will not require the `fixed-position` prop anymore (requires Popper.js)
+- Add missing translations to form-components translation file
 
 ## 3.1.1 - 2021-03-01
 ### Fixed
