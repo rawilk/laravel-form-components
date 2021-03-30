@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 4.0.3 - 2021-03-30
+### Fixed
+- Fix issue with date-picker toggle icon trying to render for a `false` value
+- Fix minor styling issues with flatpickr
+
 ## 4.0.2 - 2021-03-30
 ### Fixed
 - Fix issue with inputs that have no leading addons having no border radius
