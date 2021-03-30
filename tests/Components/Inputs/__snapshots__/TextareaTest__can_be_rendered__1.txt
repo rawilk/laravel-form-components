@@ -2,7 +2,7 @@
     
     <textarea  name="about"                id="about"               
               
-              class="form-input form-text flex-1 block w-full px-3 py-2 border-blue-gray-300 placeholder-blue-gray-400 sm:text-sm focus:border-blue-300 focus:ring-opacity-50 focus:ring-4 focus:ring-blue-400" rows="3"
+              class="form-input form-text flex-1 block w-full px-3 py-2 border-blue-gray-300 placeholder-blue-gray-400 sm:text-sm focus:border-blue-300 focus:ring-opacity-50 focus:ring-4 focus:ring-blue-400 rounded-md" rows="3"
     ></textarea>
 
     </div>
