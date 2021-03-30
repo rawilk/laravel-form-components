@@ -28,10 +28,10 @@ trait HasAddons
         }
 
         if ($this->inlineAddon) {
-            return $this->inlineAddonPadding;
+            return $this->inlineAddonPadding . ' rounded-md';
         }
 
-        return $this->leadingIcon ? 'has-leading-icon pl-10' : null;
+        return $this->leadingIcon ? 'has-leading-icon pl-10 rounded-md' : null;
     }
 
     protected function trailingAddonClass(): null|string

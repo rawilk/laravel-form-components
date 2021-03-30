@@ -1,6 +1,6 @@
 @if ($leadingAddon)
     <span class="leading-addon inline-flex items-center px-3 rounded-l-md border border-r-0 border-blue-gray-300 bg-blue-gray-50 text-blue-gray-500 sm:text-sm">
-        <span class="h-5 w-5 text-blue-gray-400">
+        <span class="text-blue-gray-400">
             {!! $leadingAddon !!}
         </span>
     </span>

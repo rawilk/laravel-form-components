@@ -62,7 +62,7 @@ class Input extends BladeComponent
         return collect([
             'form-input',
             'form-text',
-            'flex-1 block w-full px-3 py-2 border-blue-gray-300 rounded-md placeholder-blue-gray-400 sm:text-sm',
+            'flex-1 block w-full px-3 py-2 border-blue-gray-300 placeholder-blue-gray-400 sm:text-sm',
             $this->isPasswordToggleable() ? null : 'focus:border-blue-300 focus:ring-opacity-50 focus:ring-4 focus:ring-blue-400',
             $this->getAddonClass(),
             $this->hasErrorsAndShow($this->name) ? 'input-error' : null,

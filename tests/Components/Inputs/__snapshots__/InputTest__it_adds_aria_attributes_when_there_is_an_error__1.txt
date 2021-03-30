@@ -1,7 +1,7 @@
 <div class="form-text-container flex rounded-sm shadow-sm relative">
     
     <input
-        class="form-input form-text flex-1 block w-full px-3 py-2 border-blue-gray-300 rounded-md placeholder-blue-gray-400 sm:text-sm focus:border-blue-300 focus:ring-opacity-50 focus:ring-4 focus:ring-blue-400 input-error"
+        class="form-input form-text flex-1 block w-full px-3 py-2 border-blue-gray-300 placeholder-blue-gray-400 sm:text-sm focus:border-blue-300 focus:ring-opacity-50 focus:ring-4 focus:ring-blue-400 input-error"
         
 
          name="search"          id="inputSearch"         type="text"

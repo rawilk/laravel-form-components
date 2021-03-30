@@ -140,6 +140,11 @@ select[disabled] {
 }
 /* purgecss end ignore */
 
+/* addon */
+.leading-addon svg {
+    @apply h-5 w-5;
+}
+
 /* select */
 .form-select[multiple] {
     background-image: none;
