@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 4.0.2 - 2021-03-30
+### Fixed
+- Fix issue with inputs that have no leading addons having no border radius
+
 ## 4.0.1 - 2021-03-30
 ### Fixed
 - Fix border radius issue with inputs that have leading addons
