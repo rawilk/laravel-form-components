@@ -78,10 +78,12 @@ php artisan fc:publish --views
 You have a couple options for how you can use the UI components' CSS, depending on you and your project's needs:
 
 ### Using Laravel Mix or Webpack with CSS-Loader
+
 You can import the built CSS in your own CSS files using `@import '../../vendor/rawilk/laravel-form-components/resources/js/laravel-form-components-styles/dist/styles.css';`.
 This is assuming your stylesheet is located in the `./resources/css/` directory of your project.
 
 ### Directly in Blade/HTML
+
 You could copy the built CSS from `vendor/rawilk/laravel-components/resources/js/laravel-form-components-styles/dist/styles.css` into your public folder, and then use a `link` tag in your blade/html to get it: `<link rel="stylesheet" href="{{ asset('css/laravel-form-components.css') }}">`.
 
 If you would like to customize the CSS we provide, head over to [the section on Customizing CSS](/docs/laravel-form-components/v4/advanced-usage/customizing-css).
@@ -120,10 +122,10 @@ npm install -D alpinejs @popperjs/core filepond flatpickr
 In your JavaScript, add the following lines to pull each of the external dependencies you previously installed in:
 
 ```js
-import 'alpinejs';
-import flatpickr from 'flatpickr';
-import * as FilePond from 'filepond';
-import { createPopper } from '@popperjs/core';
+import "alpinejs";
+import flatpickr from "flatpickr";
+import * as FilePond from "filepond";
+import { createPopper } from "@popperjs/core";
 
 window.flatpickr = flatpickr;
 window.FilePond = FilePond;
@@ -136,8 +138,8 @@ Some of the dependencies this package has also have their own styling they provi
 
 ```css
 /* app.css */
-@import 'filepond/dist/filepond.min.css';
-@import 'flatpickr/dist/flatpickr.min.css';
+@import "filepond/dist/filepond.min.css";
+@import "flatpickr/dist/flatpickr.min.css";
 ```
 
 > {note} Be sure to include these styles **above** the styles for this package so any overrides this package uses for the dependencies gets applied correctly.

@@ -9,7 +9,7 @@ Version 4 introduced some breaking changes, which are outlined below:
 
 ### Styling
 
-In v4, laravel-form-components is now inlining a lot of the class names for form components instead of using `@apply` in a stylesheet with a custom class name. For backwards compatibility, the custom class names are still included with each component to prevent breaking any style overrides you may have written. 
+In v4, laravel-form-components is now inlining a lot of the class names for form components instead of using `@apply` in a stylesheet with a custom class name. For backwards compatibility, the custom class names are still included with each component to prevent breaking any style overrides you may have written.
 
 Another major change with the styling is laravel-form-components now uses a single `.css` stylesheet for any complex styles required instead of using `.sass` stylesheets. This will allow the usage of postcss and/or tailwind's JIT compiler in your projects with these styles. If you're still using SASS, you should still be able to pull the styles in as you were before; you'll just need to update the path to the stylesheet.
 
@@ -18,6 +18,7 @@ In addition, we have stopped using the `primary` and `danger` variant names in f
 For more info on styling, please see [the Customizing CSS section](/docs/laravel-form-components/advanced-usage/customizing-css).
 
 ### Added Dependencies
+
 Some components, such as the `custom-select` component, have a dependency on `Popper.js` now for positioning the menu. This will require you to ensure that dependency is installed in your project. If you customized the package's configuration file, you should make sure you pull in any updates to the configuration as well.
 
 See [the custom select docs](/docs/laravel-form-components/v4/selects/custom-select#installation) for more information.
