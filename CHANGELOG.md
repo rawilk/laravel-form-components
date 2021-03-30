@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 4.0.1 - 2021-03-30
+### Fixed
+- Fix border radius issue with inputs that have leading addons
+- Fix width issue for leading addons
+
 ## 4.0.0 - 2021-03-29
 ### Changed
 - Inline most tailwind class names on form components
