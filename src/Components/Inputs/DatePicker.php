@@ -30,7 +30,7 @@ class DatePicker extends Input
         public bool|null|string $format = false,
         public bool $clearable = false,
         null|string $placeholder = 'form-components::messages.date_picker_placeholder',
-        public null|string  $toggleIcon = null,
+        public bool|null|string  $toggleIcon = null,
         public null|string $clearIcon = null,
         public null|string $containerClass = null,
         public $extraAttributes = '',
@@ -82,7 +82,9 @@ class DatePicker extends Input
 
     private function resolveIcons(): void
     {
-        $this->toggleIcon = is_null($this->toggleIcon) ? config('form-components.components.date-picker.icon') : $this->toggleIcon;
+        $this->toggleIcon = is_null($this->toggleIcon) && $this->toggleIcon !== false
+            ? config('form-components.components.date-picker.icon')
+            : $this->toggleIcon;
         $this->clearIcon = is_null($this->clearIcon) ? config('form-components.components.date-picker.clear_icon') : $this->clearIcon;
 
         if ($this->toggleIcon !== false) {

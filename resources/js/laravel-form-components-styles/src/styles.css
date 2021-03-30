@@ -77,7 +77,7 @@ select[disabled] {
 /* flatpickr overrides */
 /* purgecss start ignore */
 .flatpickr-calendar {
-    width: 330px;
+    width: 345px !important;
 }
 
 .flatpickr-calendar.open {
@@ -85,12 +85,25 @@ select[disabled] {
 }
 
 .flatpickr-months {
-    @apply bg-blue-600 text-white py-3 px-2 items-center;
+    @apply relative bg-blue-600 text-white py-3 px-2 items-center;
 }
 
 .flatpickr-months .flatpickr-prev-month,
 .flatpickr-months .flatpickr-next-month {
-    @apply relative transition rounded-full;
+    @apply absolute transition rounded-full top-1/2 transform -translate-y-1/2;
+}
+
+.flatpickr-months .flatpickr-prev-month.flatpickr-prev-month {
+    @apply left-1;
+}
+
+.flatpickr-months .flatpickr-next-month.flatpickr-next-month {
+    @apply right-1;
+}
+
+.flatpickr-months .flatpickr-prev-month:hover svg,
+.flatpickr-months .flatpickr-next-month:hover svg {
+    fill: theme('colors.blue-gray.800');
 }
 
 .flatpickr-months .flatpickr-prev-month svg,
@@ -102,11 +115,6 @@ select[disabled] {
 .flatpickr-months .flatpickr-prev-month:hover,
 .flatpickr-months .flatpickr-next-month:hover {
     @apply bg-blue-gray-300;
-}
-
-.flatpickr-months .flatpickr-prev-month:hover svg,
-.flatpickr-months .flatpickr-next-month:hover svg {
-    fill: #fff;
 }
 
 .flatpickr-months .flatpickr-month {
