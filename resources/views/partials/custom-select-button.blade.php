@@ -9,9 +9,7 @@
             @if (isset($attributes['labelledby'])) aria-labelledby="{{ $attributes['labelledby'] }}" @endif
             @if ($disabled) disabled @endif
     >
-        <template x-if="! hasSelection()">
-            <span class="custom-select__placeholder text-blue-gray-500 block truncate" x-text="placeholder"></span>
-        </template>
+        <span class="custom-select__placeholder text-blue-gray-500 block truncate" x-show="! hasSelection()" x-text="placeholder"></span>
 
         <div class="custom-select__display flex truncate items-center" x-show="hasSelection()" wire:ignore>
             @if ($buttonDisplay)
