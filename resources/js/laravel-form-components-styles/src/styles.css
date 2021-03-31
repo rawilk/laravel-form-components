@@ -90,20 +90,20 @@ select[disabled] {
 
 .flatpickr-months .flatpickr-prev-month,
 .flatpickr-months .flatpickr-next-month {
-    @apply absolute transition rounded-full top-1/2 transform -translate-y-1/2;
+    @apply absolute transition rounded-full top-1/2 transform -translate-y-1/2 !important;
 }
 
 .flatpickr-months .flatpickr-prev-month.flatpickr-prev-month {
-    @apply left-1;
+    @apply left-1 !important;
 }
 
 .flatpickr-months .flatpickr-next-month.flatpickr-next-month {
-    @apply right-1;
+    @apply right-1 !important;
 }
 
 .flatpickr-months .flatpickr-prev-month:hover svg,
 .flatpickr-months .flatpickr-next-month:hover svg {
-    fill: theme('colors.blue-gray.800');
+    fill: theme('colors.blue-gray.800') !important;
 }
 
 .flatpickr-months .flatpickr-prev-month svg,
