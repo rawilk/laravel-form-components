@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 4.0.5 - 2021-03-31
+### Fixed
+- Prevent custom select placeholder being rendered twice
+
 ## 4.0.4 - 2021-03-31
 ### Fixed
 - Fix next/previous month button styling on flatpickr
