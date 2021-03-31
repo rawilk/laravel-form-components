@@ -57,7 +57,8 @@ select[disabled] {
 /* filepond overrides */
 /* purgecss start ignore */
 .filepond--panel-root {
-    @apply border-dashed border-2 border-blue-gray-200 rounded-md bg-transparent max-w-full transition;
+    @apply border-dashed border-2 border-blue-gray-200 rounded-md max-w-full transition;
+    @apply bg-transparent !important;
 }
 
 .filepond--label-action {
