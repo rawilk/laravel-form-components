@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 4.0.6 - 2021-03-31
+### Fixed
+- Fix FilePond background color issue
+
 ## 4.0.5 - 2021-03-31
 ### Fixed
 - Prevent custom select placeholder being rendered twice
