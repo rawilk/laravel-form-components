@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 4.0.4 - 2021-03-31
+### Fixed
+- Fix next/previous month button styling on flatpickr
+
 ## 4.0.3 - 2021-03-30
 ### Fixed
 - Fix issue with date-picker toggle icon trying to render for a `false` value
