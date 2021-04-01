@@ -4,6 +4,8 @@
 ![Tests](https://github.com/rawilk/laravel-form-components/workflows/Tests/badge.svg?style=flat-square)
 [![Total Downloads](https://img.shields.io/packagist/dt/rawilk/laravel-form-components.svg?style=flat-square)](https://packagist.org/packages/rawilk/laravel-form-components)
 
+![social image](https://banners.beyondco.de/Laravel%20Form%20Components.png?theme=light&packageManager=composer+require&packageName=rawilk%2Flaravel-form-components&pattern=diagonalStripes&style=style_1&description=Form+components+built+for+tailwind+%26+Livewire&md=1&showWatermark=0&fontSize=100px&images=code)
+
 Laravel form components provides common form components to help build forms faster using Tailwind CSS. Supports validation, old form values, and wire:model.
 
 ## Installation
