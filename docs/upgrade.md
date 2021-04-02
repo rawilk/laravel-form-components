@@ -15,7 +15,7 @@ Another major change with the styling is laravel-form-components now uses a sing
 
 In addition, we have stopped using the `primary` and `danger` variant names in favor of `blue` and `red` respectively. Be sure to update your tailwind config and stylesheets accordingly.
 
-For more info on styling, please see [the Customizing CSS section](/docs/laravel-form-components/advanced-usage/customizing-css).
+For more info on styling, please see [the Customizing CSS section](/docs/laravel-form-components/v4/advanced-usage/customizing-css).
 
 ### Added Dependencies
 
