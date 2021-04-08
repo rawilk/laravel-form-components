@@ -154,6 +154,14 @@ select[disabled] {
     @apply h-5 w-5;
 }
 
+.leading-icon {
+    z-index: 1;
+}
+
+.leading-icon svg {
+    @apply max-w-full;
+}
+
 /* select */
 .form-select[multiple] {
     background-image: none;
