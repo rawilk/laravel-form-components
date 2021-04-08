@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 4.0.7 - 2021-04-08
+### Fixed
+- Fix leading icon size and z-index issues
+
 ## 4.0.6 - 2021-03-31
 ### Fixed
 - Fix FilePond background color issue
