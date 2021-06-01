@@ -10,6 +10,11 @@
      }"
      x-init="fp = flatpickr($refs.input, {
         defaultDate: value,
+        onOpen: [
+            function (selectedDates, dateStr, instance) {
+                instance.setDate(value);
+            },
+        ],
         {{ $jsonOptions() }}
         {{ $optionsSlot ?? '' }}
      })"
