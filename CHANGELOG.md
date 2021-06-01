@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 4.0.8 - 2021-06-01
+### Fixed
+- Fix issue with date picker not always showing the currently selected date when opened
+
 ## 4.0.7 - 2021-04-08
 ### Fixed
 - Fix leading icon size and z-index issues
