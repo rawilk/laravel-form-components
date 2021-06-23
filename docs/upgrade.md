@@ -6,11 +6,12 @@ sort: 4
 ## Upgrading from v4 to v5
 
 ### Alpine upgrade
+
 The biggest breaking change in version 5 is changing support from alpine.js v2 to v3. This should require only minimal effort however in terms of updating the package.
 Based on the [upgrade guide](https://alpinejs.dev/upgrade-guide) from Alpine.js, here is what you should need to do if you are importing Alpine from NPM:
 
 ```js
-import Alpine from 'alpinejs';
+import Alpine from "alpinejs";
 
 window.Alpine = Alpine;
 
@@ -20,10 +21,11 @@ Alpine.start();
 This won't affect you if you are using the CDN scripts from the [configuration](https://github.com/rawilk/laravel-form-components/blob/master/config/form-components.php).
 
 ### Additional stylesheet option
+
 If you choose to import the compiled styles for this package into your own stylesheets, you can now import a minified stylesheet instead if you want to:
 
 ```css
-@import '../../vendor/rawilk/laravel-form-components/resources/js/laravel-form-components-styles/dist/styles.min.css';
+@import "../../vendor/rawilk/laravel-form-components/resources/js/laravel-form-components-styles/dist/styles.min.css";
 ```
 
 See [customizing css](/docs/laravel-form-components/v5/advanced-usage/customizing-css#option-2-override-only-portions-in-your-css) for more information.
