@@ -13,13 +13,11 @@
     "author": "Randall Wilk",
     "main": "dist/styles.css",
     "scripts": {
-        "build": "postcss src/styles.css --output dist/styles.css --env production --use tailwindcss --verbose",
-        "build:dev": "postcss src/styles.css --output dist/styles.css --use tailwindcss --verbose",
-        "watch": "postcss src/styles.css --output dist/styles.css --watch --use tailwindcss --verbose"
+        "build": "npx tailwindcss -i ./src/styles.css -o ./dist/styles.css",
+        "production": "npm run build && NODE_ENV=production npx tailwindcss -i ./src/styles.css -o ./dist/styles.min.css --minify",
+        "watch": "npm run build -- --watch"
     },
     "dependencies": {
-        "postcss": "^8.2.8",
-        "postcss-cli": "^8.3.1",
-        "tailwindcss": "^2.0.4"
+        "tailwindcss": "^2.2.2"
     }
 }
