@@ -58,7 +58,7 @@ class SwitchToggle extends BladeComponent
          * We are defining the size classes explicitly here to prevent
          * tailwind from purging them.
          */
-        return match($this->size ?? '') {
+        return match ($this->size ?? '') {
             'sm' => 'switch-toggle--sm',
             'lg' => 'switch-toggle--lg',
             default => 'switch-toggle--base',

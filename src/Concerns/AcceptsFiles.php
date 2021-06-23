@@ -12,7 +12,7 @@ trait AcceptsFiles
 
     public function accepts(): null|string
     {
-        return match($this->type) {
+        return match ($this->type) {
             'audio' => 'audio/*',
             'image' => 'image/*',
             'video' => 'video/*',
