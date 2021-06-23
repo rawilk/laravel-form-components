@@ -59,7 +59,7 @@ When there are errors for a field, the `aria-invalid` and `aria-describedby` att
 ```
 
 The actual error message won't be rendered from the input component itself, but it can be automatically rendered for you
-by wrapping the `<x-input />` component inside of a `<x-form-group />` component. Please refer to the [form-group documentation](/docs/laravel-form-components/v4/form/form-group#error-handling) for more information.
+by wrapping the `<x-input />` component inside of a `<x-form-group />` component. Please refer to the [form-group documentation](/docs/laravel-form-components/v5/form/form-group#error-handling) for more information.
 
 The `aria-describedby` attribute takes the `name` attribute and appends `-error` to it, which will be the id given to the error message rendered by the `<x-form-group />` component. If you already have `aria-describedby` set on the input, the attribute
 value will be merged with the error attribute value.

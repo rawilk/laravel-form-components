@@ -10,7 +10,7 @@ Before using this component, we recommend familiarizing yourself with the FilePo
 
 ## Installation
 
-While the `file-pond` component works out-of-the-box when you've [set the directive](/docs/laravel-form-components/v4/installation#directives),
+While the `file-pond` component works out-of-the-box when you've [set the directive](/docs/laravel-form-components/v5/installation#directives),
 we recommend that you install and compile the JavaScript libraries before you deploy to production:
 
 - [Alpine.js](https://github.com/alpinejs/alpine) `^2.8`

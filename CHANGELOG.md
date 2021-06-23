@@ -2,6 +2,18 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 5.0.0 - 2021-06-23
+### Added
+- Add Alpine.js v3 support
+
+### Removed
+- Remove Alpine.js v2 support
+
+### Updated
+- Update tailwind version to `2.2.2` in `laravel-form-components-styles` sub-package
+- Remove `postcss` in favor of tailwind cli in `laravel-form-components-styles` sub-package
+- Update dev dependencies
+
 ## 4.0.8 - 2021-06-01
 ### Fixed
 - Fix issue with date picker not always showing the currently selected date when opened

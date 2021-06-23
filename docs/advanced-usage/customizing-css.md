@@ -23,7 +23,7 @@ Instead of importing/linking the pre-built `dist/styles.css` from the package, y
 > {note} If you choose this option, make sure you have the [required variants](#required-variants) included in your `tailwind.config.js` configuration.
 
 ## Option 2: Override Only Portions In Your CSS
-If you only want to tinker with certain apsects of the components but like to keep the CSS in sync with future package updates, nothing stops you from overriding only certain CSS rules with your own tweaks. Most DOM elements have their own custom class names.
+If you only want to tinker with certain aspects of the components but like to keep the CSS in sync with future package updates, nothing stops you from overriding only certain CSS rules with your own tweaks. Most DOM elements have their own custom class names.
 
 Let's say your inputs aren't rounded, and you want to remove the border radius from them. To do that, you can write your own CSS for this class:
 
@@ -32,6 +32,8 @@ Let's say your inputs aren't rounded, and you want to remove the border radius f
 ...
 
 @import '../../vendor/rawilk/laravel-form-components/resources/js/laravel-form-components-styles/dist/styles.css';
+/* or */
+@import '../../vendor/rawilk/laravel-form-components/resources/js/laravel-form-components-styles/dist/styles.min.css';
 
 .form-text {
     @apply rounded-none;
@@ -153,5 +155,7 @@ in a `/* purgecss start ignore */`:
 ```css
 /* purgecss start ignore */
 @import '../../vendor/rawilk/laravel-form-components/resources/js/laravel-form-components-styles/dist/styles.css';
+/* or */
+@import '../../vendor/rawilk/laravel-form-components/resources/js/laravel-form-components-styles/dist/styles.min.css';
 /* purgecss end ignore */
 ```

@@ -133,4 +133,4 @@ For more information on the callbacks available, please consult [the events api]
 Like the other inputs, the date picker can also have leading and trailing addons, however by default you cannot add them.
 To add leading addons, you must disable the toggle icon, and for trailing addons, you must set `clearable` to `false`.
 
-See the [input documentation](/docs/laravel-form-components/v4/inputs/input#addons) for more information.
+See the [input documentation](/docs/laravel-form-components/v5/inputs/input#addons) for more information.
