@@ -10,7 +10,7 @@
         @endif
      })"
      x-init="init({{ $hasWireModel ? '$wire' : 'null' }}, $dispatch)"
-     x-on:click.away="close()"
+     x-on:click.outside="close()"
      x-on:keydown.escape="close()"
      x-on:keydown.enter.stop.prevent="onEnter()"
      x-on:keydown.arrow-up.prevent="focusPreviousOption()"

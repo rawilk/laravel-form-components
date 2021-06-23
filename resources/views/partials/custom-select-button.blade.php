@@ -16,13 +16,14 @@
                 {{-- user has opted to customize the "selected text" on the button --}}
                 {!! $buttonDisplay !!}
             @else
-                <span x-html="buttonDisplay"></span>
+                <span x-effect="$el.innerHTML = buttonDisplay"></span>
             @endif
         </div>
 
         @if ($optional && $clearIcon)
             <button x-on:click="clear()"
-                    x-show.transition.opacity.150ms="hasSelection()"
+                    x-show="hasSelection()"
+                    x-transition
                     type="button"
                     class="custom-select-clear absolute right-8 flex items-center justify-center h-6 w-6 rounded-full text-blue-gray-500 transition-colors hover:bg-blue-gray-300 focus:outline-blue-gray"
             >

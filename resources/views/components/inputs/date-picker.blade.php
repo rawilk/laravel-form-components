@@ -59,9 +59,10 @@
 
     @if ($clearable)
         <div class="trailing-icon pr-3 flex items-center absolute inset-y-0 right-0">
-            <button x-show.transition.opacity.150ms="Boolean(value)"
-                    x-on:click="value = null; fp.setDate(value)"
+            <button x-show="Boolean(value)"
+                    x-transition
                     x-cloak
+                    x-on:click="value = null; fp.setDate(value)"
                     class="form-input-clear h-6 w-6 group rounded-full p-1 hover:bg-blue-gray-200 focus:outline-blue-gray transition-colors"
                     type="button"
             >
