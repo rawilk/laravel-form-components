@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Str;
 use Illuminate\View\Compilers\BladeCompiler;
+use Illuminate\View\ComponentAttributeBag;
 use Rawilk\FormComponents\Console\PublishCommand;
 use Rawilk\FormComponents\Controllers\FormComponentsJavaScriptAssets;
 use Rawilk\FormComponents\Facades\FormComponents as FormComponentsFacade;
@@ -22,6 +23,7 @@ class FormComponentsServiceProvider extends ServiceProvider
         $this->bootRoutes();
         $this->bootBladeComponents();
         $this->bootDirectives();
+        $this->bootMacros();
 
         if ($this->app->runningInConsole()) {
             $this->bootForConsole();
@@ -92,6 +94,13 @@ class FormComponentsServiceProvider extends ServiceProvider
 
         Blade::directive('fcJavaScript', function (string $expression) {
             return "<?php echo \\Rawilk\\FormComponents\\Facades\\FormComponents::javaScript({$expression}); ?>";
+        });
+    }
+
+    private function bootMacros(): void
+    {
+        ComponentAttributeBag::macro('hasStartsWith', function ($key) {
+            return (bool) $this->whereStartsWith($key)->first();
         });
     }
 

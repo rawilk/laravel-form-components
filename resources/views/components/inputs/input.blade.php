@@ -9,7 +9,7 @@
         @if ($id) id="{{ $id }}" @endif
         type="{{ $type }}"
 
-        @if (! is_null($value) && ! $attributes->whereStartsWith('wire:model')->first()) value="{{ $value }}" @endif
+        @if (! is_null($value) && ! $attributes->hasStartsWith('wire:model')) value="{{ $value }}" @endif
 
         @if ($hasErrorsAndShow($name))
             aria-invalid="true"

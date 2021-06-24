@@ -47,7 +47,7 @@ class FileUpload extends BladeComponent
             return $this->canShowUploadProgress = false;
         }
 
-        if (! $attributes->whereStartsWith('wire:model')->first()) {
+        if (! $attributes->hasStartsWith('wire:model')) {
             return $this->canShowUploadProgress = false;
         }
 

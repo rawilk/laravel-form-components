@@ -1,8 +1,8 @@
 <div x-data="{
         fp: null,
-        @if ($value && ! $attributes->whereStartsWith('wire:model')->first())
+        @if ($value && ! $attributes->hasStartsWith('wire:model'))
             value: '{{ $value }}',
-        @elseif ($attributes->whereStartsWith('wire:model')->first())
+        @elseif ($attributes->hasStartsWith('wire:model'))
             value: @entangle($attributes->wire('model')),
         @else
             value: null,
@@ -46,7 +46,7 @@
         x-bind:value="value"
         placeholder="{{ $placeholder }}"
 
-        @if ($value && ! $attributes->whereStartsWith('wire:model')->first()) value="{{ $value }}" @endif
+        @if ($value && ! $attributes->hasStartsWith('wire:model')) value="{{ $value }}" @endif
 
         @if ($hasErrorsAndShow($name))
             aria-invalid="true"

@@ -73,6 +73,6 @@ class FilePond extends BladeComponent
     public function shouldWatch($attributes): bool
     {
         return $this->watchValue
-            && (bool) $attributes->whereStartsWith('wire:model')->first();
+            && $attributes->hasStartsWith('wire:model');
     }
 }

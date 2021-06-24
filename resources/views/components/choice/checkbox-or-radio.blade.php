@@ -5,7 +5,7 @@
                @if ($id) id="{{ $id }}" @endif
                type="{{ $type }}"
                @if ($value) value="{{ $value }}" @endif
-               @if ($checked && ! $attributes->whereStartsWith('wire:model')->first()) checked @endif
+               @if ($checked && ! $attributes->hasStartsWith('wire:model')) checked @endif
                {{ $extraAttributes }}
         />
     </div>

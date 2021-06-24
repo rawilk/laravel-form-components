@@ -13,7 +13,7 @@
               @endif
 
               {!! $attributes->merge(['class' => $inputClass(), 'rows' => 3]) !!}
-    >@if (! is_null($value) && ! $attributes->whereStartsWith('wire:model')->first()){!! $value !!}@elseif ($slot->isNotEmpty()){!! $slot !!}@endif</textarea>
+    >@if (! is_null($value) && ! $attributes->hasStartsWith('wire:model')){!! $value !!}@elseif ($slot->isNotEmpty()){!! $slot !!}@endif</textarea>
 
     @include('form-components::partials.trailing-addons')
 </div>

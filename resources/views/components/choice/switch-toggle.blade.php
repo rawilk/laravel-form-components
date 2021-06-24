@@ -1,7 +1,7 @@
 <div x-data="{
         onValue: {{ json_encode($onValue) }},
         offValue: {{ json_encode($offValue) }},
-        @if ($attributes->whereStartsWith('wire:model')->first())
+        @if ($attributes->hasStartsWith('wire:model'))
             value: @entangle($attributes->wire('model')),
         @else
             value: {{ json_encode($value) }},
@@ -33,7 +33,7 @@
             type="button"
             @if ($id) id="{{ $id }}" @endif
             @if ($label) aria-labelledby="{{ $labelId() }}" @endif
-            {{ $attributes->except(['type', 'wire:model', 'wire:model.defer'])->merge(['class' => $buttonClass()]) }}
+            {{ $attributes->except(['type', 'wire:model', 'wire:model.defer', 'wire:model.lazy'])->merge(['class' => $buttonClass()]) }}
             x-bind:class="{ 'pressed': isPressed }"
             @if ($disabled) disabled @endif
     >

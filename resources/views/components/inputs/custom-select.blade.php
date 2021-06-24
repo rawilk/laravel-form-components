@@ -1,15 +1,15 @@
 <div x-data="customSelect({
         {{ $configToJson() }}
-        @if ($hasWireModel = $attributes->whereStartsWith('wire:model')->first())
+        @if ($attributes->hasStartsWith('wire:model'))
             value: @entangle($attributes->wire('model')),
         @else
             value: {{ $selectedKeyToJS() }},
         @endif
-        @if ($hasWireFilter = $attributes->whereStartsWith('wire:filter')->first())
+        @if ($attributes->hasStartsWith('wire:filter'))
             wireFilter: '{{ $attributes->wire('filter')->value() }}',
         @endif
      })"
-     x-init="init({{ $hasWireModel ? '$wire' : 'null' }}, $dispatch)"
+     x-init="init({{ $attributes->hasStartsWith('wire:model') ? '$wire' : 'null' }}, $dispatch)"
      x-on:click.outside="close()"
      x-on:keydown.escape="close()"
      x-on:keydown.enter.stop.prevent="onEnter()"
@@ -31,7 +31,7 @@
             <div class="custom-select__filter relative py-2 px-2 border-b border-blue-gray-200">
                 <input x-ref="search"
                        x-show="open"
-                       @if ($hasWireFilter)
+                       @if ($attributes->hasStartsWith('wire:filter'))
                            wire:loading.class="busy"
                            wire:target="{{ $attributes->wire('filter')->value() }}"
                        @endif
@@ -41,7 +41,7 @@
                        class="custom-select__filter-input py-1 h-full w-full border-blue-gray-300 rounded-md bg-white focus:border-blue-gray-400 focus:ring-0 text-sm focus:outline-none"
                 />
 
-                @if ($hasWireFilter)
+                @if ($attributes->hasStartsWith('wire:filter'))
                     <span wire:loading.class.remove="hidden"
                           class="absolute top-4 -mt-0.5 right-4 animate-spin hidden"
                     >
@@ -77,7 +77,7 @@
     @include('form-components::partials.leading-addons')
     @include('form-components::partials.custom-select-button')
 
-    @unless ($hasWireModel)
+    @unless ($attributes->hasStartsWith('wire:model'))
         <input type="hidden" x-bind:value="JSON.stringify(value)" name="{{ $name }}">
     @endif
 </div>

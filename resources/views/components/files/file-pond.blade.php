@@ -52,7 +52,7 @@
     $nextTick(function () {
         pond = FilePond.create($refs.input, {
             {{ $jsonOptions() }}
-            @if ($attributes->whereStartsWith('wire:model')->first())
+            @if ($attributes->hasStartsWith('wire:model'))
                 server: {
                     process: (fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
                         @this.upload('{{ $attributes->wire('model')->value() }}', file, load, error, progress);
