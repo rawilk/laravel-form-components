@@ -49,22 +49,22 @@
         });
     @endif
 
-     $nextTick(function() {
-         pond = FilePond.create($refs.input, {
-             {{ $jsonOptions() }},
-             @if ($attributes->whereStartsWith('wire:model')->first())
-                 server: {
-                     process: (fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
-                         @this.upload('{{ $attributes->wire('model')->value() }}', file, load, error, progress);
-                     },
-                     revert: (filename, load) => {
-                         @this.removeUpload('{{ $attributes->wire('model')->value() }}', filename, load);
-                     },
-                 },
-             @endif
-             {{ $optionsSlot ?? '' }}
-         });
-     ));
+    $nextTick(function () {
+        pond = FilePond.create($refs.input, {
+            {{ $jsonOptions() }}
+            @if ($attributes->whereStartsWith('wire:model')->first())
+                server: {
+                    process: (fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
+                        @this.upload('{{ $attributes->wire('model')->value() }}', file, load, error, progress);
+                    },
+                    revert: (filename, load) => {
+                        @this.removeUpload('{{ $attributes->wire('model')->value() }}', filename, load);
+                    },
+                },
+            @endif
+            {{ $optionsSlot ?? '' }}
+        });
+    });
     "
 >
     <input x-ref="input"
