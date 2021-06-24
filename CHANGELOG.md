@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 5.0.2 - 2021-06-24
+### Fixed
+- Fix syntax error in checkbox/radio component
+
 ## 5.0.1 - 2021-06-24
 ### Fixed
 - Fix syntax issues with FilePond component
