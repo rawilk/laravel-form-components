@@ -1,4 +1,4 @@
-<div {{ $attributes->merge(['class' => $groupClass()]) }}>
+<div {{ $attributes->class($groupClass()) }}>
     @include('form-components::partials.form-group-label')
 
     <div class="form-group__content mt-1 {{ $inline ? 'form-group__content--inline sm:mt-0 sm:col-span-2' : '' }}">
