@@ -2,6 +2,13 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 5.0.1 - 2021-06-24
+### Fixed
+- Fix syntax issues with FilePond component
+
+### Updated
+- Add `hasStartsWith` macro for blade component attributes
+
 ## 5.0.0 - 2021-06-23
 ### Added
 - Add Alpine.js v3 support
