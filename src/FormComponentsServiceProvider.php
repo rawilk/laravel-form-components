@@ -98,6 +98,9 @@ class FormComponentsServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     * @psalm-suppress UndefinedMethod
+     */
     private function bootMacros(): void
     {
         ComponentAttributeBag::macro('hasStartsWith', function ($key) {

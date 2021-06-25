@@ -82,6 +82,7 @@ class DatePicker extends Input
 
     private function resolveIcons(): void
     {
+        /** @psalm-suppress RedundantCondition */
         $this->toggleIcon = is_null($this->toggleIcon) && $this->toggleIcon !== false
             ? config('form-components.components.date-picker.icon')
             : $this->toggleIcon;
