@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Rawilk\FormComponents;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -102,6 +103,26 @@ class FormComponentsServiceProvider extends ServiceProvider
         ComponentAttributeBag::macro('hasStartsWith', function ($key) {
             return (bool) $this->whereStartsWith($key)->first();
         });
+
+        // Add backwards support for Laravel 8.0 - 8.26.
+        // This macro can be removed if we ever deprecate those versions.
+        if (! method_exists(ComponentAttributeBag::class, 'class')) {
+            ComponentAttributeBag::macro('class', function ($classList) {
+                $classList = Arr::wrap($classList);
+
+                $classes = [];
+
+                foreach ($classList as $class => $constraint) {
+                    if (is_numeric($class)) {
+                        $classes[] = $constraint;
+                    } elseif ($constraint) {
+                        $classes[] = $class;
+                    }
+                }
+
+                return $this->merge(['class' => implode(' ', $classes)]);
+            });
+        }
     }
 
     private function bootRoutes(): void
