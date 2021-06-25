@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 5.0.3 - 2021-06-25
+### Fixed
+- Add backwards compatibility for Laravel 8.0 - 8.26 by adding a `class` macro to `ComponentAttributeBag::class` if the method does not exist
+
 ## 5.0.2 - 2021-06-24
 ### Fixed
 - Fix syntax error in checkbox/radio component
