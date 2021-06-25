@@ -14,7 +14,7 @@ class FormErrorTest extends ComponentTestCase
         $this->withViewErrors(['first_name' => 'Name is required.']);
 
         $this->assertMatchesSnapshot(
-            $this->renderComponent('<x-form-error name="first_name" />')
+            (string) $this->blade('<x-form-error name="first_name" />')
         );
     }
 
@@ -33,6 +33,6 @@ class FormErrorTest extends ComponentTestCase
         </x-form-error>
         HTML;
 
-        $this->assertMatchesSnapshot($this->renderComponent($template));
+        $this->assertMatchesSnapshot((string) $this->blade($template));
     }
 }

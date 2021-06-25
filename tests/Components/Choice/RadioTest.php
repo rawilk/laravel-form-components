@@ -13,7 +13,7 @@ class RadioTest extends ComponentTestCase
     public function can_be_rendered(): void
     {
         $this->assertMatchesSnapshot(
-            $this->renderComponent('<x-radio name="remember_me" />')
+            (string) $this->blade('<x-radio name="remember_me" />')
         );
     }
 
@@ -21,7 +21,7 @@ class RadioTest extends ComponentTestCase
     public function specific_attributes_can_be_used(): void
     {
         $this->assertMatchesSnapshot(
-            $this->renderComponent('<x-radio name="remember_me" id="rememberMe" class="p-4" value="remember" label="Remember me" />')
+            (string) $this->blade('<x-radio name="remember_me" id="rememberMe" class="p-4" value="remember" label="Remember me" />')
         );
     }
 
@@ -29,7 +29,7 @@ class RadioTest extends ComponentTestCase
     public function label_can_be_slotted(): void
     {
         $this->assertMatchesSnapshot(
-            $this->renderComponent('<x-radio name="remember_me">Remember me</x-radio>')
+            (string) $this->blade('<x-radio name="remember_me">Remember me</x-radio>')
         );
     }
 
@@ -39,7 +39,7 @@ class RadioTest extends ComponentTestCase
         $this->flashOld(['remember_me' => true]);
 
         $this->assertMatchesSnapshot(
-            $this->renderComponent('<x-radio name="remember_me" label="Remember me" />')
+            (string) $this->blade('<x-radio name="remember_me" label="Remember me" />')
         );
     }
 
@@ -47,7 +47,7 @@ class RadioTest extends ComponentTestCase
     public function can_have_a_description(): void
     {
         $this->assertMatchesSnapshot(
-            $this->renderComponent('<x-radio name="remember_me" label="Remember me" description="My description" />')
+            (string) $this->blade('<x-radio name="remember_me" label="Remember me" description="My description" />')
         );
     }
 
@@ -62,14 +62,14 @@ class RadioTest extends ComponentTestCase
         </x-radio>
         HTML;
 
-        $this->assertMatchesSnapshot($this->renderComponent($template));
+        $this->assertMatchesSnapshot((string) $this->blade($template));
     }
 
     /** @test */
     public function checked_is_not_rendered_if_wire_model_is_present(): void
     {
         $this->assertMatchesSnapshot(
-            $this->renderComponent('<x-radio name="remember_me" label="Remember me" wire:model="remember" checked />')
+            (string) $this->blade('<x-radio name="remember_me" label="Remember me" wire:model="remember" checked />')
         );
     }
 }

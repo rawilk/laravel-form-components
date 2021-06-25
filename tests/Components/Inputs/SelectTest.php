@@ -12,23 +12,20 @@ class SelectTest extends ComponentTestCase
     /** @test */
     public function can_be_rendered(): void
     {
-        $this->withViewErrors([]);
-
         $this->assertMatchesSnapshot(
-            $this->renderComponent('<x-select name="country" id="countrySelect" />')
+            (string) $this->blade('<x-select name="country" id="countrySelect" />')
         );
     }
 
     /** @test */
     public function it_accepts_an_array_of_options(): void
     {
-        $this->withViewErrors([]);
+        $view = $this->blade(
+            '<x-select name="country" :options="$options" />',
+            ['options' => ['can' => 'Canada', 'usa' => 'United States']],
+        );
 
-        $template = <<<HTML
-        <x-select name="country" :options="['can' => 'Canada', 'usa' => 'United States']" />
-        HTML;
-
-        $this->assertMatchesSnapshot($this->renderComponent($template));
+        $this->assertMatchesSnapshot((string) $view);
     }
 
     /** @test */
@@ -40,19 +37,21 @@ class SelectTest extends ComponentTestCase
         <x-select name="country" :options="['can' => 'Canada', 'usa' => 'United States']" />
         HTML;
 
-        $this->assertMatchesSnapshot($this->renderComponent($template));
+        $this->assertMatchesSnapshot((string) $this->blade($template));
     }
 
     /** @test */
     public function a_default_value_can_be_given(): void
     {
-        $this->withViewErrors([]);
+        $view = $this->blade(
+            '<x-select name="country" :options="$options" :value="$value" />',
+            [
+                'options' => ['can' => 'Canada', 'usa' => 'United States'],
+                'value' => 'can',
+            ]
+        );
 
-        $template = <<<HTML
-        <x-select name="country" :options="['can' => 'Canada', 'usa' => 'United States']" value="can" />
-        HTML;
-
-        $this->assertMatchesSnapshot($this->renderComponent($template));
+        $this->assertMatchesSnapshot((string) $view);
     }
 
     /** @test */
@@ -65,7 +64,7 @@ class SelectTest extends ComponentTestCase
         <x-select name="country" id="country_code" class="px-4" value="can" :options="['can' => 'Canada', 'usa' => 'United States']" />
         HTML;
 
-        $this->assertMatchesSnapshot($this->renderComponent($template));
+        $this->assertMatchesSnapshot((string) $this->blade($template));
     }
 
     /** @test */
@@ -77,7 +76,7 @@ class SelectTest extends ComponentTestCase
         <x-select name="country" multiple :options="['can' => 'Canada', 'usa' => 'United States', 'mex' => 'Mexico']" />
         HTML;
 
-        $this->assertMatchesSnapshot($this->renderComponent($template));
+        $this->assertMatchesSnapshot((string) $this->blade($template));
     }
 
     /** @test */
@@ -89,7 +88,7 @@ class SelectTest extends ComponentTestCase
         <x-select name="country" :options="['can' => 'Canada', 'usa' => 'United States']" />
         HTML;
 
-        $this->assertMatchesSnapshot($this->renderComponent($template));
+        $this->assertMatchesSnapshot((string) $this->blade($template));
     }
 
     /** @test */
@@ -107,26 +106,22 @@ class SelectTest extends ComponentTestCase
         </x-select>
         HTML;
 
-        $this->assertMatchesSnapshot($this->renderComponent($template));
+        $this->assertMatchesSnapshot((string) $this->blade($template));
     }
 
     /** @test */
     public function name_can_be_omitted(): void
     {
-        $this->withViewErrors([]);
-
         $this->assertMatchesSnapshot(
-            $this->renderComponent('<x-select />')
+            (string) $this->blade('<x-select />')
         );
     }
 
     /** @test */
     public function accepts_a_container_class(): void
     {
-        $this->withViewErrors([]);
-
         $this->assertMatchesSnapshot(
-            $this->renderComponent('<x-select container-class="foo" />')
+            (string) $this->blade('<x-select container-class="foo" />')
         );
     }
 }

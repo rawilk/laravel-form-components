@@ -6,22 +6,32 @@ namespace Rawilk\FormComponents\Tests\Components;
 
 use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
-use Gajus\Dindent\Indenter;
+use Illuminate\Foundation\Testing\Concerns\InteractsWithViews;
 use Orchestra\Testbench\TestCase;
 use Rawilk\FormComponents\FormComponentsServiceProvider;
-use Rawilk\FormComponents\Tests\Concerns\InteractsWithViews;
+use ReflectionProperty;
 
 abstract class ComponentTestCase extends TestCase
 {
     use InteractsWithViews;
 
-    // protected function setUp(): void
-    // {
-    //     parent::setUp();
-    //
-    //     // TODO: get this line to work in github tests workflow for php8 -- prefer lowest test
-    //     // $this->artisan('view:clear');
-    // }
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->initSession();
+
+        // TODO: get this line to work in github tests workflow for php8 -- prefer lowest test
+        // $this->artisan('view:clear');
+    }
+
+    protected function initSession(): void
+    {
+        // This is to avoid "Session store not set on request" errors for some components.
+        $session = new ReflectionProperty(app('request'), 'session');
+        $session->setAccessible(true);
+        $session->setValue(app('request'), app('session')->driver('array'));
+    }
 
     protected function flashOld(array $input): void
     {
@@ -37,34 +47,5 @@ abstract class ComponentTestCase extends TestCase
             BladeHeroiconsServiceProvider::class,
             FormComponentsServiceProvider::class,
         ];
-    }
-
-    public function assertComponentRenders(string $expected, string $template, array $data = []): void
-    {
-        $indenter = new Indenter;
-
-        $blade = (string) $this->blade($template, $data);
-        $indented = $indenter->indent($blade);
-        $cleaned = str_replace(
-            [' >', "\n/>", ' </div>', '> ', "\n>"],
-            ['>', ' />', "\n</div>", ">\n    ", ">"],
-            $indented
-        );
-        $cleaned = $this->trimExcessWhitespace($cleaned);
-        $expected = $this->trimExcessWhitespace($expected);
-
-        self::assertSame($expected, $cleaned);
-    }
-
-    protected function renderComponent(string $template, array $data = []): string
-    {
-        return (string) $this->blade($template, $data);
-    }
-
-    protected function trimExcessWhitespace(string $content): string
-    {
-        return trim(
-            preg_replace('/\s+/', ' ', $content)
-        );
     }
 }

@@ -11,8 +11,6 @@ class FormGroupTest extends ComponentTestCase
     /** @test */
     public function can_be_rendered(): void
     {
-        $this->withViewErrors([]);
-
         $template = <<<HTML
         <x-form-group label="First name" name="first_name">
             Name input
@@ -20,15 +18,13 @@ class FormGroupTest extends ComponentTestCase
         HTML;
 
         $this->assertMatchesSnapshot(
-            $this->renderComponent($template)
+            (string) $this->blade($template)
         );
     }
 
     /** @test */
     public function can_have_help_text(): void
     {
-        $this->withViewErrors([]);
-
         $template = <<<HTML
         <x-form-group label="First name" name="first_name" help-text="Some help text">
             Name field
@@ -36,15 +32,13 @@ class FormGroupTest extends ComponentTestCase
         HTML;
 
         $this->assertMatchesSnapshot(
-            $this->renderComponent($template)
+            (string) $this->blade($template)
         );
     }
 
     /** @test */
     public function help_text_can_be_slotted(): void
     {
-        $this->withViewErrors([]);
-
         $template = <<<HTML
         <x-form-group label="First name" name="first_name">
             Name field
@@ -56,15 +50,13 @@ class FormGroupTest extends ComponentTestCase
         HTML;
 
         $this->assertMatchesSnapshot(
-            $this->renderComponent($template)
+            (string) $this->blade($template)
         );
     }
 
     /** @test */
     public function can_be_inline(): void
     {
-        $this->withViewErrors([]);
-
         $template = <<<HTML
         <x-form-group label="First name" name="first_name" inline>
             Name field
@@ -72,23 +64,17 @@ class FormGroupTest extends ComponentTestCase
         HTML;
 
         $this->assertMatchesSnapshot(
-            $this->renderComponent($template)
+            (string) $this->blade($template)
         );
     }
 
     /** @test */
     public function border_top_can_be_disabled_when_inline(): void
     {
-        $this->withViewErrors([]);
-
-        $template = <<<HTML
-        <x-form-group label="First name" name="first_name" inline :border="false">
-            Name field
-        </x-form-group>
-        HTML;
+        $template = '<x-form-group label="First name" name="first_name" inline :border="$border">Name field</x-form-group>';
 
         $this->assertMatchesSnapshot(
-            $this->renderComponent($template)
+            (string) $this->blade($template, ['border' => false])
         );
     }
 
@@ -104,15 +90,13 @@ class FormGroupTest extends ComponentTestCase
         HTML;
 
         $this->assertMatchesSnapshot(
-            $this->renderComponent($template)
+            (string) $this->blade($template)
         );
     }
 
     /** @test */
     public function inline_checkbox_form_groups_labels_have_no_top_padding(): void
     {
-        $this->withViewErrors([]);
-
         $template = <<<HTML
         <x-form-group label="First name" name="name" inline is-checkbox-group>
             Name field
@@ -120,23 +104,21 @@ class FormGroupTest extends ComponentTestCase
         HTML;
 
         $this->assertMatchesSnapshot(
-            $this->renderComponent($template)
+            (string) $this->blade($template)
         );
     }
 
     /** @test */
     public function label_can_be_omitted(): void
     {
-        $this->withViewErrors([]);
-
         $template = <<<HTML
-        <x-form-group :label="false" name="name">
+        <x-form-group :label="\$label" name="name">
             Name field
         </x-form-group>
         HTML;
 
         $this->assertMatchesSnapshot(
-            $this->renderComponent($template)
+            (string) $this->blade($template, ['label' => false])
         );
     }
 
@@ -145,15 +127,13 @@ class FormGroupTest extends ComponentTestCase
     {
         config()->set('form-components.optional_hint_text', 'Optional');
 
-        $this->withViewErrors([]);
-
         $template = <<<HTML
         <x-form-group name="foo" optional>
             <x-input name="foo" aria-describedby="foo-hint" />
         </x-form-group>
         HTML;
 
-        $this->assertMatchesSnapshot($this->renderComponent($template));
+        $this->assertMatchesSnapshot((string) $this->blade($template));
     }
 
     /** @test */
@@ -161,28 +141,24 @@ class FormGroupTest extends ComponentTestCase
     {
         config()->set('form-components.optional_hint_text', 'Optional');
 
-        $this->withViewErrors([]);
-
         $template = <<<HTML
         <x-form-group name="foo" optional inline>
             <x-input name="foo" aria-describedby="foo-hint foo-hint-inline" />
         </x-form-group>
         HTML;
 
-        $this->assertMatchesSnapshot($this->renderComponent($template));
+        $this->assertMatchesSnapshot((string) $this->blade($template));
     }
 
     /** @test */
     public function can_have_custom_hint_text(): void
     {
-        $this->withViewErrors([]);
-
         $template = <<<HTML
         <x-form-group name="foo" hint="My hint text">
             <x-input name="foo" aria-describedby="foo-hint" />
         </x-form-group>
         HTML;
 
-        $this->assertMatchesSnapshot($this->renderComponent($template));
+        $this->assertMatchesSnapshot((string) $this->blade($template));
     }
 }

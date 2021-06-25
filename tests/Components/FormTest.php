@@ -11,15 +11,15 @@ class FormTest extends ComponentTestCase
     /** @test */
     public function can_be_rendered(): void
     {
-        $template = <<<HTML
-        <x-form action="http://example.com">
-            Form fields...
-        </x-form>
-        HTML;
-
-        $this->assertMatchesSnapshot(
-            $this->renderComponent($template)
+        $view = $this->blade(
+            <<<HTML
+            <x-form action="http://example.com">
+                Form fields...
+            </x-form>
+            HTML
         );
+
+        $this->assertMatchesSnapshot((string) $view);
     }
 
     /** @test */
@@ -32,7 +32,7 @@ class FormTest extends ComponentTestCase
         HTML;
 
         $this->assertMatchesSnapshot(
-            $this->renderComponent($template)
+            (string) $this->blade($template)
         );
     }
 
@@ -46,7 +46,7 @@ class FormTest extends ComponentTestCase
         HTML;
 
         $this->assertMatchesSnapshot(
-            $this->renderComponent($template)
+            (string) $this->blade($template)
         );
     }
 
@@ -60,7 +60,7 @@ class FormTest extends ComponentTestCase
         HTML;
 
         $this->assertMatchesSnapshot(
-            $this->renderComponent($template)
+            (string) $this->blade($template)
         );
     }
 
@@ -74,7 +74,7 @@ class FormTest extends ComponentTestCase
         HTML;
 
         $this->assertMatchesSnapshot(
-            $this->renderComponent($template)
+            (string) $this->blade($template)
         );
     }
 
@@ -85,15 +85,12 @@ class FormTest extends ComponentTestCase
      */
     public function csrf_input_is_not_rendered_on_certain_form_methods(string $method): void
     {
-        $template = <<<HTML
-        <x-form method="{$method}">
-            Form fields...
-        </x-form>
-        HTML;
-
-        $this->assertMatchesSnapshot(
-            $this->renderComponent($template)
+        $view = $this->blade(
+            '<x-form :method="$method">Form fields...</x-form>',
+            ['method' => $method],
         );
+
+        $this->assertMatchesSnapshot((string) $view);
     }
 
     /** @test */
@@ -106,7 +103,7 @@ class FormTest extends ComponentTestCase
         HTML;
 
         $this->assertMatchesSnapshot(
-            $this->renderComponent($template)
+            (string) $this->blade($template)
         );
     }
 

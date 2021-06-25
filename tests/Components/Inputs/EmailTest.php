@@ -14,20 +14,16 @@ class EmailTest extends ComponentTestCase
     /** @test */
     public function can_be_rendered(): void
     {
-        $this->withViewErrors([]);
-
         $this->assertMatchesSnapshot(
-            $this->renderComponent('<x-email name="email" />')
+            (string) $this->blade('<x-email name="email" />')
         );
     }
 
     /** @test */
     public function email_type_will_not_be_overridden(): void
     {
-        $this->withViewErrors([]);
-
         $this->assertMatchesSnapshot(
-            $this->renderComponent('<x-email name="foo" id="bar" class="custom-class" type="url" />')
+            (string) $this->blade('<x-email name="foo" id="bar" class="custom-class" type="url" />')
         );
     }
 }

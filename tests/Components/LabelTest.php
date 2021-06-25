@@ -12,7 +12,7 @@ class LabelTest extends ComponentTestCase
     public function can_be_rendered(): void
     {
         $this->assertMatchesSnapshot(
-            $this->renderComponent('<x-label for="first_name" />')
+            (string) $this->blade('<x-label for="first_name" />')
         );
     }
 
@@ -26,7 +26,7 @@ class LabelTest extends ComponentTestCase
         HTML;
 
         $this->assertMatchesSnapshot(
-            $this->renderComponent($template)
+            (string) $this->blade($template)
         );
     }
 
@@ -34,7 +34,7 @@ class LabelTest extends ComponentTestCase
     public function for_attribute_is_optional(): void
     {
         $this->assertMatchesSnapshot(
-            $this->renderComponent('<x-label>Label...</x-label>')
+            (string) $this->blade('<x-label>Label...</x-label>')
         );
     }
 
@@ -42,7 +42,7 @@ class LabelTest extends ComponentTestCase
     public function nothing_is_rendered_if_label_is_empty(): void
     {
         $this->assertMatchesSnapshot(
-            $this->renderComponent('<x-label />')
+            (string) $this->blade('<x-label />')
         );
     }
 }

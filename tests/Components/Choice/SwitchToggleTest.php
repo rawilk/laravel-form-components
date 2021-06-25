@@ -15,7 +15,7 @@ class SwitchToggleTest extends ComponentTestCase
     public function can_be_rendered(): void
     {
         $this->assertMatchesSnapshot(
-            $this->renderComponent('<x-switch-toggle id="foo" />')
+            (string) $this->blade('<x-switch-toggle id="foo" />')
         );
     }
 
@@ -23,7 +23,7 @@ class SwitchToggleTest extends ComponentTestCase
     public function accepts_a_container_class(): void
     {
         $this->assertMatchesSnapshot(
-            $this->renderComponent('<x-switch-toggle id="foo" container-class="foo" />')
+            (string) $this->blade('<x-switch-toggle id="foo" container-class="foo" />')
         );
     }
 
@@ -31,7 +31,7 @@ class SwitchToggleTest extends ComponentTestCase
     public function custom_attributes_are_applied_to_the_button(): void
     {
         $this->assertMatchesSnapshot(
-            $this->renderComponent('<x-switch-toggle id="foo" class="foo-class" data-foo="bar" />')
+            (string) $this->blade('<x-switch-toggle id="foo" class="foo-class" data-foo="bar" />')
         );
     }
 
@@ -39,7 +39,7 @@ class SwitchToggleTest extends ComponentTestCase
     public function can_have_a_wire_model_instead_of_value(): void
     {
         $this->assertMatchesSnapshot(
-            $this->renderComponent('<x-switch-toggle id="foo" wire:model="foo" />')
+            (string) $this->blade('<x-switch-toggle id="foo" wire:model="foo" />')
         );
     }
 
@@ -47,7 +47,7 @@ class SwitchToggleTest extends ComponentTestCase
     public function creates_a_hidden_input_when_a_name_is_used(): void
     {
         $this->assertMatchesSnapshot(
-            $this->renderComponent('<x-switch-toggle name="foo" />')
+            (string) $this->blade('<x-switch-toggle name="foo" />')
         );
     }
 
@@ -55,7 +55,7 @@ class SwitchToggleTest extends ComponentTestCase
     public function can_have_a_label(): void
     {
         $this->assertMatchesSnapshot(
-            $this->renderComponent('<x-switch-toggle id="foo" label="My label" />')
+            (string) $this->blade('<x-switch-toggle id="foo" label="My label" />')
         );
     }
 
@@ -63,7 +63,7 @@ class SwitchToggleTest extends ComponentTestCase
     public function can_have_a_label_on_the_left(): void
     {
         $this->assertMatchesSnapshot(
-            $this->renderComponent('<x-switch-toggle id="foo" label="My label" label-position="left" />')
+            (string) $this->blade('<x-switch-toggle id="foo" label="My label" label-position="left" />')
         );
     }
 
@@ -77,14 +77,14 @@ class SwitchToggleTest extends ComponentTestCase
         </x-switch-toggle>
         HTML;
 
-        $this->assertMatchesSnapshot($this->renderComponent($template));
+        $this->assertMatchesSnapshot((string) $this->blade($template));
     }
 
     /** @test */
     public function can_be_different_sizes(): void
     {
         $this->assertMatchesSnapshot(
-            $this->renderComponent('<x-switch-toggle id="foo" size="lg" />')
+            (string) $this->blade('<x-switch-toggle id="foo" size="lg" />')
         );
     }
 }

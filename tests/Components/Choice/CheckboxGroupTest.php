@@ -12,25 +12,17 @@ class CheckboxGroupTest extends ComponentTestCase
     /** @test */
     public function can_be_rendered(): void
     {
-        $template = <<<HTML
-        <x-checkbox-group>
-            Checkboxes...
-        </x-checkbox-group>
-        HTML;
-
-        $this->assertMatchesSnapshot($this->renderComponent($template));
+        $this->assertMatchesSnapshot(
+            (string) $this->blade('<x-checkbox-group>Checkboxes...</x-checkbox-group>')
+        );
     }
 
     /** @test */
     public function can_be_not_stacked(): void
     {
-        $template = <<<HTML
-        <x-checkbox-group :stacked="false">
-            Checkboxes...
-        </x-checkbox-group>
-        HTML;
-
-        $this->assertMatchesSnapshot($this->renderComponent($template));
+        $this->assertMatchesSnapshot(
+            (string) $this->blade('<x-checkbox-group :stacked="$stacked">Checkboxes...</x-checkbox-group>', ['stacked' => false])
+        );
     }
 
     /** @test */
@@ -43,6 +35,6 @@ class CheckboxGroupTest extends ComponentTestCase
         </x-checkbox-group>
         HTML;
 
-        $this->assertMatchesSnapshot($this->renderComponent($template));
+        $this->assertMatchesSnapshot((string) $this->blade($template));
     }
 }

@@ -21,7 +21,7 @@ class ComponentPrefixTest extends ComponentTestCase
     public function a_custom_prefix_can_be_used(): void
     {
         $this->assertMatchesSnapshot(
-            $this->renderComponent('<x-tw-form action="http://example.com" />')
+            (string) $this->blade('<x-tw-form action="http://example.com" />')
         );
     }
 }
