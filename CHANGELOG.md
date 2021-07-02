@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 5.0.4 - 2021-07-02
+### Fixed
+- Fix issues with timezone custom select options
+- Update custom select "selected option" styling
+
+### Updated
+- Use the new `Alpine.data(...)` to define the `customSelect` Alpine component
+
 ## 5.0.3 - 2021-06-25
 ### Fixed
 - Add backwards compatibility for Laravel 8.0 - 8.26 by adding a `class` macro to `ComponentAttributeBag::class` if the method does not exist
