@@ -6,7 +6,7 @@
     x-bind:class="optionClasses(option, index)"
     x-bind:role="isOptgroup(option) ? null : 'option'"
     x-bind:aria-selected="isOptgroup(option) ? false : (index === focusedOptionIndex)"
-    class="custom-select__option group relative py-2 pl-3 pr-9 cursor-default select-none focus:outline-blue-gray"
+    class="custom-select__option group relative py-2 pl-3 pr-2 cursor-default select-none focus:outline-blue-gray"
 >
     {{-- "optgroup" --}}
     <template x-if="isOptgroup(option)">
@@ -29,7 +29,7 @@
                 <span x-show="isSelected(option.value)"
                       x-cloak
                       x-bind:class="{ 'text-white': focusedOptionIndex === index, 'text-blue-gray-600': focusedOptionIndex !== index }"
-                      class="absolute inset-y-0 right-0 flex items-center pr-4"
+                      class="absolute inset-y-0 right-0 flex items-center"
                 >
                     @if ($selectedIcon)
                     <x-dynamic-component :component="$selectedIcon"

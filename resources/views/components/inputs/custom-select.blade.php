@@ -9,7 +9,7 @@
             wireFilter: '{{ $attributes->wire('filter')->value() }}',
         @endif
      })"
-     x-init="init({{ $attributes->hasStartsWith('wire:model') ? '$wire' : 'null' }}, $dispatch)"
+     x-init="initialize({{ $attributes->hasStartsWith('wire:model') ? '$wire' : 'null' }}, $dispatch)"
      x-on:click.outside="close()"
      x-on:keydown.escape="close()"
      x-on:keydown.enter.stop.prevent="onEnter()"
