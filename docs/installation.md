@@ -27,7 +27,7 @@ You may publish the config file via:
 php artisan fc:publish
 ```
 
-[Click here](https://github.com/rawilk/laravel-form-components/blob/master/config/form-components.php) to view the default configuration.
+[Click here](https://github.com/rawilk/laravel-form-components/blob/{branch}/config/form-components.php) to view the default configuration.
 
 ## Directives
 

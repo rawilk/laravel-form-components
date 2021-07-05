@@ -81,7 +81,7 @@ that flatpickr generates. If you want to prevent the button/icon from being disp
 > {note} If you disable the toggle button, be sure to set `click-opens` to `true` on the component.
 
 > {tip} You can also change the icon that is used for the toggle button either by setting the `toggle-icon` attribute, or by changing
-> it globally [in the config](https://github.com/rawilk/laravel-form-components/blob/master/config/form-components.php#L103).
+> it globally [in the config](https://github.com/rawilk/laravel-form-components/blob/{branch}/config/form-components.php#L103).
 
 ## Clearing
 
@@ -92,7 +92,7 @@ to `true` and an icon for clearing the input will be appended to the input.
 <x-date-picker name="birthday" clearable />
 ```
 
-The icon defaults to `heroicon-o-x-circle`, but you can easily customize this icon either [in the config](https://github.com/rawilk/laravel-form-components/blob/master/config/form-components.php#L109), or by setting the `clear-icon` attribute to the icon you want.
+The icon defaults to `heroicon-o-x-circle`, but you can easily customize this icon either [in the config](https://github.com/rawilk/laravel-form-components/blob/{branch}/config/form-components.php#L109), or by setting the `clear-icon` attribute to the icon you want.
 
 ## Options
 
