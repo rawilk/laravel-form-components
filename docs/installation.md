@@ -93,7 +93,7 @@ color ranging from `50` to `900`:
 -   `danger` (red)
 -   `blue-gray`
 
-There also needs to be `blue-gray` outline variant defined as well in your tailwind config. See the [upgrade guide](/docs/laravel-form-components/v2/upgrade#styling) for more information.
+There also needs to be `blue-gray` outline variant defined as well in your tailwind config. See the [upgrade guide](/docs/laravel-form-components/{version}/upgrade#styling) for more information.
 
 ## Components
 
@@ -108,7 +108,7 @@ and/or view of your own.
 
 ## Component JavaScript
 
-Some components, such as the [custom select component](/docs/laravel-form-components/v2/components/custom-select), require custom
+Some components, such as the [custom select component](/docs/laravel-form-components/{version}/components/custom-select), require custom
 JavaScript to run. The JavaScript is extracted to an external file since it is pretty substantial and should be minified. If
 you are using any components that depend on this JavaScript, be sure you are pulling the scripts in through either the
 `@fcJavaScript` or `@fcScripts` blade directives in your layout file. See [directives](#directives) for more information.
