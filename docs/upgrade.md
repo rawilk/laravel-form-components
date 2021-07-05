@@ -18,7 +18,7 @@ window.Alpine = Alpine;
 Alpine.start();
 ```
 
-This won't affect you if you are using the CDN scripts from the [configuration](https://github.com/rawilk/laravel-form-components/blob/master/config/form-components.php).
+This won't affect you if you are using the CDN scripts from the [configuration](https://github.com/rawilk/laravel-form-components/blob/{branch}/config/form-components.php).
 
 ### Additional stylesheet option
 
@@ -28,7 +28,7 @@ If you choose to import the compiled styles for this package into your own style
 @import "../../vendor/rawilk/laravel-form-components/resources/js/laravel-form-components-styles/dist/styles.min.css";
 ```
 
-See [customizing css](/docs/laravel-form-components/v5/advanced-usage/customizing-css#option-2-override-only-portions-in-your-css) for more information.
+See [customizing css](/docs/laravel-form-components/{version}/advanced-usage/customizing-css#option-2-override-only-portions-in-your-css) for more information.
 
 ## Upgrading from v3 to v4
 
@@ -42,13 +42,13 @@ Another major change with the styling is laravel-form-components now uses a sing
 
 In addition, we have stopped using the `primary` and `danger` variant names in favor of `blue` and `red` respectively. Be sure to update your tailwind config and stylesheets accordingly.
 
-For more info on styling, please see [the Customizing CSS section](/docs/laravel-form-components/v5/advanced-usage/customizing-css).
+For more info on styling, please see [the Customizing CSS section](/docs/laravel-form-components/{version}/advanced-usage/customizing-css).
 
 ### Added Dependencies
 
 Some components, such as the `custom-select` component, have a dependency on `Popper.js` now for positioning the menu. This will require you to ensure that dependency is installed in your project. If you customized the package's configuration file, you should make sure you pull in any updates to the configuration as well.
 
-See [the custom select docs](/docs/laravel-form-components/v5/selects/custom-select#installation) for more information.
+See [the custom select docs](/docs/laravel-form-components/{version}/selects/custom-select#installation) for more information.
 
 ### Custom Select
 

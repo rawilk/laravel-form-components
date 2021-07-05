@@ -12,13 +12,13 @@ custom option markup while still providing usability functionalities such as key
 ## Installation
 
 The custom select component requires Alpine.js and Popper.js, as well as some custom JavaScript written into the package to work.
-Ensure you have the proper [directives](/docs/laravel-form-componentsvalue-fieldinstallation#directives) in your layout file.
+Ensure you have the proper [directives](/docs/laravel-form-components/installation#directives) in your layout file.
 In production, we recommend you install and compile the JavaScript libraries before you deploy:
 
 - [Alpine.js](https://github.com/alpinejs/alpine) `^2.8`
 - [Popper.js](https://popper.js.org/) `^2.9.1`
 
-> {tip} See the [JavaScript Dependencies section](/docs/laravel-form-components/v5/installation#javascript-dependencies) for more information on installing them.
+> {tip} See the [JavaScript Dependencies section](/docs/laravel-form-components/{version}/installation#javascript-dependencies) for more information on installing them.
 
 ## Basic Usage
 
@@ -234,4 +234,4 @@ the select menu now. In addition to positioning the menu when opened, Popper.js 
 ## Addons
 
 The custom select component supports leading addons, but since there are already elements appended to the end
-of the button trigger, trailing addons are not supported. For more information on addons, see [the input documentation](/docs/laravel-form-components/v5/inputs/input#addons).
+of the button trigger, trailing addons are not supported. For more information on addons, see [the input documentation](/docs/laravel-form-components/{version}/inputs/input#addons).

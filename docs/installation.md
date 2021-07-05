@@ -27,7 +27,7 @@ You may publish the config file via:
 php artisan fc:publish
 ```
 
-[Click here](https://github.com/rawilk/laravel-form-components/blob/master/config/form-components.php) to view the default configuration.
+[Click here](https://github.com/rawilk/laravel-form-components/blob/{branch}/config/form-components.php) to view the default configuration.
 
 ## Directives
 
@@ -86,9 +86,9 @@ This is assuming your stylesheet is located in the `./resources/css/` directory 
 
 You could copy the built CSS from `vendor/rawilk/laravel-components/resources/js/laravel-form-components-styles/dist/styles.css` into your public folder, and then use a `link` tag in your blade/html to get it: `<link rel="stylesheet" href="{{ asset('css/laravel-form-components.css') }}">`.
 
-If you would like to customize the CSS we provide, head over to [the section on Customizing CSS](/docs/laravel-form-components/v5/advanced-usage/customizing-css).
+If you would like to customize the CSS we provide, head over to [the section on Customizing CSS](/docs/laravel-form-components/{version}/advanced-usage/customizing-css).
 
-> {tip} If you are using Purge CSS or Tailwind's JIT compiler, you should check out the section on [Purge CSS](/docs/laravel-form-components/v5/advanced-usage/customizing-css#purge-csstailwind-jit)
+> {tip} If you are using Purge CSS or Tailwind's JIT compiler, you should check out the section on [Purge CSS](/docs/laravel-form-components/{version}/advanced-usage/customizing-css#purge-csstailwind-jit)
 > to prevent styles from being lost in production or at compile time.
 
 ## Components
@@ -104,7 +104,7 @@ and/or view of your own.
 
 ## Component JavaScript
 
-Some components, such as the [custom select component](/docs/laravel-form-components/v5/selects/custom-select), require custom
+Some components, such as the [custom select component](/docs/laravel-form-components/{version}/selects/custom-select), require custom
 JavaScript to run. The JavaScript is extracted to an external file since it is pretty substantial and should be minified. If
 you are using any components that depend on this JavaScript, be sure you are pulling the scripts in through either the
 `@fcJavaScript` or `@fcScripts` blade directives in your layout file. See [directives](#directives) for more information.

@@ -12,7 +12,7 @@ for more info.
 
 ## Installation
 
-While the `switch-toggle` component works out-of-the-box when you've [set the directive](/docs/laravel-form-components/v5/installation#directives),
+While the `switch-toggle` component works out-of-the-box when you've [set the directive](/docs/laravel-form-components/{version}/installation#directives),
 we recommend that you install and compile the JavaScript libraries before you deploy to production:
 
 - [Alpine.js](https://github.com/alpinejs/alpine) `^2.8`
@@ -120,7 +120,7 @@ These sizes also come in responsive variants, so if you wanted the switch small 
 <x-switch-toggle class="switch-toggle--sm lg:switch-toggle--lg" />
 ```
 
-You are free to add your own sizes in your own stylesheets. Just reference the [switch toggle styles](https://github.com/rawilk/laravel-form-components/blob/master/resources/sass/utils/_switch.scss#L126) for guidance.
+You are free to add your own sizes in your own stylesheets. Just reference the [switch toggle styles](https://github.com/rawilk/laravel-form-components/blob/{branch}/resources/sass/utils/_switch.scss#L126) for guidance.
 
 ## Icons
 
