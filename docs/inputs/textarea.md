@@ -44,5 +44,5 @@ If you are using livewire, the textarea will allow livewire to set the value ins
 
 ## Reference
 
-Since the textarea component extends the [input component](/docs/laravel-form-components/v4/inputs/input), you are able
+Since the textarea component extends the [input component](/docs/laravel-form-components/{version}/inputs/input), you are able
 to do a lot of the same things you can with the input element, such as error handling and addons.
