@@ -111,4 +111,4 @@ Like the other inputs, the password input can also have leading addons, but sinc
 includes a password toggle as a trailing icon addon, you are not able to add a trailing addon
 to the password input. If you need a trailing addon, you should use the input component instead.
 
-See the [input documentation](/docs/laravel-form-components/v3/components/input#addons) for more information.
+See the [input documentation](/docs/laravel-form-components//{version}/components/input#addons) for more information.

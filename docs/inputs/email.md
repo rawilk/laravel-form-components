@@ -28,4 +28,4 @@ This will output:
 By default an `email` type will be set for the input field as well as an `id` that allows it to be
 easily referenced by a `label` element.
 
-Besides this, the email element behaves exactly the same as the [input component](/docs/laravel-form-components/v3/components/input).
+Besides this, the email element behaves exactly the same as the [input component](/docs/laravel-form-components//{version}/components/input).
