@@ -10,7 +10,7 @@ By using it, you can simply add a date and/or time picker to your form with one 
 
 ## Installation
 
-While the `date-picker` component works out-of-the-box when you've [set the directives](/docs/laravel-form-components/v1/installation#directives),
+While the `date-picker` component works out-of-the-box when you've [set the directives](/docs/laravel-form-components/{version}/installation#directives),
 we recommend that you install and compile the JavaScript libraries before you deploy to production:
 
 - [Alpine.js](https://github.com/alpinejs/alpine) `^2.7`
@@ -81,7 +81,7 @@ that flatpickr generates. If you want to prevent the button/icon from being disp
 > {note} If you disable the toggle button, be sure to set `click-opens` to `true` on the component.
 
 > {tip} You can also change the icon that is used for the toggle button either by setting the `toggle-icon` attribute, or by changing
-it globally [in the config](https://github.com/rawilk/laravel-form-components/blob/master/config/form-components.php#L103).
+it globally [in the config](https://github.com/rawilk/laravel-form-components/blob/{branch}/config/form-components.php#L103).
 
 ## Clearing
 
@@ -92,7 +92,7 @@ to `true` and an icon for clearing the input will be appended to the input.
 <x-date-picker name="birthday" clearable />
 ```
 
-The icon defaults to `heroicon-o-x-circle`, but you can easily customize this icon either [in the config](https://github.com/rawilk/laravel-form-components/blob/master/config/form-components.php#L109), or by setting the `clear-icon` attribute to the icon you want.
+The icon defaults to `heroicon-o-x-circle`, but you can easily customize this icon either [in the config](https://github.com/rawilk/laravel-form-components/blob/{branch}/config/form-components.php#L109), or by setting the `clear-icon` attribute to the icon you want.
 
 ## Options
 
@@ -152,4 +152,4 @@ For more information on the callbacks available, please consult [the events api]
 Like the other inputs, the date picker can also have leading and trailing addons, however by default you cannot add them.
 To add leading addons, you must disable the toggle icon, and for trailing addons, you must set `clearable` to `false`.
 
-See the [input documentation](/docs/laravel-form-components/v1/components/input#addons) for more information.
+See the [input documentation](/docs/laravel-form-components/{version}/components/input#addons) for more information.

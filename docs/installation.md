@@ -27,7 +27,7 @@ You may publish the config file via:
 php artisan fc:publish
 ```
 
-[Click here](https://github.com/rawilk/laravel-form-components/blob/master/config/form-components.php) to view the default configuration.
+[Click here](https://github.com/rawilk/laravel-form-components/blob/{branch}/config/form-components.php) to view the default configuration.
 
 ## Directives
 
@@ -100,7 +100,7 @@ and/or view of your own.
 
 ## Component JavaScript
 
-Some components, such as the [custom select component](/docs/laravel-form-components/v1/components/custom-select), require custom
+Some components, such as the [custom select component](/docs/laravel-form-components/{version}/components/custom-select), require custom
 JavaScript to run. The JavaScript is extracted to an external file since it is pretty substantial and should be minified. If
 you are using any components that depend on this JavaScript, be sure you are pulling the scripts in through either the
 `@fcJavaScript` or `@fcScripts` blade directives in your layout file. See [directives](#directives) for more information.
