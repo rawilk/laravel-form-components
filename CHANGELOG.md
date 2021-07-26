@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 5.1.0 - 2021-07-26
+### Added
+- Add custom `after` slot to allow custom markup for "trailing addons"
+
 ## 5.0.5 - 2021-07-13
 ### Fixed
 - Update `custom-select` component to use `$nextTick` in `x-init` for Alpine.js v3 [(#25)](https://github.com/rawilk/laravel-form-components/pull/25)
