@@ -1,4 +1,6 @@
-@if ($trailingAddon)
+@if ($after ?? null)
+    {{ $after }}
+@elseif ($trailingAddon)
     <div class="trailing-addon absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
         <span class="text-blue-gray-500 sm:text-sm sm:leading-5">{!! $trailingAddon !!}</span>
     </div>

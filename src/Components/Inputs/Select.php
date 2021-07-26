@@ -28,6 +28,7 @@ class Select extends Input
         $trailingIcon = false,
         public null|string $containerClass = null,
         public $extraAttributes = '',
+        public $after = null,
     ) {
         parent::__construct(
             name: $name,

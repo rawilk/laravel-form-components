@@ -36,6 +36,7 @@ class Input extends BladeComponent
         $trailingAddonPadding = self::DEFAULT_TRAILING_ADDON_PADDING,
         $trailingIcon = false,
         public $extraAttributes = '',
+        public $after = null,
     ) {
         $this->id = $this->id ?? $this->name;
         $this->value = $this->name ? old($this->name, $this->value) : $this->value;

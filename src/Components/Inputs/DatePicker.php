@@ -34,6 +34,7 @@ class DatePicker extends Input
         public null|string $clearIcon = null,
         public null|string $containerClass = null,
         public $extraAttributes = '',
+        public $after = null,
     ) {
         parent::__construct(
             name: $name,

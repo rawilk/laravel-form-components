@@ -246,4 +246,22 @@ class InputTest extends ComponentTestCase
 
         $this->assertMatchesSnapshot((string) $view);
     }
+
+    /** @test */
+    public function can_have_custom_trailing_addon_markup(): void
+    {
+        $template = <<<HTML
+        <x-input name="foo">
+            <x-slot name="after">
+                <div class="my-custom-trailing-addon">
+                    My custom addon content...
+                </div>
+            </x-slot>
+        </x-input>
+        HTML;
+
+        $this->assertMatchesSnapshot(
+            (string) $this->blade($template)
+        );
+    }
 }

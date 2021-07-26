@@ -24,6 +24,7 @@ class Password extends Input
         public null|string $hidePasswordIcon = null,
         public null|string $containerClass = null,
         public $extraAttributes = '',
+        public $after = null,
     ) {
         parent::__construct(
             name: $name,

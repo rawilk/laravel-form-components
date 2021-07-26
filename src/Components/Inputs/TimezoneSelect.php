@@ -29,6 +29,7 @@ class TimezoneSelect extends Select
         null|string $placeholder = 'form-components::messages.timezone_select_placeholder',
         public null|string $containerClass = null,
         public $extraAttributes = '',
+        public $after = null,
     ) {
         parent::__construct(
             name: $name,
