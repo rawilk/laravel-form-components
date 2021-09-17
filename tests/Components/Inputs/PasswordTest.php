@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Rawilk\FormComponents\Tests\Components\Inputs;
 
 use Rawilk\FormComponents\Tests\Components\ComponentTestCase;
-use Spatie\Snapshots\MatchesSnapshots;
 
 final class PasswordTest extends ComponentTestCase
 {

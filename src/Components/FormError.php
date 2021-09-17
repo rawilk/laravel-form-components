@@ -7,8 +7,8 @@ use Illuminate\Support\ViewErrorBag;
 class FormError extends BladeComponent
 {
     public function __construct(
-        public null|string $name = null,
-        public null|string $inputId = null,
+        public null | string $name = null,
+        public null | string $inputId = null,
         public string $bag = 'default',
         public string $tag = 'p',
     ) {

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Rawilk\FormComponents\Components\Inputs;
 
-use Closure;
 use Illuminate\Support\Arr;
 use Rawilk\FormComponents\Components\BladeComponent;
 use Rawilk\FormComponents\Concerns\HandlesValidationErrors;
@@ -22,13 +21,13 @@ class Input extends BladeComponent
     public const DEFAULT_TRAILING_ADDON_PADDING = 'pr-12';
 
     public function __construct(
-        public null|string $name = null,
-        public null|string $id = null,
+        public null | string $name = null,
+        public null | string $id = null,
         public string $type = 'text',
         public mixed $value = null,
-        public null|string $maxWidth = null,
+        public null | string $maxWidth = null,
         bool $showErrors = true,
-        public null|string $containerClass = null,
+        public null | string $containerClass = null,
         $leadingAddon = false,
         $inlineAddon = false,
         $inlineAddonPadding = self::DEFAULT_INLINE_ADDON_PADDING,

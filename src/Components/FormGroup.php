@@ -11,16 +11,16 @@ class FormGroup extends BladeComponent
 
     public function __construct(
         public string $name = '',
-        public null|string|bool $label = null,
-        public null|string $inputId = null,
+        public null | string | bool $label = null,
+        public null | string $inputId = null,
         public bool $inline = false,
         bool $showErrors = true,
-        public null|string $helpText = null,
+        public null | string $helpText = null,
         public bool $border = true,
         public bool $isCheckboxGroup = false,
-        public null|string $labelId = null,
+        public null | string $labelId = null,
         public bool $marginBottom = true,
-        public null|string $hint = null,
+        public null | string $hint = null,
         public bool $optional = false,
     ) {
         $this->inputId = $this->inputId ?? $this->name;
@@ -37,7 +37,7 @@ class FormGroup extends BladeComponent
             'form-group',
             'has-error' => $this->hasErrorsAndShow($this->name),
             'form-group-inline sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start' => $this->inline,
-            'form-group-inline--border sm:pt-5 sm:border-t sm:border-blue-gray-200 first:sm:pt-0 first:sm:border-none' => $this->inline &&  $this->border,
+            'form-group-inline--border sm:pt-5 sm:border-t sm:border-blue-gray-200 first:sm:pt-0 first:sm:border-none' => $this->inline && $this->border,
             'mb-5 last:mb-0' => $this->marginBottom,
         ]);
     }
