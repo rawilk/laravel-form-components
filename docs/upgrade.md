@@ -3,6 +3,20 @@ title: Upgrade
 sort: 4
 ---
 
+## Upgrading from v5 to v6
+
+### Laravel Version
+v6 of laravel-form-components now requires a minimum Laravel version of `8.56`. Be sure to update your project to at least that version.
+
+### Overriding component views
+In v6, you must publish any package views you want to override instead of specifying a different view in the config. This was done to help
+simplify the package config and how the base `BladeComponent` class determines the view to render. You are still free to override any
+component classes in the config, however.
+
+### New Component Namespace
+Not a breaking change, but the package now defines the `form-components` namespace in addition to providing aliases for each component
+in the config. You will now be able to reference components either as `<x-form>` or as `<x-form-components::form>` if you choose to.
+
 ## Upgrading from v4 to v5
 
 ### Alpine upgrade

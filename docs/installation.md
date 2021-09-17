@@ -65,7 +65,7 @@ Libraries are only loaded for components that are enabled through the `component
 
 ## Views
 
-You may override the views, either by using your own views and specifying them in the config, or by publishing the package's views:
+You may override the views, by publishing the package's views:
 
 ```bash
 php artisan fc:publish --views
@@ -98,9 +98,19 @@ only load the components you need in your app for performance reasons. To do so,
 first [publish the config file](#configuration), then remove the components
 you don't need from the `components` settings.
 
-You can also choose to use different classes and views for components. This allows you
+You can also choose to use different classes for components. This allows you
 to either extend or completely change the component's functionality by using a custom class
 and/or view of your own.
+
+### Component Namespace
+New in v6, the package also declares a `form-components` blade component namespace. This means that
+for any component you may also use the `<x-form-components::component-name>` syntax. For the `input`
+component, you would use `<x-form-components::inputs.input />`. If you choose to render the components
+using this method, you can safely remove the component alias from the config, however there are two caveats to this:
+
+1. You may not be able to override the component class definition any more if you remove the alias from the config.
+2. Some components have an array of configuration options attached to their alias. Those arrays are referenced
+by the component, so these aliases should not be removed or renamed.
 
 ## Component JavaScript
 

@@ -9,12 +9,14 @@ All notable changes to `laravel-form-components` will be documented in this file
 ### Updated
 - Update asset versions in the config
 - Reference all `form-components` components using `<x-form-components::>` instead of `<x-dynamic-component>`
+- Add better support for multi `custom-select` in non-livewire forms ([#34](https://github.com/rawilk/laravel-form-components/issues/34))
 
 ### Changed
 - Switch from rollup to laravel-mix for compiling package JavaScript
 
 ### Breaking changes
-- Increase minimum Laravel version to `8.58`
+- Increase minimum Laravel version to `8.56`
+- Remove ability to override component views in the config (in favor of just publishing the package's views)
 
 ## 5.1.0 - 2021-07-26
 ### Added
