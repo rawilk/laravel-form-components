@@ -8,6 +8,10 @@ All notable changes to `laravel-form-components` will be documented in this file
 
 ### Updated
 - Update asset versions in the config
+- Reference all `form-components` components using `<x-form-components::>` instead of `<x-dynamic-component>`
+
+### Changed
+- Switch from rollup to laravel-mix for compiling package JavaScript
 
 ### Breaking changes
 - Increase minimum Laravel version to `8.58`

@@ -86,7 +86,7 @@ final class FormComponents
     {
         $appUrl = config('form-components.asset_url', rtrim($options['asset_url'] ?? '', '/'));
 
-        $manifest = json_decode(file_get_contents(__DIR__ . '/../dist/manifest.json'), true);
+        $manifest = json_decode(file_get_contents(__DIR__ . '/../dist/mix-manifest.json'), true);
         $versionedFileName = $manifest['/form-components.js'];
 
         $fullAssetPath = "{$appUrl}/form-components{$versionedFileName}";
