@@ -2,6 +2,16 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 6.0.0 - 2021-09-17
+### Added
+- Register all components under a the `form-components::` namespace
+
+### Updated
+- Update asset versions in the config
+
+### Breaking changes
+- Increase minimum Laravel version to `8.58`
+
 ## 5.1.0 - 2021-07-26
 ### Added
 - Add custom `after` slot to allow custom markup for "trailing addons"

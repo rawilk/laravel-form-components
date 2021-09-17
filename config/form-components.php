@@ -215,7 +215,7 @@ return [
     |
     */
     'assets' => [
-        'alpine' => 'https://unpkg.com/alpinejs@3.1.0/dist/cdn.min.js',
+        'alpine' => 'https://unpkg.com/alpinejs@3.3.3/dist/cdn.min.js',
 
         'flatpickr' => [
             'https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css',

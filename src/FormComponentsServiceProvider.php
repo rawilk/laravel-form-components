@@ -49,6 +49,9 @@ class FormComponentsServiceProvider extends ServiceProvider
 
     private function bootBladeComponents(): void
     {
+        // Allows us to not have to register every single component in the config file.
+        Blade::componentNamespace('Rawilk\\LaravelFormComponents\\Components', 'form-components');
+
         $this->callAfterResolving(BladeCompiler::class, function (BladeCompiler $blade) {
             $prefix = config('form-components.prefix', '');
             $assets = config('form-components.assets', []);

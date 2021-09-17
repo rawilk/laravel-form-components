@@ -1,13 +1,13 @@
 @if ($label !== false || ! is_null($hint))
     <div class="{{ is_null($hint) ? '' : 'flex justify-between' }}">
         @unless ($label === false)
-            <x-dynamic-component :component="formComponentName('label')"
-                                 :for="$inputId"
-                                 class="{{ $inline && ! $isCheckboxGroup ? 'form-group__inline-label sm:mt-px sm:pt-2' : '' }}"
-                                 :id="$labelId"
+            <x-form-components::label
+                :for="$inputId"
+                :id="$labelId"
+                class="{{ $inline && ! $isCheckboxGroup ? 'form-group__inline-label sm:mt-px sm:pt-2' : '' }}"
             >
                 {{ $label }}
-            </x-dynamic-component>
+            </x-form-components::label>
         @endunless
 
         @unless (is_null($hint))
