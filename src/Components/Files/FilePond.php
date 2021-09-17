@@ -48,6 +48,7 @@ class FilePond extends BladeComponent
             $label[1] = '<span class="fc-filepond--sub-desc">' . $label[1] . '</span>';
         }
 
+        /** @psalm-suppress InvalidArgument */
         $defaultOptions = [
             'allowMultiple' => $this->multiple,
             'allowDrop' => $this->allowDrop,
@@ -55,7 +56,6 @@ class FilePond extends BladeComponent
         ] + array_filter([
             'maxFiles' => $this->multiple && $this->maxFiles ? $this->maxFiles : null,
             'name' => $this->name,
-            /** @psalm-suppress InvalidArgument */
             'labelIdle' => '<span class="fc-filepond--desc">' . implode('<br>', $label) . '</span>',
         ]);
 
