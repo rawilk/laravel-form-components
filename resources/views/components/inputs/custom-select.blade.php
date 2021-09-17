@@ -78,6 +78,12 @@
     @include('form-components::partials.custom-select-button')
 
     @unless ($attributes->hasStartsWith('wire:model'))
-        <input type="hidden" x-bind:value="JSON.stringify(value)" name="{{ $name }}">
+        @if ($multiple)
+            <template x-for="item in value">
+                <input type="hidden" x-bind:value="item" name="{{ $name }}[]">
+            </template>
+        @else
+            <input type="hidden" x-bind:value="value" name="{{ $name }}">
+        @endif
     @endif
 </div>
