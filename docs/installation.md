@@ -103,6 +103,7 @@ to either extend or completely change the component's functionality by using a c
 and/or view of your own.
 
 ### Component Namespace
+
 New in v6, the package also declares a `form-components` blade component namespace. This means that
 for any component you may also use the `<x-form-components::component-name>` syntax. For the `input`
 component, you would use `<x-form-components::inputs.input />`. If you choose to render the components
@@ -110,7 +111,7 @@ using this method, you can safely remove the component alias from the config, ho
 
 1. You may not be able to override the component class definition any more if you remove the alias from the config.
 2. Some components have an array of configuration options attached to their alias. Those arrays are referenced
-by the component, so these aliases should not be removed or renamed.
+   by the component, so these aliases should not be removed or renamed.
 
 ## Component JavaScript
 

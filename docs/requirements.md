@@ -14,7 +14,7 @@ sort: 2
 
 ## Version Matrix
 
-| Laravel | Minimum Version | Maximum Version |
-| ------- | --------------- | --- |
-| 8.0 - 8.55    | 1.0.0           | 5.1.0 |
-| 8.56 | 6.0.0 | |
+| Laravel    | Minimum Version | Maximum Version |
+| ---------- | --------------- | --------------- |
+| 8.0 - 8.55 | 1.0.0           | 5.1.0           |
+| 8.56       | 6.0.0           |                 |
