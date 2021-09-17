@@ -1,0 +1,16 @@
+name: Feature Request
+description: Propose a new feature for laravel-base
+title: "[Feature Request]: "
+labels: [feature request]
+body:
+    - type: markdown
+      attributes:
+          value: |
+              Thanks for proposing a new feature for laravel-base!
+    - type: textarea
+      id: feature-description
+      attributes:
+          label: Feature Description
+          description: How should this feature look like?
+      validations:
+          required: true

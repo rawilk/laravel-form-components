@@ -1,0 +1,42 @@
+name: Bug
+description: File a bug report
+labels: [bug]
+body:
+    - type: markdown
+      attributes:
+          value: |
+              Before opening a bug report, please search for the behavior in the existing issues.
+
+              ---
+
+              Thank you for taking the time to file a bug report. To address this bug as fast as possible, we need some information.
+    - type: textarea
+      id: bug-description
+      attributes:
+          label: Bug description
+          description: What happened?
+      validations:
+          required: true
+    - type: textarea
+      id: steps
+      attributes:
+          label: Steps to reproduce
+          description: What steps do we need to take to reproduce this error?
+    - type: textarea
+      id: logs
+      attributes:
+          label: Relevant log output
+          description: If applicable, provide relevant log (error) output. No need for backticks here.
+          render: shell
+    -   type: input
+        id: os
+        attributes:
+            label: Operating system
+            description: "Which operating system do you use? Please provide the version as we well."
+            placeholder: "macOS Big Sur 11.5.2"
+    -   type: input
+        id: browser
+        attributes:
+            label: Browser
+            description: "Which browser are you using? Please provide the version as well."
+            placeholder: "Chrome 82.0.1"
