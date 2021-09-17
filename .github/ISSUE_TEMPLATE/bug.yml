@@ -26,6 +26,12 @@ body:
           placeholder: v8.6.1
       validations:
           required: true
+    - type: input
+      id: alpine
+      attributes:
+         label: Alpine Version
+         description: What version of Alpine are you using? (If applicable)
+         placeholder: v3.3.4
     - type: textarea
       id: bug-description
       attributes:
