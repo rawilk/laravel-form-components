@@ -27,14 +27,14 @@
         "illuminate/view": "^8.56"
     },
     "require-dev": {
-        "blade-ui-kit/blade-heroicons": "^1.0",
-        "friendsofphp/php-cs-fixer": "^2.18",
-        "orchestra/testbench": "^6.15",
-        "phpunit/phpunit": "^9.5.4",
-        "psalm/plugin-laravel": "^1.4",
+        "blade-ui-kit/blade-heroicons": "^1.2",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "orchestra/testbench": "^6.6",
+        "phpunit/phpunit": "^9.5",
+        "psalm/plugin-laravel": "^1.5",
         "spatie/laravel-ray": "^1.25",
         "spatie/phpunit-snapshot-assertions": "^4.2",
-        "vimeo/psalm": "^4.6"
+        "vimeo/psalm": "^4.8"
     },
     "suggest": {
         "blade-ui-kit/blade-heroicons": "Required for the default icons used in this package",
