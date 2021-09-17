@@ -42,7 +42,7 @@ abstract class ComponentTestCase extends TestCase
     protected function getPackageProviders($app): array
     {
         return [
-            RayServiceProvider::class,
+            // RayServiceProvider::class,
             BladeIconsServiceProvider::class,
             BladeHeroiconsServiceProvider::class,
             FormComponentsServiceProvider::class,
