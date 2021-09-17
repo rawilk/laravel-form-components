@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Rawilk\FormComponents\Components\Inputs;
 
+use Illuminate\Support\Arr;
+
 class Password extends Input
 {
     protected static array $assets = ['alpine'];
@@ -29,7 +31,6 @@ class Password extends Input
         parent::__construct(
             name: $name,
             id: $id,
-            type: 'password',
             value: $value,
             maxWidth: $maxWidth,
             showErrors: $showErrors,
@@ -47,11 +48,11 @@ class Password extends Input
 
     public function inputClass(): string
     {
-        return collect([
+        return Arr::toCssClasses([
             parent::inputClass(),
-            $this->showToggle ? 'password-toggleable border-r-0 rounded-r-none focus:ring-0 focus:border-blue-gray-300' : null,
-            $this->showToggle && ! $this->hasErrorsAndShow($this->name) ? 'focus:border-blue-300' : null,
-        ])->filter()->implode(' ');
+            'password-toggleable border-r-0 rounded-r-none focus:ring-0 focus:border-blue-gray-300' => $this->showToggle,
+            'focus:border-blue-300' => $this->showToggle && ! $this->hasErrorsAndShow($this->name),
+        ]);
     }
 
     public function isPasswordToggleable(): bool
@@ -65,12 +66,12 @@ class Password extends Input
             ? 'focus-within:ring-red-400 focus-within:border-red-300'
             : 'focus-within:ring-blue-400 focus-within:border-blue-300';
 
-        return collect([
+        return Arr::toCssClasses([
             $this->getContainerClass(),
             'group',
             'password-input-container',
-            $this->showToggle ? "focus-within:ring-4 focus-within:ring-opacity-50 rounded-lg" : null,
-            $this->showToggle ? $colorClasses : null,
-        ])->filter()->implode(' ');
+            'focus-within:ring-4 focus-within:ring-opacity-50 rounded-lg' => $this->showToggle,
+            $colorClasses => $this->showToggle,
+        ]);
     }
 }

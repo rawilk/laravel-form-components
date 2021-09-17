@@ -48,12 +48,9 @@
 
         @if ($value && ! $attributes->hasStartsWith('wire:model')) value="{{ $value }}" @endif
 
+        {!! $ariaDescribedBy() !!}
         @if ($hasErrorsAndShow($name))
             aria-invalid="true"
-
-            @if (! $attributes->offsetExists('aria-describedby'))
-                aria-describedby="{{ $id }}-error"
-            @endif
         @endif
     />
 

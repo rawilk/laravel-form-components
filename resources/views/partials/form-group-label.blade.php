@@ -1,5 +1,5 @@
 @if ($label !== false || ! is_null($hint))
-    <div class="{{ is_null($hint) ? '' : 'flex justify-between' }}">
+    <div @class(['flex justify-between' => ! is_null($hint)])>
         @unless ($label === false)
             <x-form-components::label
                 :for="$inputId"
@@ -11,8 +11,11 @@
         @endunless
 
         @unless (is_null($hint))
-            <span class="text-sm text-blue-gray-500 {{ $inline ? 'inline-block sm:hidden' : '' }}"
-                  @if ($inputId) id="{{ $inputId }}-hint" @endif
+            <span @class([
+                'text-sm text-blue-gray-500',
+                'inline-block sm:hidden' => $inline,
+            ])
+            @if ($inputId) id="{{ $inputId }}-hint" @endif
             >
                 {{ $hint }}
             </span>

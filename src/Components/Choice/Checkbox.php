@@ -26,4 +26,9 @@ class Checkbox extends BladeComponent
             $this->checked = (bool) old($this->name, $this->checked);
         }
     }
+
+    public function render()
+    {
+        return view('form-components::components.choice.checkbox-or-radio');
+    }
 }

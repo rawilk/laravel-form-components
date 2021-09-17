@@ -6,26 +6,31 @@ namespace Rawilk\FormComponents\Tests\Components\Inputs;
 
 use Illuminate\Support\HtmlString;
 use Rawilk\FormComponents\Tests\Components\ComponentTestCase;
-use Spatie\Snapshots\MatchesSnapshots;
 
-class InputTest extends ComponentTestCase
+final class InputTest extends ComponentTestCase
 {
-    use MatchesSnapshots;
-
     /** @test */
     public function can_be_rendered(): void
     {
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-input name="search" />')
-        );
+        $this->blade('<x-input name="search" />')
+            ->assertSee('<input', false)
+            ->assertSee('name="search"', false)
+            ->assertSee('id="search"', false)
+            ->assertSee('type="text"', false)
+            ->assertSee('form-text-container')
+            ->assertSee('form-text');
     }
 
     /** @test */
     public function specific_attributes_can_be_overwritten(): void
     {
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-input name="confirm_password" id="confirmPassword" type="password" class="p-4" />')
-        );
+        $this->blade('<x-input name="confirm_password" id="confirmPassword" type="password" class="p-4" />')
+            ->assertSee('p-4')
+            ->assertSee('form-text')
+            ->assertSee('id="confirmPassword"', false)
+            ->assertDontSee('id="confirm_password"', false)
+            ->assertSee('type="password"', false)
+            ->assertSee('name="confirm_password"', false);
     }
 
     /** @test */
@@ -33,9 +38,8 @@ class InputTest extends ComponentTestCase
     {
         $this->flashOld(['search' => 'Eloquent']);
 
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-input name="search" />')
-        );
+        $this->blade('<x-input name="search" />')
+            ->assertSee('value="Eloquent"', false);
     }
 
     /** @test */
@@ -43,17 +47,17 @@ class InputTest extends ComponentTestCase
     {
         $this->flashOld(['search' => 'Eloquent']);
 
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-input name="search" wire:model="search" />')
-        );
+        $this->blade('<x-input name="search" wire:model="search" />')
+            ->assertDontSee('value=');
     }
 
     /** @test */
     public function can_have_leading_addon(): void
     {
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-input name="search" leading-addon="foo" />')
-        );
+        $this->blade('<x-input name="search" leading-addon="my addon" />')
+            ->assertSeeText('my addon')
+            ->assertSee('class="leading-addon', false)
+            ->assertSee('has-leading-addon rounded-none rounded-r-md');
     }
 
     /** @test */
@@ -65,23 +69,25 @@ class InputTest extends ComponentTestCase
         </x-input>
         HTML;
 
-        $this->assertMatchesSnapshot((string) $this->blade($template));
+        $this->blade($template)
+            ->assertSeeText('foo')
+            ->assertSee('class="leading-addon', false)
+            ->assertSee('has-leading-addon rounded-none rounded-r-md');
     }
 
     /** @test */
     public function can_have_inline_addon(): void
     {
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-input name="search" inline-addon="foo" />')
-        );
+        $this->blade('<x-input name="search" inline-addon="my addon" />')
+            ->assertSeeText('my addon')
+            ->assertSee('inline-addon');
     }
 
     /** @test */
     public function can_have_custom_inline_addon_padding(): void
     {
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-input name="search" inline-addon="foo" inline-addon-padding="pl-20" />')
-        );
+        $this->blade('<x-input name="search" inline-addon="foo" inline-addon-padding="pl-20" />')
+            ->assertSee('pl-20');
     }
 
     /** @test */
@@ -93,7 +99,10 @@ class InputTest extends ComponentTestCase
         </x-input>
         HTML;
 
-        $this->assertMatchesSnapshot((string) $this->blade($template));
+        $this->blade($template)
+            ->assertSeeText('foo')
+            ->assertSee('inline-addon')
+            ->assertSee('rounded-md');
     }
 
     /** @test */
@@ -105,7 +114,10 @@ class InputTest extends ComponentTestCase
         </x-input>
         HTML;
 
-        $this->assertMatchesSnapshot((string) $this->blade($template));
+        $this->blade($template)
+            ->assertSeeText('icon here')
+            ->assertSee('leading-icon')
+            ->assertSee('has-leading-icon');
     }
 
     /** @test */
@@ -118,23 +130,27 @@ class InputTest extends ComponentTestCase
         </x-input>
         HTML;
 
-        $this->assertMatchesSnapshot((string) $this->blade($template));
+        $this->blade($template)
+            ->assertSeeText('foo')
+            ->assertDontSeeText('icon here')
+            ->assertDontSeeText('bar')
+            ->assertSee('leading-addon')
+            ->assertDontSee('leading-icon');
     }
 
     /** @test */
     public function can_have_trailing_addon(): void
     {
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-input name="search" trailing-addon="foo" />')
-        );
+        $this->blade('<x-input name="search" trailing-addon="foo" />')
+            ->assertSeeText('foo')
+            ->assertSee('trailing-addon');
     }
 
     /** @test */
     public function can_have_custom_trailing_addon_padding(): void
     {
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-input name="search" trailing-addon="foo" trailing-addon-padding="pr-20" />')
-        );
+        $this->blade('<x-input name="search" trailing-addon="foo" trailing-addon-padding="pr-20" />')
+            ->assertSee('pr-20');
     }
 
     /** @test */
@@ -148,7 +164,10 @@ class InputTest extends ComponentTestCase
         </x-input>
         HTML;
 
-        $this->assertMatchesSnapshot((string) $this->blade($template));
+        $this->blade($template)
+            ->assertSeeText('foo slotted')
+            ->assertSee('trailing-addon')
+            ->assertSee('pr-20');
     }
 
     /** @test */
@@ -160,7 +179,10 @@ class InputTest extends ComponentTestCase
         </x-input>
         HTML;
 
-        $this->assertMatchesSnapshot((string) $this->blade($template));
+        $this->blade($template)
+            ->assertSeeText('icon here')
+            ->assertSee('trailing-icon')
+            ->assertSee('has-trailing-icon');
     }
 
     /** @test */
@@ -173,7 +195,11 @@ class InputTest extends ComponentTestCase
         </x-input>
         HTML;
 
-        $this->assertMatchesSnapshot((string) $this->blade($template));
+        $this->blade($template)
+            ->assertSeeText('foo')
+            ->assertDontSeeText('icon here')
+            ->assertDontSee('has-trailing-icon')
+            ->assertDontSee('trailing-icon');
     }
 
     /** @test */
@@ -185,7 +211,11 @@ class InputTest extends ComponentTestCase
         </x-input>
         HTML;
 
-        $this->assertMatchesSnapshot((string) $this->blade($template));
+        $this->blade($template)
+            ->assertSeeText('foo')
+            ->assertSeeText('icon here')
+            ->assertSee('has-leading-addon')
+            ->assertSee('has-trailing-icon');
     }
 
     /** @test */
@@ -193,9 +223,9 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors(['search' => 'required']);
 
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-input name="search" id="inputSearch" />')
-        );
+        $this->blade('<x-input name="search" id="inputSearch" />')
+            ->assertSee('aria-invalid="true"', false)
+            ->assertSee('aria-describedby="inputSearch-error"', false);
     }
 
     /** @test */
@@ -203,31 +233,30 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors(['search' => 'required']);
 
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-input name="search" aria-describedby="search-help" />')
-        );
+        $this->blade('<x-input name="search" aria-describedby="search-help" />')
+            ->assertSee('aria-describedby="search-help search-error"', false)
+            ->assertSee('aria-invalid="true"', false);
     }
 
     /** @test */
     public function can_have_a_max_width_set_on_the_container(): void
     {
-        $this->assertMatchesSnapshot((string) $this->blade('<x-input max-width="sm" name="name" />'));
+        $this->blade('<x-input max-width="sm" name="name" />')
+            ->assertSee('max-w-sm');
     }
 
     /** @test */
     public function accepts_a_container_class(): void
     {
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-input name="name" container-class="foo" />')
-        );
+        $this->blade('<x-input name="name" container-class="foo" />')
+            ->assertSee('foo');
     }
 
     /** @test */
     public function name_can_be_omitted(): void
     {
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-input />')
-        );
+        $this->blade('<x-input />')
+            ->assertDontSee('name=');
     }
 
     /** @test */
@@ -239,12 +268,15 @@ class InputTest extends ComponentTestCase
             'x-on:keydown="$wire.submit()"',
         ]));
 
-        $view = $this->blade(
+        $this->blade(
             '<x-input name="foo" :extra-attributes="$attributes" />',
             ['attributes' => $attributes],
-        );
-
-        $this->assertMatchesSnapshot((string) $view);
+        )
+        ->assertSeeInOrder([
+            'x-data',
+            'x-ref="foo"',
+            'x-on:keydown="$wire.submit()"',
+        ], false);
     }
 
     /** @test */
@@ -260,8 +292,11 @@ class InputTest extends ComponentTestCase
         </x-input>
         HTML;
 
-        $this->assertMatchesSnapshot(
-            (string) $this->blade($template)
-        );
+        $this->blade($template)
+            ->assertSeeInOrder([
+                '<div class="my-custom-trailing-addon">',
+                'My custom addon content...',
+                '</div>',
+            ], false);
     }
 }

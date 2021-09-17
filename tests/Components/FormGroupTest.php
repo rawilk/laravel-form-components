@@ -2,12 +2,8 @@
 
 namespace Rawilk\FormComponents\Tests\Components;
 
-use Spatie\Snapshots\MatchesSnapshots;
-
-class FormGroupTest extends ComponentTestCase
+final class FormGroupTest extends ComponentTestCase
 {
-    use MatchesSnapshots;
-
     /** @test */
     public function can_be_rendered(): void
     {
@@ -17,9 +13,13 @@ class FormGroupTest extends ComponentTestCase
         </x-form-group>
         HTML;
 
-        $this->assertMatchesSnapshot(
-            (string) $this->blade($template)
-        );
+        $this->blade($template)
+            ->assertSeeText('First name')
+            ->assertSee('Name input')
+            ->assertSee('form-group')
+            ->assertSee('<label', false)
+            ->assertSee('for="first_name"', false)
+            ->assertSee('form-group__content');
     }
 
     /** @test */
@@ -31,9 +31,10 @@ class FormGroupTest extends ComponentTestCase
         </x-form-group>
         HTML;
 
-        $this->assertMatchesSnapshot(
-            (string) $this->blade($template)
-        );
+        $this->blade($template)
+            ->assertSeeText('Some help text')
+            ->assertSee('first_name-description')
+            ->assertSee('form-help');
     }
 
     /** @test */
@@ -49,9 +50,8 @@ class FormGroupTest extends ComponentTestCase
         </x-form-group>
         HTML;
 
-        $this->assertMatchesSnapshot(
-            (string) $this->blade($template)
-        );
+        $this->blade($template)
+            ->assertSeeText('Some help text');
     }
 
     /** @test */
@@ -63,19 +63,19 @@ class FormGroupTest extends ComponentTestCase
         </x-form-group>
         HTML;
 
-        $this->assertMatchesSnapshot(
-            (string) $this->blade($template)
-        );
+        $this->blade($template)
+            ->assertSee('form-group-inline')
+            ->assertSee('form-group__content--inline')
+            ->assertSee('border-t');
     }
 
     /** @test */
     public function border_top_can_be_disabled_when_inline(): void
     {
-        $template = '<x-form-group label="First name" name="first_name" inline :border="$border">Name field</x-form-group>';
+        $template = '<x-form-group label="First name" name="first_name" inline :border="false">Name field</x-form-group>';
 
-        $this->assertMatchesSnapshot(
-            (string) $this->blade($template, ['border' => false])
-        );
+        $this->blade($template)
+            ->assertDontSee('border-t');
     }
 
     /** @test */
@@ -89,9 +89,11 @@ class FormGroupTest extends ComponentTestCase
         </x-form-group>
         HTML;
 
-        $this->assertMatchesSnapshot(
-            (string) $this->blade($template)
-        );
+        $this->blade($template)
+            ->assertSeeText('Name is required.')
+            ->assertSee('id="name-error"', false)
+            ->assertSee('form-error')
+            ->assertSee('has-error');
     }
 
     /** @test */
@@ -103,23 +105,21 @@ class FormGroupTest extends ComponentTestCase
         </x-form-group>
         HTML;
 
-        $this->assertMatchesSnapshot(
-            (string) $this->blade($template)
-        );
+        $this->blade($template)
+            ->assertDontSee('form-group__inline-label');
     }
 
     /** @test */
     public function label_can_be_omitted(): void
     {
         $template = <<<HTML
-        <x-form-group :label="\$label" name="name">
+        <x-form-group :label="false" name="name">
             Name field
         </x-form-group>
         HTML;
 
-        $this->assertMatchesSnapshot(
-            (string) $this->blade($template, ['label' => false])
-        );
+        $this->blade($template)
+            ->assertDontSee('<label', false);
     }
 
     /** @test */
@@ -133,7 +133,9 @@ class FormGroupTest extends ComponentTestCase
         </x-form-group>
         HTML;
 
-        $this->assertMatchesSnapshot((string) $this->blade($template));
+        $this->blade($template)
+            ->assertSeeText('Optional')
+            ->assertSee('id="foo-hint"', false);
     }
 
     /** @test */
@@ -147,7 +149,10 @@ class FormGroupTest extends ComponentTestCase
         </x-form-group>
         HTML;
 
-        $this->assertMatchesSnapshot((string) $this->blade($template));
+        $this->blade($template)
+            ->assertSeeText('Optional')
+            ->assertSee('id="foo-hint"', false)
+            ->assertSee('id="foo-hint-inline"', false);
     }
 
     /** @test */
@@ -159,6 +164,8 @@ class FormGroupTest extends ComponentTestCase
         </x-form-group>
         HTML;
 
-        $this->assertMatchesSnapshot((string) $this->blade($template));
+        $this->blade($template)
+            ->assertSeeText('My hint text')
+            ->assertSee('id="foo-hint"', false);
     }
 }

@@ -8,74 +8,40 @@ return [
     | Components
     |--------------------------------------------------------------------------
     |
-    | Below you reference all form components that should be loaded for your
-    | app. By default all components from laravel-form-components are loaded
-    | in. You can disable or overwrite any component class or alias that
-    | you want.
+    | Below is a reference of all the blade components that should be loaded
+    | into your app by this package. The components shown here are just to
+    | add shortcuts for accessing them instead of using <x-form-components::component-name>
+    | syntax. You can disable or overwrite any component class or alias you want.
+    |
+    | Note: Any components listed here that have an array for the config value
+    | shouldn't be renamed or removed from the config if you use them since
+    | the underlying component will reference the config values in the
+    | component's array. Also, if you rely on `fcStyles` and/or `fcScripts`
+    | for using component assets via cdn, you shouldn't remove the component's
+    | from here either.
     |
     */
     'components' => [
 
-        'form' => [
-            'class' => Components\Form::class,
-            'view' => 'form-components::components.form',
-        ],
+        // Base
+        'form' => Components\Form::class,
+        'form-error' => Components\FormError::class,
+        'form-group' => Components\FormGroup::class,
+        'label' => Components\Label::class,
 
-        'input' => [
-            'class' => Components\Inputs\Input::class,
-            'view' => 'form-components::components.inputs.input',
-        ],
+        // Choice
+        'checkbox' => Components\Choice\Checkbox::class,
+        'checkbox-group' => Components\Choice\CheckboxGroup::class,
+        'radio' => Components\Choice\Radio::class,
+        'switch-toggle' => Components\Choice\SwitchToggle::class,
 
-        'email' => [
-            'class' => Components\Inputs\Email::class,
-            'view' => 'form-components::components.inputs.input',
-        ],
+        // Files
+        'file-pond' => Components\Files\FilePond::class,
+        'file-upload' => Components\Files\FileUpload::class,
 
-        'password' => [
-            'class' => Components\Inputs\Password::class,
-            'view' => 'form-components::components.inputs.password',
-
-            /*
-             * This icon will show when the password is masked and show toggle is enabled.
-             * Can be overridden individually as well.
-             */
-            'show_password_icon' => 'heroicon-s-eye',
-
-            /*
-             * This icon will show when the password is un-masked and show toggle is enabled.
-             * Can be overridden individually as well.
-             */
-            'hide_password_icon' => 'heroicon-o-eye-off',
-        ],
-
-        'textarea' => [
-            'class' => Components\Inputs\Textarea::class,
-            'view' => 'form-components::components.inputs.textarea',
-        ],
-
-        'checkbox' => [
-            'class' => Components\Choice\Checkbox::class,
-            'view' => 'form-components::components.choice.checkbox-or-radio',
-        ],
-
-        'radio' => [
-            'class' => Components\Choice\Radio::class,
-            'view' => 'form-components::components.choice.checkbox-or-radio',
-        ],
-
-        'switch-toggle' => [
-            'class' => Components\Choice\SwitchToggle::class,
-            'view' => 'form-components::components.choice.switch-toggle',
-        ],
-
-        'select' => [
-            'class' => Components\Inputs\Select::class,
-            'view' => 'form-components::components.inputs.select',
-        ],
-
+        // Inputs
         'custom-select' => [
             'class' => Components\Inputs\CustomSelect::class,
-            'view' => 'form-components::components.inputs.custom-select',
 
             // This icon will be shown on an option when it is selected.
             'selected_icon' => 'heroicon-s-check',
@@ -93,35 +59,8 @@ return [
              */
             'clear_icon' => 'heroicon-o-x',
         ],
-
-        'label' => [
-            'class' => Components\Label::class,
-            'view' => 'form-components::components.label',
-        ],
-
-        'checkbox-group' => [
-            'class' => Components\Choice\CheckboxGroup::class,
-            'view' => 'form-components::components.choice.checkbox-group',
-        ],
-
-        'form-group' => [
-            'class' => Components\FormGroup::class,
-            'view' => 'form-components::components.form-group',
-        ],
-
-        'form-error' => [
-            'class' => Components\FormError::class,
-            'view' => 'form-components::components.form-error',
-        ],
-
-        'timezone-select' => [
-            'class' => Components\Inputs\TimezoneSelect::class,
-            'view' => 'form-components::components.inputs.timezone-select',
-        ],
-
         'date-picker' => [
             'class' => Components\Inputs\DatePicker::class,
-            'view' => 'form-components::components.inputs.date-picker',
 
             /*
              * This icon will be shown as a "toggle button" for the date picker.
@@ -134,16 +73,26 @@ return [
              */
             'clear_icon' => 'heroicon-s-x',
         ],
+        'input' => Components\Inputs\Input::class,
+        'email' => Components\Inputs\Email::class,
+        'password' => [
+            'class' => Components\Inputs\Password::class,
 
-        'file-upload' => [
-            'class' => Components\Files\FileUpload::class,
-            'view' => 'form-components::components.files.file-upload',
-        ],
+            /*
+             * This icon will show when the password is masked and show toggle is enabled.
+             * Can be overridden individually as well.
+             */
+            'show_password_icon' => 'heroicon-s-eye',
 
-        'file-pond' => [
-            'class' => Components\Files\FilePond::class,
-            'view' => 'form-components::components.files.file-pond',
+            /*
+             * This icon will show when the password is un-masked and show toggle is enabled.
+             * Can be overridden individually as well.
+             */
+            'hide_password_icon' => 'heroicon-o-eye-off',
         ],
+        'select' => Components\Inputs\Select::class,
+        'textarea' => Components\Inputs\Textarea::class,
+        'timezone-select' => Components\Inputs\TimezoneSelect::class,
 
     ],
 

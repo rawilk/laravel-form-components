@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\Concerns\InteractsWithViews;
 use Orchestra\Testbench\TestCase;
 use Rawilk\FormComponents\FormComponentsServiceProvider;
 use ReflectionProperty;
+use Spatie\LaravelRay\RayServiceProvider;
 
 abstract class ComponentTestCase extends TestCase
 {
@@ -20,9 +21,7 @@ abstract class ComponentTestCase extends TestCase
         parent::setUp();
 
         $this->initSession();
-
-        // TODO: get this line to work in github tests workflow for php8 -- prefer lowest test
-        // $this->artisan('view:clear');
+        $this->artisan('view:clear');
     }
 
     protected function initSession(): void
@@ -43,6 +42,7 @@ abstract class ComponentTestCase extends TestCase
     protected function getPackageProviders($app): array
     {
         return [
+            RayServiceProvider::class,
             BladeIconsServiceProvider::class,
             BladeHeroiconsServiceProvider::class,
             FormComponentsServiceProvider::class,

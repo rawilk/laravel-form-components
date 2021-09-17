@@ -5,12 +5,9 @@
             @if ($id) id="{{ $id }}" @endif
             @if ($multiple) multiple @endif
 
+            {!! $ariaDescribedBy() !!}
             @if ($hasErrorsAndShow($name))
                 aria-invalid="true"
-
-                @if (! $attributes->offsetExists('aria-describedby'))
-                    aria-describedby="{{ $id }}-error"
-                @endif
             @endif
 
             {{ $attributes->class($inputClass()) }}

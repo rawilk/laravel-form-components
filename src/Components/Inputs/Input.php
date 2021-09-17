@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Rawilk\FormComponents\Components\Inputs;
 
 use Closure;
+use Illuminate\Support\Arr;
 use Rawilk\FormComponents\Components\BladeComponent;
 use Rawilk\FormComponents\Concerns\HandlesValidationErrors;
 use Rawilk\FormComponents\Concerns\HasAddons;
@@ -60,14 +61,14 @@ class Input extends BladeComponent
 
     public function inputClass(): string
     {
-        return collect([
+        return Arr::toCssClasses([
             'form-input',
             'form-text',
             'flex-1 block w-full px-3 py-2 border-blue-gray-300 placeholder-blue-gray-400 sm:text-sm',
-            $this->isPasswordToggleable() ? null : 'focus:border-blue-300 focus:ring-opacity-50 focus:ring-4 focus:ring-blue-400',
+            'focus:border-blue-300 focus:ring-opacity-50 focus:ring-4 focus:ring-blue-400' => ! $this->isPasswordToggleable(),
             $this->getAddonClass(),
-            $this->hasErrorsAndShow($this->name) ? 'input-error' : null,
-        ])->filter()->implode(' ');
+            'input-error' => $this->hasErrorsAndShow($this->name),
+        ]);
     }
 
     /*
@@ -79,27 +80,23 @@ class Input extends BladeComponent
         return false;
     }
 
-    public function render(bool $returnPathOnly = true): Closure
+    public function render()
     {
-        return function (array $data) use ($returnPathOnly) {
+        return function (array $data) {
             $this->setSlotAddonAttributes($data);
 
-            if ($data['attributes']->offsetExists('aria-describedby') && $this->hasErrorsAndShow($this->name)) {
-                $data['attributes']->offsetSet('aria-describedby', "{$data['attributes']->get('aria-describedby')} {$this->id}-error");
-            }
-
-            return parent::render($returnPathOnly);
+            return static::viewName();
         };
     }
 
     public function getContainerClass(): string
     {
-        return collect([
+        return Arr::toCssClasses([
             'form-text-container',
             'flex rounded-sm shadow-sm relative',
             $this->maxWidth,
             $this->containerClass,
-        ])->filter()->implode(' ');
+        ]);
     }
 
     protected function resolveMaxWidth(): void

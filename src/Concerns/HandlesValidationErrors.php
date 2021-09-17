@@ -9,6 +9,20 @@ trait HandlesValidationErrors
 {
     public bool $showErrors = true;
 
+    public function ariaDescribedBy()
+    {
+        $hasError = $this->hasErrorsAndShow($this->name);
+        if ($this->attributes->offsetExists('aria-describedby') && $hasError) {
+            return "aria-describedby=\"{$this->attributes->get('aria-describedby')} {$this->id}-error\"";
+        }
+
+        if ($hasError) {
+            return "aria-describedby=\"{$this->id}-error\"";
+        }
+
+        return '';
+    }
+
     public function hasErrorsAndShow(string $name = null, string $bag = 'default'): bool
     {
         return $this->showErrors

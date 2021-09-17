@@ -3,13 +3,10 @@
 
     <textarea @if ($name) name="{{ $name }}" @endif
               @if ($id) id="{{ $id }}" @endif
+              {!! $ariaDescribedBy() !!}
               {{ $extraAttributes }}
               @if ($hasErrorsAndShow($name))
                   aria-invalid="true"
-
-                  @if (! $attributes->offsetExists('aria-describedby'))
-                     aria-describedby="{{ $id }}-error"
-                  @endif
               @endif
 
               {!! $attributes->merge(['class' => $inputClass(), 'rows' => 3]) !!}

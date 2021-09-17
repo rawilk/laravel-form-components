@@ -1,9 +1,0 @@
-<div class="form-group mb-5 last:mb-0">
-    
-    <div class="form-group__content mt-1 ">
-        Name field
-
-        
-        
-            </div>
-</div>

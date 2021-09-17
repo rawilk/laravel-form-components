@@ -2,6 +2,11 @@
 
 namespace Rawilk\FormComponents\Concerns;
 
+use Illuminate\Support\Arr;
+
+/**
+ * @mixin \Illuminate\View\Component
+ */
 trait HasAddons
 {
     public $leadingAddon;
@@ -15,10 +20,10 @@ trait HasAddons
 
     protected function getAddonClass(): string
     {
-        return collect([
+        return Arr::toCssClasses([
             $this->leadingAddonClass(),
             $this->trailingAddonClass(),
-        ])->filter()->implode(' ');
+        ]);
     }
 
     protected function leadingAddonClass(): null|string

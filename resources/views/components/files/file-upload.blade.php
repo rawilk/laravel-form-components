@@ -20,12 +20,9 @@
                    @if ($id) id="{{ $id }}" @endif
                    @if ($accepts()) accept="{{ $accepts() }}" @endif
 
+                   {!! $ariaDescribedBy() !!}
                    @if ($hasErrorsAndShow($name))
                        aria-invalid="true"
-
-                       @if (! $attributes->offsetExists('aria-describedby'))
-                           aria-describedby="{{ $id }}-error"
-                       @endif
                    @endif
 
                    {{ $attributes->except('class') }}

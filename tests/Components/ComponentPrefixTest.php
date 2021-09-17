@@ -4,12 +4,8 @@ declare(strict_types=1);
 
 namespace Rawilk\FormComponents\Tests\Components;
 
-use Spatie\Snapshots\MatchesSnapshots;
-
-class ComponentPrefixTest extends ComponentTestCase
+final class ComponentPrefixTest extends ComponentTestCase
 {
-    use MatchesSnapshots;
-
     protected function getEnvironmentSetUp($app): void
     {
         parent::getEnvironmentSetUp($app);
@@ -20,8 +16,8 @@ class ComponentPrefixTest extends ComponentTestCase
     /** @test */
     public function a_custom_prefix_can_be_used(): void
     {
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-tw-form action="http://example.com" />')
-        );
+        $this->blade('<x-tw-form action="http://example.com" />')
+            ->assertSee('<form', false)
+            ->assertSee('action=');
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Rawilk\FormComponents\Components;
 
+use Illuminate\Support\Arr;
 use Rawilk\FormComponents\Concerns\HandlesValidationErrors;
 
 class FormGroup extends BladeComponent
@@ -32,12 +33,12 @@ class FormGroup extends BladeComponent
 
     public function groupClass(): string
     {
-        return collect([
+        return Arr::toCssClasses([
             'form-group',
-            $this->hasErrorsAndShow($this->name) ? 'has-error' : null,
-            $this->inline ? 'form-group-inline sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start' : null,
-            $this->inline && $this->border ? 'form-group-inline--border sm:pt-5 sm:border-t sm:border-blue-gray-200 first:sm:pt-0 first:sm:border-none' : null,
-            $this->marginBottom ? 'mb-5 last:mb-0' : null,
-        ])->filter()->implode(' ');
+            'has-error' => $this->hasErrorsAndShow($this->name),
+            'form-group-inline sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start' => $this->inline,
+            'form-group-inline--border sm:pt-5 sm:border-t sm:border-blue-gray-200 first:sm:pt-0 first:sm:border-none' => $this->inline &&  $this->border,
+            'mb-5 last:mb-0' => $this->marginBottom,
+        ]);
     }
 }

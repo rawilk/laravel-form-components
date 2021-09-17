@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Rawilk\FormComponents\Components\Choice;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Rawilk\FormComponents\Components\BladeComponent;
 use Rawilk\FormComponents\Concerns\HandlesValidationErrors;
@@ -44,12 +45,13 @@ class SwitchToggle extends BladeComponent
 
     public function buttonClass(): string
     {
-        return collect([
+        return Arr::toCssClasses([
             'switch-toggle',
-            $this->short ? 'switch-toggle-short' : 'switch-toggle-simple',
             $this->toggleSize(),
-            $this->disabled ? 'disabled' : null,
-        ])->filter()->implode(' ');
+            'switch-toggle-short' => $this->short,
+            'switch-toggle-simple' => ! $this->short,
+            'disabled' => $this->disabled,
+        ]);
     }
 
     private function toggleSize(): string
@@ -67,11 +69,11 @@ class SwitchToggle extends BladeComponent
 
     public function getContainerClass(): string
     {
-        return collect([
+        return Arr::toCssClasses([
             'flex',
             'items-center',
-            $this->labelPosition === 'left' ? 'justify-between' : null,
+            'justify-between' => $this->labelPosition === 'left',
             $this->containerClass,
-        ])->filter()->implode(' ');
+        ]);
     }
 }

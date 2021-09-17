@@ -2,52 +2,51 @@
 
 namespace Rawilk\FormComponents\Tests\Components;
 
-use Spatie\Snapshots\MatchesSnapshots;
-
-class FormTest extends ComponentTestCase
+final class FormTest extends ComponentTestCase
 {
-    use MatchesSnapshots;
-
     /** @test */
     public function can_be_rendered(): void
     {
-        $view = $this->blade(
-            <<<HTML
-            <x-form action="http://example.com">
-                Form fields...
-            </x-form>
-            HTML
-        );
+        $template = <<<HTML
+        <x-form action="http://example.com">
+            Form fields...
+        </x-form>
+        HTML;
 
-        $this->assertMatchesSnapshot((string) $view);
+        $this->blade($template)
+            ->assertSee('<form', false)
+            ->assertSee('action="http://example.com"', false)
+            ->assertSee('method=')
+            ->assertSee('_token')
+            ->assertSeeText('Form fields...');
     }
 
     /** @test */
     public function the_method_can_be_set(): void
     {
         $template = <<<HTML
-        <x-form method="PUT" action="http://example.com">
+        <x-form method="put" action="http://example.com">
             Form fields...
         </x-form>
         HTML;
 
-        $this->assertMatchesSnapshot(
-            (string) $this->blade($template)
-        );
+        $this->blade($template)
+            ->assertSee('method="POST"', false)
+            ->assertSee('name="_method"', false)
+            ->assertSee('value="PUT"', false);
     }
 
     /** @test */
     public function it_can_enable_file_uploads(): void
     {
         $template = <<<HTML
-        <x-form method="PUT" action="http://example.com" has-files>
+        <x-form method="POST" action="http://example.com" has-files>
             Form fields...
         </x-form>
         HTML;
 
-        $this->assertMatchesSnapshot(
-            (string) $this->blade($template)
-        );
+        $this->blade($template)
+            ->assertSee('enctype="multipart/form-data"', false);
     }
 
     /** @test */
@@ -59,23 +58,15 @@ class FormTest extends ComponentTestCase
         </x-form>
         HTML;
 
-        $this->assertMatchesSnapshot(
-            (string) $this->blade($template)
-        );
+        $this->blade($template)
+            ->assertDontSee('spellcheck');
     }
 
     /** @test */
     public function action_is_optional(): void
     {
-        $template = <<<HTML
-        <x-form>
-            Form fields...
-        </x-form>
-        HTML;
-
-        $this->assertMatchesSnapshot(
-            (string) $this->blade($template)
-        );
+        $this->blade('<x-form />')
+            ->assertDontSee('action=');
     }
 
     /**
@@ -85,12 +76,14 @@ class FormTest extends ComponentTestCase
      */
     public function csrf_input_is_not_rendered_on_certain_form_methods(string $method): void
     {
-        $view = $this->blade(
-            '<x-form :method="$method">Form fields...</x-form>',
-            ['method' => $method],
-        );
+        $template = <<<HTML
+        <x-form method="$method">
+            Form fields...
+        </x-form>
+        HTML;
 
-        $this->assertMatchesSnapshot((string) $view);
+        $this->blade($template)
+            ->assertDontSee('_token');
     }
 
     /** @test */
@@ -102,9 +95,9 @@ class FormTest extends ComponentTestCase
         </x-form>
         HTML;
 
-        $this->assertMatchesSnapshot(
-            (string) $this->blade($template)
-        );
+        $this->blade($template)
+            ->assertSee('wire:submit.prevent="submit"', false)
+            ->assertSee('method="GET"', false);
     }
 
     public function formMethodsWithoutCsrf(): array

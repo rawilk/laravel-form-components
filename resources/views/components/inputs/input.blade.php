@@ -2,7 +2,8 @@
     @include('form-components::partials.leading-addons')
 
     <input
-        {{ $attributes->merge(['class' => $inputClass()]) }}
+        {{ $attributes->except('aria-describedby')->class($inputClass()) }}
+        {!! $ariaDescribedBy() !!}
         {{ $extraAttributes }}
 
         @if ($name) name="{{ $name }}" @endif
@@ -13,10 +14,6 @@
 
         @if ($hasErrorsAndShow($name))
             aria-invalid="true"
-
-            @if (! $attributes->offsetExists('aria-describedby'))
-                aria-describedby="{{ $id }}-error"
-            @endif
         @endif
     />
 

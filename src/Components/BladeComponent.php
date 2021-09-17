@@ -16,14 +16,34 @@ abstract class BladeComponent extends IlluminateComponent
         return static::$assets;
     }
 
-    public function render(bool $returnPathOnly = false)
+    public function render()
     {
-        $alias = Str::kebab(class_basename($this));
+        return view(static::viewName());
+    }
 
-        $config = config("form-components.components.{$alias}");
+    public static function viewName(): string
+    {
+        return 'form-components::components.' . static::getName();
+    }
 
-        return $returnPathOnly
-            ? $config['view']
-            : view($config['view']);
+    /*
+     * This method is pretty much a direct copy of how livewire/livewire
+     * determines which view to render in Component.php.
+     */
+    public static function getName(): string
+    {
+        $namespace = collect(explode('.', Str::replace(['/', '\\'], '.', 'Rawilk\\FormComponents\\Components')))
+            ->map([Str::class, 'kebab'])
+            ->implode('.');
+
+        $fullName = collect(explode('.', str_replace(['/', '\\'], '.', static::class)))
+            ->map([Str::class, 'kebab'])
+            ->implode('.');
+
+        if (Str::startsWith($fullName, $namespace)) {
+            return (string) Str::of($fullName)->substr(strlen($namespace) + 1);
+        }
+
+        return $fullName;
     }
 }

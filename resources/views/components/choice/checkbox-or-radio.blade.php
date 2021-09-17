@@ -7,6 +7,10 @@
                @if ($value) value="{{ $value }}" @endif
                @if ($checked && ! $attributes->hasStartsWith('wire:model')) checked @endif
                {{ $extraAttributes }}
+               {!! $ariaDescribedBy() !!}
+               @if ($hasErrorsAndShow($name))
+                   aria-invalid="true"
+               @endif
         />
     </div>
 

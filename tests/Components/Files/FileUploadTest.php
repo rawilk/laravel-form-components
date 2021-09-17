@@ -5,37 +5,34 @@ declare(strict_types=1);
 namespace Rawilk\FormComponents\Tests\Components\Files;
 
 use Rawilk\FormComponents\Tests\Components\ComponentTestCase;
-use Spatie\Snapshots\MatchesSnapshots;
 
-class FileUploadTest extends ComponentTestCase
+final class FileUploadTest extends ComponentTestCase
 {
-    use MatchesSnapshots;
-
     /** @test */
     public function can_be_rendered(): void
     {
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-file-upload name="file" />')
-        );
+        $this->blade('<x-file-upload name="file" />')
+            ->assertSee('file-upload')
+            ->assertSee('<input', false)
+            ->assertSee('type="file"', false)
+            ->assertSee('name="file"', false)
+            ->assertSee('<label', false);
     }
 
     /** @test */
     public function can_show_file_upload_progress_if_wire_model_is_set(): void
     {
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-file-upload name="file" wire:model="file" />')
-        );
+        $this->blade('<x-file-upload name="file" wire:model="file" />')
+            ->assertSee('livewire-upload-progress')
+            ->assertSee('wire:model="file"', false)
+            ->assertSee('progress');
     }
 
     /** @test */
     public function can_have_wire_model_without_upload_progress(): void
     {
-        $view = $this->blade(
-            '<x-file-upload name="file" wire:model="file" :display-upload-progress="$displayProgress" />',
-            ['displayProgress' => false],
-        );
-
-        $this->assertMatchesSnapshot((string) $view);
+        $this->blade('<x-file-upload name="file" wire:model="file" :display-upload-progress="false" />')
+            ->assertDontSee('livewire-upload-progress');
     }
 
     /** @test */
@@ -49,7 +46,12 @@ class FileUploadTest extends ComponentTestCase
         </x-file-upload>
         HTML;
 
-        $this->assertMatchesSnapshot((string) $this->blade($template));
+        $this->blade($template)
+            ->assertSeeInOrder([
+                '<input',
+                '<label',
+                '<div>After slot content...</div>',
+            ], false);
     }
 
     /** @test */
@@ -61,15 +63,8 @@ class FileUploadTest extends ComponentTestCase
         </x-file-upload>
         HTML;
 
-        $this->assertMatchesSnapshot((string) $this->blade($template));
-    }
-
-    /** @test */
-    public function adds_class_attribute_to_root_element(): void
-    {
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-file-upload name="file" class="foo" />')
-        );
+        $this->blade($template)
+            ->assertSee('<div>Default slot content...', false);
     }
 
     /** @test */
@@ -77,21 +72,25 @@ class FileUploadTest extends ComponentTestCase
     {
         $this->withViewErrors(['file' => 'required']);
 
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-file-upload name="file" />')
-        );
+        $this->blade('<x-file-upload name="file" />')
+            ->assertSee('aria-invalid="true"', false)
+            ->assertSee('aria-describedby="file-error"', false);
     }
 
     /**
      * @test
      * @dataProvider acceptsTypes
      * @param string $type
+     * @param string $expected
      */
-    public function can_be_told_to_accept_certain_preset_types(string $type): void
+    public function can_be_told_to_accept_certain_preset_types(string $type, string $expected): void
     {
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-file-upload name="file" :type="$type" />', ['type' => $type])
-        );
+        $template = <<<HTML
+        <x-file-upload name="file" type="$type" />
+        HTML;
+
+        $this->blade($template)
+            ->assertSee('accept="' . $expected . '"', false);
     }
 
     public function acceptsTypes(): array

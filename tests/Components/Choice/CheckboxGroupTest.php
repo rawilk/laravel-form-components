@@ -3,26 +3,23 @@
 namespace Rawilk\FormComponents\Tests\Components\Choice;
 
 use Rawilk\FormComponents\Tests\Components\ComponentTestCase;
-use Spatie\Snapshots\MatchesSnapshots;
 
-class CheckboxGroupTest extends ComponentTestCase
+final class CheckboxGroupTest extends ComponentTestCase
 {
-    use MatchesSnapshots;
-
     /** @test */
     public function can_be_rendered(): void
     {
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-checkbox-group>Checkboxes...</x-checkbox-group>')
-        );
+        $this->blade('<x-checkbox-group>Checkboxes...</x-checkbox-group>')
+            ->assertSeeText('Checkboxes...')
+            ->assertSee('space-y-4');
     }
 
     /** @test */
     public function can_be_not_stacked(): void
     {
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-checkbox-group :stacked="$stacked">Checkboxes...</x-checkbox-group>', ['stacked' => false])
-        );
+        $this->blade('<x-checkbox-group :stacked="false">Checkboxes...</x-checkbox-group>')
+            ->assertSee('grid')
+            ->assertDontSee('space-y-4');
     }
 
     /** @test */
@@ -35,6 +32,7 @@ class CheckboxGroupTest extends ComponentTestCase
         </x-checkbox-group>
         HTML;
 
-        $this->assertMatchesSnapshot((string) $this->blade($template));
+        $this->blade($template)
+            ->assertSee('--fc-checkbox-grid-cols: 6;', false);
     }
 }

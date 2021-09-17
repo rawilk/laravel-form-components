@@ -2,18 +2,16 @@
 
 namespace Rawilk\FormComponents\Tests\Components;
 
-use Spatie\Snapshots\MatchesSnapshots;
-
-class LabelTest extends ComponentTestCase
+final class LabelTest extends ComponentTestCase
 {
-    use MatchesSnapshots;
-
     /** @test */
     public function can_be_rendered(): void
     {
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-label for="first_name" />')
-        );
+        $this->blade('<x-label for="first_name" />')
+            ->assertSee('<label', false)
+            ->assertSeeText('First name')
+            ->assertSee('for="first_name"', false)
+            ->assertSee('form-label');
     }
 
     /** @test */
@@ -25,24 +23,23 @@ class LabelTest extends ComponentTestCase
         </x-label>
         HTML;
 
-        $this->assertMatchesSnapshot(
-            (string) $this->blade($template)
-        );
+        $this->blade($template)
+            ->assertSeeText('My custom label')
+            ->assertDontSeeText('First name');
     }
 
     /** @test */
     public function for_attribute_is_optional(): void
     {
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-label>Label...</x-label>')
-        );
+        $this->blade('<x-label>Label...</x-label>')
+            ->assertDontSee('for=')
+            ->assertSeeText('Label...');
     }
 
     /** @test */
     public function nothing_is_rendered_if_label_is_empty(): void
     {
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-label />')
-        );
+        $this->blade('<x-label />')
+            ->assertDontSee('<label', false);
     }
 }

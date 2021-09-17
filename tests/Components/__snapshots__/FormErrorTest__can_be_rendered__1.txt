@@ -1,3 +1,0 @@
-<p class="form-error mt-1 text-red-500 text-sm" id="first_name-error">
-                    Name is required.
-            </p>

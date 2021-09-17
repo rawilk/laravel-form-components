@@ -1,11 +1,15 @@
 <div {{ $attributes->class($groupClass()) }}>
     @include('form-components::partials.form-group-label')
 
-    <div class="form-group__content mt-1 {{ $inline ? 'form-group__content--inline sm:mt-0 sm:col-span-2' : '' }}">
+    <div @class([
+        'form-group__content mt-1',
+        'form-group__content--inline sm:mt-0 sm:col-span-2' => $inline,
+    ])
+    >
         {{ $slot }}
 
         @if ($hasErrorsAndShow($name))
-            <x-dynamic-component :component="formComponentName('form-error')" :name="$name" :input-id="$inputId" />
+            <x-form-components::form-error :name="$name" :input-id="$inputId" />
         @endif
 
         @if ($inline && $hint)

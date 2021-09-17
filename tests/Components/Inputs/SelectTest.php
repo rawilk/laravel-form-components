@@ -3,29 +3,33 @@
 namespace Rawilk\FormComponents\Tests\Components\Inputs;
 
 use Rawilk\FormComponents\Tests\Components\ComponentTestCase;
-use Spatie\Snapshots\MatchesSnapshots;
 
-class SelectTest extends ComponentTestCase
+final class SelectTest extends ComponentTestCase
 {
-    use MatchesSnapshots;
-
     /** @test */
     public function can_be_rendered(): void
     {
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-select name="country" id="countrySelect" />')
-        );
+        $this->blade('<x-select name="country" id="countrySelect" />')
+            ->assertSee('<select', false)
+            ->assertSee('name="country"', false)
+            ->assertSee('id="countrySelect"', false)
+            ->assertSee('form-select');
     }
 
     /** @test */
     public function it_accepts_an_array_of_options(): void
     {
-        $view = $this->blade(
+        $this->blade(
             '<x-select name="country" :options="$options" />',
             ['options' => ['can' => 'Canada', 'usa' => 'United States']],
-        );
-
-        $this->assertMatchesSnapshot((string) $view);
+        )
+        ->assertSee('<option', false)
+        ->assertSeeInOrder([
+            'value="can"',
+            'Canada',
+            'value="usa"',
+            'United States',
+        ], false);
     }
 
     /** @test */
@@ -37,21 +41,23 @@ class SelectTest extends ComponentTestCase
         <x-select name="country" :options="['can' => 'Canada', 'usa' => 'United States']" />
         HTML;
 
-        $this->assertMatchesSnapshot((string) $this->blade($template));
+        $this->blade($template)
+            ->assertDontSee('<option value="can"  selected', false)
+            ->assertSee('<option value="usa"  selected', false);
     }
 
     /** @test */
     public function a_default_value_can_be_given(): void
     {
-        $view = $this->blade(
+        $this->blade(
             '<x-select name="country" :options="$options" :value="$value" />',
             [
                 'options' => ['can' => 'Canada', 'usa' => 'United States'],
                 'value' => 'can',
-            ]
-        );
-
-        $this->assertMatchesSnapshot((string) $view);
+            ],
+        )
+        ->assertSee('value="can"  selected', false)
+        ->assertDontSee('value="usa"  selected', false);
     }
 
     /** @test */
@@ -64,7 +70,11 @@ class SelectTest extends ComponentTestCase
         <x-select name="country" id="country_code" class="px-4" value="can" :options="['can' => 'Canada', 'usa' => 'United States']" />
         HTML;
 
-        $this->assertMatchesSnapshot((string) $this->blade($template));
+        $this->blade($template)
+            ->assertSee('id="country_code"', false)
+            ->assertSee('px-4')
+            ->assertDontSee('value="can"  selected', false)
+            ->assertSee('value="usa"  selected', false);
     }
 
     /** @test */
@@ -76,7 +86,20 @@ class SelectTest extends ComponentTestCase
         <x-select name="country" multiple :options="['can' => 'Canada', 'usa' => 'United States', 'mex' => 'Mexico']" />
         HTML;
 
-        $this->assertMatchesSnapshot((string) $this->blade($template));
+        $this->blade($template)
+            ->assertSee('<select', false)
+            ->assertSee('multiple')
+            ->assertSeeInOrder([
+                'value="can"',
+                'Canada',
+                'value="usa"',
+                'United States',
+                'value="mex"',
+                'Mexico',
+            ], false)
+            ->assertSee('value="usa"  selected', false)
+            ->assertSee('value="mex"  selected', false)
+            ->assertDontSee('value="can"  selected', false);
     }
 
     /** @test */
@@ -88,7 +111,10 @@ class SelectTest extends ComponentTestCase
         <x-select name="country" :options="['can' => 'Canada', 'usa' => 'United States']" />
         HTML;
 
-        $this->assertMatchesSnapshot((string) $this->blade($template));
+        $this->blade($template)
+            ->assertSee('aria-invalid="true"', false)
+            ->assertSee('aria-describedby="country-error"', false)
+            ->assertSee('input-error');
     }
 
     /** @test */
@@ -106,22 +132,31 @@ class SelectTest extends ComponentTestCase
         </x-select>
         HTML;
 
-        $this->assertMatchesSnapshot((string) $this->blade($template));
+        $this->blade($template)
+            ->assertSeeInOrder([
+                'value="ger"',
+                'Germany',
+                'value="can"',
+                'Canada',
+                'value="usa"',
+                'United States',
+                'value="fra"',
+                'France',
+            ], false);
     }
 
     /** @test */
     public function name_can_be_omitted(): void
     {
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-select />')
-        );
+        $this->blade('<x-select />')
+            ->assertDontSee('id=')
+            ->assertDontSee('name=');
     }
 
     /** @test */
     public function accepts_a_container_class(): void
     {
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-select container-class="foo" />')
-        );
+        $this->blade('<x-select container-class="foo" />')
+            ->assertSee('foo');
     }
 }

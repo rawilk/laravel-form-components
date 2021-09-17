@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Rawilk\FormComponents\Components\Inputs;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 
@@ -85,15 +86,15 @@ class CustomSelect extends Select
 
     public function buttonClass(): string
     {
-        return collect([
+        return Arr::toCssClasses([
             'custom-select__button',
             'cursor-default relative w-full rounded-md border border-blue-gray-300 bg-white pl-3 pr-10 py-2 text-left transition',
             'focus:outline-none focus:ring-4 focus:ring-opacity-50 focus:ring-blue-400',
             'sm:text-sm',
             $this->getAddonClass(),
-            $this->hasErrorsAndShow($this->name) ? 'input-error' : null,
-            $this->disabled ? 'bg-blue-gray-50 text-blue-gray-500 cursor-not-allowed' : null,
-        ])->filter()->implode(' ');
+            'input-error' => $this->hasErrorsAndShow($this->name),
+            'bg-blue-gray-50 text-blue-gray-500 cursor-not-allowed' => $this->disabled,
+        ]);
     }
 
     public function selectedKeyToJS(): mixed
@@ -109,13 +110,13 @@ class CustomSelect extends Select
 
     public function getContainerClass(): string
     {
-        return collect([
+        return Arr::toCssClasses([
             'custom-select-container',
             'form-text-container',
             'flex rounded-sm shadow-sm relative',
             $this->maxWidth,
             $this->containerClass,
-        ])->filter()->implode(' ');
+        ]);
     }
 
     public function config(): array

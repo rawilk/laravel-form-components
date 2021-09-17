@@ -2,6 +2,7 @@
 
 namespace Rawilk\FormComponents\Components\Inputs;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 
 class Select extends Input
@@ -67,11 +68,11 @@ class Select extends Input
 
     public function inputClass(): string
     {
-        return collect([
+        return Arr::toCssClasses([
             'form-select',
             'block w-full pl-3 pr-10 py-2 rounded-md border-blue-gray-300 sm:text-sm focus:outline-none focus:border-blue-300 focus:ring-4 focus:ring-opacity-50 focus:ring-blue-400',
             $this->getAddonClass(),
-            $this->hasErrorsAndShow($this->name) ? 'input-error' : null,
-        ])->filter()->implode(' ');
+            'input-error' => $this->hasErrorsAndShow($this->name),
+        ]);
     }
 }

@@ -10,7 +10,7 @@
         },
      }"
      wire:ignore.self
-     class="flex items-center"
+     class="flex items-center "
      
 >
     
@@ -19,7 +19,7 @@
             x-ref="button"
             x-cloak
             type="button"
-             id="foo"                         class="switch-toggle switch-toggle-simple switch-toggle--base foo-class" data-foo="bar"
+             id="foo"                         class="switch-toggle switch-toggle--base switch-toggle-simple foo-class" data-foo="bar"
             x-bind:class="{ 'pressed': isPressed }"
                 >
         <span class="sr-only">Turn on</span>

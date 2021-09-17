@@ -1,3 +1,0 @@
-<label  for="first_name"  class="form-label block text-sm font-medium leading-5 text-blue-gray-700">
-            My custom label
-    </label>

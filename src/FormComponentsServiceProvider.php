@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Rawilk\FormComponents;
 
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -50,16 +49,18 @@ class FormComponentsServiceProvider extends ServiceProvider
     private function bootBladeComponents(): void
     {
         // Allows us to not have to register every single component in the config file.
-        Blade::componentNamespace('Rawilk\\LaravelFormComponents\\Components', 'form-components');
+        Blade::componentNamespace('Rawilk\\FormComponents\\Components', 'form-components');
 
         $this->callAfterResolving(BladeCompiler::class, function (BladeCompiler $blade) {
             $prefix = config('form-components.prefix', '');
             $assets = config('form-components.assets', []);
 
             foreach (config('form-components.components', []) as $alias => $component) {
-                $blade->component($component['class'], $alias, $prefix);
+                $componentClass = is_string($component) ? $component : $component['class'];
 
-                $this->registerAssets($component['class'], $assets);
+                $blade->component($componentClass, $alias, $prefix);
+
+                $this->registerAssets($componentClass, $assets);
             }
         });
     }
@@ -109,26 +110,6 @@ class FormComponentsServiceProvider extends ServiceProvider
         ComponentAttributeBag::macro('hasStartsWith', function ($key) {
             return (bool) $this->whereStartsWith($key)->first();
         });
-
-        // Add backwards support for Laravel 8.0 - 8.26.
-        // This macro can be removed if we ever deprecate those versions.
-        if (! method_exists(ComponentAttributeBag::class, 'class')) {
-            ComponentAttributeBag::macro('class', function ($classList) {
-                $classList = Arr::wrap($classList);
-
-                $classes = [];
-
-                foreach ($classList as $class => $constraint) {
-                    if (is_numeric($class)) {
-                        $classes[] = $constraint;
-                    } elseif ($constraint) {
-                        $classes[] = $class;
-                    }
-                }
-
-                return $this->merge(['class' => implode(' ', $classes)]);
-            });
-        }
     }
 
     private function bootRoutes(): void
@@ -139,6 +120,10 @@ class FormComponentsServiceProvider extends ServiceProvider
 
     private function registerAssets($component, array $assets): void
     {
+        if (! class_exists($component)) {
+            return;
+        }
+
         foreach ($component::assets() as $asset) {
             $files = (array) ($assets[$asset] ?? []);
 
