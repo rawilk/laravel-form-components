@@ -6,6 +6,9 @@ All notable changes to `laravel-form-components` will be documented in this file
 ### Added
 - Register all components under a the `form-components::` namespace
 
+### Fixed
+- Fix button display issues when passing values manually to `custom-select` ([#34](https://github.com/rawilk/laravel-form-components/issues/34))
+
 ### Updated
 - Update asset versions in the config
 - Reference all `form-components` components using `<x-form-components::>` instead of `<x-dynamic-component>`
