@@ -2,6 +2,7 @@
         {{ $configToJson() }}
         @if ($attributes->hasStartsWith('wire:model'))
             value: @entangle($attributes->wire('model')),
+            _wire: $wire,
         @else
             value: {{ $selectedKeyToJS() }},
         @endif
@@ -9,15 +10,14 @@
             wireFilter: '{{ $attributes->wire('filter')->value() }}',
         @endif
      })"
-     x-init="$nextTick(() => { initialize({{ $attributes->hasStartsWith('wire:model') ? '$wire' : 'null' }}, $dispatch) })"
-     x-on:click.outside="close()"
-     x-on:keydown.escape="close()"
-     x-on:keydown.enter.stop.prevent="onEnter()"
-     x-on:keydown.arrow-up.prevent="focusPreviousOption()"
-     x-on:keydown.arrow-down.prevent="focusNextOption()"
-     x-on:keydown.home.prevent="onHome()"
-     x-on:keydown.end.prevent="onEnd()"
-     x-on:keydown.tab="close()"
+     x-on:click.outside="close"
+     x-on:keydown.escape="close"
+     x-on:keydown.enter.stop.prevent="onEnter"
+     x-on:keydown.arrow-up.prevent="focusPreviousOption"
+     x-on:keydown.arrow-down.prevent="focusNextOption"
+     x-on:keydown.home.prevent="onHome"
+     x-on:keydown.end.prevent="onEnd"
+     x-on:keydown.tab="close"
      wire:ignore.self
      class="{{ $getContainerClass() }}"
      {{ $extraAttributes }}

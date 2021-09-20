@@ -14,6 +14,11 @@ class Input extends BladeComponent
     use HandlesValidationErrors;
     use HasAddons;
 
+    /*
+     * Normally we want arrays to be encoded, but some components don't need that, like CustomSelect.
+     */
+    protected bool $jsonEncodeArrayValues = true;
+
     /** @var string */
     public const DEFAULT_INLINE_ADDON_PADDING = 'pl-16 sm:pl-14';
 
@@ -53,7 +58,7 @@ class Input extends BladeComponent
         $this->trailingAddonPadding = $trailingAddonPadding;
         $this->trailingIcon = $trailingIcon;
 
-        if (is_array($this->value)) {
+        if (is_array($this->value) && $this->jsonEncodeArrayValues) {
             $this->value = json_encode($this->value);
         }
     }

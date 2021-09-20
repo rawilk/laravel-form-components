@@ -15,6 +15,8 @@ class CustomSelect extends Select
     public null|string $placeholder;
     public null|string $emptyText;
 
+    protected bool $jsonEncodeArrayValues = false;
+
     public function __construct(
         public null | string $name = null,
         public null | string $id = null,
@@ -105,7 +107,7 @@ class CustomSelect extends Select
 
         return is_string($this->selectedKey)
             ? "'{$this->selectedKey}'"
-            : $this->selectedKey;
+            : json_encode($this->selectedKey);
     }
 
     public function getContainerClass(): string

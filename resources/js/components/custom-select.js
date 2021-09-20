@@ -13,7 +13,7 @@ import { isArray } from '../util/inspect';
 
 let createPopper;
 
-export default (config) => ({
+export default config => ({
     focusedOptionIndex: null,
     filterable: false,
     data: [],
@@ -33,11 +33,17 @@ export default (config) => ({
     labelField: 'label', // used for an "optgroup"'s label
     optionsField: 'options', // used when creating "optgroups"
     popper: null,
+    _wire: null, // for when in a livewire component
     ...config,
 
     get buttonDisplay() {
         if (this.multiple) {
-            let optionDisplay = this.optionDisplay(this.value[0]);
+            let optionDisplay;
+            try {
+                optionDisplay = this.optionDisplay(this.value[0]);
+            } catch (e) {
+                optionDisplay = '';
+            }
 
             if (this.value.length > 1) {
                 optionDisplay += ` <span class="custom-select__select-count">+ ${this.value.length - 1}</span>`;
@@ -46,7 +52,11 @@ export default (config) => ({
             return optionDisplay;
         }
 
-        return this.optionDisplay(this.value);
+        try {
+            return this.optionDisplay(this.value);
+        } catch (e) {
+            return '';
+        }
     },
 
     get fieldNames() {
@@ -153,10 +163,7 @@ export default (config) => ({
         return this.value === value;
     },
 
-    /*
-     * Calling initialize now so Alpine doesn't call the function twice.
-     */
-    initialize($wire = null, $dispatch = null) {
+    init() {
         createPopper = window.Popper ? window.Popper.createPopper : window.createPopper;
 
         if (typeof createPopper !== 'function') {
@@ -181,7 +188,7 @@ export default (config) => ({
         }
 
         this.$watch('value', value => {
-            $dispatch && $dispatch('custom-select-value-changed', { id: this.selectId, value });
+            this.$dispatch('custom-select-value-changed', { id: this.selectId, value });
         });
 
         // Allow local filtering if user has not specified wire:filter on the custom select component.
@@ -192,8 +199,8 @@ export default (config) => ({
 
             // If the user specifies a "wire:filter" method, attempt to call that method,
             // otherwise just perform local search.
-            if (this.wireFilter && $wire) {
-                $wire[this.wireFilter](value)
+            if (this.wireFilter && this._wire) {
+                this._wire[this.wireFilter](value)
                     .then(data => {
                         this.data = normalizeOptions(data, this.fieldNames);
                         this.options = this.data;
@@ -212,12 +219,12 @@ export default (config) => ({
                 .filter(o => ! this.isOptgroup(o) && (String(o.value).toLowerCase().includes(lowerCasedSearch) || o.text.toLowerCase().includes(lowerCasedSearch)));
         });
 
-        if ($wire) {
+        if (this._wire) {
             // Wire listeners are useful for selects whose options depend on other selects. On the livewire component,
             // user can emit an event with the options that should be shown in the dependant select based on some
             // criteria.
             this.wireListeners.forEach(listener => {
-                $wire.on(listener, data => {
+                this._wire.on(listener, data => {
                     this.data = normalizeOptions(data, this.fieldNames);
                     this.options = this.data;
                 });
@@ -225,7 +232,7 @@ export default (config) => ({
         }
 
         // Emit our value changed event right away for any listeners...
-        $dispatch && $dispatch('custom-select-value-changed', { id: this.selectId, value: this.value });
+        this.$dispatch('custom-select-value-changed', { id: this.selectId, value: this.value });
     },
 
     onMouseover(option, index) {
@@ -311,7 +318,8 @@ export default (config) => ({
 
         let option = this.options.find(o => o.value === value);
 
-        if (! option && this.multiple && this.selectedOption.length > 0) {
+        // First time this runs, selectedOption may be null, maybe a bug?
+        if (! option && this.multiple && (this.selectedOption || []).length > 0) {
             option = this.selectedOption[0];
         } else if (! option && this.selectedOption && this.selectedOption.value === value) {
             option = this.selectedOption;
