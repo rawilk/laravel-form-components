@@ -2,7 +2,7 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
-## 6.0.0 - 2021-09-17
+## 6.0.0 - 2021-09-20
 ### Added
 - Register all components under a the `form-components::` namespace
 
