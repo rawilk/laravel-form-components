@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 6.0.1 - 2021-11-11
+### Updated
+- Add support for `x-model` on inputs
+- Add `onOpen` slot to date picker component
+
 ## 6.0.0 - 2021-09-20
 ### Added
 - Register all components under a the `form-components::` namespace

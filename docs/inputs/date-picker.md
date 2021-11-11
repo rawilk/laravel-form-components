@@ -118,15 +118,28 @@ specify any option callbacks you need to:
 ```html
 <x-date-picker name="birthday">
     <x-slot name="optionsSlot">
-        onOpen: (selectedDates, dateStr, instance) => {
+        onChange: (selectedDates, dateStr, instance) => {
             // ...
         }
     </x-slot>
 </x-date-picker>
 ```
 
-In the example above, we are injecting a callback for the `onOpen` event fired by flatpickr into the flatpickr options object.
+In the example above, we are injecting a callback for the `onChange` event fired by flatpickr into the flatpickr options object.
 For more information on the callbacks available, please consult [the events api](https://flatpickr.js.org/events/).
+
+By default, the date picker component defines a callback for the `onOpen` event fired by flatpickr. As of version `6.0.1`, you may utilize
+the `onOpen` slot to add your own callback function if needed on the component.
+
+```html
+<x-date-picker name="birthday">
+    <x-slot name="onOpen">
+        function (selectedDates, dateStr, instance) {
+            // do something
+        },
+    </x-slot>
+</x-date-picker>
+```
 
 ## Addons
 
