@@ -11,7 +11,7 @@
      }"
      wire:ignore.self
      class="flex items-center "
-     
+          
 >
     
     <button x-bind:aria-pressed="JSON.stringify(isPressed)"

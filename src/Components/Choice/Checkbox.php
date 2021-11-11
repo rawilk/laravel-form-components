@@ -4,10 +4,12 @@ namespace Rawilk\FormComponents\Components\Choice;
 
 use Rawilk\FormComponents\Components\BladeComponent;
 use Rawilk\FormComponents\Concerns\HandlesValidationErrors;
+use Rawilk\FormComponents\Concerns\HasModels;
 
 class Checkbox extends BladeComponent
 {
     use HandlesValidationErrors;
+    use HasModels;
 
     public string $type = 'checkbox';
 

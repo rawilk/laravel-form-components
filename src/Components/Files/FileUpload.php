@@ -7,11 +7,13 @@ namespace Rawilk\FormComponents\Components\Files;
 use Rawilk\FormComponents\Components\BladeComponent;
 use Rawilk\FormComponents\Concerns\AcceptsFiles;
 use Rawilk\FormComponents\Concerns\HandlesValidationErrors;
+use Rawilk\FormComponents\Concerns\HasModels;
 
 class FileUpload extends BladeComponent
 {
     use HandlesValidationErrors;
     use AcceptsFiles;
+    use HasModels;
 
     protected static array $assets = ['alpine'];
 
@@ -47,7 +49,7 @@ class FileUpload extends BladeComponent
             return $this->canShowUploadProgress = false;
         }
 
-        if (! $attributes->hasStartsWith('wire:model')) {
+        if (! $this->hasWireModel()) {
             return $this->canShowUploadProgress = false;
         }
 

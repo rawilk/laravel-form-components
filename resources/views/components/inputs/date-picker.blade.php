@@ -1,12 +1,24 @@
 <div x-data="{
         fp: null,
-        @if ($value && ! $attributes->hasStartsWith('wire:model'))
-            value: '{{ $value }}',
-        @elseif ($attributes->hasStartsWith('wire:model'))
+        @if ($hasWireModel())
             value: @entangle($attributes->wire('model')),
+        @elseif ($hasXModel())
+            value: {{ $attributes->first('x-model') }},
         @else
-            value: null,
+            value: {{ $value ? "'{$value}'" : 'null' }},
         @endif
+        updateValue(newValue) {
+            this.value = newValue;
+            $dispatch('input', newValue);
+
+            try {
+                this.fp.setDate(newValue);
+            } catch {}
+
+            @if ($hasXModel())
+                {{ $attributes->first('x-model') }} = newValue;
+            @endif
+        },
      }"
      x-init="fp = flatpickr($refs.input, {
         defaultDate: value,
@@ -14,11 +26,12 @@
             function (selectedDates, dateStr, instance) {
                 instance.setDate(value);
             },
+            {{ $onOpen ?? '' }}
         ],
         {{ $jsonOptions() }}
         {{ $optionsSlot ?? '' }}
      })"
-     x-on:change="value = $event.target.value; fp.setDate(value)"
+     x-on:change="updateValue($event.target.value)"
      class="{{ $getContainerClass() }}"
      {{ $extraAttributes }}
 >
@@ -43,10 +56,14 @@
         @if ($name) name="{{ $name }}" @endif
         @if ($id) id="{{ $id }}" @endif
         x-ref="input"
-        x-bind:value="value"
+
+        @unless ($hasXModel())
+            x-bind:value="value"
+        @endunless
+
         placeholder="{{ $placeholder }}"
 
-        @if ($value && ! $attributes->hasStartsWith('wire:model')) value="{{ $value }}" @endif
+        @if ($value && ! $hasBoundModel()) value="{{ $value }}" @endif
 
         {!! $ariaDescribedBy() !!}
         @if ($hasErrorsAndShow($name))
@@ -59,7 +76,7 @@
             <button x-show="Boolean(value)"
                     x-transition
                     x-cloak
-                    x-on:click="value = null; fp.setDate(value)"
+                    x-on:click="updateValue(null)"
                     class="form-input-clear h-6 w-6 group rounded-full p-1 hover:bg-blue-gray-200 focus:outline-blue-gray transition-colors"
                     type="button"
             >

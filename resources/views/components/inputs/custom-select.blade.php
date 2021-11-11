@@ -1,8 +1,10 @@
 <div x-data="customSelect({
         {{ $configToJson() }}
-        @if ($attributes->hasStartsWith('wire:model'))
+        @if ($hasWireModel())
             value: @entangle($attributes->wire('model')),
             _wire: $wire,
+        @elseif ($hasXModel())
+            value: {{ $attributes->first('x-model') }},
         @else
             value: {{ $selectedKeyToJS() }},
         @endif

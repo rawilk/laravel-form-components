@@ -5,7 +5,7 @@
                @if ($id) id="{{ $id }}" @endif
                type="{{ $type }}"
                @if ($value) value="{{ $value }}" @endif
-               @if ($checked && ! $attributes->hasStartsWith('wire:model')) checked @endif
+               @if ($checked && ! $hasBoundModel()) checked @endif
                {{ $extraAttributes }}
                {!! $ariaDescribedBy() !!}
                @if ($hasErrorsAndShow($name))

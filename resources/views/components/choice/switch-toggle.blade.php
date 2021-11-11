@@ -1,8 +1,10 @@
 <div x-data="{
         onValue: {{ json_encode($onValue) }},
         offValue: {{ json_encode($offValue) }},
-        @if ($attributes->hasStartsWith('wire:model'))
+        @if ($hasWireModel())
             value: @entangle($attributes->wire('model')),
+        @elseif ($hasXModel())
+            value: {{ $attributes->first('x-model') }},
         @else
             value: {{ json_encode($value) }},
         @endif
@@ -15,6 +17,9 @@
      }"
      wire:ignore.self
      class="{{ $getContainerClass() }}"
+     @if ($hasXModel())
+         x-init="$watch(value, newValue => { {{ $attributes->first('x-model') }} = newValue })"
+     @endif
      {{ $extraAttributes }}
 >
     @if ($label && $labelPosition === 'left')
@@ -33,7 +38,7 @@
             type="button"
             @if ($id) id="{{ $id }}" @endif
             @if ($label) aria-labelledby="{{ $labelId() }}" @endif
-            {{ $attributes->except(['type', 'wire:model', 'wire:model.defer', 'wire:model.lazy'])->merge(['class' => $buttonClass()]) }}
+            {{ $attributes->except(['type', 'wire:model', 'wire:model.defer', 'wire:model.lazy', 'x-model'])->merge(['class' => $buttonClass()]) }}
             x-bind:class="{ 'pressed': isPressed }"
             @if ($disabled) disabled @endif
     >

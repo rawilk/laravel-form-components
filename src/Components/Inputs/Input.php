@@ -8,11 +8,13 @@ use Illuminate\Support\Arr;
 use Rawilk\FormComponents\Components\BladeComponent;
 use Rawilk\FormComponents\Concerns\HandlesValidationErrors;
 use Rawilk\FormComponents\Concerns\HasAddons;
+use Rawilk\FormComponents\Concerns\HasModels;
 
 class Input extends BladeComponent
 {
     use HandlesValidationErrors;
     use HasAddons;
+    use HasModels;
 
     /*
      * Normally we want arrays to be encoded, but some components don't need that, like CustomSelect.

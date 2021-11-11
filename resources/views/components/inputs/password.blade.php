@@ -19,7 +19,7 @@
             type="password"
         @endif
 
-        @if ($value && ! $attributes->hasStartsWith('wire:model')) value="{{ $value }}" @endif
+        @if ($value && ! $hasBoundModel()) value="{{ $value }}" @endif
 
         @if ($hasErrorsAndShow($name))
             aria-invalid="true"

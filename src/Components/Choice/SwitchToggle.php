@@ -8,10 +8,12 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Rawilk\FormComponents\Components\BladeComponent;
 use Rawilk\FormComponents\Concerns\HandlesValidationErrors;
+use Rawilk\FormComponents\Concerns\HasModels;
 
 class SwitchToggle extends BladeComponent
 {
     use HandlesValidationErrors;
+    use HasModels;
 
     protected static array $assets = ['alpine'];
 

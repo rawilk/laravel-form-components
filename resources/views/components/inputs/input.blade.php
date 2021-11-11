@@ -10,7 +10,7 @@
         @if ($id) id="{{ $id }}" @endif
         type="{{ $type }}"
 
-        @if (! is_null($value) && ! $attributes->hasStartsWith('wire:model')) value="{{ $value }}" @endif
+        @if (! is_null($value) && ! $hasBoundModel()) value="{{ $value }}" @endif
 
         @if ($hasErrorsAndShow($name))
             aria-invalid="true"
