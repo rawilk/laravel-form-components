@@ -1,0 +1,20 @@
+/* filepond overrides */
+/* purgecss start ignore */
+.filepond--panel-root {
+    @apply border-dashed border-2 border-blue-gray-200 rounded-md max-w-full transition;
+    @apply bg-transparent !important;
+}
+
+.filepond--label-action {
+    @apply text-blue-600 transition hover:opacity-75 focus:opacity-75;
+    text-decoration-color: theme('colors.blue.600');
+}
+
+.fc-filepond-desc {
+    @apply text-blue-gray-500;
+}
+
+.fc-filepond--sub-desc {
+    @apply text-xs !important;
+}
+/* purgecss end ignore */

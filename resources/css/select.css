@@ -1,0 +1,13 @@
+.form-select[multiple] {
+    background-image: none;
+    overflow: auto;
+}
+
+.form-select + .trailing-addon,
+.form-select + .trailing-icon {
+    right: 1.5rem;
+}
+
+.form-select.has-trailing-icon {
+    padding-right: 4rem;
+}
