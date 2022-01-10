@@ -30,6 +30,7 @@
             ])>
                 @if ($searchable)
                     <input
+                        wire:ignore.self
                         x-model.debounce="search"
                         x-bind:placeholder="searchPlaceholder"
                         x-show="showSearchInput"
