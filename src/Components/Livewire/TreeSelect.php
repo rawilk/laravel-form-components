@@ -23,6 +23,7 @@ abstract class TreeSelect extends Component
     public bool $multiple = false;
     public bool $disabled = false;
     public bool $optional = false;
+    public bool $required = false;
     public bool $searchable = true;
     public bool $closeOnSelect = false;
     public bool $autofocus = false;
@@ -169,7 +170,7 @@ abstract class TreeSelect extends Component
             $this->showCheckbox = $this->multiple;
         }
 
-        if ($this->minSelected > 1) {
+        if ($this->minSelected > 1 || $this->required) {
             $this->optional = false;
         }
 
