@@ -92,6 +92,6 @@
     @endif
 
     @if ($name)
-        <input type="hidden" name="{{ $name }}" x-bind:value="JSON.stringify(value)" />
+        <input type="hidden" name="{{ $name }}" x-bind:value="value" />
     @endif
 </div>

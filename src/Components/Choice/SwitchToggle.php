@@ -38,6 +38,7 @@ class SwitchToggle extends BladeComponent
     ) {
         $this->id = $this->id ?? $this->name;
         $this->labelId = $this->id ?? Str::random(8);
+        $this->value = $this->name ? old($this->name, $this->value) : $this->value;
     }
 
     public function labelId(): string

@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 6.0.2 - 2022-01-10
+### Fixed
+- Support for get the old value of a switch toggle without livewire (https://github.com/rawilk/laravel-form-components/pull/41)
+
 ## 6.0.1 - 2021-11-11
 ### Updated
 - Add support for `x-model` on inputs
