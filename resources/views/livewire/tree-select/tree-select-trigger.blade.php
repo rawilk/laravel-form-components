@@ -33,7 +33,7 @@
                         x-model.debounce="search"
                         x-bind:placeholder="searchPlaceholder"
                         x-show="showSearchInput"
-                        x-on:keydown.enter.stop="onEnter"
+                        x-on:keydown.enter.prevent.stop="onEnter"
                         x-ref="search"
                         tabindex="-1"
                         class="focus:ring-0 focus:outline-none placeholder-blue-gray-400 h-full max-w-full w-auto align-top m-0 p-0 border-0 bg-transparent"

@@ -10,7 +10,7 @@
          x-on:keydown.arrow-right="onArrowRight"
          x-on:keydown.arrow-left="onArrowLeft"
          @unless ($searchable)
-            x-on:keydown.enter.stop="onEnter"
+            x-on:keydown.enter.prevent.stop="onEnter"
          @endunless
          x-on:keydown.tab="onTab"
          class="relative rounded-md focus:outline-none"
