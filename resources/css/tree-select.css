@@ -1,0 +1,93 @@
+.tree-select__button {
+    @apply pl-2
+        pr-1
+        border
+        border-blue-gray-300
+        rounded-md
+        bg-white
+        sm:text-sm
+        table
+        table-fixed
+        h-[38px]
+        w-full;
+}
+
+.tree-select__button.disabled {
+    @apply bg-blue-gray-50 cursor-not-allowed;
+}
+
+.tree-select-menu {
+    @apply absolute
+        origin-top-right
+        right-0
+        rounded-md
+        bg-white
+        focus:outline-none
+        w-full
+        border
+        border-blue-300;
+}
+
+.tree-select-menu[data-popper-placement="top-start"] {
+    @apply rounded-b-none border-b-0;
+}
+
+.tree-select-menu[data-popper-placement="bottom-start"] {
+    @apply rounded-t-none border-t-0;
+}
+
+.tree-select-menu[data-popper-placement="top-start"] .tree-select-menu__container {
+    @apply rounded-b-none;
+}
+
+.tree-select-menu[data-popper-placement="bottom-start"] .tree-select-menu__container {
+    @apply rounded-t-none;
+}
+
+.tree-select-menu:not(.invisible) + .tree-select__button {
+    @apply border-blue-300;
+}
+
+.tree-select-menu:not(.invisible)[data-popper-placement="bottom-start"] + .tree-select__button {
+    @apply rounded-b-none border-b-blue-gray-200;
+}
+
+.tree-select-menu:not(.invisible)[data-popper-placement="top-start"] + .tree-select__button {
+    @apply rounded-t-none border-t-blue-gray-200;
+}
+
+.tree-select-option {
+    @apply w-full;
+}
+
+.tree-select-option__container {
+    @apply px-2.5 text-sm text-blue-gray-600 flex items-center;
+}
+
+.tree-select-option {
+    @apply focus:outline-none;
+}
+
+.tree-select-option:not(.disabled).has-focus > .tree-select-option__container {
+    @apply bg-blue-gray-100 outline-none;
+}
+
+.tree-select-option.disabled > .tree-select-option__container {
+    @apply bg-gray-100 opacity-50 cursor-not-allowed;
+}
+
+.tree-select-option__label {
+    @apply py-3.5;
+}
+
+[data-level="1"] .tree-select-option__container {
+    @apply pl-8;
+}
+
+[data-level="1"] .tree-select-option__label {
+    @apply py-2.5;
+}
+
+.tree-select-option.selected > .tree-select-option__container {
+    @apply bg-blue-200 font-semibold;
+}

@@ -1,0 +1,7 @@
+:root {
+    --fc-checkbox-grid-cols: 3;
+}
+
+.form-checkbox-group {
+    grid-template-columns: repeat(var(--fc-checkbox-grid-cols), minmax(0, 1fr));
+}

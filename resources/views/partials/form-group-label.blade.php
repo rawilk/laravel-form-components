@@ -4,6 +4,7 @@
             <x-form-components::label
                 :for="$inputId"
                 :id="$labelId"
+                :custom-select-label="$customSelectLabel"
                 class="{{ $inline && ! $isCheckboxGroup ? 'form-group__inline-label sm:mt-px sm:pt-2' : '' }}"
             >
                 {{ $label }}

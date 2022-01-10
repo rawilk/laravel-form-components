@@ -22,6 +22,7 @@ class FormGroup extends BladeComponent
         public bool $marginBottom = true,
         public null | string $hint = null,
         public bool $optional = false,
+        public bool $customSelectLabel = false,
     ) {
         $this->inputId = $this->inputId ?? $this->name;
         $this->showErrors = $showErrors;

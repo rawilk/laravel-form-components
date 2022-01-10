@@ -8,6 +8,7 @@ return [
     'custom_select_clear_button' => 'Clear selected',
     'custom_select_placeholder' => 'Select an option',
     'custom_select_empty_text' => 'No options available...',
+    'custom_select_no_results' => 'No results found...',
     'date_picker_placeholder' => 'Y-m-d',
     'timezone_select_placeholder' => 'Select a timezone',
     'switch_button_label' => 'Turn on',

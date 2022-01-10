@@ -34,7 +34,7 @@ trait HandlesValidationErrors
     {
         $errors = View::shared('errors', fn () => request()->session()->get('errors', new ViewErrorBag));
 
-        $name = str_replace(['[', ']'], ['.', ''], $name);
+        $name = str_replace(['[', ']'], ['.', ''], (string) $name);
 
         return $errors->getBag($bag)->has($name);
     }
