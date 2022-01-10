@@ -8,6 +8,9 @@
 
 Laravel form components provides common form components to help build forms faster using Tailwind CSS. Supports validation, old form values, and wire:model.
 
+**Notice:** Laravel Form Components v7 is currently not in a stable release and shouldn't be used in a production environment. It is not advised to upgrade to it until
+a stable release has been made.
+
 ## Installation
 
 You can install the package via composer:
