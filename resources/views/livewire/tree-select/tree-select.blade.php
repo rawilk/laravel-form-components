@@ -9,7 +9,9 @@
          x-on:keydown.end.prevent="focusLastOption"
          x-on:keydown.arrow-right="onArrowRight"
          x-on:keydown.arrow-left="onArrowLeft"
-         x-on:keydown.enter.stop="onEnter"
+         @unless ($searchable)
+            x-on:keydown.enter.stop="onEnter"
+         @endunless
          x-on:keydown.tab="onTab"
          class="relative rounded-md focus:outline-none"
          x-bind:class="{ 'focus:border-blue-300 focus:ring-opacity-50 focus:ring-4 focus:ring-blue-400': ! open }"
