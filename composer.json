@@ -22,9 +22,9 @@
     ],
     "require": {
         "php": "^8.0",
-        "illuminate/filesystem": "^8.64",
-        "illuminate/support": "^8.64",
-        "illuminate/view": "^8.64"
+        "illuminate/filesystem": "^8.70",
+        "illuminate/support": "^8.70",
+        "illuminate/view": "^8.70"
     },
     "require-dev": {
         "blade-ui-kit/blade-heroicons": "^1.2",
