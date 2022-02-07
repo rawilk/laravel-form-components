@@ -1,0 +1,10 @@
+x-on:keydown.escape.stop="closeMenu"
+x-on:click.outside="closeMenu({ focusRoot: false })"
+x-on:keydown.arrow-down.stop="focusNextOption"
+x-on:keydown.arrow-up.stop="focusPreviousOption"
+x-on:keydown.home.stop="focusFirstOption"
+x-on:keydown.end.stop="focusLastOption"
+x-on:keydown.enter.prevent.stop="onEnter"
+x-on:keydown.tab="onTab"
+x-cloak
+x-on:{{ \Illuminate\Support\Str::slug($name) }}-value-manually-updated.window="setNewValue($event.detail)"

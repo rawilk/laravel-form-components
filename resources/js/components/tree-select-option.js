@@ -3,6 +3,7 @@ import selectOptionMixin from '../mixins/select-option';
 
 export default options => ({
     ...selectOptionMixin,
+    children: [],
     expanded: false,
     hasChildren: false,
     level: 0,

@@ -4,152 +4,111 @@ declare(strict_types=1);
 
 namespace Rawilk\FormComponents\Components\Inputs;
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
+use Illuminate\Support\Js;
+use Rawilk\FormComponents\Components\BladeComponent;
+use Rawilk\FormComponents\Concerns\GetsSelectOptionProperties;
+use Rawilk\FormComponents\Concerns\HandlesValidationErrors;
+use Rawilk\FormComponents\Concerns\HasModels;
 
-class CustomSelect extends Select
+class CustomSelect extends BladeComponent
 {
+    use HandlesValidationErrors;
+    use HasModels;
+    use GetsSelectOptionProperties;
+
     protected static array $assets = ['alpine', 'popper'];
 
-    public null|string $placeholder;
-    public null|string $emptyText;
-
-    protected bool $jsonEncodeArrayValues = false;
-
     public function __construct(
-        public null | string $name = null,
-        public null | string $id = null,
-        public array | Collection $options = [],
+        public null|string $name = null,
+        public null|string $id = null,
         public mixed $value = null,
+        public $options = [],
         public bool $multiple = false,
-        public null | string $maxWidth = null,
-        bool $showErrors = true,
-        $leadingAddon = false,
-        $inlineAddon = false,
-        $inlineAddonPadding = self::DEFAULT_INLINE_ADDON_PADDING,
-        $leadingIcon = false,
-        null|string $placeholder = 'form-components::messages.custom_select_placeholder',
-        public bool $optional = false,
-        public string $valueField = 'value',
-        public string $textField = 'text',
-        public string $disabledField = 'disabled',
-        public bool $filterable = false,
-        public null | string $clearIcon = null,
+        // For multi-selects, the minimum amount of options that must be selected.
+        public int $minSelected = 1,
+        // For multi-selects, the maximum amount of options that may be selected.
+        public null|int $maxSelected = null,
         public bool $disabled = false,
-        public null | string $selectedIcon = null,
-        public null | string $uncheckIcon = null,
-        public bool $maxOptionsSelected = false,
-        public bool | null | string $optionDisplay = false,
-        public bool | null | string $buttonDisplay = false,
-        public array $wireListeners = [],
-        null|string $emptyText = 'form-components::messages.custom_select_empty_text',
-        public bool $convertValuesToString = false,
-        public null | string $containerClass = null,
+        public null|string $labelledby = null,
+        public bool $searchable = true,
+        public bool $closeOnSelect = false,
+        public bool $autofocus = false,
+        public bool $optional = false,
+        public null|string $clearIcon = null,
+        public bool|null|string $placeholder = null,
+        public bool|null|string $noOptionsText = null,
+        public bool|null|string $noResultsText = null,
+        public null|bool $showCheckbox = null,
+        public $initialLabel = null,
+        public string $valueField = 'id',
+        public string $labelField = 'name',
+        public null|string $selectedLabelField = null, // Option key to use for displaying the text for the selected option.
+        public string $disabledField = 'disabled',
+        public string $isOptGroupField = 'is_opt_group',
         public $extraAttributes = '',
-        public $after = null,
+        bool $showErrors = true,
+
+        // When used as a livewire component
+        public bool $livewire = false,
+        public null|string $livewireSearch = null,
     ) {
-        parent::__construct(
-            name: $name,
-            id: $id,
-            options: $options,
-            value: $value,
-            multiple: $multiple,
-            maxWidth: $maxWidth,
-            showErrors: $showErrors,
-            leadingAddon: $leadingAddon,
-            inlineAddon: $inlineAddon,
-            inlineAddonPadding: $inlineAddonPadding,
-            leadingIcon: $leadingIcon,
-            containerClass: $containerClass,
-            extraAttributes: $extraAttributes,
-        );
+        $this->id = $id ?? $name;
+        $this->value = $this->name ? old($this->name, $this->value) : $this->value;
+        $this->showErrors = $showErrors;
+        $this->selectedLabelField = $selectedLabelField ?? $labelField;
+
+        if (is_null($this->showCheckbox)) {
+            $this->showCheckbox = $this->multiple;
+        }
+
+        if ($this->multiple && ! is_iterable($this->value)) {
+            $this->value = array_filter([$this->value]);
+        }
 
         $this->resolveIcons();
-        $this->normalizeOptions($convertValuesToString);
-        $this->placeholder = __($placeholder);
-        $this->emptyText = __($emptyText);
+        $this->resolveLang();
     }
 
-    private function normalizeOptions(bool $convertValuesToString): void
+    public function configToJs(): Js
     {
-        if ($this->options instanceof Collection) {
-            $this->options = $this->options->toArray();
-        }
-
-        if ($convertValuesToString) {
-            $this->options = array_map(function ($option) {
-                $option[$this->valueField] = (string) $option[$this->valueField];
-
-                return $option;
-            }, $this->options);
-        }
-    }
-
-    public function buttonClass(): string
-    {
-        return Arr::toCssClasses([
-            'custom-select__button',
-            'cursor-default relative w-full rounded-md border border-blue-gray-300 bg-white pl-3 pr-10 py-2 text-left transition',
-            'focus:outline-none focus:ring-4 focus:ring-opacity-50 focus:ring-blue-400',
-            'sm:text-sm',
-            $this->getAddonClass(),
-            'input-error' => $this->hasErrorsAndShow($this->name),
-            'bg-blue-gray-50 text-blue-gray-500 cursor-not-allowed' => $this->disabled,
-        ]);
-    }
-
-    public function selectedKeyToJS(): mixed
-    {
-        if (is_null($this->selectedKey)) {
-            return "''";
-        }
-
-        return is_string($this->selectedKey)
-            ? "'{$this->selectedKey}'"
-            : json_encode($this->selectedKey);
-    }
-
-    public function getContainerClass(): string
-    {
-        return Arr::toCssClasses([
-            'custom-select-container',
-            'form-text-container',
-            'flex rounded-sm shadow-sm relative',
-            $this->maxWidth,
-            $this->containerClass,
-        ]);
-    }
-
-    public function config(): array
-    {
-        return [
-            'open' => false,
-            'selected' => '',
-            'data' => $this->options,
-            'disabled' => $this->disabled,
-            'optional' => $this->optional,
+        return Js::from([
+            'name' => $this->name,
             'multiple' => $this->multiple,
-            'filterable' => $this->filterable,
+            'minSelected' => $this->minSelected,
+            'maxSelected' => $this->maxSelected,
+            'disabled' => $this->disabled,
+            'searchable' => $this->searchable,
+            'closeOnSelect' => $this->closeOnSelect,
+            'autofocus' => $this->autofocus,
             'placeholder' => $this->placeholder,
-            'valueField' => $this->valueField,
-            'textField' => $this->textField,
-            'disabledField' => $this->disabledField,
-            'max' => $this->maxOptionsSelected,
-            'wireListeners' => $this->wireListeners,
-            'selectId' => empty($this->id) ? Str::random(8) : $this->id,
-        ];
+            'optional' => $this->optional,
+            'initialLabel' => $this->initialLabel,
+            'livewireSearch' => $this->livewireSearch,
+        ]);
     }
 
-    public function configToJson(): string
+    public function hasLivewire(): bool
     {
-        return '...' . json_encode((object) $this->config()) . ',';
+        return $this->livewire || $this->livewireSearch !== null || $this->hasWireModel();
     }
 
-    private function resolveIcons(): void
+    protected function resolveIcons(): void
     {
         $this->clearIcon = $this->clearIcon ?? config('form-components.components.custom-select.clear_icon');
-        $this->selectedIcon = $this->selectedIcon ?? config('form-components.components.custom-select.selected_icon');
-        $this->uncheckIcon = $this->uncheckIcon ?? config('form-components.components.custom-select.uncheck_icon');
+    }
+
+    protected function resolveLang(): void
+    {
+        if ($this->placeholder !== false) {
+            $this->placeholder = $this->placeholder ?? __('form-components::messages.custom_select_filter_placeholder');
+        }
+
+        if ($this->noOptionsText !== false) {
+            $this->noOptionsText = $this->noOptionsText ?? __('form-components::messages.custom_select_empty_text');
+        }
+
+        if ($this->noResultsText !== false) {
+            $this->noResultsText = $this->noResultsText ?? __('form-components::messages.custom_select_no_results');
+        }
     }
 }

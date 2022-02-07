@@ -4,11 +4,17 @@ import { focusElementInParent } from '../util/focusElement';
 export default {
     optionDisabled: false,
     optionValue: null,
+    optionLabel: null,
+    optionSelectedLabel: null,
     hasFocus: false,
     _id: null,
     _optionComponentName: 'select-option',
     _optionSelector: '',
     _optionIndex: -1,
+
+    optionSelected() {
+        return this._isValueSelected(this.optionValue);
+    },
 
     _init() {
         this._id = uniqueId(this._optionComponentName);
@@ -58,10 +64,6 @@ export default {
             return;
         }
 
-        if (parentMenu._wire && parentMenu._wireToggleMethod) {
-            try {
-                parentMenu._wire[parentMenu._wireToggleMethod](this.optionValue);
-            } catch (e) {}
-        }
+        parentMenu.toggleOption(this);
     },
 };

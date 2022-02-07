@@ -4,10 +4,27 @@ export default options => ({
     ...selectMixins,
     ...options,
     _componentName: 'tree-select',
-    _focusableElementSelector: '.tree-select-option:not(.disabled)',
-    _optionElementSelector: '.tree-select-option',
-    _wireToggleMethod: 'toggleOption',
-    _focusedOptionId: null,
+    _focusableElementSelector: '.tree-select-option:not(.disabled):not(.select-no-results)',
+    _optionElementSelector: '.tree-select-option:not(.select-no-results)',
+    _topLevelOptionElementSelector: '.tree-select-option[data-level=":level"]:not(.select-no-results)',
+
+    get hasValue() {
+        return this.multiple
+            ? this.value.length > 0
+            : this.value !== '' && this.value !== null;
+    },
+
+    get hasValueAndCanClear() {
+        if (! this.optional) {
+            return false;
+        }
+
+        if (this.disabled) {
+            return false;
+        }
+
+        return this.hasValue;
+    },
 
     get searchPlaceholder() {
         if (this.multiple) {
@@ -33,35 +50,8 @@ export default options => ({
         return this.open;
     },
 
-    get ariaActiveDescendant() {
-        if (this.focusedOptionIndex < 0 || ! this._focusedOptionId) {
-            return null;
-        }
-
-        const elements = this._getAllOptionElements();
-        if (! elements.length) {
-            return null;
-        }
-
-        const option = elements.find(o => {
-            try {
-                return o._x_dataStack[0]._id === this._focusedOptionId;
-            } catch (e) {}
-        });
-
-        return option ? option._x_dataStack[0]._optionIndex : null;
-    },
-
     init() {
         this._initSelect();
-
-        if (this.searchable && this._wire) {
-            this.$watch('search', newValue => {
-                try {
-                    this._wire.handleSearch(newValue);
-                } catch (e) {}
-            });
-        }
     },
 
     closeMenu(options = { focusRoot: true }) {
@@ -119,4 +109,64 @@ export default options => ({
             option._x_dataStack[0].toggle({ parentMenu: this });
         } catch (e) {}
     },
+
+    _doLocalSearch() {
+        const options = this._getTopLevelOptionElements();
+        const lowercaseSearch = this.search ? this.search.toLowerCase() : null;
+        let matchCount = 0;
+
+        const optionMatches = option => {
+            let matches = true;
+            if (lowercaseSearch) {
+                try {
+                    const value = option._x_dataStack[0].optionValue;
+                    const label = option._x_dataStack[0].optionLabel;
+
+                    matches = String(value).toLowerCase().includes(lowercaseSearch)
+                        || String(label).toLowerCase().includes(lowercaseSearch);
+                } catch (e) {}
+            }
+
+            // Check if any children match
+            try {
+                const level = option._x_dataStack[0].level;
+                const children = [...option.querySelectorAll(this._levelOptionSelector(level + 1))];
+                let childMatches = false;
+                children.forEach(child => {
+                    const childMatch = optionMatches(child);
+
+                    if (childMatch) {
+                        childMatches = true;
+                    }
+                });
+
+                if (childMatches) {
+                    matches = true;
+                }
+            } catch (e) {}
+
+            if (matches) {
+                matchCount++;
+            }
+
+            option.style.display = matches ? null : 'none';
+
+            return matches;
+        };
+
+        options.forEach(o => optionMatches(o));
+
+        const noResults = this.$refs.noResults;
+        if (noResults) {
+            noResults.style.display = matchCount === 0 ? null : 'none';
+        }
+    },
+
+    _getTopLevelOptionElements() {
+        return [...this.menu().querySelectorAll(this._levelOptionSelector(0))];
+    },
+
+    _levelOptionSelector(level) {
+        return this._topLevelOptionElementSelector.replace(':level', level);
+    }
 });

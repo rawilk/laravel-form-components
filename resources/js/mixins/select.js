@@ -13,11 +13,15 @@ export default {
     valuePlaceholder: null,
     search: '',
     value: null,
+    valueLabel: null,
+    initialLabel: null,
     focusedOptionIndex: -1,
     focusableElements: null,
     autofocus: false,
     minSelected: 1,
     maxSelected: null,
+    selectedOptions: [],
+    livewireSearch: null,
     _wire: null,
     _root: null,
     _popper: null,
@@ -25,6 +29,8 @@ export default {
     _focusableElementSelector: '',
     _optionElementSelector: '',
     _wireToggleMethod: '',
+    _focusedOptionId: null,
+    _noCloseOnSelect: false, // flag we can set for certain actions that shouldn't close the menu
 
     menu() {
         if (! this.$refs.menu) {
@@ -61,13 +67,18 @@ export default {
     },
 
     onBackspace() {
-        if (this.disabled || this.search || ! this._wire) {
+        if (! this.open || this.disabled || this.search) {
             return;
         }
 
-        try {
-            this._wire.handleBackspace();
-        } catch (e) {}
+        const value = this.multiple
+            ? this.value[this.value.length - 1]
+            : this.value;
+
+        if (value) {
+            this._noCloseOnSelect = true;
+            this.toggleOptionByValue(value);
+        }
     },
 
     onEnter() {
@@ -92,23 +103,6 @@ export default {
         }
 
         this.closeMenu({ focusRoot: false });
-    },
-
-    onValueChanged(event) {
-        try {
-            this.valuePlaceholder = event.detail.label;
-        } catch (e) {}
-
-        if (! this.closeOnSelect && this.open) {
-            this._initPopper();
-            this._focusSearch();
-
-            return;
-        }
-
-        if (this.closeOnSelect) {
-            this._handleCloseOnSelect();
-        }
     },
 
     focusNextOption() {
@@ -190,6 +184,10 @@ export default {
 
         if (elements.length) {
             this.focusedOptionIndex = elements.findIndex(other => other.isEqualNode(el));
+
+            try {
+                this._focusedOptionId = el._x_dataStack[0]._id;
+            } catch (e) {}
         }
     },
 
@@ -202,7 +200,7 @@ export default {
 
         if (this.multiple) {
             if (isSelected && this.value.length <= this.minSelected) {
-                return false;
+                return this.optional;
             }
 
             if (! isSelected && ! this._canSelectAnotherOption()) {
@@ -217,6 +215,107 @@ export default {
         }
 
         return true;
+    },
+
+    clearValue() {
+        if (this.disabled) {
+            return;
+        }
+
+        if (! this.optional) {
+            return;
+        }
+
+        this.value = this.multiple ? [] : null;
+        this.valueLabel = null;
+    },
+
+    toggleOption(option) {
+        if (this.disabled) {
+            return;
+        }
+
+        if (this.multiple) {
+            this._toggleMultiSelectOption(option);
+        } else {
+            this._toggleSingleSelectOption(option);
+        }
+    },
+
+    toggleOptionByValue(value) {
+        let option = this._getOptionByValue(value);
+        if (option) {
+            option = option._x_dataStack[0];
+        } else {
+            option = { optionValue: value };
+        }
+
+        return this.toggleOption(option);
+    },
+
+    setNewValue(newValue) {
+        if (this.multiple) {
+            this.value = [];
+            this.selectedOptions = [];
+
+            newValue.forEach(value => this.toggleOptionByValue(value));
+
+            return;
+        }
+
+        this.value = newValue;
+    },
+
+    handleValueChange() {
+        if (! this.closeOnSelect && this.open) {
+            this._initPopper();
+            this._focusSearch();
+
+            return;
+        }
+
+        if (this.closeOnSelect && this.open) {
+            this._handleCloseOnSelect();
+        }
+    },
+
+    labelForValue(value) {
+        const option = this.selectedOptions.find(o => String(o.optionValue) === String(value));
+
+        return option ? option.optionLabel : value;
+    },
+
+    _toggleMultiSelectOption(option) {
+        const value = option.optionValue;
+        let newValue = [...this.value];
+
+        if (this._isValueSelected(value) && this._canDeSelectAnOption()) {
+            newValue.splice(newValue.indexOf(value), 1);
+            this.selectedOptions.splice(
+                this.selectedOptions.findIndex(o => String(o.optionValue) === String(value)),
+                1
+            );
+        } else if (! this._isValueSelected(value) && this._canSelectAnotherOption()) {
+            newValue.push(value);
+            this.selectedOptions.push(option);
+        }
+
+        this.value = newValue;
+    },
+
+    _toggleSingleSelectOption(option) {
+        const optionValue = typeof option === 'object' ? option.optionValue : option;
+        this.value = this._isValueSelected(optionValue)
+            ? null
+            : optionValue;
+    },
+
+    _canDeSelectAnOption() {
+        if (this.optional) {
+            return true;
+        }
+
+        return this.value.length > this.minSelected;
     },
 
     _canSelectAnotherOption() {
@@ -240,6 +339,7 @@ export default {
     _focusOption(option, options = {}) {
         try {
             option._x_dataStack[0].focus({ parent: this, ...options });
+            this.updateFocusedOptionIndexFromElement(option);
         } catch (e) {}
     },
 
@@ -265,20 +365,24 @@ export default {
             return;
         }
 
-        const focusableElements = this._getFocusableElements();
-        if (! focusableElements.length) {
-            return;
-        }
+        const option = this._getOptionByValue(firstValue);
 
-        const option = focusableElements.find(o => {
-            try {
-                return String(o._x_dataStack[0].optionValue) === firstValue;
-            } catch (e) {}
-        });
-
-        if (option) {
+        if (option && ! option.optionDisabled) {
             setTimeout(() => this._focusOption(option), 50);
         }
+    },
+
+    _getOptionByValue(value) {
+        const focusableElements = this._getAllOptionElements();
+        if (! focusableElements.length) {
+            return null;
+        }
+
+        return focusableElements.find(o => {
+            try {
+                return String(o._x_dataStack[0].optionValue) === String(value);
+            } catch (e) {}
+        });
     },
 
     _getAllOptionElements() {
@@ -295,12 +399,51 @@ export default {
     },
 
     _handleCloseOnSelect() {
-        if (! this.multiple || this.maxSelected === null) {
-            return this.closeMenu();
+        if (this._shouldCloseOnSelect()) {
+            this.closeMenu();
+        }
+    },
+
+    _handleSearch() {
+        this.focusableElements = null;
+
+        if (this.livewireSearch && this._wire) {
+            try {
+                this._wire[this.livewireSearch](this.search);
+            } catch (e) {}
+
+            return;
         }
 
-        if (this.value.length >= this.maxSelected) {
-            this.closeMenu();
+        this._doLocalSearch();
+    },
+
+    _doLocalSearch() {
+        const options = this._getAllOptionElements();
+        const lowercaseSearch = this.search ? this.search.toLowerCase() : null;
+        let matchCount = 0;
+        options.forEach(o => {
+            let matches = true;
+            if (lowercaseSearch) {
+                try {
+                    const optionValue = o._x_dataStack[0].optionValue;
+                    const label = o._x_dataStack[0].optionLabel;
+
+                    matches = String(optionValue).toLowerCase().includes(lowercaseSearch)
+                        || String(label).toLowerCase().includes(lowercaseSearch);
+                } catch (e) {}
+            }
+
+            if (matches) {
+                matchCount++;
+            }
+
+            o.style.display = matches ? null : 'none';
+        });
+
+        const noResults = this.$refs.noResults;
+        if (noResults) {
+            noResults.style.display = matchCount === 0 ? null : 'none';
         }
     },
 
@@ -324,7 +467,55 @@ export default {
         }
 
         if (this.searchable) {
-            this.$watch('search', () => this.focusableElements = null);
+            this.$watch('search', () => this._handleSearch());
+        }
+
+        if (! this.multiple && this.value && ! this.initialLabel) {
+            this._determineInitialLabel();
+        }
+
+        if (this.initialLabel) {
+            this.valueLabel = this.initialLabel;
+            this.valuePlaceholder = this.initialLabel;
+        }
+
+        if (this.multiple) {
+            this.$nextTick(() => {
+                this.selectedOptions = [...this.value].map(v => this._getOptionByValue(v)._x_dataStack[0]);
+            });
+        }
+
+        this.$watch('value', (newValue, oldValue) => {
+            // Possible bug: When livewire components are updated, the watcher
+            // gets triggered again, even if the new and old values are the same,
+            // so we want to prevent our handlers from running in those cases...
+            if (JSON.stringify(newValue) === JSON.stringify(oldValue)) {
+                return;
+            }
+
+            this._updateSelectedOption(newValue);
+            this.handleValueChange();
+
+            this.$dispatch('input', newValue);
+        });
+    },
+
+    _updateSelectedOption(newValue) {
+        if (this.multiple) {
+            return;
+        }
+
+        if (! newValue) {
+            this.valueLabel = this.placeholder;
+        }
+
+        const option = this._getOptionByValue(newValue);
+
+        if (option) {
+            try {
+                this.valueLabel = option._x_dataStack[0].optionSelectedLabel;
+                this.valuePlaceholder = option._x_dataStack[0].optionLabel;
+            } catch (e) {}
         }
     },
 
@@ -354,5 +545,46 @@ export default {
             this._popper.destroy();
             this._popper = null;
         }
+    },
+
+    _determineInitialLabel() {
+        this.$nextTick(() => {
+            const option = this._getOptionByValue(this.value);
+
+            if (option) {
+                try {
+                    this.initialLabel = option._x_dataStack[0].optionSelectedLabel;
+
+                    this.valueLabel = this.initialLabel;
+                    this.valuePlaceholder = this.initialLabel;
+
+                    return;
+                } catch (e) {}
+            }
+
+            this.initialLabel = this.value;
+            this.valueLabel = this.initialLabel;
+            this.valuePlaceholder = this.initialLabel;
+        });
+    },
+
+    _shouldCloseOnSelect() {
+        if (this._noCloseOnSelect) {
+            this._noCloseOnSelect = false;
+
+            return false;
+        }
+
+        if (! this.closeOnSelect) {
+            return false;
+        }
+
+        if (this.multiple) {
+            return this.maxSelected === null
+                ? this.value.length >= this.minSelected
+                : this.value.length >= this.maxSelected;
+        }
+
+        return true;
     },
 };

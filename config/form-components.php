@@ -43,22 +43,13 @@ return [
         'custom-select' => [
             'class' => Components\Inputs\CustomSelect::class,
 
-            // This icon will be shown on an option when it is selected.
-            'selected_icon' => 'heroicon-s-check',
-
-            /*
-             * This icon will be shown on a selected option on a select
-             * that allows clearing the value to indicate the option
-             * can be de-selected.
-             */
-            'uncheck_icon' => 'heroicon-o-x-circle',
-
             /*
              * This icon will be shown when an option is selected
              * and the "optional" attribute is set to true.
              */
             'clear_icon' => 'heroicon-o-x',
         ],
+        'custom-select-option' => Components\Inputs\CustomSelectOption::class,
         'date-picker' => [
             'class' => Components\Inputs\DatePicker::class,
 
@@ -93,6 +84,9 @@ return [
         'select' => Components\Inputs\Select::class,
         'textarea' => Components\Inputs\Textarea::class,
         'timezone-select' => Components\Inputs\TimezoneSelect::class,
+        // Tree select config is same as custom-select config
+        'tree-select' => Components\Inputs\TreeSelect::class,
+        'tree-select-option' => Components\Inputs\TreeSelectOption::class,
 
     ],
 
