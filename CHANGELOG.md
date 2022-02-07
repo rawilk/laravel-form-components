@@ -2,6 +2,29 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 7.0.0 - 2022-02-07
+### Added
+- Add new `<x-tree-select>` custom select component
+- Add new `<x-tree-select-option>` component
+- Add new `<x-custom-select-option>` component
+- Add livewire version of custom select component
+- Add livewire version of tree select component
+- Add various helper components for custom/tree select components
+
+### Changed
+- **Breaking Change:** Bump minimum Laravel version to `8.70`
+- **Breaking Change:** Move styles into `resources/css` directory, which will require a different directory and file to import into stylesheets
+- **Breaking Change:** Change `textField` prop on `customSelect` to `labelField`
+- **Breaking Change:** Change defaults of `valueField` and `labelField` on custom select component to `id` and `name`, respectively
+- Add various new props to custom select component
+- Change default styling of custom select component
+- Add Laravel 9.* compatibility
+- Add PHP 8.1 compatibility
+- Update Alpine JS CDN version in config
+
+### Fixed
+- Various bug fixes in custom select and other components
+
 ## 6.0.2 - 2022-01-10
 ### Fixed
 - Support for get the old value of a switch toggle without livewire (https://github.com/rawilk/laravel-form-components/pull/41)
