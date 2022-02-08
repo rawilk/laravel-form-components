@@ -7,6 +7,7 @@
 /.github                export-ignore
 /.gitignore             export-ignore
 /.php_cs.dist           export-ignore
+/.php_cs.dist.php       export-ignore
 /.php-cs-fixer.dist.php export-ignore
 /.php-cs-fixer.cache    export-ignore
 /docs                   export-ignore
@@ -17,4 +18,5 @@
 /package.json           export-ignore
 /package-lock.json      export-ignore
 /rollup.config.js       export-ignore
+/webpack.mix.js         export-ignore
 /bin                    export-ignore
