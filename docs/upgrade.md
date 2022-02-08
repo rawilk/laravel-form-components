@@ -3,6 +3,33 @@ title: Upgrade
 sort: 4
 ---
 
+## Upgrading from v6 to v7
+
+### Laravel Version
+
+v7 of laravel-form-components now requires a minimum Laravel version of `8.70`. Be sure to update your project to at least that version.
+
+### Styling
+
+In v7 we have moved our styles to the `resources/css` directory of this package to help simplify things a little. By default, all styles from
+the package are imported into the `index.css` stylesheet, which you can then reference in your own stylesheets. Be sure to update your stylesheet
+reference to something like this:
+
+```css
+@import '../../vendor/rawilk/laravel-form-components/resources/css/index.css';
+```
+
+### Custom Select
+
+The custom select component has been revamped in v7, and as a result some breaking changes were introduced. The following changes should be updated in your own codebase
+to continue using this component:
+
+- `textField` is now called `labelField`
+- The `valueField` and `labelField` default values have changed to `id` and `name`, respectively
+- The `min` and `max` props have changed to `minSelected` and `maxSelected`, respectively
+- "Opt Group" options no longer need to contain the group's options, as they won't be rendered automatically. You should flatten your options to a single level now.
+- `wire-listeners` is no longer included for updating dependant selects. Your dependant selects should be re-rendered to reflect an update to options now.
+
 ## Upgrading from v5 to v6
 
 ### Laravel Version

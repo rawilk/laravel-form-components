@@ -79,12 +79,11 @@ You have a couple options for how you can use the UI components' CSS, depending 
 
 ### Using Laravel Mix or Webpack with CSS-Loader
 
-You can import the built CSS in your own CSS files using `@import '../../vendor/rawilk/laravel-form-components/resources/js/laravel-form-components-styles/dist/styles.css';`.
+You can import the CSS files into your own stylesheets using `@import '../../vendor/rawilk/laravel-form-components/resources/css/index.css';'`.
 This is assuming your stylesheet is located in the `./resources/css/` directory of your project.
 
-### Directly in Blade/HTML
-
-You could copy the built CSS from `vendor/rawilk/laravel-components/resources/js/laravel-form-components-styles/dist/styles.css` into your public folder, and then use a `link` tag in your blade/html to get it: `<link rel="stylesheet" href="{{ asset('css/laravel-form-components.css') }}">`.
+This will import all the package's styles into your project, however you are free to import only the stylesheets you need as well. They are all located
+in the same directory as the `index.css` stylesheet.
 
 If you would like to customize the CSS we provide, head over to [the section on Customizing CSS](/docs/laravel-form-components/{version}/advanced-usage/customizing-css).
 

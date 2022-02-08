@@ -16,6 +16,9 @@ All notable changes to `laravel-form-components` will be documented in this file
 - **Breaking Change:** Move styles into `resources/css` directory, which will require a different directory and file to import into stylesheets
 - **Breaking Change:** Change `textField` prop on `customSelect` to `labelField`
 - **Breaking Change:** Change defaults of `valueField` and `labelField` on custom select component to `id` and `name`, respectively
+- **Breaking Change:** Rename `min` and `max` props on custom select to `minSelected` and `maxSelected`, respectively
+- **Breaking Change:** Require a flat array of options on custom select, even if they contain "opt groups"
+- **Breaking Change:** Remove `wire-listeners` from custom select
 - Add various new props to custom select component
 - Change default styling of custom select component
 - Add Laravel 9.* compatibility
