@@ -76,7 +76,7 @@ class FormComponentsServiceProvider extends ServiceProvider
         ], 'views');
 
         $this->publishes([
-            __DIR__ . '/../resources/lang' => $this->app->resourcePath('lang/vendor/form-components'),
+            __DIR__ . '/../resources/lang' => $this->app->langPath() . '/vendor/form-components',
         ], 'lang');
     }
 
