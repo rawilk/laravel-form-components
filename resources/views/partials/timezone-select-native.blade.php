@@ -4,6 +4,8 @@
     <select @if ($name) name="{{ $name }}" @endif
             @if ($id) id="{{ $id }}" @endif
             @if ($multiple) multiple @endif
+            @if ($disabled) disabled @endif
+            @if ($autofocus) autofocus @endif
 
             {!! $ariaDescribedBy() !!}
             @if ($hasErrorsAndShow($name))

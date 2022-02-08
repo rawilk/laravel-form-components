@@ -6,30 +6,34 @@ namespace Rawilk\FormComponents\Components\Inputs;
 
 class TimezoneSelect extends Select
 {
-    public null|string $placeholder;
-
     public function __construct(
-        public null | string $name = null,
-        public null | string $id = null,
+        public null|string $name = null,
+        public null|string $id = null,
         public mixed $value = null,
         public bool $multiple = false,
-        public null | string $maxWidth = null,
+        public null|string $maxWidth = null, // Native only
         bool $showErrors = true,
-        $leadingAddon = false,
-        $inlineAddon = false,
-        $inlineAddonPadding = self::DEFAULT_INLINE_ADDON_PADDING,
-        $leadingIcon = false,
-        $trailingAddon = false,
-        $trailingAddonPadding = self::DEFAULT_TRAILING_ADDON_PADDING,
-        $trailingIcon = false,
-        public bool | array | string | null $only = null,
+        $leadingAddon = false, // Native only
+        $inlineAddon = false, // Native only
+        $inlineAddonPadding = self::DEFAULT_INLINE_ADDON_PADDING, // Native only
+        $leadingIcon = false, // Native only
+        $trailingAddon = false, // Native only
+        $trailingAddonPadding = self::DEFAULT_TRAILING_ADDON_PADDING, // Native only
+        $trailingIcon = false, // Native only
+        public bool|array|string|null $only = null,
         public bool $useCustomSelect = false,
-        public bool $filterable = true,
+        public bool $searchable = true,
         public bool $optional = false,
-        null|string $placeholder = 'form-components::messages.timezone_select_placeholder',
-        public null | string $containerClass = null,
+        public bool|null|string $placeholder = null,
+        public null | string $containerClass = null, // Native only
         public $extraAttributes = '',
-        public $after = null,
+        public $after = null, // Native only
+        public int $minSelected = 1,
+        public null|int $maxSelected = null,
+        public bool $disabled = false,
+        public null|string $clearIcon = null,
+        public null|bool $showCheckbox = null,
+        public bool $autofocus = false,
     ) {
         parent::__construct(
             name: $name,
@@ -50,19 +54,45 @@ class TimezoneSelect extends Select
         );
 
         $this->only = is_null($only) ? config('form-components.timezone_subset', false) : $only;
-        $this->placeholder = __($placeholder);
+
+        $this->resolveLang();
     }
 
     public function optionsForCustomSelect(): array
     {
-        return collect(app('fc-timezone')->only($this->only)->all())
+        $groups = app('fc-timezone')->only($this->only)->all();
+        $options = [];
+
+        foreach ($groups as $regionName => $timezones) {
+            $options[] = [
+                'name' => $regionName,
+                'is_opt_group' => true,
+            ];
+
+            $options = array_merge($options, collect($timezones)->map(fn ($id, $name) => compact('id', 'name'))->values()->toArray());
+        }
+
+        return $options;
+
+        $opts = collect(app('fc-timezone')->only($this->only)->all())
             ->map(function (array $timezones, string $region) {
                 return [
-                    'label' => $region,
-                    'options' => collect($timezones)->map(fn (string $text, string $value) => compact('value', 'text'))->values()->toArray(),
+                    'name' => $region,
+                    'is_opt_group' => true,
+                    'options' => collect($timezones)->map(fn (string $name, string $id) => compact('id', 'name'))->values()->toArray(),
                 ];
             })
             ->values()
+            ->flatten(1)
             ->toArray();
+
+        return $opts;
+    }
+
+    protected function resolveLang(): void
+    {
+        if ($this->placeholder !== false) {
+            $this->placeholder = $this->placeholder ?? __('form-components::messages.timezone_select_placeholder');
+        }
     }
 }
