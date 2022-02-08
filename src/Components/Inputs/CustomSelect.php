@@ -72,7 +72,7 @@ class CustomSelect extends BladeComponent
     public function configToJs(): Js
     {
         return Js::from([
-            'name' => $this->name,
+            'name' => (string) $this->name,
             'multiple' => $this->multiple,
             'minSelected' => $this->minSelected,
             'maxSelected' => $this->maxSelected,
