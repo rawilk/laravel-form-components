@@ -282,7 +282,11 @@ export default {
     labelForValue(value) {
         const option = this.selectedOptions.find(o => String(o.optionValue) === String(value));
 
-        return option ? option.optionLabel : value;
+        if (! option) {
+            return value;
+        }
+
+        return option.optionSelectedLabel ? option.optionSelectedLabel : option.optionLabel;
     },
 
     _toggleMultiSelectOption(option) {
