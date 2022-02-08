@@ -3,7 +3,7 @@
             @if ($hasLivewire())
                 _wire: @this,
             @endif
-            @if ($hasWireModel()))
+            @if ($hasWireModel())
                 value: @entangle($attributes->wire('model')),
             @elseif ($hasXModel())
                 value: {{ $attributes->first('x-model') }},
