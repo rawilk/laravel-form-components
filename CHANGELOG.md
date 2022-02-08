@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 7.0.3 - 2022-02-08
+### Fixed
+- Use correct label on multi custom selects for selected option
+
 ## 7.0.2 - 2022-02-08
 ### Fixed
 - Fix typo in custom select x-data declaration
