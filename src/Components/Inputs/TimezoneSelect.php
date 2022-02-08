@@ -58,37 +58,6 @@ class TimezoneSelect extends Select
         $this->resolveLang();
     }
 
-    public function optionsForCustomSelect(): array
-    {
-        $groups = app('fc-timezone')->only($this->only)->all();
-        $options = [];
-
-        foreach ($groups as $regionName => $timezones) {
-            $options[] = [
-                'name' => $regionName,
-                'is_opt_group' => true,
-            ];
-
-            $options = array_merge($options, collect($timezones)->map(fn ($id, $name) => compact('id', 'name'))->values()->toArray());
-        }
-
-        return $options;
-
-        $opts = collect(app('fc-timezone')->only($this->only)->all())
-            ->map(function (array $timezones, string $region) {
-                return [
-                    'name' => $region,
-                    'is_opt_group' => true,
-                    'options' => collect($timezones)->map(fn (string $name, string $id) => compact('id', 'name'))->values()->toArray(),
-                ];
-            })
-            ->values()
-            ->flatten(1)
-            ->toArray();
-
-        return $opts;
-    }
-
     protected function resolveLang(): void
     {
         if ($this->placeholder !== false) {
