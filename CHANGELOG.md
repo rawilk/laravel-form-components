@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+### 7.0.1 - 2022-02-08
+### Fixed
+- Fix keyboard nav on custom select JS errors when no name is provided
+- Make timezone select compatible with new version of custom select
+
 ## 7.0.0 - 2022-02-07
 ### Added
 - Add new `<x-tree-select>` custom select component
