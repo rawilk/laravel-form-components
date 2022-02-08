@@ -16,7 +16,7 @@ the package are imported into the `index.css` stylesheet, which you can then ref
 reference to something like this:
 
 ```css
-@import '../../vendor/rawilk/laravel-form-components/resources/css/index.css';
+@import "../../vendor/rawilk/laravel-form-components/resources/css/index.css";
 ```
 
 ### Custom Select
@@ -24,11 +24,11 @@ reference to something like this:
 The custom select component has been revamped in v7, and as a result some breaking changes were introduced. The following changes should be updated in your own codebase
 to continue using this component:
 
-- `textField` is now called `labelField`
-- The `valueField` and `labelField` default values have changed to `id` and `name`, respectively
-- The `min` and `max` props have changed to `minSelected` and `maxSelected`, respectively
-- "Opt Group" options no longer need to contain the group's options, as they won't be rendered automatically. You should flatten your options to a single level now.
-- `wire-listeners` is no longer included for updating dependant selects. Your dependant selects should be re-rendered to reflect an update to options now.
+-   `textField` is now called `labelField`
+-   The `valueField` and `labelField` default values have changed to `id` and `name`, respectively
+-   The `min` and `max` props have changed to `minSelected` and `maxSelected`, respectively
+-   "Opt Group" options no longer need to contain the group's options, as they won't be rendered automatically. You should flatten your options to a single level now.
+-   `wire-listeners` is no longer included for updating dependant selects. Your dependant selects should be re-rendered to reflect an update to options now.
 
 ## Upgrading from v5 to v6
 
