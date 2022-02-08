@@ -2,7 +2,12 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
-### 7.0.1 - 2022-02-08
+## 7.0.2 - 2022-02-08
+### Fixed
+- Fix typo in custom select x-data declaration
+- Use `langPath()` helper to publish lang files to correct directory
+
+## 7.0.1 - 2022-02-08
 ### Fixed
 - Fix keyboard nav on custom select JS errors when no name is provided
 - Make timezone select compatible with new version of custom select
