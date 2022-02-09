@@ -70,7 +70,7 @@ class Input extends BladeComponent
         return Arr::toCssClasses([
             'form-input',
             'form-text',
-            'flex-1 block w-full px-3 py-2 border-blue-gray-300 placeholder-blue-gray-400 sm:text-sm',
+            'flex-1 block w-full px-3 py-2 border-slate-300 placeholder-slate-400 sm:text-sm',
             'focus:border-blue-300 focus:ring-opacity-50 focus:ring-4 focus:ring-blue-400' => ! $this->isPasswordToggleable(),
             $this->getAddonClass(),
             'input-error' => $this->hasErrorsAndShow($this->name),

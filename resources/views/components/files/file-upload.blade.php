@@ -31,7 +31,7 @@
 
             <label for="{{ $id }}"
                    x-bind:class="{ 'file-upload__label--focused outline-none border-blue-300 ring-blue-300': focused }"
-                   class="file-upload__label cursor-pointer py-2 px-3 border border-blue-gray-300 rounded-md text-sm leading-4 font-medium text-blue-gray-700 transition shadow-sm hover:text-blue-gray-500 active:bg-blue-gray-50 active:text-blue-gray-800"
+                   class="file-upload__label cursor-pointer py-2 px-3 border border-slate-300 rounded-md text-sm leading-4 font-medium text-slate-700 transition shadow-sm hover:text-slate-500 active:bg-slate-50 active:text-slate-800"
             >
                 <span role="button"
                       aria-controls="{{ $id }}"

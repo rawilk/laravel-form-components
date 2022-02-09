@@ -13,7 +13,7 @@
         @endif
 
         @if ($inline && $hint)
-            <span class="text-sm mt-1 text-blue-gray-500 hidden sm:block"
+            <span class="text-sm mt-1 text-slate-500 hidden sm:block"
                   @if ($inputId) id="{{ $inputId }}-hint-inline" @endif
             >
                 {{ $hint }}
@@ -21,7 +21,7 @@
         @endif
 
         @if ($helpText)
-            <p class="form-help mt-2 text-sm text-blue-gray-500" id="{{ $inputId }}-description">{{ $helpText }}</p>
+            <p class="form-help mt-2 text-sm text-slate-500" id="{{ $inputId }}-description">{{ $helpText }}</p>
         @endif
     </div>
 </div>

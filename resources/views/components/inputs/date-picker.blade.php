@@ -37,11 +37,11 @@
 >
     @if ($toggleIcon !== false)
         <span x-on:click="fp.open()"
-              class="leading-addon cursor-pointer inline-flex items-center px-3 rounded-l-md border border-r-0 border-blue-gray-300 bg-blue-gray-50 text-blue-gray-500 sm:text-sm"
+              class="leading-addon cursor-pointer inline-flex items-center px-3 rounded-l-md border border-r-0 border-slate-300 bg-slate-50 text-slate-500 sm:text-sm"
               role="button"
               title="{{ __('form-components::messages.date_picker_toggle_icon_title') }}"
         >
-            <span class="h-5 w-5 text-blue-gray-400">
+            <span class="h-5 w-5 text-slate-400">
                 <x-dynamic-component :component="$toggleIcon" />
             </span>
         </span>
@@ -77,11 +77,11 @@
                     x-transition
                     x-cloak
                     x-on:click="updateValue(null)"
-                    class="form-input-clear h-6 w-6 group rounded-full p-1 hover:bg-blue-gray-200 focus:outline-blue-gray transition-colors"
+                    class="form-input-clear h-6 w-6 group rounded-full p-1 hover:bg-slate-200 focus:outline-slate transition-colors"
                     type="button"
             >
                 <span class="sr-only">{{ __('form-components::messages.date_picker_clear_button') }}</span>
-                <span class="h-4 w-4 text-blue-gray-400 group-hover:text-blue-gray-600"><x-dynamic-component :component="$clearIcon" /></span>
+                <span class="h-4 w-4 text-slate-400 group-hover:text-slate-600"><x-dynamic-component :component="$clearIcon" /></span>
             </button>
         </div>
     @else

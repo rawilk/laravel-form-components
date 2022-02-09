@@ -4,7 +4,7 @@
         @apply pl-2
         pr-1
         border
-        border-blue-gray-300
+        border-slate-300
         rounded-md
         bg-white
         sm:text-sm
@@ -16,7 +16,7 @@
 
     .custom-select__button.disabled,
     .tree-select__button.disabled {
-        @apply bg-blue-gray-50 cursor-not-allowed;
+        @apply bg-slate-50 cursor-not-allowed;
     }
 
     .custom-select-menu,
@@ -59,12 +59,12 @@
 
     .custom-select-menu:not(.invisible)[data-popper-placement="bottom-start"] + .custom-select__button,
     .tree-select-menu:not(.invisible)[data-popper-placement="bottom-start"] + .tree-select__button {
-        @apply rounded-b-none border-b-blue-gray-200;
+        @apply rounded-b-none border-b-slate-200;
     }
 
     .custom-select-menu:not(.invisible)[data-popper-placement="top-start"] + .custom-select__button,
     .tree-select-menu:not(.invisible)[data-popper-placement="top-start"] + .tree-select__button {
-        @apply rounded-t-none border-t-blue-gray-200;
+        @apply rounded-t-none border-t-slate-200;
     }
 
     .custom-select-option,
@@ -74,12 +74,12 @@
 
     .custom-select-option__container,
     .tree-select-option__container {
-        @apply px-2.5 text-sm text-blue-gray-600 flex items-center;
+        @apply px-2.5 text-sm text-slate-600 flex items-center;
     }
 
     .custom-select-option:not(.disabled).has-focus > .custom-select-option__container,
     .tree-select-option:not(.disabled).has-focus > .tree-select-option__container{
-        @apply bg-blue-gray-100 outline-none;
+        @apply bg-slate-100 outline-none;
     }
 
     .custom-select-option.disabled > .custom-select-option__container,
@@ -93,7 +93,7 @@
     }
 
     .custom-select-option--opt-group .custom-select-option__container {
-        @apply text-blue-gray-400 font-semibold;
+        @apply text-slate-400 font-semibold;
     }
 
     .custom-select-option--opt-group .custom-select-option__label {
@@ -101,7 +101,7 @@
     }
 
     .custom-select-option--opt-group:not(:first-child) {
-        @apply border-t border-t-blue-gray-300;
+        @apply border-t border-t-slate-300;
     }
 
     .custom-select-option.selected > .custom-select-option__container,

@@ -47,7 +47,7 @@ select[disabled] {
     @apply bg-gray-100;
     
     /* default styles from the package */
-    /*@apply bg-blue-gray-50 cursor-not-allowed;*/
+    /*@apply bg-slate-50 cursor-not-allowed;*/
 }
 
 ...
@@ -66,42 +66,27 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                'blue-gray': colors.blueGray,
-                'cool-gray': colors.coolGray,
+                slate: colors.slate,
             },
         },
     },
 };
 ```
 
-This will extend the default tailwind color palette to include the `blue-gray` and `cool-gray` color variants.
+This will extend the default tailwind color palette to include the `slate` color variant.
 
 > {note} If you have a custom color palette configured, you will need to make sure you have the `blue` and `red` colors configured as well, with all
 > levels available (`50` through `900`).
 
-Certain components make use of a custom utility class called `outline-blue-gray`, which adds a 2px dotted outline around the element when focused. If you opt to not add this outline variant to your configuration, it will not affect building the CSS since the package's stylesheet does not reference it; the outline variant is only rendered directly onto the elements it's used for. If you want the outline to show up, you can add the following to your `tailwind.config.js` file:
+Certain components make use of a custom utility class called `outline-slate`, which adds a 2px dotted outline around the element when focused. If you opt to not add this outline variant to your configuration, it will not affect building the CSS since the package's stylesheet does not reference it; the outline variant is only rendered directly onto the elements it's used for. If you want the outline to show up, you can add the following to a stylesheet in a `@layer utilities`:
 
-```js
-// tailwind.config.js
-
-const colors = require('tailwindcss/colors');
-
-module.exports = {
-    // ...
-    
-    theme: {
-        extend: {
-            colors: {
-                // see above snippet for colors
-                // ...
-            },
-            
-            outline: {
-                'blue-gray': [`2px dotted ${colors.blueGray['500']}`, '2px'],
-            },
-        },
-    },
-};
+```css
+@layer utilities {
+    .outline-slate {
+        outline: 2px dotted theme('colors.slate.400');
+        outline-offset: 2px;
+    }
+}
 ```
 
 ## Purge CSS/Tailwind JIT

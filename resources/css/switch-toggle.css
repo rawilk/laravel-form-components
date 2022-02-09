@@ -19,7 +19,7 @@
         transition-colors
         ease-in-out
         duration-200
-        bg-blue-gray-200;
+        bg-slate-200;
     }
 
     .switch-toggle-simple.pressed {
@@ -75,7 +75,7 @@
         h-5
         w-5
         border
-        border-blue-gray-200
+        border-slate-200
         rounded-full
         bg-white
         shadow
@@ -105,7 +105,7 @@
     .switch-toggle[disabled].switch-toggle-simple,
     .switch-toggle.disabled .switch-toggle-short-bg,
     .switch-toggle[disabled] .switch-toggle-short-bg {
-        @apply bg-cool-gray-200;
+        @apply bg-gray-200;
     }
 
     .switch-toggle.disabled.switch-toggle-simple.pressed,
@@ -119,7 +119,7 @@
     .switch-toggle.disabled .switch-toggle-short-button,
     .switch-toggle[disabled] .switch-toggle-button,
     .switch-toggle[disabled] .switch-toggle-short-button {
-        @apply bg-blue-gray-100;
+        @apply bg-slate-100;
     }
 
     /*

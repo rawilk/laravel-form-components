@@ -42,7 +42,7 @@
         >
             @if ($hasChildren)
                 <x-heroicon-s-chevron-right
-                    class="h-4 w-4 text-blue-gray-400 group-hover:text-blue-gray-600 transition-colors"
+                    class="h-4 w-4 text-slate-400 group-hover:text-slate-600 transition-colors"
                     x-bind:class="{ 'rotate-90': expanded }"
                 />
             @endif

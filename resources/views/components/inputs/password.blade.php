@@ -33,15 +33,15 @@
                 'trailing-icon password-toggle clickable',
                 'pr-3 flex items-center bg-white border rounded-md rounded-l-none border-l-0',
                 'border-red-300' => $hasErrorsAndShow($name),
-                'border-blue-gray-300 group-focus:border-blue-300' => ! $hasErrorsAndShow($name),
+                'border-slate-300 group-focus:border-blue-300' => ! $hasErrorsAndShow($name),
              ])
              x-cloak
         >
-            <span x-show="! show" class="h-5 w-5 text-blue-gray-400">
+            <span x-show="! show" class="h-5 w-5 text-slate-400">
                 <x-dynamic-component :component="$showPasswordIcon" />
             </span>
 
-            <span x-show="show" class="h-5 w-5 text-blue-gray-400">
+            <span x-show="show" class="h-5 w-5 text-slate-400">
                 <x-dynamic-component :component="$hidePasswordIcon" />
             </span>
         </div>

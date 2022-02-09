@@ -1,7 +1,7 @@
 /* filepond overrides */
 /* purgecss start ignore */
 .filepond--panel-root {
-    @apply border-dashed border-2 border-blue-gray-200 rounded-md max-w-full transition;
+    @apply border-dashed border-2 border-slate-200 rounded-md max-w-full transition;
     @apply bg-transparent !important;
 }
 
@@ -11,7 +11,7 @@
 }
 
 .fc-filepond-desc {
-    @apply text-blue-gray-500;
+    @apply text-slate-500;
 }
 
 .fc-filepond--sub-desc {

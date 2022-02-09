@@ -50,7 +50,7 @@ class Password extends Input
     {
         return Arr::toCssClasses([
             parent::inputClass(),
-            'password-toggleable border-r-0 rounded-r-none focus:ring-0 focus:border-blue-gray-300' => $this->showToggle,
+            'password-toggleable border-r-0 rounded-r-none focus:ring-0 focus:border-slate-300' => $this->showToggle,
             'focus:border-blue-300' => $this->showToggle && ! $this->hasErrorsAndShow($this->name),
         ]);
     }

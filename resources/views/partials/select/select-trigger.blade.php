@@ -24,7 +24,7 @@
 
             @if (! $multiple)
                 <template x-if="! hasValue">
-                    <span class="inline-block max-w-full truncate align-middle text-blue-gray-400" x-show="! open" wire:key="customSelect{{ $name }}SinglePlaceholder">{{ $placeholder }}</span>
+                    <span class="inline-block max-w-full truncate align-middle text-slate-400" x-show="! open" wire:key="customSelect{{ $name }}SinglePlaceholder">{{ $placeholder }}</span>
                 </template>
             @endif
 
@@ -44,7 +44,7 @@
                         x-bind:placeholder="searchPlaceholder"
                         x-show="showSearchInput"
                         tabindex="-1"
-                        class="focus:ring-0 focus:outline-none placeholder-blue-gray-400 h-full max-w-full w-auto align-top m-0 p-0 border-0 bg-transparent"
+                        class="focus:ring-0 focus:outline-none placeholder-slate-400 h-full max-w-full w-auto align-top m-0 p-0 border-0 bg-transparent"
                         @if ($disabled) disabled @endif
                     />
                 @endif
@@ -60,7 +60,7 @@
                     x-on:click.stop="clearValue"
                     type="button"
                     tabindex="-1"
-                    class="custom-select-clear | flex items-center justify-center h-6 w-6 rounded-full text-blue-gray-400 transition-colors hover:bg-blue-gray-300 hover:text-blue-gray-500 focus:outline-blue-gray"
+                    class="custom-select-clear | flex items-center justify-center h-6 w-6 rounded-full text-slate-400 transition-colors hover:bg-slate-300 hover:text-slate-500 focus:outline-slate"
                 >
                     <span class="sr-only">{{ __('form-components::messages.custom_select_clear_button') }}</span>
                     <x-dynamic-component :component="$clearIcon" class="h-4 w-4" />

@@ -13,7 +13,7 @@
 
         @unless (is_null($hint))
             <span @class([
-                'text-sm text-blue-gray-500',
+                'text-sm text-slate-500',
                 'inline-block sm:hidden' => $inline,
             ])
             @if ($inputId) id="{{ $inputId }}-hint" @endif

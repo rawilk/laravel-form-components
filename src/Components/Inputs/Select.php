@@ -70,7 +70,7 @@ class Select extends Input
     {
         return Arr::toCssClasses([
             'form-select',
-            'block w-full pl-3 pr-10 py-2 rounded-md border-blue-gray-300 sm:text-sm focus:outline-none focus:border-blue-300 focus:ring-4 focus:ring-opacity-50 focus:ring-blue-400',
+            'block w-full pl-3 pr-10 py-2 rounded-md border-slate-300 sm:text-sm focus:outline-none focus:border-blue-300 focus:ring-4 focus:ring-opacity-50 focus:ring-blue-400',
             $this->getAddonClass(),
             'input-error' => $this->hasErrorsAndShow($this->name),
         ]);

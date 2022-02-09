@@ -24,7 +24,7 @@
 >
     @if ($label && $labelPosition === 'left')
         <span x-on:click="$refs.button.click(); $refs.button.focus();"
-              class="flex-grow switch-toggle-label form-label block text-sm font-medium leading-5 text-blue-gray-700"
+              class="flex-grow switch-toggle-label form-label block text-sm font-medium leading-5 text-slate-700"
               id="{{ $labelId() }}"
         >
             {{ $label }}
@@ -84,7 +84,7 @@
 
     @if ($label && $labelPosition === 'right')
         <span x-on:click="$refs.button.click(); $refs.button.focus()"
-              class="ml-3 switch-toggle-label form-label block text-sm font-medium leading-5 text-blue-gray-700"
+              class="ml-3 switch-toggle-label form-label block text-sm font-medium leading-5 text-slate-700"
               id="{{ $labelId() }}"
         >
             {{ $label }}

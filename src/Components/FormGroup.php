@@ -38,7 +38,7 @@ class FormGroup extends BladeComponent
             'form-group',
             'has-error' => $this->hasErrorsAndShow($this->name),
             'form-group-inline sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start' => $this->inline,
-            'form-group-inline--border sm:pt-5 sm:border-t sm:border-blue-gray-200 first:sm:pt-0 first:sm:border-none' => $this->inline && $this->border,
+            'form-group-inline--border sm:pt-5 sm:border-t sm:border-slate-200 first:sm:pt-0 first:sm:border-none' => $this->inline && $this->border,
             'mb-5 last:mb-0' => $this->marginBottom,
         ]);
     }
