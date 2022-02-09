@@ -1,11 +1,13 @@
-.leading-addon svg {
-    @apply h-5 w-5;
-}
+@layer components {
+    .leading-addon svg {
+        @apply h-5 w-5;
+    }
 
-.leading-icon {
-    z-index: 1;
-}
+    .leading-icon {
+        z-index: 1;
+    }
 
-.leading-icon svg {
-    @apply max-w-full;
+    .leading-icon svg {
+        @apply max-w-full;
+    }
 }

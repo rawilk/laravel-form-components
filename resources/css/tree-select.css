@@ -1,7 +1,9 @@
-[data-level="1"] .tree-select-option__container {
-    @apply pl-8;
-}
+@layer components {
+    [data-level="1"] .tree-select-option__container {
+        @apply pl-8;
+    }
 
-[data-level="1"] .tree-select-option__label {
-    @apply py-2.5;
+    [data-level="1"] .tree-select-option__label {
+        @apply py-2.5;
+    }
 }

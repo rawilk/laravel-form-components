@@ -1,15 +1,17 @@
-/* clears the 'X' from Internet Explorer */
-input.busy[type="search"]::-ms-clear,
-input.busy[type="search"]::-ms-reveal {
-    display: none;
-    width: 0;
-    height: 0;
-}
+@layer components {
+    /* clears the 'X' from Internet Explorer */
+    input.busy[type="search"]::-ms-clear,
+    input.busy[type="search"]::-ms-reveal {
+        display: none;
+        width: 0;
+        height: 0;
+    }
 
-/* clears the 'X' from chrome */
-input.busy[type="search"]::-webkit-search-decoration,
-input.busy[type="search"]::-webkit-search-cancel-button,
-input.busy[type="search"]::-webkit-search-results-button,
-input.busy[type="search"]::-webkit-search-results-decoration {
-    display: none;
+    /* clears the 'X' from chrome */
+    input.busy[type="search"]::-webkit-search-decoration,
+    input.busy[type="search"]::-webkit-search-cancel-button,
+    input.busy[type="search"]::-webkit-search-results-button,
+    input.busy[type="search"]::-webkit-search-results-decoration {
+        display: none;
+    }
 }

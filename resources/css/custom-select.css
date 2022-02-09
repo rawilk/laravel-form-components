@@ -1,6 +1,7 @@
-.custom-select__button,
-.tree-select__button {
-    @apply pl-2
+@layer components {
+    .custom-select__button,
+    .tree-select__button {
+        @apply pl-2
         pr-1
         border
         border-blue-gray-300
@@ -11,16 +12,16 @@
         table-fixed
         h-[38px]
         w-full;
-}
+    }
 
-.custom-select__button.disabled,
-.tree-select__button.disabled {
-    @apply bg-blue-gray-50 cursor-not-allowed;
-}
+    .custom-select__button.disabled,
+    .tree-select__button.disabled {
+        @apply bg-blue-gray-50 cursor-not-allowed;
+    }
 
-.custom-select-menu,
-.tree-select-menu {
-    @apply absolute
+    .custom-select-menu,
+    .tree-select-menu {
+        @apply absolute
         origin-top-right
         right-0
         rounded-md
@@ -29,81 +30,82 @@
         w-full
         border
         border-blue-300;
-}
+    }
 
-.custom-select-menu[data-popper-placement="top-start"],
-.tree-select-menu[data-popper-placement="top-start"] {
-    @apply rounded-b-none border-b-0;
-}
+    .custom-select-menu[data-popper-placement="top-start"],
+    .tree-select-menu[data-popper-placement="top-start"] {
+        @apply rounded-b-none border-b-0;
+    }
 
-.custom-select-menu[data-popper-placement="top-start"] .custom-select-menu__container,
-.tree-select-menu[data-popper-placement="top-start"] .tree-select-menu__container {
-    @apply rounded-b-none;
-}
+    .custom-select-menu[data-popper-placement="top-start"] .custom-select-menu__container,
+    .tree-select-menu[data-popper-placement="top-start"] .tree-select-menu__container {
+        @apply rounded-b-none;
+    }
 
-.custom-select-menu[data-popper-placement="bottom-start"],
-.tree-select-menu[data-popper-placement="bottom-start"] {
-    @apply rounded-t-none border-t-0;
-}
+    .custom-select-menu[data-popper-placement="bottom-start"],
+    .tree-select-menu[data-popper-placement="bottom-start"] {
+        @apply rounded-t-none border-t-0;
+    }
 
-.custom-select-menu[data-popper-placement="bottom-start"] .custom-select-menu__container,
-.tree-select-menu[data-popper-placement="bottom-start"] .tree-select-menu__container {
-    @apply rounded-t-none;
-}
+    .custom-select-menu[data-popper-placement="bottom-start"] .custom-select-menu__container,
+    .tree-select-menu[data-popper-placement="bottom-start"] .tree-select-menu__container {
+        @apply rounded-t-none;
+    }
 
-.custom-select-menu:not(.invisible) + .custom-select__button,
-.tree-select-menu:not(.invisible) + .tree-select__button {
-    @apply border-blue-300;
-}
+    .custom-select-menu:not(.invisible) + .custom-select__button,
+    .tree-select-menu:not(.invisible) + .tree-select__button {
+        @apply border-blue-300;
+    }
 
-.custom-select-menu:not(.invisible)[data-popper-placement="bottom-start"] + .custom-select__button,
-.tree-select-menu:not(.invisible)[data-popper-placement="bottom-start"] + .tree-select__button {
-    @apply rounded-b-none border-b-blue-gray-200;
-}
+    .custom-select-menu:not(.invisible)[data-popper-placement="bottom-start"] + .custom-select__button,
+    .tree-select-menu:not(.invisible)[data-popper-placement="bottom-start"] + .tree-select__button {
+        @apply rounded-b-none border-b-blue-gray-200;
+    }
 
-.custom-select-menu:not(.invisible)[data-popper-placement="top-start"] + .custom-select__button,
-.tree-select-menu:not(.invisible)[data-popper-placement="top-start"] + .tree-select__button {
-    @apply rounded-t-none border-t-blue-gray-200;
-}
+    .custom-select-menu:not(.invisible)[data-popper-placement="top-start"] + .custom-select__button,
+    .tree-select-menu:not(.invisible)[data-popper-placement="top-start"] + .tree-select__button {
+        @apply rounded-t-none border-t-blue-gray-200;
+    }
 
-.custom-select-option,
-.tree-select-option {
-    @apply w-full focus:outline-none;
-}
+    .custom-select-option,
+    .tree-select-option {
+        @apply w-full focus:outline-none;
+    }
 
-.custom-select-option__container,
-.tree-select-option__container {
-    @apply px-2.5 text-sm text-blue-gray-600 flex items-center;
-}
+    .custom-select-option__container,
+    .tree-select-option__container {
+        @apply px-2.5 text-sm text-blue-gray-600 flex items-center;
+    }
 
-.custom-select-option:not(.disabled).has-focus > .custom-select-option__container,
-.tree-select-option:not(.disabled).has-focus > .tree-select-option__container{
-    @apply bg-blue-gray-100 outline-none;
-}
+    .custom-select-option:not(.disabled).has-focus > .custom-select-option__container,
+    .tree-select-option:not(.disabled).has-focus > .tree-select-option__container{
+        @apply bg-blue-gray-100 outline-none;
+    }
 
-.custom-select-option.disabled > .custom-select-option__container,
-.tree-select-option.disabled > .tree-select-option__container {
-    @apply bg-gray-100 opacity-50 cursor-not-allowed;
-}
+    .custom-select-option.disabled > .custom-select-option__container,
+    .tree-select-option.disabled > .tree-select-option__container {
+        @apply bg-gray-100 opacity-50 cursor-not-allowed;
+    }
 
-.custom-select-option__label,
-.tree-select-option__label {
-    @apply py-3.5;
-}
+    .custom-select-option__label,
+    .tree-select-option__label {
+        @apply py-3.5;
+    }
 
-.custom-select-option--opt-group .custom-select-option__container {
-    @apply text-blue-gray-400 font-semibold;
-}
+    .custom-select-option--opt-group .custom-select-option__container {
+        @apply text-blue-gray-400 font-semibold;
+    }
 
-.custom-select-option--opt-group .custom-select-option__label {
-    @apply py-2;
-}
+    .custom-select-option--opt-group .custom-select-option__label {
+        @apply py-2;
+    }
 
-.custom-select-option--opt-group:not(:first-child) {
-    @apply border-t border-t-blue-gray-300;
-}
+    .custom-select-option--opt-group:not(:first-child) {
+        @apply border-t border-t-blue-gray-300;
+    }
 
-.custom-select-option.selected > .custom-select-option__container,
-.tree-select-option.selected > .tree-select-option__container {
-    @apply bg-blue-200 font-semibold;
+    .custom-select-option.selected > .custom-select-option__container,
+    .tree-select-option.selected > .tree-select-option__container {
+        @apply bg-blue-200 font-semibold;
+    }
 }
