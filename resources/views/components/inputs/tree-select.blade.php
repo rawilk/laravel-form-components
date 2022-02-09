@@ -5,6 +5,9 @@
             @endif
             @if ($hasWireModel())
                 value: @entangle($attributes->wire('model')),
+                @if ($attributes->wire('model')->hasModifier('defer'))
+                    _wireModelName: '{{ $attributes->wire('model')->value() }}',
+                @endif
             @elseif ($hasXModel())
                 value: {{ $attributes->first('x-model') }},
             @else

@@ -31,6 +31,7 @@ export default {
     _wireToggleMethod: '',
     _focusedOptionId: null,
     _noCloseOnSelect: false, // flag we can set for certain actions that shouldn't close the menu
+    _wireModelName: null,
 
     menu() {
         if (! this.$refs.menu) {
@@ -501,6 +502,13 @@ export default {
             this.handleValueChange();
 
             this.$dispatch('input', newValue);
+
+            // For some reason when using a wire:model.defer, livewire is not
+            // sending null values back to the server for updates, so we will
+            // force it to here...
+            if (newValue === null && this._wire && this._wireModelName) {
+                this._wire.set(this._wireModelName, null, true);
+            }
         });
     },
 
