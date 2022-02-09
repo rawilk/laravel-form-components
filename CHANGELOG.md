@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 7.0.4 - 2022-02-09
+### Changed
+- Wrap each css file in a `@layer components`
+- Update required tailwind colors
+
+### Fixed
+- Force custom/tree select null values to get updated when using `wire:model.defer`
+
 ## 7.0.3 - 2022-02-08
 ### Fixed
 - Use correct label on multi custom selects for selected option
