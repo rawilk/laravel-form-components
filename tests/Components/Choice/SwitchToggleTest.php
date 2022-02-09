@@ -40,8 +40,12 @@ final class SwitchToggleTest extends ComponentTestCase
     /** @test */
     public function can_have_a_wire_model_instead_of_value(): void
     {
-        $this->blade('<x-switch-toggle id="foo" wire:model="foo" />')
-            ->assertSee('value: @entangle($attributes->wire(\'model\'))', false);
+        $template = <<<HTML
+        <x-switch-toggle id="foo" wire:model="foo" />
+        HTML;
+
+        $this->blade('<livewire:blank-livewire-component :template="$template" />', ['template' => $template])
+            ->assertSee('value: window.Livewire.find(');
     }
 
     /** @test */

@@ -55,9 +55,14 @@ final class TreeSelectTest extends ComponentTestCase
     /** @test */
     public function hidden_inputs_are_not_rendered_with_model_binding_present(): void
     {
-        $this->blade('<x-tree-select name="foo" wire:model.defer="foo" />')
-            ->assertSee('_wire:')
-            ->assertSee('value: @entangle($attributes->wire(\'model\'))', false)
+        $template = <<<HTML
+        <x-tree-select name="foo" wire:model.defer="foo" />
+        HTML;
+
+        $this->blade('<livewire:blank-livewire-component :template="$template" />', ['template' => $template])
+            ->assertSee('_wire: window.livewire.find(')
+            ->assertSee('value: window.Livewire.find(')
+            ->assertSee('_wireModelName: \'foo\'', false)
             ->assertDontSee('<input type="hidden" name="foo" x-bind:value="value">', false);
 
         $this->blade('<x-tree-select name="foo" x-model.debounce="foo" />')

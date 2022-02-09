@@ -110,9 +110,14 @@ final class CustomSelectTest extends ComponentTestCase
     /** @test */
     public function hidden_inputs_are_not_rendered_with_model_binding_present(): void
     {
-        $this->blade('<x-custom-select name="foo" wire:model="foo" />')
-            ->assertSee('_wire:')
-            ->assertSee('value: @entangle($attributes->wire(\'model\'))', false)
+        $template = <<<HTML
+        <x-custom-select name="foo" wire:model="foo" />
+        HTML;
+
+        $this->blade('<livewire:blank-livewire-component :template="$template" />', ['template' => $template])
+            ->assertSee('_wire: window.livewire.find(')
+            ->assertSee('value: window.Livewire.find(')
+            ->assertDontSee('_wireModelName: \'foo\'')
             ->assertDontSee('<input type="hidden" name="foo" x-bind:value="value">', false);
 
         $this->blade('<x-custom-select name="foo" x-model="foo" />')

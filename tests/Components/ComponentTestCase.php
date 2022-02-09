@@ -7,10 +7,12 @@ namespace Rawilk\FormComponents\Tests\Components;
 use BladeUI\Heroicons\BladeHeroiconsServiceProvider;
 use BladeUI\Icons\BladeIconsServiceProvider;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithViews;
+use Livewire\Livewire;
+use Livewire\LivewireServiceProvider;
 use Orchestra\Testbench\TestCase;
 use Rawilk\FormComponents\FormComponentsServiceProvider;
+use Rawilk\FormComponents\Tests\Components\Support\BlankLivewireComponent;
 use ReflectionProperty;
-use Spatie\LaravelRay\RayServiceProvider;
 
 abstract class ComponentTestCase extends TestCase
 {
@@ -22,6 +24,8 @@ abstract class ComponentTestCase extends TestCase
 
         $this->initSession();
         $this->artisan('view:clear');
+
+        Livewire::component('blank-livewire-component', BlankLivewireComponent::class);
     }
 
     protected function initSession(): void
@@ -45,6 +49,7 @@ abstract class ComponentTestCase extends TestCase
             // RayServiceProvider::class,
             BladeIconsServiceProvider::class,
             BladeHeroiconsServiceProvider::class,
+            LivewireServiceProvider::class,
             FormComponentsServiceProvider::class,
         ];
     }
