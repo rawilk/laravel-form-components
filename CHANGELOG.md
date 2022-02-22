@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 7.0.5 - 2022-02-22
+### Fixed
+- Handle `null` value updates better when a browser event is emitted to custom select components
+
 ## 7.0.4 - 2022-02-09
 ### Changed
 - Wrap each css file in a `@layer components`
