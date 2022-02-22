@@ -1,4 +1,6 @@
 // Common functionality needed across custom selects.
+import { isObject } from '../util/inspect';
+
 let createPopper;
 
 export default {
@@ -262,6 +264,12 @@ export default {
             newValue.forEach(value => this.toggleOptionByValue(value));
 
             return;
+        }
+
+        // When emitting `null` values from php, sometimes it comes through as an object,
+        // so we'll "fix" it here.
+        if (isObject(newValue)) {
+            newValue = null;
         }
 
         this.value = newValue;
