@@ -1,5 +1,5 @@
 // Common functionality needed across custom selects.
-import { isObject } from '../util/inspect';
+import { isArray, isObject } from '../util/inspect';
 
 let createPopper;
 
@@ -343,7 +343,11 @@ export default {
         const stringValue = String(value);
 
         if (this.multiple) {
-            return this.value.some(v => String(v) === stringValue);
+            // In certain edge cases, `this.value` may not be an array, so
+            // we'll force it to be one if it's not here.
+            const value = isArray(this.value) ? this.value : [];
+
+            return value.some(v => String(v) === stringValue);
         }
 
         return stringValue === String(this.value);
