@@ -176,8 +176,8 @@ return [
         'popper' => 'https://unpkg.com/@popperjs/core@2',
 
         'quill' => [
-            'https://cdn.quilljs.com/1.3.6/quill.snow.css',
-            'https://cdn.quilljs.com/1.3.6/quill.js',
+            'https://cdn.quilljs.com/1.3.7/quill.snow.css',
+            'https://cdn.quilljs.com/1.3.7/quill.min.js',
         ],
     ],
 
