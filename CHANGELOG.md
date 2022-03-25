@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 7.1.1 - 2022-03-25
+### Updated
+- Add text alignment dropdown to quill editor toolbar by default
+
 ## 7.1.0 - 2022-03-25
 ### Added
 - Add Quill Rich Text Editor component - [#53](https://github.com/rawilk/laravel-form-components/pull/53)
