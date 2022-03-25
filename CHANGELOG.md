@@ -2,6 +2,13 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 7.1.0 - 2022-03-25
+### Added
+- Add Quill Rich Text Editor component - [#53](https://github.com/rawilk/laravel-form-components/pull/53)
+
+### Updated
+- Update vendor cdn versions in config
+
 ## 7.0.6 - 2022-03-16
 ### Fixed
 - Prevent JavaScript errors on custom select when calling `.some` on non-arrays
