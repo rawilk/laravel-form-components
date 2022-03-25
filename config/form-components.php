@@ -161,11 +161,11 @@ return [
     |
     */
     'assets' => [
-        'alpine' => 'https://unpkg.com/alpinejs@3.8.1/dist/cdn.min.js',
+        'alpine' => 'https://unpkg.com/alpinejs@3.9.3/dist/cdn.min.js',
 
         'flatpickr' => [
             'https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css',
-            'https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.9/flatpickr.min.js',
+            'https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.11/flatpickr.min.js',
         ],
 
         'filepond' => [
