@@ -15,6 +15,8 @@ class Quill extends BladeComponent
     use HandlesValidationErrors;
     use HasModels;
 
+    protected static array $assets = ['alpine', 'quill'];
+
     public function __construct(
         public null|string $name = null,
         public null|string $id = null,
