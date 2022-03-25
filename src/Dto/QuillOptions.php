@@ -27,6 +27,7 @@ class QuillOptions
     public bool $link = true;
     public bool $image = false;
     public bool $clearFormatting = true;
+    public bool $alignments = true;
     public array $customToolbarButtons = [];
     public array $toolbarHandlers = [];
 
@@ -187,6 +188,13 @@ class QuillOptions
         return $this;
     }
 
+    public function hideAlignments(): self
+    {
+        $this->alignments = false;
+
+        return $this;
+    }
+
     public function showImage(): self
     {
         $this->image = true;
@@ -224,6 +232,7 @@ class QuillOptions
             $this->scripts ? [['script' => 'super'], ['script' => 'sub']] : null,
             $this->quoteToolbar(),
             $this->listToolbar(),
+            $this->alignments ? [['align' => ['', 'center', 'right', 'justify']]] : null,
             $this->linkToolbar(),
             $this->clearFormatting ? ['clean'] : null,
             $this->customToolbarButtons,
