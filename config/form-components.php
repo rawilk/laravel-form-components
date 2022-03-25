@@ -88,6 +88,9 @@ return [
         'tree-select' => Components\Inputs\TreeSelect::class,
         'tree-select-option' => Components\Inputs\TreeSelectOption::class,
 
+        // Rich Text
+        'quill' => Components\RichText\Quill::class,
+
     ],
 
     /*
@@ -171,6 +174,11 @@ return [
         ],
 
         'popper' => 'https://unpkg.com/@popperjs/core@2',
+
+        'quill' => [
+            'https://cdn.quilljs.com/1.3.6/quill.snow.css',
+            'https://cdn.quilljs.com/1.3.6/quill.js',
+        ],
     ],
 
     /*
