@@ -13,13 +13,14 @@
         },
         toggle() {
             this.value = this.isPressed ? this.offValue : this.onValue;
+            $dispatch('input', this.value);
+            @if ($hasXModel())
+                {{ $attributes->first('x-model') }} = this.value;
+            @endif
         },
      }"
      wire:ignore.self
      class="{{ $getContainerClass() }}"
-     @if ($hasXModel())
-         x-init="$watch(value, newValue => { {{ $attributes->first('x-model') }} = newValue })"
-     @endif
      {{ $extraAttributes }}
 >
     @if ($label && $labelPosition === 'left')
