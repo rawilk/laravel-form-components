@@ -1,12 +1,12 @@
 <div x-data="{
-        onValue: {{ json_encode($onValue) }},
-        offValue: {{ json_encode($offValue) }},
+        onValue: {{ \Illuminate\Support\Js::from($onValue) }},
+        offValue: {{ \Illuminate\Support\Js::from($offValue) }},
         @if ($hasWireModel())
             value: @entangle($attributes->wire('model')),
         @elseif ($hasXModel())
             value: {{ $attributes->first('x-model') }},
         @else
-            value: {{ json_encode($value) }},
+            value: {{ \Illuminate\Support\Js::from($value) }},
         @endif
         get isPressed() {
             return this.value === this.onValue;
