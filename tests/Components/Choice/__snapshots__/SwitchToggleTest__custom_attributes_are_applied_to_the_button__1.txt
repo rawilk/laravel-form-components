@@ -7,11 +7,12 @@
         },
         toggle() {
             this.value = this.isPressed ? this.offValue : this.onValue;
-        },
+            $dispatch('input', this.value);
+                    },
      }"
      wire:ignore.self
      class="flex items-center "
-          
+     
 >
     
     <button x-bind:aria-pressed="JSON.stringify(isPressed)"
