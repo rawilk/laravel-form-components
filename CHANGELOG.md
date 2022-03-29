@@ -2,6 +2,11 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 7.1.2 - 2022-03-29
+### Fixed
+- Provide better `x-model` support for `switch-toggle` component
+- Defer to `\Illuminate\Support\Js::from()` for setting on/off values for `switch-toggle` component
+
 ## 7.1.1 - 2022-03-25
 ### Updated
 - Add text alignment dropdown to quill editor toolbar by default
