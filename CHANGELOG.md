@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 7.1.3 - 2022-03-30
+### Fixed
+- Prevent checkbox/radios from emitting the `input` event in custom selects to prevent it interfering with their toggle handlers on each option
+
 ## 7.1.2 - 2022-03-29
 ### Fixed
 - Provide better `x-model` support for `switch-toggle` component
