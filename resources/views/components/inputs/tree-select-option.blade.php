@@ -58,7 +58,7 @@
         >
             {{-- checkbox --}}
             @if ($showCheckbox)
-                <div class="flex-shrink-0 mr-2">
+                <div class="flex-shrink-0 mr-2" x-on:input.prevent.stop="() => {}">
                     <x-dynamic-component
                         :component="$multiple ? 'checkbox' : 'radio'"
                         x-bind:checked="optionSelected()"
