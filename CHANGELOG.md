@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 7.1.4 - 2022-08-24
+### Updated
+- Update blade heroicon references for v2
+
 ## 7.1.3 - 2022-03-30
 ### Fixed
 - Prevent checkbox/radios from emitting the `input` event in custom selects to prevent it interfering with their toggle handlers on each option
