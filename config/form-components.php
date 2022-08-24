@@ -79,7 +79,7 @@ return [
              * This icon will show when the password is un-masked and show toggle is enabled.
              * Can be overridden individually as well.
              */
-            'hide_password_icon' => 'heroicon-o-eye-off',
+            'hide_password_icon' => 'heroicon-o-eye-slash',
         ],
         'select' => Components\Inputs\Select::class,
         'textarea' => Components\Inputs\Textarea::class,
