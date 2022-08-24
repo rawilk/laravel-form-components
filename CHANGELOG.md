@@ -2,6 +2,10 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## 7.1.5 - 2022-08-24
+### Updated
+- Update blade heroicon references for v2
+
 ## 7.1.4 - 2022-08-24
 ### Updated
 - Update blade heroicon references for v2

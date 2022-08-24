@@ -47,7 +47,7 @@ return [
              * This icon will be shown when an option is selected
              * and the "optional" attribute is set to true.
              */
-            'clear_icon' => 'heroicon-o-x',
+            'clear_icon' => 'heroicon-o-x-mark',
         ],
         'custom-select-option' => Components\Inputs\CustomSelectOption::class,
         'date-picker' => [
@@ -62,7 +62,7 @@ return [
              * This icon will be shown when there is a value, and will allow you
              * to clear the input.
              */
-            'clear_icon' => 'heroicon-s-x',
+            'clear_icon' => 'heroicon-s-x-mark',
         ],
         'input' => Components\Inputs\Input::class,
         'email' => Components\Inputs\Email::class,
