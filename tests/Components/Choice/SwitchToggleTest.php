@@ -5,12 +5,9 @@ declare(strict_types=1);
 namespace Rawilk\FormComponents\Tests\Components\Choice;
 
 use Rawilk\FormComponents\Tests\Components\ComponentTestCase;
-use Spatie\Snapshots\MatchesSnapshots;
 
 final class SwitchToggleTest extends ComponentTestCase
 {
-    use MatchesSnapshots;
-
     /** @test */
     public function can_be_rendered(): void
     {
@@ -32,9 +29,24 @@ final class SwitchToggleTest extends ComponentTestCase
     /** @test */
     public function custom_attributes_are_applied_to_the_button(): void
     {
-        $this->assertMatchesSnapshot(
-            (string) $this->blade('<x-switch-toggle id="foo" class="foo-class" data-foo="bar" />')
-        );
+        $this->blade('<x-switch-toggle id="foo" class="foo-class" data-foo="bar" />')
+            ->assertSeeInOrder([
+                '<button',
+                'id="foo"',
+                '>',
+            ], false)
+            ->assertSeeInOrder([
+                '<button',
+                'class="',
+                'foo-class',
+                '"',
+                '>',
+            ], false)
+            ->assertSeeInOrder([
+                '<button',
+                'data-foo="bar"',
+                '>',
+            ], false);
     }
 
     /** @test */
