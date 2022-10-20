@@ -78,8 +78,9 @@
     }
 
     .custom-select-option:not(.disabled).has-focus > .custom-select-option__container,
-    .tree-select-option:not(.disabled).has-focus > .tree-select-option__container{
-        @apply bg-slate-100 outline-none;
+    .tree-select-option:not(.disabled).has-focus > .tree-select-option__container {
+        outline: none;
+        background-color: theme(colors.slate.100);
     }
 
     .custom-select-option.disabled > .custom-select-option__container,
