@@ -7,6 +7,7 @@ namespace Rawilk\FormComponents;
 final class FormComponents
 {
     private array $styles = [];
+
     private array $scripts = [];
 
     public function addStyle(string $style): void
@@ -61,7 +62,7 @@ final class FormComponents
      * This will output the JavaScript necessary to run some components
      * such as CustomSelect.
      *
-     * @param array $options
+     * @param  array  $options
      * @return string
      */
     public function javaScript(array $options = []): string

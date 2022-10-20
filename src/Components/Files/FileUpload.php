@@ -17,15 +17,16 @@ class FileUpload extends BladeComponent
 
     protected static array $assets = ['alpine'];
 
-    protected null|bool $canShowUploadProgress = null;
-    public null|string $label;
+    protected ?bool $canShowUploadProgress = null;
+
+    public ?string $label;
 
     public function __construct(
-        public null | string $name = null,
-        public null | string $id = null,
-        null|string $label = 'form-components::messages.file_upload_label',
+        public ?string $name = null,
+        public ?string $id = null,
+        ?string $label = 'form-components::messages.file_upload_label',
         public bool $multiple = false,
-        null|string $type = null,
+        ?string $type = null,
         // Display the file upload progress if using livewire.
         // Only applies if a "wire:model" attribute is set.
         public bool $displayUploadProgress = true,
@@ -39,7 +40,7 @@ class FileUpload extends BladeComponent
         $this->label = __($label);
     }
 
-    public function canShowUploadProgress($attributes): bool
+    public function canShowUploadProgress(): bool
     {
         if (! is_null($this->canShowUploadProgress)) {
             return $this->canShowUploadProgress;

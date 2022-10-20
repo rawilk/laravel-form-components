@@ -19,7 +19,7 @@ final class TreeSelectOptionTest extends ComponentTestCase
     /** @test */
     public function is_aware_of_parent_select_name(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-tree-select name="foo">
             <x-tree-select-option value="bar" />
         </x-tree-select>
@@ -32,7 +32,7 @@ final class TreeSelectOptionTest extends ComponentTestCase
     /** @test */
     public function can_render_a_checkbox_on_the_option(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-tree-select name="foo" show-checkbox multiple>
             <x-tree-select-option value="foo" label="Foo" />
         </x-tree-select>
@@ -46,7 +46,7 @@ final class TreeSelectOptionTest extends ComponentTestCase
     /** @test */
     public function checkbox_is_optional(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-tree-select name="foo" :show-checkbox="false" multiple>
             <x-tree-select-option value="foo" label="Foo" />
         </x-tree-select>
@@ -60,7 +60,7 @@ final class TreeSelectOptionTest extends ComponentTestCase
     /** @test */
     public function label_can_be_slotted(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-tree-select-option value="foo">My custom label</x-tree-select-option>
         HTML;
 
@@ -78,9 +78,9 @@ final class TreeSelectOptionTest extends ComponentTestCase
             ['id' => 'child_2', 'name' => 'Child 2', 'children' => []],
         ];
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-tree-select name="foo">
-            <x-tree-select-option value="parent_1" label="Parent" :children="\$children" />
+            <x-tree-select-option value="parent_1" label="Parent" :children="$children" />
         </x-tree-select>
         HTML;
 

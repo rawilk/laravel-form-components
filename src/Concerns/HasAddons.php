@@ -10,12 +10,17 @@ use Illuminate\Support\Arr;
 trait HasAddons
 {
     public $leadingAddon;
+
     public $inlineAddon;
+
     public $inlineAddonPadding;
+
     public $leadingIcon;
 
     public $trailingAddon;
+
     public $trailingAddonPadding;
+
     public $trailingIcon;
 
     protected function getAddonClass(): string
@@ -57,7 +62,7 @@ trait HasAddons
      * (e.g. <x-slot name="leadingAddon"> instead of leading-addon="")
      * we need to set them in the render method as they don't get set in the constructor.
      *
-     * @param array $data
+     * @param  array  $data
      */
     protected function setSlotAddonAttributes(array $data): void
     {

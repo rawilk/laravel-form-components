@@ -40,7 +40,7 @@ final class SwitchToggleTest extends ComponentTestCase
     /** @test */
     public function can_have_a_wire_model_instead_of_value(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-switch-toggle id="foo" wire:model="foo" />
         HTML;
 
@@ -79,7 +79,7 @@ final class SwitchToggleTest extends ComponentTestCase
     /** @test */
     public function can_have_on_and_off_state_icons(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-switch-toggle id="foo">
             <x-slot name="offIcon">off</x-slot>
             <x-slot name="onIcon">on</x-slot>

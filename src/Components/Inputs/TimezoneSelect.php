@@ -7,11 +7,11 @@ namespace Rawilk\FormComponents\Components\Inputs;
 class TimezoneSelect extends Select
 {
     public function __construct(
-        public null|string $name = null,
-        public null|string $id = null,
+        public ?string $name = null,
+        public ?string $id = null,
         public mixed $value = null,
         public bool $multiple = false,
-        public null|string $maxWidth = null, // Native only
+        public ?string $maxWidth = null, // Native only
         bool $showErrors = true,
         $leadingAddon = false, // Native only
         $inlineAddon = false, // Native only
@@ -25,14 +25,14 @@ class TimezoneSelect extends Select
         public bool $searchable = true,
         public bool $optional = false,
         public bool|null|string $placeholder = null,
-        public null | string $containerClass = null, // Native only
+        public ?string $containerClass = null, // Native only
         public $extraAttributes = '',
         public $after = null, // Native only
         public int $minSelected = 1,
-        public null|int $maxSelected = null,
+        public ?int $maxSelected = null,
         public bool $disabled = false,
-        public null|string $clearIcon = null,
-        public null|bool $showCheckbox = null,
+        public ?string $clearIcon = null,
+        public ?bool $showCheckbox = null,
         public bool $autofocus = false,
     ) {
         parent::__construct(

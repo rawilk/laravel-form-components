@@ -9,9 +9,13 @@ trait HandlesSelectOptions
     use GetsSelectOptionProperties;
 
     public string $valueField = 'id';
+
     public string $labelField = 'name';
-    public null|string $selectedLabelField = null;
+
+    public ?string $selectedLabelField = null;
+
     public string $disabledField = 'disabled';
+
     public string $isOptGroupField = 'is_opt_group';
 
     public function handleSearch($search): void

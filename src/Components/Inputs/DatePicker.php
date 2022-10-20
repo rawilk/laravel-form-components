@@ -8,13 +8,13 @@ class DatePicker extends Input
 {
     protected static array $assets = ['alpine', 'flatpickr'];
 
-    public null|string $placeholder;
+    public ?string $placeholder;
 
     public function __construct(
-        public null | string $name = null,
-        public null | string $id = null,
+        public ?string $name = null,
+        public ?string $id = null,
         public mixed $value = null,
-        public null | string $maxWidth = null,
+        public ?string $maxWidth = null,
         bool $showErrors = true,
         $leadingAddon = false,
         $inlineAddon = false,
@@ -27,12 +27,12 @@ class DatePicker extends Input
         public bool $clickOpens = false,
         public bool $allowInput = true,
         public bool $enableTime = false,
-        public bool | null | string $format = false,
+        public bool|null|string $format = false,
         public bool $clearable = false,
-        null|string $placeholder = 'form-components::messages.date_picker_placeholder',
-        public bool | null | string  $toggleIcon = null,
-        public null | string $clearIcon = null,
-        public null | string $containerClass = null,
+        ?string $placeholder = 'form-components::messages.date_picker_placeholder',
+        public bool|null|string $toggleIcon = null,
+        public ?string $clearIcon = null,
+        public ?string $containerClass = null,
         public $extraAttributes = '',
         public $after = null,
     ) {

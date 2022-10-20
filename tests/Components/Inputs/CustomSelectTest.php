@@ -25,8 +25,8 @@ final class CustomSelectTest extends ComponentTestCase
             ['id' => 'bar', 'name' => 'Bar'],
         ];
 
-        $template = <<<HTML
-        <x-custom-select name="foo" :options="\$options" />
+        $template = <<<'HTML'
+        <x-custom-select name="foo" :options="$options" />
         HTML;
 
         // By default, each option renders the label of an option in a <span> tag.
@@ -41,7 +41,7 @@ final class CustomSelectTest extends ComponentTestCase
     /** @test */
     public function can_render_slotted_options(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-custom-select name="foo">
             <x-custom-select-option value="foo" label="Foo" />
             <x-custom-select-option value="bar" label="Bar" />
@@ -110,7 +110,7 @@ final class CustomSelectTest extends ComponentTestCase
     /** @test */
     public function hidden_inputs_are_not_rendered_with_model_binding_present(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-custom-select name="foo" wire:model="foo" />
         HTML;
 

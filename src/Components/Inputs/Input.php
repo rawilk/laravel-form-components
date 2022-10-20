@@ -28,13 +28,13 @@ class Input extends BladeComponent
     public const DEFAULT_TRAILING_ADDON_PADDING = 'pr-12';
 
     public function __construct(
-        public null | string $name = null,
-        public null | string $id = null,
+        public ?string $name = null,
+        public ?string $id = null,
         public string $type = 'text',
         public mixed $value = null,
-        public null | string $maxWidth = null,
+        public ?string $maxWidth = null,
         bool $showErrors = true,
-        public null | string $containerClass = null,
+        public ?string $containerClass = null,
         $leadingAddon = false,
         $inlineAddon = false,
         $inlineAddonPadding = self::DEFAULT_INLINE_ADDON_PADDING,

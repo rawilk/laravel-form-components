@@ -5,6 +5,7 @@ namespace Rawilk\FormComponents\Concerns;
 trait HasModels
 {
     protected $hasWireModel;
+
     protected $hasXModel;
 
     public function hasBoundModel(): bool

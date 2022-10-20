@@ -11,16 +11,16 @@ class FormGroup extends BladeComponent
 
     public function __construct(
         public string $name = '',
-        public null | string | bool $label = null,
-        public null | string $inputId = null,
+        public null|string|bool $label = null,
+        public ?string $inputId = null,
         public bool $inline = false,
         bool $showErrors = true,
-        public null | string $helpText = null,
+        public ?string $helpText = null,
         public bool $border = true,
         public bool $isCheckboxGroup = false,
-        public null | string $labelId = null,
+        public ?string $labelId = null,
         public bool $marginBottom = true,
-        public null | string $hint = null,
+        public ?string $hint = null,
         public bool $optional = false,
         public bool $customSelectLabel = false,
     ) {

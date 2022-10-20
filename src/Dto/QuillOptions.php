@@ -7,28 +7,48 @@ namespace Rawilk\FormComponents\Dto;
 class QuillOptions
 {
     public string $theme = 'snow';
-    public null|array $toolbar = null;
+
+    public ?array $toolbar = null;
 
     // Toolbar options
     public bool|array $font = true;
+
     public bool $size = true;
+
     public bool $bold = true;
+
     public bool $italic = true;
+
     public bool $underline = true;
+
     public bool $strike = true;
+
     public bool|array $color = true;
+
     public bool|array $background = true;
+
     public bool $scripts = true;
+
     public bool $codeBlock = true;
+
     public bool $blockQuote = true;
+
     public bool $orderedList = true;
+
     public bool $unOrderedList = true;
+
     public bool $indentText = true;
+
     public bool $link = true;
+
     public bool $image = false;
+
     public bool $clearFormatting = true;
+
     public bool $alignments = true;
+
     public array $customToolbarButtons = [];
+
     public array $toolbarHandlers = [];
 
     public static function defaults(): self

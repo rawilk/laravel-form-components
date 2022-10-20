@@ -18,12 +18,12 @@ class FilePond extends BladeComponent
     public function __construct(
         public bool $multiple = false,
         public bool $allowDrop = true,
-        public null | string $name = null,
+        public ?string $name = null,
         public array $options = [],
         public bool $disabled = false,
-        public null | int $maxFiles = null,
-        null|string $type = null,
-        public null | string $description = null,
+        public ?int $maxFiles = null,
+        ?string $type = null,
+        public ?string $description = null,
         /*
          * When set to true, the component will watch for changes to the wire:model
          * and manually remove the files from the FilePond instance if they are

@@ -19,7 +19,7 @@ final class CustomSelectOptionTest extends ComponentTestCase
     /** @test */
     public function is_aware_of_a_parent_select_name(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-custom-select name="foo">
             <x-custom-select-option value="bar" />
         </x-custom-select>
@@ -34,7 +34,7 @@ final class CustomSelectOptionTest extends ComponentTestCase
     /** @test */
     public function can_render_a_checkbox_on_the_option(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-custom-select name="foo" show-checkbox multiple>
             <x-custom-select-option value="foo" label="Foo" />
         </x-custom-select>
@@ -48,7 +48,7 @@ final class CustomSelectOptionTest extends ComponentTestCase
     /** @test */
     public function checkbox_is_optional(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-custom-select name="foo" :show-checkbox="false" multiple>
             <x-custom-select-option value="foo" label="Foo" />
         </x-custom-select>
@@ -62,7 +62,7 @@ final class CustomSelectOptionTest extends ComponentTestCase
     /** @test */
     public function label_can_be_slotted(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-custom-select-option value="foo">My custom label</x-custom-select-option>
         HTML;
 

@@ -13,12 +13,12 @@ class Select extends Input
     public const DEFAULT_TRAILING_ADDON_PADDING = 'pr-14';
 
     public function __construct(
-        public null | string $name = null,
-        public null | string $id = null,
-        public array | Collection $options = [],
+        public ?string $name = null,
+        public ?string $id = null,
+        public array|Collection $options = [],
         public mixed $value = null,
         public bool $multiple = false,
-        public null | string $maxWidth = null,
+        public ?string $maxWidth = null,
         bool $showErrors = true,
         $leadingAddon = false,
         $inlineAddon = false,
@@ -27,7 +27,7 @@ class Select extends Input
         $trailingAddon = false,
         $trailingAddonPadding = self::DEFAULT_TRAILING_ADDON_PADDING,
         $trailingIcon = false,
-        public null | string $containerClass = null,
+        public ?string $containerClass = null,
         public $extraAttributes = '',
         public $after = null,
     ) {

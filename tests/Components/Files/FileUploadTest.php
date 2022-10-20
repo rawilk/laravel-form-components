@@ -38,7 +38,7 @@ final class FileUploadTest extends ComponentTestCase
     /** @test */
     public function can_have_an_after_slot(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-file-upload name="file">
             <x-slot name="after">
                 <div>After slot content...</div>
@@ -57,7 +57,7 @@ final class FileUploadTest extends ComponentTestCase
     /** @test */
     public function can_have_default_slotted_content(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-file-upload name="file">
             <div>Default slot content...</div>
         </x-file-upload>
@@ -80,8 +80,9 @@ final class FileUploadTest extends ComponentTestCase
     /**
      * @test
      * @dataProvider acceptsTypes
-     * @param string $type
-     * @param string $expected
+     *
+     * @param  string  $type
+     * @param  string  $expected
      */
     public function can_be_told_to_accept_certain_preset_types(string $type, string $expected): void
     {

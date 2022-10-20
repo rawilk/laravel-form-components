@@ -25,8 +25,8 @@ final class TreeSelectTest extends ComponentTestCase
             ['id' => 'bar', 'name' => 'Bar'],
         ];
 
-        $template = <<<HTML
-        <x-tree-select name="foo" :options="\$options" />
+        $template = <<<'HTML'
+        <x-tree-select name="foo" :options="$options" />
         HTML;
 
         // By default, each option renders the label of an option in a <span> tag.
@@ -55,7 +55,7 @@ final class TreeSelectTest extends ComponentTestCase
     /** @test */
     public function hidden_inputs_are_not_rendered_with_model_binding_present(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-tree-select name="foo" wire:model.defer="foo" />
         HTML;
 
