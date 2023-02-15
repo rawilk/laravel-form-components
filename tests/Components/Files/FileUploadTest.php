@@ -79,10 +79,8 @@ final class FileUploadTest extends ComponentTestCase
 
     /**
      * @test
-     * @dataProvider acceptsTypes
      *
-     * @param  string  $type
-     * @param  string  $expected
+     * @dataProvider acceptsTypes
      */
     public function can_be_told_to_accept_certain_preset_types(string $type, string $expected): void
     {
