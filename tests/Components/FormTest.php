@@ -71,9 +71,8 @@ final class FormTest extends ComponentTestCase
 
     /**
      * @test
-     * @dataProvider formMethodsWithoutCsrf
      *
-     * @param  string  $method
+     * @dataProvider formMethodsWithoutCsrf
      */
     public function csrf_input_is_not_rendered_on_certain_form_methods(string $method): void
     {
