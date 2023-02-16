@@ -2,81 +2,95 @@
 
 declare(strict_types=1);
 
-namespace Rawilk\FormComponents\Tests\Components\Inputs;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
+use function Pest\Laravel\get;
+use Sinnbeck\DomAssertions\Asserts\AssertElement;
 
-use Rawilk\FormComponents\Tests\Components\ComponentTestCase;
+it('can be rendered', function () {
+    Route::get('/test', fn () => Blade::render('<x-custom-select-option />'));
 
-final class CustomSelectOptionTest extends ComponentTestCase
-{
-    /** @test */
-    public function can_render_component(): void
-    {
-        $this->blade('<x-custom-select-option />')
-            ->assertSee('custom-select-option')
-            ->assertSee('x-data="customSelectOption(', false);
-    }
+    get('/test')
+        ->assertElementExists('.custom-select-option', function (AssertElement $option) {
+            $option->is('li')
+                ->has('role', 'option')
+                ->has('x-data');
+        });
+});
 
-    /** @test */
-    public function is_aware_of_a_parent_select_name(): void
-    {
-        $template = <<<'HTML'
-        <x-custom-select name="foo">
-            <x-custom-select-option value="bar" />
-        </x-custom-select>
-        HTML;
+it('is aware of parent select name', function () {
+    $template = <<<'HTML'
+    <x-custom-select name="foo">
+        <x-custom-select-option value="bar" />
+    </x-custom-select>
+    HTML;
 
-        // Every option gets an id assigned that is a combination of the parent
-        // select's name and the option's value.
-        $this->blade($template)
-            ->assertSee('id="customSelectfooOption-bar"', false);
-    }
+    Route::get('/test', fn () => Blade::render($template));
 
-    /** @test */
-    public function can_render_a_checkbox_on_the_option(): void
-    {
-        $template = <<<'HTML'
-        <x-custom-select name="foo" show-checkbox multiple>
-            <x-custom-select-option value="foo" label="Foo" />
-        </x-custom-select>
-        HTML;
+    // Every option gets an id assigned that is a combination of the parent
+    // select's name and the option's value.
+    get('/test')
+        ->assertElementExists('.custom-select-option', function (AssertElement $option) {
+            $option->has('id', 'customSelectfooOption-bar');
+        });
+});
 
-        $this->blade($template)
-            ->assertSee('x-bind:checked="optionSelected()"', false)
-            ->assertSee('type="checkbox"', false);
-    }
+it('can render a checkbox on the option', function () {
+    $template = <<<'HTML'
+    <x-custom-select name="foo" show-checkbox multiple>
+        <x-custom-select-option value="foo" label="Foo" />
+    </x-custom-select>
+    HTML;
 
-    /** @test */
-    public function checkbox_is_optional(): void
-    {
-        $template = <<<'HTML'
-        <x-custom-select name="foo" :show-checkbox="false" multiple>
-            <x-custom-select-option value="foo" label="Foo" />
-        </x-custom-select>
-        HTML;
+    Route::get('/test', fn () => Blade::render($template));
 
-        $this->blade($template)
-            ->assertDontSee('x-bind:checked="optionSelected()"', false)
-            ->assertDontSee('type="checkbox"', false);
-    }
+    get('/test')
+        ->assertElementExists('.custom-select-option', function (AssertElement $option) {
+            $option->contains('input', [
+                'type' => 'checkbox',
+                'name' => 'foo',
+                'id' => 'foofoo',
+                'value' => 'foo',
+            ]);
+        });
+});
 
-    /** @test */
-    public function label_can_be_slotted(): void
-    {
-        $template = <<<'HTML'
-        <x-custom-select-option value="foo">My custom label</x-custom-select-option>
-        HTML;
+test('showing a checkbox is optional', function () {
+    $template = <<<'HTML'
+    <x-custom-select name="foo" :show-checkbox="false" multiple>
+        <x-custom-select-option value="foo" label="Foo" />
+    </x-custom-select>
+    HTML;
 
-        $this->blade($template)
-            ->assertSee('<span>My custom label</span>', false);
-    }
+    Route::get('/test', fn () => Blade::render($template));
 
-    /** @test */
-    public function can_be_an_opt_group(): void
-    {
-        $this->blade('<x-custom-select-option value="foo" label="Foo" is-opt-group />')
-            ->assertDontSee('x-data')
-            ->assertSee('custom-select-option--opt-group')
-            ->assertDontSee('x-on:click.stop="toggle"')
-            ->assertSee('<span>Foo</span>', false);
-    }
-}
+    get('/test')
+        ->assertElementExists('.custom-select-option', function (AssertElement $option) {
+            $option->doesntContain('input', [
+                'type' => 'checkbox',
+            ]);
+        });
+});
+
+test('label can be slotted', function () {
+    Route::get('/test', fn () => Blade::render('<x-custom-select-option value="foo">My custom label</x-custom-select-option>'));
+
+    get('/test')
+        ->assertElementExists('.custom-select-option', function (AssertElement $option) {
+            $option->containsText('My custom label');
+        });
+});
+
+it('can be classified as an opt group', function () {
+    Route::get('/test', fn () => Blade::render('<x-custom-select-option value="foo" label="Foo" is-opt-group />'));
+
+    get('/test')
+        ->assertElementExists('.custom-select-option', function (AssertElement $option) {
+            $option->has('class', 'custom-select-option--opt-group')
+                ->doesntHave('x-data')
+                ->doesntHave('x-on:click.stop')
+                ->contains('span', [
+                    'text' => 'Foo',
+                ]);
+        });
+});

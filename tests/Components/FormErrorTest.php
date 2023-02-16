@@ -1,39 +1,51 @@
 <?php
 
-namespace Rawilk\FormComponents\Tests\Components;
+declare(strict_types=1);
 
-final class FormErrorTest extends ComponentTestCase
-{
-    /** @test */
-    public function can_be_rendered(): void
-    {
-        $this->withViewErrors(['first_name' => 'Name is required.']);
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
+use Sinnbeck\DomAssertions\Asserts\AssertElement;
+use function Pest\Laravel\get;
 
-        $this->blade('<x-form-error name="first_name" />')
-            ->assertSeeText('Name is required.')
-            ->assertSee('form-error')
-            ->assertSee('first_name-error');
-    }
+it('can be rendered', function () {
+    $this->withViewErrors(['first_name' => 'Name is required']);
 
-    /** @test */
-    public function it_can_be_slotted(): void
-    {
-        $this->withViewErrors(['first_name' => ['Incorrect first name.', 'Needs at least 5 characters.']]);
+    Route::get('/test', fn () => Blade::render('<x-form-error name="first_name" />'));
 
-        $template = <<<'HTML'
-        <x-form-error name="first_name" tag="div">
-            <ul>
-                @foreach ($component->messages($errors) as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </x-form-error>
-        HTML;
+    get('/test')
+        ->assertElementExists('p', function (AssertElement $p) {
+            $p->is('p')
+                ->has('class', 'form-error')
+                ->has('id', 'first_name-error')
+                ->containsText('Name is required');
+        });
+});
 
-        $this->blade($template)
-            ->assertSeeInOrder([
-                '<li>Incorrect first name.</li>',
-                '<li>Needs at least 5 characters.</li>',
-            ], false);
-    }
-}
+it('can be slotted', function () {
+    $this->withViewErrors(['first_name' => ['Incorrect first name.', 'Needs at least 5 characters.']]);
+
+    $template = <<<'HTML'
+    <x-form-error name="first_name" tag="div">
+        <ul>
+            @foreach ($component->messages($errors) as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </x-form-error>
+    HTML;
+
+    Route::get('/test', fn () => Blade::render($template));
+
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $ul = $div->find('ul');
+
+            $ul->contains('li:first-child', [
+                'text' => 'Incorrect first name.',
+            ]);
+
+            $ul->contains('li:last-child', [
+                'text' => 'Needs at least 5 characters.',
+            ]);
+        });
+});

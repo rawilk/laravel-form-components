@@ -2,126 +2,110 @@
 
 declare(strict_types=1);
 
-namespace Rawilk\FormComponents\Tests\Components\Inputs;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
+use function Pest\Laravel\get;
+use Sinnbeck\DomAssertions\Asserts\AssertElement;
 
-use Rawilk\FormComponents\Tests\Components\ComponentTestCase;
+it('can be rendered', function () {
+    Route::get('/test', fn () => Blade::render('<x-custom-select />'));
 
-final class CustomSelectTest extends ComponentTestCase
-{
-    /** @test */
-    public function can_render_component(): void
-    {
-        $this->blade('<x-custom-select />')
-            ->assertSee('x-data="customSelect({', false)
-            ->assertSee('x-ref="menu"', false)
-            ->assertSee('custom-select__button');
-    }
+    get('/test')
+        ->assertElementExists('div:first-child > div:first-child', function (AssertElement $select) {
+            $select->has('x-data')
+                ->has('data-name')
+                ->contains('div', [
+                    'x-ref' => 'menu',
+                ])
+                ->contains('.custom-select__button');
+        });
+});
 
-    /** @test */
-    public function renders_an_array_of_options(): void
-    {
-        $options = [
-            ['id' => 'foo', 'name' => 'Foo'],
-            ['id' => 'bar', 'name' => 'Bar'],
-        ];
+it('renders an array of options', function () {
+    $options = [
+        ['id' => 'foo', 'name' => 'Foo'],
+        ['id' => 'bar', 'name' => 'Bar'],
+    ];
 
-        $template = <<<'HTML'
-        <x-custom-select name="foo" :options="$options" />
-        HTML;
+    Route::get('/test', fn () => Blade::render('<x-custom-select name="my_select" :options="$options" />', ['options' => $options]));
 
-        // By default, each option renders the label of an option in a <span> tag.
-        $this->blade($template, ['options' => $options])
-            ->assertSee('custom-select-option')
-            ->assertSeeInOrder([
-                '<span>Foo</span>',
-                '<span>Bar</span>',
-            ], false);
-    }
+    get('/test')
+        ->assertElementExists('[x-ref="menu"]', function (AssertElement $menu) {
+            $foo = $menu->find('li#customSelectmy_selectOption-foo');
+            $foo->containsText('Foo');
 
-    /** @test */
-    public function can_render_slotted_options(): void
-    {
-        $template = <<<'HTML'
-        <x-custom-select name="foo">
-            <x-custom-select-option value="foo" label="Foo" />
-            <x-custom-select-option value="bar" label="Bar" />
-        </x-custom-select>
-        HTML;
+            $bar = $menu->find('li#customSelectmy_selectOption-bar');
+            $bar->containsText('Bar');
+        });
+});
 
-        $this->blade($template)
-            ->assertSeeInOrder([
-                'id="customSelectfooOption-foo"',
-                '<span>Foo</span>',
-                'id="customSelectfooOption-bar"',
-                '<span>Bar</span>',
-            ], false);
-    }
+it('can render slotted options', function () {
+    $template = <<<'HTML'
+    <x-custom-select name="foo">
+        <x-custom-select-option value="foo" label="Foo" />
+        <x-custom-select-option value="bar" label="Bar" />
+    </x-custom-select>
+    HTML;
 
-    /** @test */
-    public function can_render_a_flat_array_of_options(): void
-    {
-        $options = ['foo', 'bar'];
+    Route::get('/test', fn () => Blade::render($template));
 
-        $this->blade(
-            '<x-custom-select name="foo" :options="$options" />',
-            ['options' => $options]
-        )->assertSeeInOrder([
-            'id="customSelectfooOption-foo"',
-            '<span>foo</span>',
-            'id="customSelectfooOption-bar"',
-            '<span>bar</span>',
-        ], false);
-    }
+    get('/test')
+        ->assertElementExists('[x-ref="menu"]', function (AssertElement $menu) {
+            $foo = $menu->find('li#customSelectfooOption-foo');
+            $foo->containsText('Foo');
 
-    /** @test */
-    public function can_use_custom_value_and_label_keys(): void
-    {
-        $options = [
-            ['value' => 'foo', 'text' => 'Foo'],
-            ['value' => 'bar', 'text' => 'Bar'],
-        ];
+            $bar = $menu->find('li#customSelectfooOption-bar');
+            $bar->containsText('Bar');
+        });
+});
 
-        $this->blade(
-            '<x-custom-select name="foo" :options="$options" value-field="value" label-field="text" />',
-            ['options' => $options]
-        )->assertSee('custom-select-option')
-        ->assertSeeInOrder([
-            'id="customSelectfooOption-foo"',
-            '<span>Foo</span>',
-            'id="customSelectfooOption-bar"',
-            '<span>Bar</span>',
-        ], false);
-    }
+it('accepts a flat array of options', function () {
+    $options = ['foo', 'bar'];
 
-    /** @test */
-    public function hidden_inputs_are_rendered_without_a_wire_model_or_x_model_present(): void
-    {
-        $this->blade('<x-custom-select name="foo" />')
-            ->assertSee('<input type="hidden" name="foo" x-bind:value="value">', false);
+    Route::get('/test', fn () => Blade::render('<x-custom-select name="my_select" :options="$options" />', ['options' => $options]));
 
-        $this->blade('<x-custom-select name="foo" multiple />')
-            ->assertSeeInOrder([
-                '<template x-for="singleValue in value">',
-                '<input type="hidden" name="foo[]" x-bind:value="singleValue">',
-                '</template>',
-            ], false);
-    }
+    get('/test')
+        ->assertElementExists('[x-ref="menu"]', function (AssertElement $menu) {
+            $foo = $menu->find('li#customSelectmy_selectOption-foo');
+            $foo->containsText('foo');
 
-    /** @test */
-    public function hidden_inputs_are_not_rendered_with_model_binding_present(): void
-    {
-        $template = <<<'HTML'
-        <x-custom-select name="foo" wire:model="foo" />
-        HTML;
+            $bar = $menu->find('li#customSelectmy_selectOption-bar');
+            $bar->containsText('bar');
+        });
+});
 
-        $this->blade('<livewire:blank-livewire-component :template="$template" />', ['template' => $template])
-            ->assertSee('_wire: window.livewire.find(')
-            ->assertSee('value: window.Livewire.find(')
-            ->assertDontSee('_wireModelName: \'foo\'')
-            ->assertDontSee('<input type="hidden" name="foo" x-bind:value="value">', false);
+it('can use custom value and label keys', function () {
+    $options = [
+        ['value' => 'foo', 'text' => 'Foo'],
+        ['value' => 'bar', 'text' => 'Bar'],
+    ];
 
-        $this->blade('<x-custom-select name="foo" x-model="foo" />')
-            ->assertSee('value: foo')
-            ->assertDontSee('<input type="hidden" name="foo" x-bind:value="value">', false);
-    }
-}
+    Route::get('/test', fn () => Blade::render('<x-custom-select name="my_select" :options="$options" value-field="value" label-field="text" />', ['options' => $options]));
+
+    get('/test')
+        ->assertElementExists('[x-ref="menu"]', function (AssertElement $menu) {
+            $foo = $menu->find('li#customSelectmy_selectOption-foo');
+            $foo->containsText('Foo');
+
+            $bar = $menu->find('li#customSelectmy_selectOption-bar');
+            $bar->containsText('Bar');
+        });
+});
+
+it('renders a hidden input when no wire:model or x-model is present', function () {
+    Route::get('/test', fn () => Blade::render('<x-custom-select name="my_select" />'));
+
+    get('/test')
+        ->assertElementExists('input[type="hidden"]', function (AssertElement $input) {
+            $input->has('name', 'my_select')
+                ->has('x-bind:value', 'value');
+        });
+
+    Route::get('/test2', fn () => Blade::render('<x-custom-select name="my_select" multiple />'));
+
+    get('/test2')
+        ->assertElementExists('input[type="hidden"]', function (AssertElement $input) {
+            $input->has('name', 'my_select[]')
+                ->has('x-bind:value', 'singleValue');
+        });
+});

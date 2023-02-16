@@ -18,14 +18,14 @@ class Quill extends BladeComponent
     protected static array $assets = ['alpine', 'quill'];
 
     public function __construct(
-        public null|string $name = null,
-        public null|string $id = null,
-        public null|string $value = null,
+        public ?string $name = null,
+        public ?string $id = null,
+        public ?string $value = null,
         bool $showErrors = true,
         public bool $autofocus = false,
         public bool $readonly = false,
-        public null|string $placeholder = null,
-        public null|QuillOptions $quillOptions = null,
+        public ?string $placeholder = null,
+        public ?QuillOptions $quillOptions = null,
     ) {
         $this->id = $this->id ?? $this->name;
         $this->value = $this->name ? old($this->name, $this->value) : $this->value;

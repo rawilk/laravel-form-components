@@ -1,162 +1,279 @@
 <?php
 
-namespace Rawilk\FormComponents\Tests\Components\Inputs;
+declare(strict_types=1);
 
-use Rawilk\FormComponents\Tests\Components\ComponentTestCase;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
+use function Pest\Laravel\get;
+use Sinnbeck\DomAssertions\Asserts\AssertElement;
+use Sinnbeck\DomAssertions\Asserts\AssertForm;
+use Sinnbeck\DomAssertions\Asserts\AssertSelect;
 
-final class SelectTest extends ComponentTestCase
-{
-    /** @test */
-    public function can_be_rendered(): void
-    {
-        $this->blade('<x-select name="country" id="countrySelect" />')
-            ->assertSee('<select', false)
-            ->assertSee('name="country"', false)
-            ->assertSee('id="countrySelect"', false)
-            ->assertSee('form-select');
-    }
+it('can be rendered', function () {
+    Route::get('/test', fn () => Blade::render('<x-select name="country" id="countrySelect" />'));
 
-    /** @test */
-    public function it_accepts_an_array_of_options(): void
-    {
-        $this->blade(
-            '<x-select name="country" :options="$options" />',
-            ['options' => ['can' => 'Canada', 'usa' => 'United States']],
-        )
-        ->assertSee('<option', false)
-        ->assertSeeInOrder([
-            'value="can"',
-            'Canada',
-            'value="usa"',
-            'United States',
-        ], false);
-    }
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->has('class', 'form-text-container')
+                ->contains('select');
+        })
+        ->assertElementExists('select', function (AssertElement $select) {
+            $select->is('select')
+                ->has('name', 'country')
+                ->has('id', 'countrySelect')
+                ->has('class', 'form-select');
+        });
+});
 
-    /** @test */
-    public function options_can_be_pre_selected(): void
-    {
-        $this->flashOld(['country' => 'usa']);
+it('accepts an array of options', function () {
+    $options = [
+        'can' => 'Canada',
+        'usa' => 'United States',
+    ];
 
-        $template = <<<'HTML'
-        <x-select name="country" :options="['can' => 'Canada', 'usa' => 'United States']" />
-        HTML;
+    $template = <<<'HTML'
+    <form>
+        <x-select name="country" :options="$options" />
+    </form>
+    HTML;
 
-        $this->blade($template)
-            ->assertDontSee('<option value="can"  selected', false)
-            ->assertSee('<option value="usa"  selected', false);
-    }
+    Route::get('/test', fn () => Blade::render($template, ['options' => $options]));
 
-    /** @test */
-    public function a_default_value_can_be_given(): void
-    {
-        $this->blade(
-            '<x-select name="country" :options="$options" :value="$value" />',
-            [
-                'options' => ['can' => 'Canada', 'usa' => 'United States'],
-                'value' => 'can',
-            ],
-        )
-        ->assertSee('value="can"  selected', false)
-        ->assertDontSee('value="usa"  selected', false);
-    }
+    get('/test')
+        ->assertFormExists('form', function (AssertForm $form) {
+            $form->findSelect('select', function (AssertSelect $select) {
+                $select->containsOptions(
+                    [
+                        'value' => 'can',
+                        'text' => 'Canada',
+                    ],
+                    [
+                        'value' => 'usa',
+                        'text' => 'United States',
+                    ],
+                );
+            });
+        });
+});
 
-    /** @test */
-    public function custom_attribute_values_can_be_used(): void
-    {
-        $this->flashOld(['country' => 'usa']);
+test('values can be pre-selected', function () {
+    flashOld(['country' => 'usa']);
 
-        // The "value" should be overridden by the flashed old input.
-        $template = <<<'HTML'
-        <x-select name="country" id="country_code" class="px-4" value="can" :options="['can' => 'Canada', 'usa' => 'United States']" />
-        HTML;
+    $options = [
+        'can' => 'Canada',
+        'usa' => 'United States',
+    ];
 
-        $this->blade($template)
-            ->assertSee('id="country_code"', false)
-            ->assertSee('px-4')
-            ->assertDontSee('value="can"  selected', false)
-            ->assertSee('value="usa"  selected', false);
-    }
+    $template = <<<'HTML'
+    <form>
+        <x-select name="country" :options="$options" />
+    </form>
+    HTML;
 
-    /** @test */
-    public function can_be_a_multi_select(): void
-    {
-        $this->flashOld(['country' => ['usa', 'mex']]);
+    Route::middleware(['web'])->get('/test', fn () => Blade::render($template, ['options' => $options]));
 
-        $template = <<<'HTML'
-        <x-select name="country" multiple :options="['can' => 'Canada', 'usa' => 'United States', 'mex' => 'Mexico']" />
-        HTML;
+    get('/test')
+        ->assertFormExists('form', function (AssertForm $form) {
+            $form->findSelect('select', function (AssertSelect $select) {
+                $select->hasValue('usa');
+            });
+        });
+});
 
-        $this->blade($template)
-            ->assertSee('<select', false)
-            ->assertSee('multiple')
-            ->assertSeeInOrder([
-                'value="can"',
-                'Canada',
-                'value="usa"',
-                'United States',
-                'value="mex"',
-                'Mexico',
-            ], false)
-            ->assertSee('value="usa"  selected', false)
-            ->assertSee('value="mex"  selected', false)
-            ->assertDontSee('value="can"  selected', false);
-    }
+test('a default value can be given', function () {
+    $options = [
+        'can' => 'Canada',
+        'usa' => 'United States',
+    ];
 
-    /** @test */
-    public function it_indicates_it_has_an_error(): void
-    {
-        $this->withViewErrors(['country' => 'required']);
+    $template = <<<'HTML'
+    <form>
+        <x-select name="country" :options="$options" value="can" />
+    </form>
+    HTML;
 
-        $template = <<<'HTML'
-        <x-select name="country" :options="['can' => 'Canada', 'usa' => 'United States']" />
-        HTML;
+    Route::get('/test', fn () => Blade::render($template, ['options' => $options]));
 
-        $this->blade($template)
-            ->assertSee('aria-invalid="true"', false)
-            ->assertSee('aria-describedby="country-error"', false)
-            ->assertSee('input-error');
-    }
+    get('/test')
+        ->assertFormExists('form', function (AssertForm $form) {
+            $form->findSelect('select', function (AssertSelect $select) {
+                $select->hasValue('can');
+            });
+        });
+});
 
-    /** @test */
-    public function options_can_be_prepended_and_appended(): void
-    {
-        $this->flashOld(['country' => 'usa']);
+it('accepts custom attributes', function () {
+    flashOld(['country' => 'usa']);
 
-        $template = <<<'HTML'
-        <x-select name="country" :options="['can' => 'Canada', 'usa' => 'United States']">
+    $options = [
+        'can' => 'Canada',
+        'usa' => 'United States',
+    ];
+
+    // The "value" attribute should be overridden by th flashed old input.
+    $template = <<<'HTML'
+    <form>
+        <x-select name="country" id="country_code" class="px-4" value="can" :options="$options" />
+    </form>
+    HTML;
+
+    Route::middleware(['web'])->get('/test', fn () => Blade::render($template, ['options' => $options]));
+
+    get('/test')
+        ->assertFormExists('form', function (AssertForm $form) {
+            $form->findSelect('select', function (AssertSelect $select) {
+                $select->has('id', 'country_code')
+                    ->has('class', 'px-4')
+                    ->hasValue('usa');
+            });
+        });
+});
+
+it('can be a multi-select', function () {
+    flashOld(['country' => ['usa', 'mex']]);
+
+    $options = [
+        'can' => 'Canada',
+        'usa' => 'United States',
+        'mex' => 'Mexico',
+    ];
+
+    $template = <<<'HTML'
+    <form>
+        <x-select name="country" :options="$options" multiple />
+    </form>
+    HTML;
+
+    Route::middleware(['web'])->get('/test', fn () => Blade::render($template, ['options' => $options]));
+
+    get('/test')
+        ->assertFormExists('form', function (AssertForm $form) {
+            $form->findSelect('select', function (AssertSelect $select) {
+                $select->has('multiple')
+                    ->hasValues(['usa', 'mex']);
+            });
+        });
+});
+
+it('indicates it has an error', function () {
+    $this->withViewErrors(['country' => 'required']);
+
+    $options = [
+        'can' => 'Canada',
+        'usa' => 'United States',
+    ];
+
+    Route::get('/test', fn () => Blade::render('<x-select name="country" :options="$options" />', ['options' => $options]));
+
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->has('class', 'form-text-container')
+                ->contains('select');
+        })
+        ->assertElementExists('select', function (AssertElement $select) {
+            $select->has('class', 'input-error')
+                ->has('aria-invalid', 'true')
+                ->has('aria-describedby', 'country-error');
+        });
+});
+
+it('accepts options in the default slot', function () {
+    flashOld(['country' => 'usa']);
+
+    $template = <<<'HTML'
+    <form>
+        <x-select name="country">
+            <option value="can" @selected(old('country') === 'can')>Canada</option>
+            <option value="usa" @selected(old('country') === 'usa')>United States</option>
+        </x-select>
+    </form>
+    HTML;
+
+    Route::middleware(['web'])->get('/test', fn () => Blade::render($template));
+
+    get('/test')
+        ->assertFormExists('form', function (AssertForm $form) {
+            $form->findSelect('select', function (AssertSelect $select) {
+                $select->containsOptions(
+                    [
+                        'value' => 'can',
+                        'text' => 'Canada',
+                    ],
+                    [
+                        'value' => 'usa',
+                        'text' => 'United States',
+                    ],
+                )->hasValue('usa');
+            });
+        });
+});
+
+test('name can be omitted', function () {
+    Route::get('/test', fn () => Blade::render('<x-select />'));
+
+    get('/test')
+        ->assertElementExists('select', function (AssertElement $select) {
+            $select->doesntHave('name')
+                ->doesntHave('id');
+        });
+});
+
+it('accepts a container class', function () {
+    $template = <<<'HTML'
+    <x-select name="country" container-class="foo" />
+    HTML;
+
+    Route::get('/test', fn () => Blade::render($template));
+
+    get('/test')
+        ->assertElementExists('.form-text-container', function (AssertElement $div) {
+            $div->has('class', 'foo');
+        });
+});
+
+it('can prepend and append options', function () {
+    // Options in the default slot will be prepended to the options passed to the component.
+    $options = [
+        'can' => 'Canada',
+        'usa' => 'United States',
+    ];
+
+    $template = <<<'HTML'
+    <form>
+        <x-select name="country" :options="$options">
             <option value="ger">Germany</option>
 
-            <x-slot name="append">
+            <x-slot:append>
                 <option value="fra">France</option>
-            </x-slot>
+            </x-slot:append>
         </x-select>
-        HTML;
+    </form>
+    HTML;
 
-        $this->blade($template)
-            ->assertSeeInOrder([
-                'value="ger"',
-                'Germany',
-                'value="can"',
-                'Canada',
-                'value="usa"',
-                'United States',
-                'value="fra"',
-                'France',
-            ], false);
-    }
+    Route::get('/test', fn () => Blade::render($template, ['options' => $options]));
 
-    /** @test */
-    public function name_can_be_omitted(): void
-    {
-        $this->blade('<x-select />')
-            ->assertDontSee('id=')
-            ->assertDontSee('name=');
-    }
-
-    /** @test */
-    public function accepts_a_container_class(): void
-    {
-        $this->blade('<x-select container-class="foo" />')
-            ->assertSee('foo');
-    }
-}
+    get('/test')
+        ->assertFormExists('form', function (AssertForm $form) {
+            $form->findSelect('select', function (AssertSelect $select) {
+                $select->containsOptions(
+                    [
+                        'value' => 'ger',
+                        'text' => 'Germany',
+                    ],
+                    [
+                        'value' => 'can',
+                        'text' => 'Canada',
+                    ],
+                    [
+                        'value' => 'usa',
+                        'text' => 'United States',
+                    ],
+                    [
+                        'value' => 'fra',
+                        'text' => 'France',
+                    ],
+                );
+            });
+        })
+        ->assertSeeInOrder(['Germany', 'Canada', 'United States', 'France']);
+});

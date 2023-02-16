@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Rawilk\FormComponents\Components\Inputs;
 
+use Illuminate\Support\Collection;
+use Illuminate\Support\HtmlString;
+
 class DatePicker extends Input
 {
     protected static array $assets = ['alpine', 'flatpickr'];
@@ -33,8 +36,10 @@ class DatePicker extends Input
         public bool|null|string $toggleIcon = null,
         public ?string $clearIcon = null,
         public ?string $containerClass = null,
-        public $extraAttributes = '',
         public $after = null,
+
+        // Extra Attributes
+        null|string|HtmlString|array|Collection $extraAttributes = null,
     ) {
         parent::__construct(
             name: $name,

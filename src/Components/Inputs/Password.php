@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Rawilk\FormComponents\Components\Inputs;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
+use Illuminate\Support\HtmlString;
 
 class Password extends Input
 {
@@ -26,8 +28,10 @@ class Password extends Input
         public ?string $showPasswordIcon = null,
         public ?string $hidePasswordIcon = null,
         public ?string $containerClass = null,
-        public $extraAttributes = '',
         public $after = null,
+
+        // Extra Attributes
+        null|string|HtmlString|array|Collection $extraAttributes = null,
     ) {
         parent::__construct(
             name: $name,

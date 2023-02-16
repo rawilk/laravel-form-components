@@ -4,6 +4,7 @@ namespace Rawilk\FormComponents\Components\Inputs;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\Support\HtmlString;
 
 class Select extends Input
 {
@@ -28,8 +29,10 @@ class Select extends Input
         $trailingAddonPadding = self::DEFAULT_TRAILING_ADDON_PADDING,
         $trailingIcon = false,
         public ?string $containerClass = null,
-        public $extraAttributes = '',
         public $after = null,
+
+        // Extra Attributes
+        null|string|HtmlString|array|Collection $extraAttributes = null,
     ) {
         parent::__construct(
             name: $name,

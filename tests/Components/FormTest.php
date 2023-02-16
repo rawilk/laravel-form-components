@@ -1,111 +1,100 @@
 <?php
 
-namespace Rawilk\FormComponents\Tests\Components;
+declare(strict_types=1);
 
-final class FormTest extends ComponentTestCase
-{
-    /** @test */
-    public function can_be_rendered(): void
-    {
-        $template = <<<'HTML'
-        <x-form action="http://example.com">
-            Form fields...
-        </x-form>
-        HTML;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
+use Sinnbeck\DomAssertions\Asserts\AssertForm;
+use function Pest\Laravel\get;
 
-        $this->blade($template)
-            ->assertSee('<form', false)
-            ->assertSee('action="http://example.com"', false)
-            ->assertSee('method=')
-            ->assertSee('_token')
-            ->assertSeeText('Form fields...');
-    }
+it('renders a form', function () {
+    $template = <<<'HTML'
+    <x-form action="https://example.com">
+        <div>Form fields</div>
+    </x-form>
+    HTML;
 
-    /** @test */
-    public function the_method_can_be_set(): void
-    {
-        $template = <<<'HTML'
-        <x-form method="put" action="http://example.com">
-            Form fields...
-        </x-form>
-        HTML;
+    Route::get('/test', fn () => Blade::render($template));
 
-        $this->blade($template)
-            ->assertSee('method="POST"', false)
-            ->assertSee('name="_method"', false)
-            ->assertSee('value="PUT"', false);
-    }
+    get('/test')
+        ->assertFormExists('form', function (AssertForm $form) {
+            $form->is('form')
+                ->hasAction('https://example.com')
+                ->hasMethod('POST')
+                ->hasCSRF()
+                ->doesntHave('enctype', 'multipart/form-data')
+                ->has('spellcheck', 'false');
 
-    /** @test */
-    public function it_can_enable_file_uploads(): void
-    {
-        $template = <<<'HTML'
-        <x-form method="POST" action="http://example.com" has-files>
-            Form fields...
-        </x-form>
-        HTML;
+            $form->contains('div', [
+                'text' => 'Form fields',
+            ]);
+        });
+});
 
-        $this->blade($template)
-            ->assertSee('enctype="multipart/form-data"', false);
-    }
+test('the submit method can be set', function (string $method) {
+    Route::get('/test', fn () => Blade::render('<x-form method="' . $method . '" action="https://example.com"></x-form>'));
 
-    /** @test */
-    public function spellcheck_can_be_enabled(): void
-    {
-        $template = <<<'HTML'
-        <x-form action="http://example.com" spellcheck>
-            Form fields...
-        </x-form>
-        HTML;
+    get('/test')
+        ->assertFormExists('form', function (AssertForm $form) use ($method) {
+            $form->hasAction('https://example.com')
+                ->hasMethod('POST')
+                ->hasSpoofMethod($method)
+                ->hasCSRF();
+        });
+})->with([
+    'put',
+    'patch',
+    'delete',
+]);
 
-        $this->blade($template)
-            ->assertDontSee('spellcheck');
-    }
+it('can enable file uploads', function () {
+    Route::get('/test', fn () => Blade::render('<x-form method="POST" action="https://example.com" has-files></x-form>'));
 
-    /** @test */
-    public function action_is_optional(): void
-    {
-        $this->blade('<x-form />')
-            ->assertDontSee('action=');
-    }
+    get('/test')
+        ->assertFormExists('form', function (AssertForm $form) {
+            $form->has('enctype', 'multipart/form-data');
+        });
+});
 
-    /**
-     * @test
-     *
-     * @dataProvider formMethodsWithoutCsrf
-     */
-    public function csrf_input_is_not_rendered_on_certain_form_methods(string $method): void
-    {
-        $template = <<<HTML
-        <x-form method="$method">
-            Form fields...
-        </x-form>
-        HTML;
+test('action is optional', function () {
+    Route::get('/test', fn () => Blade::render('<x-form />'));
 
-        $this->blade($template)
-            ->assertDontSee('_token');
-    }
+    get('/test')
+        ->assertFormExists('form', function (AssertForm $form) {
+            $form->doesntHave('action');
+        });
+});
 
-    /** @test */
-    public function custom_attributes_can_be_applied(): void
-    {
-        $template = <<<'HTML'
-        <x-form action="http://example.test" method="GET" wire:submit.prevent="submit">
-            Form fields...
-        </x-form>
-        HTML;
+test('certain form methods do not render a csrf token', function (string $method) {
+    Route::get('/test', fn () => Blade::render('<x-form method="' . $method . '" action="https://example.com"></x-form>'));
 
-        $this->blade($template)
-            ->assertSee('wire:submit.prevent="submit"', false)
-            ->assertSee('method="GET"', false);
-    }
+    get('/test')
+        ->assertFormExists('form', function (AssertForm $form) use ($method) {
+            $form->hasAction('https://example.com')
+                ->hasMethod($method);
 
-    public function formMethodsWithoutCsrf(): array
-    {
-        return [
-            ['GET'],
-            ['HEAD'],
-            ['OPTIONS'],
-        ];
-    }
-}
+            $form->doesntContain('input', [
+                'name' => '_token',
+            ]);
+        });
+})->with([
+    'get',
+]);
+
+test('custom attributes may be used', function () {
+    $template = <<<'HTML'
+    <x-form action="https://example.com" method="GET" wire:submit.prevent="submit" class="my-form">
+        <div>Form fields</div>
+    </x-form>
+    HTML;
+
+    Route::get('/test', fn () => Blade::render($template));
+
+    get('/test')
+        ->assertFormExists('form', function (AssertForm $form) {
+            $form->hasAction('https://example.com')
+                ->hasMethod('GET')
+                ->has('wire:submit.prevent', 'submit')
+                ->has('class', 'my-form');
+        });
+});

@@ -1,171 +1,175 @@
 <?php
 
-namespace Rawilk\FormComponents\Tests\Components;
+declare(strict_types=1);
 
-final class FormGroupTest extends ComponentTestCase
-{
-    /** @test */
-    public function can_be_rendered(): void
-    {
-        $template = <<<'HTML'
-        <x-form-group label="First name" name="first_name">
-            Name input
-        </x-form-group>
-        HTML;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
+use function Pest\Laravel\get;
+use Sinnbeck\DomAssertions\Asserts\AssertElement;
 
-        $this->blade($template)
-            ->assertSeeText('First name')
-            ->assertSee('Name input')
-            ->assertSee('form-group')
-            ->assertSee('<label', false)
-            ->assertSee('for="first_name"', false)
-            ->assertSee('form-group__content');
-    }
+it('can be rendered', function () {
+    $template = <<<'HTML'
+    <x-form-group label="First name" name="first_name">
+        <div>Name input</div>
+    </x-form-group>
+    HTML;
 
-    /** @test */
-    public function can_have_help_text(): void
-    {
-        $template = <<<'HTML'
-        <x-form-group label="First name" name="first_name" help-text="Some help text">
-            Name field
-        </x-form-group>
-        HTML;
+    Route::get('/test', fn () => Blade::render($template));
 
-        $this->blade($template)
-            ->assertSeeText('Some help text')
-            ->assertSee('first_name-description')
-            ->assertSee('form-help');
-    }
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->is('div')
+                ->has('class', 'form-group')
+                ->contains('label', [
+                    'text' => 'First name',
+                    'for' => 'first_name',
+                    'class' => 'form-label',
+                ]);
 
-    /** @test */
-    public function help_text_can_be_slotted(): void
-    {
-        $template = <<<'HTML'
-        <x-form-group label="First name" name="first_name">
-            Name field
+            $content = $div->find('.form-group__content');
 
-            <x-slot name="helpText">
-                Some help text
-            </x-slot>
-        </x-form-group>
-        HTML;
+            $content->contains('div', [
+                'text' => 'Name input',
+            ]);
+        });
+});
 
-        $this->blade($template)
-            ->assertSeeText('Some help text');
-    }
+it('can have help text', function () {
+    Route::get('/test', fn () => Blade::render('<x-form-group label="First name" name="first_name" help-text="This is help text"></x-form-group>'));
 
-    /** @test */
-    public function can_be_inline(): void
-    {
-        $template = <<<'HTML'
-        <x-form-group label="First name" name="first_name" inline>
-            Name field
-        </x-form-group>
-        HTML;
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->contains('p', [
+                'text' => 'This is help text',
+                'id' => 'first_name-description',
+                'class' => 'form-help',
+            ]);
+        });
+});
 
-        $this->blade($template)
-            ->assertSee('form-group-inline')
-            ->assertSee('form-group__content--inline')
-            ->assertSee('border-t');
-    }
+test('help text can be slotted', function () {
+    $template = <<<'HTML'
+    <x-form-group label="First name" name="first_name">
+        <x-slot:help-text>
+            Slotted help text
+        </x-slot:help-text>
+    </x-form-group>
+    HTML;
 
-    /** @test */
-    public function border_top_can_be_disabled_when_inline(): void
-    {
-        $template = '<x-form-group label="First name" name="first_name" inline :border="false">Name field</x-form-group>';
+    Route::get('/test', fn () => Blade::render($template));
 
-        $this->blade($template)
-            ->assertDontSee('border-t');
-    }
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->contains('p', [
+                'text' => 'Slotted help text',
+                'id' => 'first_name-description',
+                'class' => 'form-help',
+            ]);
+        });
+});
 
-    /** @test */
-    public function can_show_errors(): void
-    {
-        $this->withViewErrors(['name' => 'Name is required.']);
+it('can have label inline with inputs', function () {
+    $template = <<<'HTML'
+    <x-form-group label="First name" name="first_name" inline>
+        Name input
+    </x-form-group>
+    HTML;
 
-        $template = <<<'HTML'
-        <x-form-group label="First name" name="name">
-            Name field
-        </x-form-group>
-        HTML;
+    Route::get('/test', fn () => Blade::render($template));
 
-        $this->blade($template)
-            ->assertSeeText('Name is required.')
-            ->assertSee('id="name-error"', false)
-            ->assertSee('form-error')
-            ->assertSee('has-error');
-    }
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->has('class', 'form-group-inline')
+                ->contains('div', [
+                    'class' => 'form-group__content--inline',
+                ]);
+        });
+});
 
-    /** @test */
-    public function inline_checkbox_form_groups_labels_have_no_top_padding(): void
-    {
-        $template = <<<'HTML'
-        <x-form-group label="First name" name="name" inline is-checkbox-group>
-            Name field
-        </x-form-group>
-        HTML;
+it('shows input errors automatically', function () {
+    $this->withViewErrors(['name' => 'Name is required']);
 
-        $this->blade($template)
-            ->assertDontSee('form-group__inline-label');
-    }
+    $template = <<<'HTML'
+    <x-form-group label="First name" name="name">
+        Name input
+    </x-form-group>
+    HTML;
 
-    /** @test */
-    public function label_can_be_omitted(): void
-    {
-        $template = <<<'HTML'
-        <x-form-group :label="false" name="name">
-            Name field
-        </x-form-group>
-        HTML;
+    Route::get('/test', fn () => Blade::render($template));
 
-        $this->blade($template)
-            ->assertDontSee('<label', false);
-    }
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->has('class', 'form-group')
+                ->contains('label', [
+                    'text' => 'First name',
+                    'for' => 'name',
+                    'class' => 'form-label',
+                ]);
 
-    /** @test */
-    public function can_have_optional_help_text(): void
-    {
-        config()->set('form-components.optional_hint_text', 'Optional');
+            $content = $div->find('.form-group__content');
 
-        $template = <<<'HTML'
-        <x-form-group name="foo" optional>
-            <x-input name="foo" aria-describedby="foo-hint" />
-        </x-form-group>
-        HTML;
+            $content->containsText('Name input');
 
-        $this->blade($template)
-            ->assertSeeText('Optional')
-            ->assertSee('id="foo-hint"', false);
-    }
+            $content->contains('p', [
+                'text' => 'Name is required',
+                'class' => 'form-error',
+                'id' => 'name-error',
+            ]);
+        });
+});
 
-    /** @test */
-    public function can_have_optional_hint_when_inline(): void
-    {
-        config()->set('form-components.optional_hint_text', 'Optional');
+test('label can be omitted', function () {
+    Route::get('/test', fn () => Blade::render('<x-form-group :label="false" name="name">Name input</x-form-group>'));
 
-        $template = <<<'HTML'
-        <x-form-group name="foo" optional inline>
-            <x-input name="foo" aria-describedby="foo-hint foo-hint-inline" />
-        </x-form-group>
-        HTML;
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->doesntContain('label');
+        });
+});
 
-        $this->blade($template)
-            ->assertSeeText('Optional')
-            ->assertSee('id="foo-hint"', false)
-            ->assertSee('id="foo-hint-inline"', false);
-    }
+it('can have optional help text', function () {
+    config([
+        'form-components.optional_hint_text' => 'Optional',
+    ]);
 
-    /** @test */
-    public function can_have_custom_hint_text(): void
-    {
-        $template = <<<'HTML'
-        <x-form-group name="foo" hint="My hint text">
-            <x-input name="foo" aria-describedby="foo-hint" />
-        </x-form-group>
-        HTML;
+    Route::get('/test', fn () => Blade::render('<x-form-group label="First name" name="first_name" optional></x-form-group>'));
 
-        $this->blade($template)
-            ->assertSeeText('My hint text')
-            ->assertSee('id="foo-hint"', false);
-    }
-}
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->contains('span', [
+                'text' => 'Optional',
+                'id' => 'first_name-hint',
+            ]);
+        });
+});
+
+it('can have optional hint when inline', function () {
+    config([
+        'form-components.optional_hint_text' => 'Optional',
+    ]);
+
+    Route::get('/test', fn () => Blade::render('<x-form-group label="First name" name="first_name" optional inline></x-form-group>'));
+
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->contains('span', [
+                'text' => 'Optional',
+                'id' => 'first_name-hint',
+            ])->contains('span', [
+                'text' => 'Optional',
+                'id' => 'first_name-hint-inline',
+            ]);
+        });
+});
+
+it('can have custom hint text', function () {
+    Route::get('/test', fn () => Blade::render('<x-form-group label="First name" name="first_name" hint="Custom hint"></x-form-group>'));
+
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->contains('span', [
+                'text' => 'Custom hint',
+                'id' => 'first_name-hint',
+            ]);
+        });
+});

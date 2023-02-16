@@ -1,18 +1,21 @@
 <?php
 
-namespace Rawilk\FormComponents\Tests\Components\Choice;
+declare(strict_types=1);
 
-use Rawilk\FormComponents\Tests\Components\ComponentTestCase;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
+use function Pest\Laravel\get;
+use Sinnbeck\DomAssertions\Asserts\AssertElement;
 
-final class RadioTest extends ComponentTestCase
-{
-    /** @test */
-    public function can_be_rendered(): void
-    {
-        $this->blade('<x-radio name="remember_me" />')
-            ->assertSee('<input', false)
-            ->assertSee('name="remember_me"', false)
-            ->assertSee('type="radio"', false)
-            ->assertSee('form-radio');
-    }
-}
+it('can be rendered', function () {
+    Route::get('/test', fn () => Blade::render('<x-radio name="remember_me" />'));
+
+    get('/test')
+        ->assertElementExists('input', function (AssertElement $input) {
+            $input->is('input')
+                ->has('type', 'radio')
+                ->has('name', 'remember_me')
+                ->has('id', 'remember_me')
+                ->has('class', 'form-radio');
+        });
+});

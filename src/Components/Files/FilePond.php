@@ -4,14 +4,18 @@ declare(strict_types=1);
 
 namespace Rawilk\FormComponents\Components\Files;
 
+use Illuminate\Support\Collection;
+use Illuminate\Support\HtmlString;
 use Rawilk\FormComponents\Components\BladeComponent;
 use Rawilk\FormComponents\Concerns\AcceptsFiles;
 use Rawilk\FormComponents\Concerns\HandlesValidationErrors;
+use Rawilk\FormComponents\Concerns\HasExtraAttributes;
 
 class FilePond extends BladeComponent
 {
     use HandlesValidationErrors;
     use AcceptsFiles;
+    use HasExtraAttributes;
 
     protected static array $assets = ['alpine', 'filepond'];
 
@@ -31,10 +35,14 @@ class FilePond extends BladeComponent
          */
         public bool $watchValue = true,
         bool $showErrors = true,
-        public $extraAttributes = '',
+
+        // Extra Attributes
+        null|string|HtmlString|array|Collection $extraAttributes = null,
     ) {
         $this->type = $type;
         $this->showErrors = $showErrors;
+
+        $this->setExtraAttributes($extraAttributes);
     }
 
     public function options(): array
