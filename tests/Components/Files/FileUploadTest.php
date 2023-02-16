@@ -2,110 +2,127 @@
 
 declare(strict_types=1);
 
-namespace Rawilk\FormComponents\Tests\Components\Files;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
+use function Pest\Laravel\get;
+use Sinnbeck\DomAssertions\Asserts\AssertElement;
 
-use Rawilk\FormComponents\Tests\Components\ComponentTestCase;
+it('can be rendered', function () {
+    Route::get('/test', fn () => Blade::render('<x-file-upload name="file" />'));
 
-final class FileUploadTest extends ComponentTestCase
-{
-    /** @test */
-    public function can_be_rendered(): void
-    {
-        $this->blade('<x-file-upload name="file" />')
-            ->assertSee('file-upload')
-            ->assertSee('<input', false)
-            ->assertSee('type="file"', false)
-            ->assertSee('name="file"', false)
-            ->assertSee('<label', false);
-    }
+    get('/test')
+        ->assertElementExists('.file-upload', function (AssertElement $div) {
+            $div->contains('input', [
+                'type' => 'file',
+                'name' => 'file',
+                'id' => 'file',
+            ])->contains('label', [
+                'for' => 'file',
+                'class' => 'file-upload__label',
+            ]);
+        });
+});
 
-    /** @test */
-    public function can_show_file_upload_progress_if_wire_model_is_set(): void
-    {
-        $this->blade('<x-file-upload name="file" wire:model="file" />')
-            ->assertSee('livewire-upload-progress')
-            ->assertSee('wire:model="file"', false)
-            ->assertSee('progress');
-    }
+it('can show a file upload progress if wire:model is set', function () {
+    Route::get('/test', fn () => Blade::render('<x-file-upload name="file" wire:model="file" />'));
 
-    /** @test */
-    public function can_have_wire_model_without_upload_progress(): void
-    {
-        $this->blade('<x-file-upload name="file" wire:model="file" :display-upload-progress="false" />')
-            ->assertDontSee('livewire-upload-progress');
-    }
+    get('/test')
+        ->assertElementExists('.file-upload', function (AssertElement $div) {
+            $div->contains('div', [
+                'x-on:livewire-upload-start' => 'isUploading = true',
+            ])
+            ->contains('input', [
+                'type' => 'file',
+                'wire:model' => 'file',
+            ]);
+        });
+});
 
-    /** @test */
-    public function can_have_an_after_slot(): void
-    {
-        $template = <<<'HTML'
-        <x-file-upload name="file">
-            <x-slot name="after">
-                <div>After slot content...</div>
-            </x-slot>
-        </x-file-upload>
-        HTML;
+it('can have a wire:model without upload progress', function () {
+    Route::get('/test', fn () => Blade::render('<x-file-upload name="file" wire:model="file" :display-upload-progress="false" />'));
 
-        $this->blade($template)
-            ->assertSeeInOrder([
-                '<input',
-                '<label',
-                '<div>After slot content...</div>',
-            ], false);
-    }
+    get('/test')
+        ->assertElementExists('.file-upload', function (AssertElement $div) {
+            $div->contains('input', [
+                'type' => 'file',
+                'wire:model' => 'file',
+            ])->doesntContain('div', [
+                'x-on:livewire-upload-start' => 'isUploading = true',
+            ]);
+        });
+});
 
-    /** @test */
-    public function can_have_default_slotted_content(): void
-    {
-        $template = <<<'HTML'
-        <x-file-upload name="file">
-            <div>Default slot content...</div>
-        </x-file-upload>
-        HTML;
+it('can render content after the input', function () {
+    $template = <<<'HTML'
+    <x-file-upload name="file">
+        <x-slot:after>
+            <div class="after">After slot content</div>
+        </x-slot:after>
+    </x-file-upload>
+    HTML;
 
-        $this->blade($template)
-            ->assertSee('<div>Default slot content...', false);
-    }
+    Route::get('/test', fn () => Blade::render($template));
 
-    /** @test */
-    public function shows_aria_attributes_on_error(): void
-    {
-        $this->withViewErrors(['file' => 'required']);
+    get('/test')
+        ->assertElementExists('.file-upload', function (AssertElement $div) {
+            $after = $div->find('.after');
 
-        $this->blade('<x-file-upload name="file" />')
-            ->assertSee('aria-invalid="true"', false)
-            ->assertSee('aria-describedby="file-error"', false);
-    }
+            $after->containsText('After slot content');
+        });
+});
 
-    /**
-     * @test
-     *
-     * @dataProvider acceptsTypes
-     */
-    public function can_be_told_to_accept_certain_preset_types(string $type, string $expected): void
-    {
-        $template = <<<HTML
-        <x-file-upload name="file" type="$type" />
-        HTML;
+it('can render content in the default slot', function () {
+    $template = <<<'HTML'
+    <x-file-upload name="file">
+        <div id="default">Default slot content</div>
+    </x-file-upload>
+    HTML;
 
-        $this->blade($template)
-            ->assertSee('accept="' . $expected . '"', false);
-    }
+    Route::get('/test', fn () => Blade::render($template));
 
-    public function acceptsTypes(): array
-    {
-        $excelTypes = '.csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
+    get('/test')
+        ->assertElementExists('.file-upload', function (AssertElement $div) {
+            $div->contains('#default', [
+                'text' => 'Default slot content',
+            ]);
+        });
+});
 
-        return [
-            ['audio', 'audio/*'],
-            ['image', 'image/*'],
-            ['video', 'video/*'],
-            ['pdf', '.pdf'],
-            ['csv', '.csv'],
-            ['spreadsheet', $excelTypes],
-            ['excel', $excelTypes],
-            ['text', 'text/plain'],
-            ['html', 'text/html'],
-        ];
-    }
-}
+it('shows aria attributes on error', function () {
+    $this->withViewErrors(['file' => 'required']);
+
+    Route::get('/test', fn () => Blade::render('<x-file-upload name="file" />'));
+
+    get('/test')
+        ->assertElementExists('.file-upload', function (AssertElement $div) {
+            $div->contains('input', [
+                'aria-invalid' => 'true',
+                'aria-describedby' => 'file-error',
+            ]);
+        });
+});
+
+it('can be told to accept certain preset types', function (string $type, string $expected) {
+    $template = <<<'HTML'
+    <x-file-upload name="file" type="{{ $type }}" />
+    HTML;
+
+    Route::get('/test', fn () => Blade::render($template, ['type' => $type]));
+
+    get('/test')
+        ->assertElementExists('.file-upload', function (AssertElement $div) use ($expected) {
+            $div->contains('input', [
+                'accept' => $expected,
+            ]);
+        });
+})->with([
+    ['audio', 'audio/*'],
+    ['image', 'image/*'],
+    ['video', 'video/*'],
+    ['pdf', '.pdf'],
+    ['csv', '.csv'],
+    ['text', 'text/plain'],
+    ['html', 'text/html'],
+    ['spreadsheet', '.csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
+    ['excel', '.csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'],
+]);

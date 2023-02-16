@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Rawilk\FormComponents\Components\Inputs;
 
+use Illuminate\Support\Collection;
+use Illuminate\Support\HtmlString;
+
 class TimezoneSelect extends Select
 {
     public function __construct(
@@ -26,7 +29,6 @@ class TimezoneSelect extends Select
         public bool $optional = false,
         public bool|null|string $placeholder = null,
         public ?string $containerClass = null, // Native only
-        public $extraAttributes = '',
         public $after = null, // Native only
         public int $minSelected = 1,
         public ?int $maxSelected = null,
@@ -34,6 +36,9 @@ class TimezoneSelect extends Select
         public ?string $clearIcon = null,
         public ?bool $showCheckbox = null,
         public bool $autofocus = false,
+
+        // Extra Attributes
+        null|string|HtmlString|array|Collection $extraAttributes = null,
     ) {
         parent::__construct(
             name: $name,

@@ -5,15 +5,19 @@ declare(strict_types=1);
 namespace Rawilk\FormComponents\Components\Choice;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
+use Illuminate\Support\HtmlString;
 use Illuminate\Support\Str;
 use Rawilk\FormComponents\Components\BladeComponent;
 use Rawilk\FormComponents\Concerns\HandlesValidationErrors;
+use Rawilk\FormComponents\Concerns\HasExtraAttributes;
 use Rawilk\FormComponents\Concerns\HasModels;
 
 class SwitchToggle extends BladeComponent
 {
     use HandlesValidationErrors;
     use HasModels;
+    use HasExtraAttributes;
 
     protected static array $assets = ['alpine'];
 
@@ -34,11 +38,15 @@ class SwitchToggle extends BladeComponent
         public ?string $buttonLabel = 'form-components::messages.switch_button_label',
         public ?string $size = null,
         public bool $disabled = false,
-        public $extraAttributes = '',
+
+        // Extra Attributes
+        null|string|HtmlString|array|Collection $extraAttributes = null,
     ) {
         $this->id = $this->id ?? $this->name;
         $this->labelId = $this->id ?? Str::random(8);
         $this->value = $this->name ? old($this->name, $this->value) : $this->value;
+
+        $this->setExtraAttributes($extraAttributes);
     }
 
     public function labelId(): string

@@ -5,9 +5,12 @@ declare(strict_types=1);
 namespace Rawilk\FormComponents\Components\Inputs;
 
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
+use Illuminate\Support\HtmlString;
 use Rawilk\FormComponents\Components\BladeComponent;
 use Rawilk\FormComponents\Concerns\HandlesValidationErrors;
 use Rawilk\FormComponents\Concerns\HasAddons;
+use Rawilk\FormComponents\Concerns\HasExtraAttributes;
 use Rawilk\FormComponents\Concerns\HasModels;
 
 class Input extends BladeComponent
@@ -15,6 +18,7 @@ class Input extends BladeComponent
     use HandlesValidationErrors;
     use HasAddons;
     use HasModels;
+    use HasExtraAttributes;
 
     /*
      * Normally we want arrays to be encoded, but some components don't need that, like CustomSelect.
@@ -42,8 +46,10 @@ class Input extends BladeComponent
         $trailingAddon = false,
         $trailingAddonPadding = self::DEFAULT_TRAILING_ADDON_PADDING,
         $trailingIcon = false,
-        public $extraAttributes = '',
         public $after = null,
+
+        // Extra Attributes
+        null|string|HtmlString|array|Collection $extraAttributes = null,
     ) {
         $this->id = $this->id ?? $this->name;
         $this->value = $this->name ? old($this->name, $this->value) : $this->value;
@@ -63,6 +69,8 @@ class Input extends BladeComponent
         if (is_array($this->value) && $this->jsonEncodeArrayValues) {
             $this->value = json_encode($this->value);
         }
+
+        $this->setExtraAttributes($extraAttributes);
     }
 
     public function inputClass(): string

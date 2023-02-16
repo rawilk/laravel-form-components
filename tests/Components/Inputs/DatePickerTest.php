@@ -2,17 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Rawilk\FormComponents\Tests\Components\Inputs;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
+use function Pest\Laravel\get;
+use Sinnbeck\DomAssertions\Asserts\AssertElement;
 
-use Rawilk\FormComponents\Tests\Components\ComponentTestCase;
+it('can be rendered', function () {
+    Route::get('/test', fn () => Blade::render('<x-date-picker name="date" />'));
 
-final class DatePickerTest extends ComponentTestCase
-{
-    /** @test */
-    public function can_render_component(): void
-    {
-        $this->blade('<x-date-picker />')
-            ->assertSee('<input', false)
-            ->assertSee('flatpickr');
-    }
-}
+    get('/test')
+        ->assertElementExists('input', function (AssertElement $input) {
+            $input->is('input')
+                ->has('name', 'date')
+                ->has('id', 'date')
+                ->has('wire:ignore')
+                ->has('x-ref', 'input');
+        })
+        ->assertSee('flatpickr');
+});

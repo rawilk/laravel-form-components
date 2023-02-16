@@ -1,54 +1,67 @@
 <?php
 
-namespace Rawilk\FormComponents\Tests\Components\Inputs;
+declare(strict_types=1);
 
-use Rawilk\FormComponents\Tests\Components\ComponentTestCase;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
+use function Pest\Laravel\get;
+use Sinnbeck\DomAssertions\Asserts\AssertElement;
 
-final class TextareaTest extends ComponentTestCase
-{
-    /** @test */
-    public function can_be_rendered(): void
-    {
-        $this->blade('<x-textarea name="about" />')
-            ->assertSee('<textarea', false)
-            ->assertSee('name="about"', false)
-            ->assertSee('id="about"', false)
-            ->assertSee('form-input');
-    }
+it('can be rendered', function () {
+    Route::get('/test', fn () => Blade::render('<x-textarea name="about" />'));
 
-    /** @test */
-    public function specific_attributes_can_be_used(): void
-    {
-        $this->blade('<x-textarea name="about" id="aboutMe" rows="5" cols="8" class="p-4">About me text</x-textarea>')
-            ->assertSeeText('About me text')
-            ->assertSee('id="aboutMe"', false)
-            ->assertSee('p-4')
-            ->assertSee('form-input')
-            ->assertSee('rows="5"', false)
-            ->assertSee('cols="8"', false);
-    }
+    get('/test')
+        ->assertElementExists('textarea', function (AssertElement $textarea) {
+            $textarea->is('textarea')
+                ->has('name', 'about')
+                ->has('id', 'about')
+                ->has('class', 'form-input');
+        });
+});
 
-    /** @test */
-    public function can_display_old_value(): void
-    {
-        $this->flashOld(['about' => 'About me text']);
+it('allows custom attributes', function () {
+    Route::get('/test', fn () => Blade::render('<x-textarea name="about" rows="10" cols="20" class="p-4" id="aboutMe" />'));
 
-        $this->blade('<x-textarea name="about" />')
-            ->assertSeeText('About me text');
-    }
+    get('/test')
+        ->assertElementExists('textarea', function (AssertElement $textarea) {
+            $textarea->is('textarea')
+                ->has('name', 'about')
+                ->has('id', 'aboutMe')
+                ->has('class', 'form-input p-4')
+                ->has('rows', '10')
+                ->has('cols', '20');
+        });
+});
 
-    /** @test */
-    public function name_can_be_omitted(): void
-    {
-        $this->blade('<x-textarea />')
-            ->assertDontSee('name=')
-            ->assertDontSee('id=');
-    }
+it('shows old values', function () {
+    flashOld(['about' => 'About me text']);
 
-    /** @test */
-    public function accepts_a_container_class(): void
-    {
-        $this->blade('<x-textarea container-class="foo" />')
-            ->assertSee('foo');
-    }
-}
+    Route::middleware(['web'])->get('/test', fn () => Blade::render('<x-textarea name="about" />'));
+
+    get('/test')
+        ->assertElementExists('textarea', function (AssertElement $textarea) {
+            $textarea->containsText('About me text');
+        });
+});
+
+test('name can be omitted', function () {
+    Route::get('/test', fn () => Blade::render('<x-textarea />'));
+
+    get('/test')
+        ->assertElementExists('textarea', function (AssertElement $textarea) {
+            $textarea->doesntHave('name')
+                ->doesntHave('id');
+        });
+});
+
+it('accepts a container class', function () {
+    Route::get('/test', fn () => Blade::render('<x-textarea name="about" container-class="foo" />'));
+
+    get('/test')
+        ->assertElementExists('.form-text-container', function (AssertElement $div) {
+            $div->has('class', 'foo')
+                ->contains('textarea', [
+                    'name' => 'about',
+                ]);
+        });
+});

@@ -2,307 +2,386 @@
 
 declare(strict_types=1);
 
-namespace Rawilk\FormComponents\Tests\Components\Inputs;
-
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\HtmlString;
-use Rawilk\FormComponents\Tests\Components\ComponentTestCase;
+use function Pest\Laravel\get;
+use Sinnbeck\DomAssertions\Asserts\AssertElement;
 
-final class InputTest extends ComponentTestCase
-{
-    /** @test */
-    public function can_be_rendered(): void
-    {
-        $this->blade('<x-input name="search" />')
-            ->assertSee('<input', false)
-            ->assertSee('name="search"', false)
-            ->assertSee('id="search"', false)
-            ->assertSee('type="text"', false)
-            ->assertSee('form-text-container')
-            ->assertSee('form-text');
-    }
+it('can be rendered', function () {
+    Route::get('/test', fn () => Blade::render('<x-input name="search" />'));
 
-    /** @test */
-    public function specific_attributes_can_be_overwritten(): void
-    {
-        $this->blade('<x-input name="confirm_password" id="confirmPassword" type="password" class="p-4" />')
-            ->assertSee('p-4')
-            ->assertSee('form-text')
-            ->assertSee('id="confirmPassword"', false)
-            ->assertDontSee('id="confirm_password"', false)
-            ->assertSee('type="password"', false)
-            ->assertSee('name="confirm_password"', false);
-    }
+    get('/test')
+        ->assertElementExists('input', function (AssertElement $input) {
+            $input->is('input')
+                ->has('type', 'text')
+                ->has('name', 'search')
+                ->has('id', 'search')
+                ->has('class', 'form-text');
+        });
+});
 
-    /** @test */
-    public function inputs_can_have_old_values(): void
-    {
-        $this->flashOld(['search' => 'Eloquent']);
+test('attributes can be overwritten', function () {
+    Route::get('/test', fn () => Blade::render('<x-input name="confirm_password" id="confirmPassword" type="password" class="p-4" />'));
 
-        $this->blade('<x-input name="search" />')
-            ->assertSee('value="Eloquent"', false);
-    }
+    get('/test')
+        ->assertElementExists('input', function (AssertElement $input) {
+            $input->has('type', 'password')
+                ->has('name', 'confirm_password')
+                ->has('id', 'confirmPassword')
+                ->has('class', 'form-text')
+                ->has('class', 'p-4');
+        });
+});
 
-    /** @test */
-    public function does_not_add_value_attribute_if_wire_model_present(): void
-    {
-        $this->flashOld(['search' => 'Eloquent']);
+test('inputs can have old values', function () {
+    flashOld(['search' => 'Eloquent']);
 
-        $this->blade('<x-input name="search" wire:model="search" />')
-            ->assertDontSee('value=');
-    }
+    Route::middleware(['web'])->get('/test', fn () => Blade::render('<x-input name="search" />'));
 
-    /** @test */
-    public function can_have_leading_addon(): void
-    {
-        $this->blade('<x-input name="search" leading-addon="my addon" />')
-            ->assertSeeText('my addon')
-            ->assertSee('class="leading-addon', false)
-            ->assertSee('has-leading-addon rounded-none rounded-r-md');
-    }
+    get('/test')
+        ->assertElementExists('input', function (AssertElement $input) {
+            $input->has('value', 'Eloquent');
+        });
+});
 
-    /** @test */
-    public function leading_addon_can_be_slotted(): void
-    {
-        $template = <<<'HTML'
-        <x-input name="search">
-            <x-slot name="leadingAddon">foo</x-slot>
-        </x-input>
-        HTML;
+test('does not add value attribute if wire model is present', function () {
+    flashOld(['search' => 'Eloquent']);
 
-        $this->blade($template)
-            ->assertSeeText('foo')
-            ->assertSee('class="leading-addon', false)
-            ->assertSee('has-leading-addon rounded-none rounded-r-md');
-    }
+    Route::middleware(['web'])->get('/test', fn () => Blade::render('<x-input name="search" wire:model="search" />'));
 
-    /** @test */
-    public function can_have_inline_addon(): void
-    {
-        $this->blade('<x-input name="search" inline-addon="my addon" />')
-            ->assertSeeText('my addon')
-            ->assertSee('inline-addon');
-    }
+    get('/test')
+        ->assertElementExists('input', function (AssertElement $input) {
+            $input->doesntHave('value')
+                ->has('wire:model', 'search');
+        });
+});
 
-    /** @test */
-    public function can_have_custom_inline_addon_padding(): void
-    {
-        $this->blade('<x-input name="search" inline-addon="foo" inline-addon-padding="pl-20" />')
-            ->assertSee('pl-20');
-    }
+it('can have a leading addon', function () {
+    Route::get('/test', fn () => Blade::render('<x-input name="search" leading-addon="my addon" />'));
 
-    /** @test */
-    public function inline_addon_can_be_slotted(): void
-    {
-        $template = <<<'HTML'
-        <x-input name="search">
-            <x-slot name="inlineAddon">foo</x-slot>
-        </x-input>
-        HTML;
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->has('class', 'form-text-container')
+                ->contains('span', [
+                    'text' => 'my addon',
+                    'class' => 'leading-addon',
+                ])
+                ->contains('input', [
+                    'class' => 'has-leading-addon rounded-r-md rounded-none',
+                ]);
+        });
+});
 
-        $this->blade($template)
-            ->assertSeeText('foo')
-            ->assertSee('inline-addon')
-            ->assertSee('rounded-md');
-    }
+test('leading addon can be slotted', function () {
+    $template = <<<'HTML'
+    <x-input name="search">
+        <x-slot:leading-addon>foo</x-slot:leading-addon>
+    </x-input>
+    HTML;
 
-    /** @test */
-    public function can_have_leading_icon(): void
-    {
-        $template = <<<'HTML'
-        <x-input name="search">
-            <x-slot name="leadingIcon">icon here</x-slot>
-        </x-input>
-        HTML;
+    Route::get('/test', fn () => Blade::render($template));
 
-        $this->blade($template)
-            ->assertSeeText('icon here')
-            ->assertSee('leading-icon')
-            ->assertSee('has-leading-icon');
-    }
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->has('class', 'form-text-container')
+                ->contains('span', [
+                    'text' => 'foo',
+                    'class' => 'leading-addon',
+                ])
+                ->contains('input', [
+                    'class' => 'has-leading-addon rounded-r-md rounded-none',
+                ]);
+        });
+});
 
-    /** @test */
-    public function only_renders_one_type_of_leading_addon(): void
-    {
-        // leading-addon should be the only one rendered.
-        $template = <<<'HTML'
-        <x-input name="search" leading-addon="foo" inline-addon="bar">
-            <x-slot name="leadingIcon">icon here</x-slot>
-        </x-input>
-        HTML;
+it('can have an inline addon', function () {
+    Route::get('/test', fn () => Blade::render('<x-input name="search" inline-addon="my addon" />'));
 
-        $this->blade($template)
-            ->assertSeeText('foo')
-            ->assertDontSeeText('icon here')
-            ->assertDontSeeText('bar')
-            ->assertSee('leading-addon')
-            ->assertDontSee('leading-icon');
-    }
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->has('class', 'form-text-container')
+                ->contains('div', [
+                    'text' => 'my addon',
+                    'class' => 'inline-addon absolute',
+                ]);
+        });
+});
 
-    /** @test */
-    public function can_have_trailing_addon(): void
-    {
-        $this->blade('<x-input name="search" trailing-addon="foo" />')
-            ->assertSeeText('foo')
-            ->assertSee('trailing-addon');
-    }
+it('can have custom inline addon padding', function () {
+    Route::get('/test', fn () => Blade::render('<x-input name="search" inline-addon="my addon" inline-addon-padding="pl-64" />'));
 
-    /** @test */
-    public function can_have_custom_trailing_addon_padding(): void
-    {
-        $this->blade('<x-input name="search" trailing-addon="foo" trailing-addon-padding="pr-20" />')
-            ->assertSee('pr-20');
-    }
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->has('class', 'form-text-container')
+                ->contains('input', [
+                    'class' => 'pl-64',
+                ]);
+        });
+});
 
-    /** @test */
-    public function trailing_addon_can_be_slotted(): void
-    {
-        $template = <<<'HTML'
-        <x-input name="search" trailing-addon-padding="pr-20">
-            <x-slot name="trailingAddon">
-                foo slotted
-            </x-slot>
-        </x-input>
-        HTML;
+test('inline addon can be slotted', function () {
+    $template = <<<'HTML'
+    <x-input name="search">
+        <x-slot:inline-addon>foo</x-slot:inline-addon>
+    </x-input>
+    HTML;
 
-        $this->blade($template)
-            ->assertSeeText('foo slotted')
-            ->assertSee('trailing-addon')
-            ->assertSee('pr-20');
-    }
+    Route::get('/test', fn () => Blade::render($template));
 
-    /** @test */
-    public function can_have_trailing_icon(): void
-    {
-        $template = <<<'HTML'
-        <x-input name="search">
-            <x-slot name="trailingIcon">icon here</x-slot>
-        </x-input>
-        HTML;
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->has('class', 'form-text-container')
+                ->contains('div', [
+                    'text' => 'foo',
+                    'class' => 'inline-addon absolute',
+                ]);
+        });
+});
 
-        $this->blade($template)
-            ->assertSeeText('icon here')
-            ->assertSee('trailing-icon')
-            ->assertSee('has-trailing-icon');
-    }
+it('can have a leading icon', function () {
+    Route::get('/test', fn () => Blade::render('<x-input name="search" leading-icon="my icon" />'));
 
-    /** @test */
-    public function will_only_render_one_type_of_trailing_addon(): void
-    {
-        // should only render the trailing-addon.
-        $template = <<<'HTML'
-        <x-input name="search" trailing-addon="foo">
-            <x-slot name="trailingIcon">icon here</x-slot>
-        </x-input>
-        HTML;
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->has('class', 'form-text-container')
+                ->contains('div', [
+                    'class' => 'leading-icon',
+                    'text' => 'my icon',
+                ])
+                ->contains('input', [
+                    'class' => 'has-leading-icon',
+                ]);
+        });
+});
 
-        $this->blade($template)
-            ->assertSeeText('foo')
-            ->assertDontSeeText('icon here')
-            ->assertDontSee('has-trailing-icon')
-            ->assertDontSee('trailing-icon');
-    }
+it('only renders one type of leading addon', function () {
+    // 'leading-addon' should be the only one rendered since we check for it first - it has priority.
+    $template = <<<'HTML'
+    <x-input name="search" leading-addon="foo" inline-addon="bar">
+        <x-slot:leading-icon>icon</x-slot:leading-icon>
+    </x-input>
+    HTML;
 
-    /** @test */
-    public function can_have_both_leading_and_trailing_addons(): void
-    {
-        $template = <<<'HTML'
-        <x-input name="search" leading-addon="foo">
-            <x-slot name="trailingIcon">icon here</x-slot>
-        </x-input>
-        HTML;
+    Route::get('/test', fn () => Blade::render($template));
 
-        $this->blade($template)
-            ->assertSeeText('foo')
-            ->assertSeeText('icon here')
-            ->assertSee('has-leading-addon')
-            ->assertSee('has-trailing-icon');
-    }
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->has('class', 'form-text-container')
+                ->contains('span', [
+                    'text' => 'foo',
+                    'class' => 'leading-addon',
+                ])
+                ->doesntContain('div', [
+                    'class' => 'leading-icon',
+                ])
+                ->doesntContain('div', [
+                    'class' => 'inline-addon',
+                ]);
+        });
+});
 
-    /** @test */
-    public function it_adds_aria_attributes_when_there_is_an_error(): void
-    {
-        $this->withViewErrors(['search' => 'required']);
+it('can have a trailing addon', function () {
+    Route::get('/test', fn () => Blade::render('<x-input name="search" trailing-addon="my addon" />'));
 
-        $this->blade('<x-input name="search" id="inputSearch" />')
-            ->assertSee('aria-invalid="true"', false)
-            ->assertSee('aria-describedby="inputSearch-error"', false);
-    }
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->has('class', 'form-text-container')
+                ->contains('div', [
+                    'text' => 'my addon',
+                    'class' => 'trailing-addon',
+                ]);
+        });
+});
 
-    /** @test */
-    public function it_combines_aria_describedby_on_error_if_the_attribute_is_present(): void
-    {
-        $this->withViewErrors(['search' => 'required']);
+it('can have custom trailing addon padding', function () {
+    Route::get('/test', fn () => Blade::render('<x-input name="search" trailing-addon="foo" trailing-addon-padding="pr-64" />'));
 
-        $this->blade('<x-input name="search" aria-describedby="search-help" />')
-            ->assertSee('aria-describedby="search-help search-error"', false)
-            ->assertSee('aria-invalid="true"', false);
-    }
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->has('class', 'form-text-container')
+                ->contains('input', [
+                    'class' => 'pr-64',
+                ]);
+        });
+});
 
-    /** @test */
-    public function can_have_a_max_width_set_on_the_container(): void
-    {
-        $this->blade('<x-input max-width="sm" name="name" />')
-            ->assertSee('max-w-sm');
-    }
+test('trailing addon can be slotted', function () {
+    $template = <<<'HTML'
+    <x-input name="search">
+        <x-slot:trailing-addon>foo</x-slot:trailing-addon>
+    </x-input>
+    HTML;
 
-    /** @test */
-    public function accepts_a_container_class(): void
-    {
-        $this->blade('<x-input name="name" container-class="foo" />')
-            ->assertSee('foo');
-    }
+    Route::get('/test', fn () => Blade::render($template));
 
-    /** @test */
-    public function name_can_be_omitted(): void
-    {
-        $this->blade('<x-input />')
-            ->assertDontSee('name=');
-    }
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->has('class', 'form-text-container')
+                ->contains('div', [
+                    'text' => 'foo',
+                    'class' => 'trailing-addon',
+                ]);
+        });
+});
 
-    /*
-     * This test is breaking Laravel 9.* tests because of the HtmlString
-     * class used in the test, but this won't affect actual rendering
-     * of the component, so we will disable it for now until the test
-     * passes again in a l9 environment.
-     */
-    // /** @test */
-    // public function can_have_extra_attributes(): void
-    // {
-    //     $attributes = new HtmlString(implode(PHP_EOL, [
-    //         'x-data',
-    //         'x-ref="foo"',
-    //         'x-on:keydown="$wire.submit()"',
-    //     ]));
-    //
-    //     $this->blade(
-    //         '<x-input name="foo" :extra-attributes="$attributes" />',
-    //         ['attributes' => $attributes],
-    //     )
-    //     ->assertSeeInOrder([
-    //         'x-data',
-    //         'x-ref="foo"',
-    //         'x-on:keydown="$wire.submit()"',
-    //     ], false);
-    // }
+it('can have a trailing icon', function () {
+    $template = <<<'HTML'
+    <x-input name="search">
+        <x-slot:trailing-icon>my icon</x-slot:trailing-icon>
+    </x-input>
+    HTML;
 
-    /** @test */
-    public function can_have_custom_trailing_addon_markup(): void
-    {
-        $template = <<<'HTML'
-        <x-input name="foo">
-            <x-slot name="after">
-                <div class="my-custom-trailing-addon">
-                    My custom addon content...
-                </div>
-            </x-slot>
-        </x-input>
-        HTML;
+    Route::get('/test', fn () => Blade::render($template));
 
-        $this->blade($template)
-            ->assertSeeInOrder([
-                '<div class="my-custom-trailing-addon">',
-                'My custom addon content...',
-                '</div>',
-            ], false);
-    }
-}
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->has('class', 'form-text-container')
+                ->contains('input', [
+                    'class' => 'has-trailing-icon',
+                ])
+                ->contains('div', [
+                    'class' => 'trailing-icon',
+                    'text' => 'my icon',
+                ]);
+        });
+});
+
+it('will only render one type of trailing addon', function () {
+    // The icon should not be rendered as we check for it last.
+    $template = <<<'HTML'
+    <x-input name="search" trailing-addon="foo">
+        <x-slot:trailing-icon>my icon</x-slot:trailing-icon>
+    </x-input>
+    HTML;
+
+    Route::get('/test', fn () => Blade::render($template));
+
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->has('class', 'form-text-container')
+                ->contains('div', [
+                    'text' => 'foo',
+                    'class' => 'trailing-addon',
+                ])
+                ->doesntContain('div', [
+                    'class' => 'trailing-icon',
+                    'text' => 'my icon',
+                ]);
+        });
+});
+
+it('can have both leading and trailing addons at the same time', function () {
+    $template = <<<'HTML'
+    <x-input name="search" leading-addon="leading addon">
+        <x-slot:trailing-addon>trailing addon</x-slot:trailing-addon>
+    </x-input>
+    HTML;
+
+    Route::get('/test', fn () => Blade::render($template));
+
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->has('class', 'form-text-container')
+                ->contains('input', [
+                    'class' => 'has-leading-addon',
+                ])
+                ->contains('span', [
+                    'text' => 'leading addon',
+                    'class' => 'leading-addon',
+                ])
+                ->contains('div', [
+                    'text' => 'trailing addon',
+                    'class' => 'trailing-addon',
+                ]);
+        });
+});
+
+it('adds aria attributes when there is an error', function () {
+    $this->withViewErrors(['search' => 'required']);
+
+    Route::get('/test', fn () => Blade::render('<x-input name="search" id="inputSearch" />'));
+
+    get('/test')
+        ->assertElementExists('input', function (AssertElement $input) {
+            $input->has('aria-invalid', 'true')
+                ->has('aria-describedby', 'inputSearch-error');
+        });
+});
+
+it('combines the aria-describedby attribute on errors if it is already defined on the input', function () {
+    $this->withViewErrors(['search' => 'required']);
+
+    Route::get('/test', fn () => Blade::render('<x-input name="search" id="inputSearch" aria-describedby="search-help" />'));
+
+    get('/test')
+        ->assertElementExists('input', function (AssertElement $input) {
+            $input->has('aria-invalid', 'true')
+                ->has('aria-describedby', 'search-help inputSearch-error');
+        });
+});
+
+it('can have a max width set on the input container', function () {
+    Route::get('/test', fn () => Blade::render('<x-input name="search" max-width="sm" />'));
+
+    get('/test')
+        ->assertElementExists('.form-text-container', function (AssertElement $div) {
+            $div->has('class', 'max-w-sm');
+        });
+});
+
+it('accepts a container class', function () {
+    Route::get('/test', fn () => Blade::render('<x-input name="search" container-class="bg-red-500" />'));
+
+    get('/test')
+        ->assertElementExists('.form-text-container', function (AssertElement $div) {
+            $div->has('class', 'bg-red-500');
+        });
+});
+
+test('name attribute can be omitted', function () {
+    Route::get('/test', fn () => Blade::render('<x-input />'));
+
+    get('/test')
+        ->assertElementExists('input', function (AssertElement $input) {
+            $input->doesntHave('name')
+                ->doesntHave('id');
+        });
+});
+
+it('can have custom trailing addon markup', function () {
+    $template = <<<'HTML'
+    <x-input name="search">
+        <x-slot:after>
+            <div class="my-custom-trailing-addon">
+                My custom addon content
+            </div>
+        </x-slot:after>
+    </x-input>
+    HTML;
+
+    Route::get('/test', fn () => Blade::render($template));
+
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->has('class', 'form-text-container')
+                ->contains('div', [
+                    'text' => 'My custom addon content',
+                    'class' => 'my-custom-trailing-addon',
+                ]);
+        });
+});
+
+it('can have extra attributes', function ($extraAttributes) {
+    Route::get('/test', fn () => Blade::render('<x-input name="search" :extra-attributes="$extraAttributes" />', ['extraAttributes' => $extraAttributes]));
+
+    get('/test')
+        ->assertElementExists('input', function (AssertElement $input) {
+            $input->has('data-foo', 'bar');
+        });
+})->with([
+    'data-foo="bar"',
+    new HtmlString('data-foo="bar"'),
+    [['data-foo' => 'bar']],
+    collect(['data-foo' => 'bar']),
+]);

@@ -32,7 +32,7 @@ trait HandlesValidationErrors
 
     public function hasError(string $name = null, string $bag = 'default'): bool
     {
-        $errors = View::shared('errors', fn () => request()->session()->get('errors', new ViewErrorBag));
+        $errors = View::shared('errors', fn () => session()->get('errors', new ViewErrorBag));
 
         $name = str_replace(['[', ']'], ['.', ''], (string) $name);
 

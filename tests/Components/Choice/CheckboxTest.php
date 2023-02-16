@@ -1,89 +1,115 @@
 <?php
 
-namespace Rawilk\FormComponents\Tests\Components\Choice;
+declare(strict_types=1);
 
-use Rawilk\FormComponents\Tests\Components\ComponentTestCase;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
+use function Pest\Laravel\get;
+use Sinnbeck\DomAssertions\Asserts\AssertElement;
 
-final class CheckboxTest extends ComponentTestCase
-{
-    /** @test */
-    public function can_be_rendered(): void
-    {
-        $this->blade('<x-checkbox name="remember_me" />')
-            ->assertSee('<input', false)
-            ->assertSee('name="remember_me"', false)
-            ->assertSee('type="checkbox"', false)
-            ->assertSee('form-checkbox');
-    }
+it('can be rendered', function () {
+    Route::get('/test', fn () => Blade::render('<x-checkbox name="remember_me" />'));
 
-    /** @test */
-    public function specific_attributes_can_be_used(): void
-    {
-        $this->blade('<x-checkbox name="remember_me" id="rememberMe" class="p-4" value="remember" label="Remember me" />')
-            ->assertSeeText('Remember me')
-            ->assertSee('name="remember_me"', false)
-            ->assertSee('id="rememberMe"', false)
-            ->assertSee('p-4')
-            ->assertSee('form-checkbox')
-            ->assertSee('value="remember"', false)
-            ->assertSee('<label', false)
-            ->assertSee('choice-label')
-            ->assertSee('for="rememberMe"', false);
-    }
+    get('/test')
+        ->assertElementExists('input', function (AssertElement $input) {
+            $input->is('input')
+                ->has('type', 'checkbox')
+                ->has('name', 'remember_me')
+                ->has('id', 'remember_me')
+                ->has('class', 'form-checkbox');
+        });
+});
 
-    /** @test */
-    public function label_can_be_slotted(): void
-    {
-        $this->blade('<x-checkbox name="remember_me">Remember me</x-checkbox>')
-            ->assertSeeText('Remember me')
-            ->assertSee('<label', false)
-            ->assertSee('for="remember_me"', false);
-    }
+it('accepts custom attributes', function () {
+    Route::get('/test', fn () => Blade::render('<x-checkbox name="remember_me" class="p-4" id="rememberMe" value="remember" label="Remember me" />'));
 
-    /** @test */
-    public function can_have_old_values(): void
-    {
-        $this->flashOld(['remember_me' => true]);
+    get('/test')
+        ->assertElementExists('input', function (AssertElement $input) {
+            $input->has('name', 'remember_me')
+                ->has('id', 'rememberMe')
+                ->has('class', 'form-checkbox p-4')
+                ->has('value', 'remember');
+        })
+        ->assertElementExists('label', function (AssertElement $label) {
+            $label->is('label')
+                ->has('for', 'rememberMe')
+                ->containsText('Remember me');
+        });
+});
 
-        $this->blade('<x-checkbox name="remember_me" label="Remember me" />')
-            ->assertSee('checked');
+test('label can be slotted', function () {
+    Route::get('/test', fn () => Blade::render('<x-checkbox name="remember_me">My label</x-checkbox>'));
 
-        $this->flashOld(['remember_me' => false]);
+    get('/test')
+        ->assertElementExists('label', function (AssertElement $label) {
+            $label->is('label')
+                ->has('for', 'remember_me')
+                ->containsText('My label');
+        });
+});
 
-        $this->blade('<x-checkbox name="remember_me" label="Remember me" />')
-            ->assertDontSee('checked');
-    }
+it('can have old values', function () {
+    flashOld(['remember_me' => true]);
 
-    /** @test */
-    public function can_have_a_description(): void
-    {
-        $this->blade('<x-checkbox name="remember_me" label="Remember me" description="My description" />')
-            ->assertSeeText('My description')
-            ->assertSeeText('Remember me')
-            ->assertSee('choice-description');
-    }
+    Route::middleware(['web'])->get('/test', fn () => Blade::render('<x-checkbox name="remember_me" />'));
 
-    /** @test */
-    public function description_can_be_slotted(): void
-    {
-        $template = <<<'HTML'
-        <x-checkbox name="remember_me" label="Remember me">
-            <x-slot name="description">
-                My <strong>description</strong>
-            </x-slot>
-        </x-checkbox>
-        HTML;
+    get('/test')
+        ->assertElementExists('input', function (AssertElement $input) {
+            $input->has('checked');
+        });
 
-        $this->blade($template)
-            ->assertSee('My <strong>description</strong>', false)
-            ->assertSee('choice-description');
-    }
+    flashOld(['remember_me' => false]);
 
-    /** @test */
-    public function checked_is_not_rendered_if_wire_model_is_present(): void
-    {
-        $this->blade('<x-checkbox name="remember_me" label="Remember me" wire:model="remember" checked />')
-            ->assertDontSee('checked')
-            ->assertSee('wire:model');
-    }
-}
+    get('/test')
+        ->assertElementExists('input', function (AssertElement $input) {
+            $input->doesntHave('checked');
+        });
+});
+
+it('can have a description', function () {
+    Route::get('/test', fn () => Blade::render('<x-checkbox name="remember_me" label="Remember me" description="My description" />'));
+
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->contains('.choice-description', [
+                'text' => 'My description',
+            ])->contains('label', [
+                'text' => 'Remember me',
+            ]);
+        });
+});
+
+test('description can be slotted', function () {
+    $template = <<<'HTML'
+    <x-checkbox name="remember_me" label="Remember me">
+        <x-slot:description>
+            <div>My description</div>
+        </x-slot:description>
+    </x-checkbox>
+    HTML;
+
+    Route::get('/test', fn () => Blade::render($template));
+
+    get('/test')
+        ->assertElementExists('div:first-of-type', function (AssertElement $div) {
+            $div->contains('label', [
+                'text' => 'Remember me',
+            ]);
+
+            $description = $div->find('.choice-description');
+
+            $description->contains('div', [
+                'text' => 'My description',
+            ]);
+        });
+});
+
+it('does not render the "checked" attribute if a wire:model is present', function () {
+    Route::get('/test', fn () => Blade::render('<x-checkbox name="remember_me" wire:model="rememberMe" checked />'));
+
+    get('/test')
+        ->assertElementExists('input', function (AssertElement $input) {
+            $input->doesntHave('checked')
+                ->has('wire:model', 'rememberMe');
+        });
+});

@@ -1,45 +1,50 @@
 <?php
 
-namespace Rawilk\FormComponents\Tests\Components;
+declare(strict_types=1);
 
-final class LabelTest extends ComponentTestCase
-{
-    /** @test */
-    public function can_be_rendered(): void
-    {
-        $this->blade('<x-label for="first_name" />')
-            ->assertSee('<label', false)
-            ->assertSeeText('First name')
-            ->assertSee('for="first_name"', false)
-            ->assertSee('form-label');
-    }
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
+use function Pest\Laravel\get;
+use Sinnbeck\DomAssertions\Asserts\AssertElement;
 
-    /** @test */
-    public function a_custom_label_can_be_used(): void
-    {
-        $template = <<<'HTML'
-        <x-label for="first_name">
-            My custom label
-        </x-label>
-        HTML;
+it('can render a label', function () {
+    Route::get('/test', fn () => Blade::render('<x-label for="first_name" />'));
 
-        $this->blade($template)
-            ->assertSeeText('My custom label')
-            ->assertDontSeeText('First name');
-    }
+    get('/test')
+        ->assertElementExists('label', function (AssertElement $label) {
+            $label->is('label')
+                ->has('for', 'first_name')
+                ->containsText('First name')
+                ->has('class', 'form-label');
+        });
+});
 
-    /** @test */
-    public function for_attribute_is_optional(): void
-    {
-        $this->blade('<x-label>Label...</x-label>')
-            ->assertDontSee('for=')
-            ->assertSeeText('Label...');
-    }
+test('custom text can be used for a label', function () {
+    Route::get('/test', fn () => Blade::render('<x-label for="first_name">My custom label</x-label>'));
 
-    /** @test */
-    public function nothing_is_rendered_if_label_is_empty(): void
-    {
-        $this->blade('<x-label />')
-            ->assertDontSee('<label', false);
-    }
-}
+    get('/test')
+        ->assertElementExists('label', function (AssertElement $label) {
+            $label->has('for', 'first_name')
+                ->containsText('My custom label')
+                ->doesntContainText('First name');
+        });
+});
+
+test('the for attribute is optional', function () {
+    Route::get('/test', fn () => Blade::render('<x-label>My label</x-label>'));
+
+    get('/test')
+        ->assertElementExists('label', function (AssertElement $label) {
+            $label->doesntHave('for')
+                ->containsText('My label');
+        });
+});
+
+test('nothing is rendered if label is empty', function () {
+    Route::get('/test', fn () => Blade::render('<div><x-label /></div>'));
+
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->doesntContain('label');
+        });
+});

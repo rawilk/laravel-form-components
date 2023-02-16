@@ -2,22 +2,19 @@
 
 declare(strict_types=1);
 
-namespace Rawilk\FormComponents\Tests\Components;
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
+use function Pest\Laravel\get;
+use Rawilk\FormComponents\Tests\Components\Support\SetsComponentPrefix;
+use Sinnbeck\DomAssertions\Asserts\AssertForm;
 
-final class ComponentPrefixTest extends ComponentTestCase
-{
-    protected function getEnvironmentSetUp($app): void
-    {
-        parent::getEnvironmentSetUp($app);
+uses(SetsComponentPrefix::class);
 
-        $app['config']->set('form-components.prefix', 'tw');
-    }
+test('a custom prefix can be used', function () {
+    Route::get('/test', fn () => Blade::render('<x-tw-form action="https://example.com" />'));
 
-    /** @test */
-    public function a_custom_prefix_can_be_used(): void
-    {
-        $this->blade('<x-tw-form action="http://example.com" />')
-            ->assertSee('<form', false)
-            ->assertSee('action=');
-    }
-}
+    get('/test')
+        ->assertFormExists('form', function (AssertForm $form) {
+            $form->has('action', 'https://example.com');
+        });
+});

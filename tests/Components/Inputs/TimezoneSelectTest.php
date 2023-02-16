@@ -2,69 +2,118 @@
 
 declare(strict_types=1);
 
-namespace Rawilk\FormComponents\Tests\Components\Inputs;
-
+use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
+use function Pest\Laravel\get;
 use Rawilk\FormComponents\Support\TimeZoneRegion;
-use Rawilk\FormComponents\Tests\Components\ComponentTestCase;
+use Sinnbeck\DomAssertions\Asserts\AssertElement;
+use Sinnbeck\DomAssertions\Asserts\AssertForm;
+use Sinnbeck\DomAssertions\Asserts\AssertSelect;
 
-final class TimezoneSelectTest extends ComponentTestCase
-{
-    /** @test */
-    public function can_be_rendered(): void
-    {
-        $this->blade('<x-timezone-select name="timezone" />')
-            ->assertSee('<select', false)
-            ->assertSee('name="timezone"', false)
-            ->assertSee('GMT')
-            ->assertSee('UTC')
-            ->assertSee('America/Chicago');
-    }
+it('can be rendered', function () {
+    Route::get('/test', fn () => Blade::render('<form><x-timezone-select name="timezone" /></form>'));
 
-    /** @test */
-    public function can_include_just_a_subset_of_timezone_regions(): void
-    {
-        $this->blade('<x-timezone-select name="timezone" only="General" />')
-            ->assertSee('UTC')
-            ->assertDontSee('America/Chicago');
-    }
+    get('/test')
+        ->assertFormExists('form', function (AssertForm $form) {
+            $form->findSelect('select', function (AssertSelect $select) {
+                $select->has('name', 'timezone')
+                    ->has('id', 'timezone')
+                    ->containsOptions(
+                        [
+                            'value' => 'GMT',
+                        ],
+                        [
+                            'value' => 'UTC',
+                        ],
+                        [
+                            'value' => 'America/Chicago',
+                        ]
+                    );
+            });
+        });
+});
 
-    /** @test */
-    public function can_include_multiple_region_subsets(): void
-    {
-        $regions = [TimeZoneRegion::GENERAL, TimeZoneRegion::AMERICA];
+it('can include just a specific subset of timezone regions', function () {
+    Route::get('/test', fn () => Blade::render('<form><x-timezone-select name="timezone" only="General" /></form>'));
 
-        $view = $this->blade(
-            '<x-timezone-select name="timezone" :only="$only" />',
-            ['only' => $regions],
-        );
+    get('/test')
+        ->assertFormExists('form', function (AssertForm $form) {
+            $form->findSelect('select', function (AssertSelect $select) {
+                $select->containsOptions(
+                    [
+                        'value' => 'GMT',
+                    ],
+                    [
+                        'value' => 'UTC',
+                    ],
+                );
+            });
+        })
+        ->assertDontSee('America/Chicago');
+});
 
-        $view->assertSee('UTC')
-            ->assertSee('America/Chicago')
-            ->assertDontSee('Europe/London');
-    }
+it('can include multiple region subsets', function () {
+    $regions = [TimeZoneRegion::GENERAL, TimeZoneRegion::AMERICA];
 
-    /** @test */
-    public function can_have_a_default_subset_for_only(): void
-    {
-        config(['form-components.timezone_subset' => TimeZoneRegion::GENERAL]);
+    Route::get('/test', fn () => Blade::render('<form><x-timezone-select name="timezone" :only="$regions" /></form>', ['regions' => $regions]));
 
-        $this->blade('<x-timezone-select name="timezone" />')
-            ->assertSee('UTC')
-            ->assertDontSee('America/Chicago');
-    }
+    get('/test')
+        ->assertFormExists('form', function (AssertForm $form) {
+            $form->findSelect('select', function (AssertSelect $select) {
+                $select->containsOptions(
+                    [
+                        'value' => 'GMT',
+                    ],
+                    [
+                        'value' => 'UTC',
+                    ],
+                    [
+                        'value' => 'America/Chicago',
+                    ]
+                );
+            });
+        })
+        ->assertDontSee('Europe/London');
+});
 
-    /** @test */
-    public function accepts_a_container_class(): void
-    {
-        $this->blade('<x-timezone-select name="timezone" container-class="foo" />')
-            ->assertSee('foo');
-    }
+it('can be configured to always show a specific subset by default', function () {
+    config([
+        'form-components.timezone_subset' => TimeZoneRegion::GENERAL,
+    ]);
 
-    /** @test */
-    public function name_can_be_omitted(): void
-    {
-        $this->blade('<x-timezone-select />')
-            ->assertDontSee('name=')
-            ->assertDontSee('id=');
-    }
-}
+    Route::get('/test', fn () => Blade::render('<form><x-timezone-select name="timezone" /></form>'));
+
+    get('/test')
+        ->assertFormExists('form', function (AssertForm $form) {
+            $form->findSelect('select', function (AssertSelect $select) {
+                $select->containsOptions(
+                    [
+                        'value' => 'GMT',
+                    ],
+                    [
+                        'value' => 'UTC',
+                    ],
+                );
+            });
+        })
+        ->assertDontSee('America/Chicago');
+});
+
+it('accepts a container class', function () {
+    Route::get('/test', fn () => Blade::render('<form><x-timezone-select name="timezone" container-class="foo" /></form>'));
+
+    get('/test')
+        ->assertElementExists('.form-text-container', function (AssertElement $div) {
+            $div->has('class', 'foo');
+        });
+});
+
+test('name can be omitted', function () {
+    Route::get('/test', fn () => Blade::render('<x-timezone-select />'));
+
+    get('/test')
+        ->assertElementExists('select', function (AssertElement $select) {
+            $select->doesntHave('name')
+                ->doesntHave('id');
+        });
+});
