@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
-use Sinnbeck\DomAssertions\Asserts\AssertElement;
 use function Pest\Laravel\get;
+use Sinnbeck\DomAssertions\Asserts\AssertElement;
 
 it('can be rendered', function () {
     $this->withViewErrors(['first_name' => 'Name is required']);
