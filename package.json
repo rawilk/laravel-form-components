@@ -5,7 +5,7 @@
     "author": "Randall Wilk",
     "license": "MIT",
     "devDependencies": {
-        "@babel/core": "^7.20.12",
+        "@babel/core": "^7.21.0",
         "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
         "@babel/preset-env": "^7.20.2",
         "laravel-mix": "^6.0.49"
