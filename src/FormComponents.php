@@ -61,9 +61,6 @@ final class FormComponents
     /**
      * This will output the JavaScript necessary to run some components
      * such as CustomSelect.
-     *
-     * @param  array  $options
-     * @return string
      */
     public function javaScript(array $options = []): string
     {
