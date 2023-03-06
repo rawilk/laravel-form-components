@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## v7.1.7 - 2023-03-06
+
+### What's Changed
+
+- Add Laravel 10.x support
+
+**Full Changelog**: https://github.com/rawilk/laravel-form-components/compare/v7.1.6...v7.1.7
+
 ## v7.1.6 - 2022-10-20
 
 ### Fixed
