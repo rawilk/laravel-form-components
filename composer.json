@@ -22,15 +22,15 @@
     ],
     "require": {
         "php": "^8.0|^8.1",
-        "illuminate/filesystem": "^8.70|^9.0",
-        "illuminate/support": "^8.70|^9.0",
-        "illuminate/view": "^8.70|^9.0"
+        "illuminate/filesystem": "^8.70|^9.0|^10.0",
+        "illuminate/support": "^8.70|^9.0|^10.0",
+        "illuminate/view": "^8.70|^9.0|^10.0"
     },
     "require-dev": {
         "blade-ui-kit/blade-heroicons": "^1.0|^2.0",
         "laravel/pint": "^1.2",
         "livewire/livewire": "^2.8",
-        "orchestra/testbench": "^6.23|^7.0",
+        "orchestra/testbench": "^6.23|^7.0|^8.0",
         "phpunit/phpunit": "^9.5",
         "spatie/laravel-ray": "^1.25"
     },
