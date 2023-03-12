@@ -21,12 +21,12 @@ final class FormComponents
 
     private function javaScriptAssets(array $options = []): string
     {
-        $appUrl = config('form-components.asset_url', rtrim($options['asset_url'] ?? '', '/'));
+        $assetsUrl = config('form-components.asset_url') ?: rtrim($options['asset_url'] ?? '', '/');
 
         $manifest = json_decode(file_get_contents(__DIR__ . '/../dist/mix-manifest.json'), true);
         $versionedFileName = $manifest['/form-components.js'];
 
-        $fullAssetPath = "{$appUrl}/form-components{$versionedFileName}";
+        $fullAssetPath = "{$assetsUrl}/form-components{$versionedFileName}";
 
         return <<<HTML
         <script src="{$fullAssetPath}" data-turbo-eval="false" data-turbolinks-eval="false"></script>

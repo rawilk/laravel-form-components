@@ -7,7 +7,7 @@ namespace Rawilk\FormComponents\Tests;
 use Illuminate\Foundation\Testing\Concerns\InteractsWithViews;
 use Livewire\Livewire;
 use Orchestra\Testbench\TestCase as Orchestra;
-use Rawilk\FormComponents\FormComponentsServiceProvider2;
+use Rawilk\FormComponents\FormComponentsServiceProvider;
 use Rawilk\FormComponents\Tests\Components\Support\BlankLivewireComponent;
 
 abstract class TestCase extends Orchestra
@@ -28,7 +28,7 @@ abstract class TestCase extends Orchestra
     protected function getPackageProviders($app): array
     {
         return [
-            FormComponentsServiceProvider2::class,
+            FormComponentsServiceProvider::class,
         ];
     }
 }

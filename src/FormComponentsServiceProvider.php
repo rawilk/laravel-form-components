@@ -10,9 +10,12 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Compilers\BladeCompiler;
 use Illuminate\View\ComponentAttributeBag;
 use Rawilk\FormComponents\Controllers\FormComponentsJavaScriptAssets;
+use Rawilk\FormComponents\Support\FormComponentsTagCompiler;
 use Rawilk\FormComponents\Support\Timezone;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+use function app;
+use function method_exists;
 
 class FormComponentsServiceProvider extends PackageServiceProvider
 {
@@ -56,7 +59,15 @@ class FormComponentsServiceProvider extends PackageServiceProvider
 
     private function bootDirectives(): void
     {
-        Blade::directive('fcJavaScript', function (string $expression) {
+        // Our custom tag compiler will allow us to use self-closing tags instead of a directive,
+        // i.e. <fc:scripts /> instead of @fcScripts.
+        if (method_exists($this->app['blade.compiler'], 'precompiler')) {
+            $this->app['blade.compiler']->precompiler(function ($string) {
+                return app(FormComponentsTagCompiler::class)->compile($string);
+            });
+        }
+
+        Blade::directive('fcScripts', function (string $expression) {
             return "<?php echo \\Rawilk\\FormComponents\\Facades\\FormComponents::javaScript({$expression}); ?>";
         });
     }
