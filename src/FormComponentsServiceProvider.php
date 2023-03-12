@@ -6,7 +6,6 @@ namespace Rawilk\FormComponents;
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\View\Compilers\BladeCompiler;
 use Illuminate\View\ComponentAttributeBag;
 use Rawilk\FormComponents\Controllers\FormComponentsJavaScriptAssets;

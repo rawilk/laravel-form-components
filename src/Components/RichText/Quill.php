@@ -6,7 +6,6 @@ namespace Rawilk\FormComponents\Components\RichText;
 
 use Illuminate\Support\Arr;
 use Illuminate\Support\Js;
-use Illuminate\Support\Str;
 use Rawilk\FormComponents\Components\BladeComponent;
 use Rawilk\FormComponents\Concerns\HandlesValidationErrors;
 use Rawilk\FormComponents\Concerns\HasModels;

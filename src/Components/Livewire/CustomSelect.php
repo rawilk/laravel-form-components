@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Rawilk\FormComponents\Components\Livewire;
 
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Collection;
-use Illuminate\Support\HtmlString;
 use Livewire\Component;
 use Rawilk\FormComponents\Components\Livewire\Concerns\HandlesSelectOptions;
 use Rawilk\FormComponents\Components\Livewire\Concerns\HasCustomSelectProperties;
