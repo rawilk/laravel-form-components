@@ -439,6 +439,6 @@ test('a size class can be applied to the input container for styling', function 
 
     get('/test')
         ->assertElementExists('.form-text-container', function (AssertElement $div) {
-                $div->has('class', 'form-input--lg');
+            $div->has('class', 'form-input--lg');
         });
 });
