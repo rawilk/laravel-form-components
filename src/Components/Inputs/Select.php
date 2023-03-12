@@ -2,11 +2,11 @@
 
 namespace Rawilk\FormComponents\Components\Inputs;
 
+use function config;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
 use Rawilk\FormComponents\Concerns\GetsSelectOptionProperties;
-use function config;
 
 class Select extends Input
 {

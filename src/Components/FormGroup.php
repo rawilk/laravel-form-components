@@ -2,9 +2,9 @@
 
 namespace Rawilk\FormComponents\Components;
 
+use function config;
 use Illuminate\Support\Arr;
 use Rawilk\FormComponents\Concerns\HandlesValidationErrors;
-use function config;
 
 class FormGroup extends BladeComponent
 {
