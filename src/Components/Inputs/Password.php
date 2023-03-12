@@ -53,7 +53,7 @@ class Password extends Input
 
         $this->showToggle = $showToggle ?? config('form-components.defaults.password.show_toggle', true);
         $this->showPasswordIcon = $showPasswordIcon ?? config('form-components.defaults.password.show_icon', 'heroicon-m-eye');
-        $this->hidePasswordIcon = $hidePasswordIcon ?? config('form-components.defaults.password.hide_icon', 'heroicon-m-eye-off');
+        $this->hidePasswordIcon = $hidePasswordIcon ?? config('form-components.defaults.password.hide_icon', 'heroicon-m-eye-slash');
     }
 
     public function inputClass(): string

@@ -134,7 +134,7 @@ test('inline addon can be slotted', function () {
 });
 
 it('can have a leading icon', function () {
-    Route::get('/test', fn () => Blade::render('<x-input name="search" leading-icon="heroicon-m-eye" />'));
+    Route::get('/test', fn () => Blade::render('<x-input name="search" leading-icon="heroicon-s-eye" />'));
 
     get('/test')
         ->assertElementExists('div', function (AssertElement $div) {
