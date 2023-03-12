@@ -7,9 +7,9 @@
          enctype="multipart/form-data"
      @endif
 
-    @if (! $spellcheck)
-        spellcheck="false"
-    @endif
+     @unless ($spellcheck)
+         spellcheck="false"
+     @endunless
 
      {{ $attributes }}
 >

@@ -4,13 +4,13 @@ namespace Rawilk\FormComponents\Concerns;
 
 trait AcceptsFiles
 {
-    /*
+    /**
      * If specified, the component will fill out the "accept" property depending on
      * which type is requested.
      */
-    public null|string $type;
+    public ?string $type;
 
-    public function accepts(): null|string
+    public function accepts(): ?string
     {
         return match ($this->type) {
             'audio' => 'audio/*',

@@ -4,119 +4,156 @@ declare(strict_types=1);
 
 namespace Rawilk\FormComponents\Components\Inputs;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
 use Illuminate\Support\Js;
 use Rawilk\FormComponents\Components\BladeComponent;
-use Rawilk\FormComponents\Concerns\GetsSelectOptionProperties;
 use Rawilk\FormComponents\Concerns\HandlesValidationErrors;
+use Rawilk\FormComponents\Concerns\HasAddons;
 use Rawilk\FormComponents\Concerns\HasExtraAttributes;
 use Rawilk\FormComponents\Concerns\HasModels;
 
 class CustomSelect extends BladeComponent
 {
     use HandlesValidationErrors;
-    use HasModels;
-    use GetsSelectOptionProperties;
     use HasExtraAttributes;
-
-    protected static array $assets = ['alpine', 'popper'];
+    use HasModels;
+    use HasAddons;
 
     public function __construct(
         public ?string $name = null,
         public ?string $id = null,
         public mixed $value = null,
-        public $options = [],
+        ?bool $showErrors = null,
         public bool $multiple = false,
-        // For multi-selects, the minimum amount of options that must be selected.
-        public int $minSelected = 1,
-        // For multi-selects, the maximum amount of options that may be selected.
+        public array|Collection $options = [],
+        public ?string $size = null,
+        public ?string $valueField = null,
+        public ?string $labelField = null,
+        public ?string $selectedLabelField = null,
+        public ?string $disabledField = null,
+        public ?string $childrenField = null,
+        public ?int $minSelected = null,
         public ?int $maxSelected = null,
-        public bool $disabled = false,
-        public ?string $labelledby = null,
-        public bool $searchable = true,
-        public bool $closeOnSelect = false,
-        public bool $autofocus = false,
-        public bool $optional = false,
-        public ?string $clearIcon = null,
-        public bool|null|string $placeholder = null,
-        public bool|null|string $noOptionsText = null,
-        public bool|null|string $noResultsText = null,
-        public ?bool $showCheckbox = null,
-        public $initialLabel = null,
-        public string $valueField = 'id',
-        public string $labelField = 'name',
-        public ?string $selectedLabelField = null, // Option key to use for displaying the text for the selected option.
-        public string $disabledField = 'disabled',
-        public string $isOptGroupField = 'is_opt_group',
-        bool $showErrors = true,
-
-        // When used as a livewire component
-        public bool $livewire = false,
+        public ?bool $optional = null,
+        public ?string $buttonIcon = null,
+        public ?bool $searchable = null,
         public ?string $livewireSearch = null,
+        public ?bool $clearable = null,
+        public ?string $clearIcon = null,
+        public ?string $optionSelectedIcon = null,
+        public ?string $placeholder = null,
+        public ?string $noResultsText = null,
+        public ?string $noOptionsText = null,
+        public bool $alwaysOpen = false,
+        public ?string $containerClass = null,
 
         // Extra Attributes
         null|string|HtmlString|array|Collection $extraAttributes = null,
+
+        // Addons
+        ?string $leadingAddon = null,
+        ?string $leadingIcon = null,
+        ?string $inlineAddon = null,
+        ?string $trailingAddon = null,
     ) {
         $this->id = $id ?? $name;
-        $this->value = $this->name ? old($this->name, $this->value) : $this->value;
-        $this->showErrors = $showErrors;
-        $this->selectedLabelField = $selectedLabelField ?? $labelField;
+        $this->value = $name ? old($name, $value) : $value;
 
-        if (is_null($this->showCheckbox)) {
-            $this->showCheckbox = $this->multiple;
-        }
+        $this->showErrors = $showErrors ?? config('form-components.defaults.global.show_errors', true);
 
-        if ($this->multiple && ! is_iterable($this->value)) {
+        $this->size = $size ?? config('form-components.defaults.input.size');
+
+        $this->clearable = $clearable ?? config('form-components.defaults.custom_select.clearable', true);
+        $this->optional = $optional ?? config('form-components.defaults.custom_select.optional', true);
+        $this->minSelected = $minSelected ?? config('form-components.defaults.custom_select.min_selected');
+        $this->maxSelected = $maxSelected ?? config('form-components.defaults.custom_select.max_selected');
+        $this->buttonIcon = $buttonIcon ?? config('form-components.defaults.custom_select.button_icon');
+        $this->searchable = $searchable ?? config('form-components.defaults.custom_select.searchable', true);
+        $this->clearIcon = $clearIcon ?? config('form-components.defaults.custom_select.clear_icon');
+        $this->optionSelectedIcon = $optionSelectedIcon ?? config('form-components.defaults.custom_select.option_selected_icon');
+        $this->placeholder = $placeholder ?? __('form-components::messages.custom_select_placeholder');
+        $this->noResultsText = $noResultsText ?? __('form-components::messages.custom_select_no_results');
+        $this->noOptionsText = $noOptionsText ?? __('form-components::messages.custom_select_empty_text');
+
+        $this->valueField = $valueField ?? config('form-components.defaults.global.value_field', 'id');
+        $this->labelField = $labelField ?? config('form-components.defaults.global.label_field', 'name');
+        $this->selectedLabelField = $selectedLabelField ?? config('form-components.defaults.global.selected_label_field') ?? $labelField;
+        $this->disabledField = $disabledField ?? config('form-components.defaults.global.disabled_field', 'disabled');
+        $this->childrenField = $childrenField ?? config('form-components.defaults.global.children_field', 'children');
+
+        if ($multiple && ! is_iterable($this->value)) {
             $this->value = array_filter([$this->value]);
         }
 
-        $this->resolveIcons();
-        $this->resolveLang();
-
         $this->setExtraAttributes($extraAttributes);
+
+        // We do not support inline trailing addons or icons for selects.
+        $this->leadingAddon = $leadingAddon;
+        $this->leadingIcon = $leadingIcon;
+        $this->inlineAddon = $inlineAddon;
+        $this->trailingAddon = $trailingAddon;
+
+        $this->options = $this->normalizeOptions($options);
     }
 
-    public function configToJs(): Js
+    public function buttonClass(): string
     {
-        return Js::from([
-            'name' => (string) $this->name,
-            'multiple' => $this->multiple,
-            'minSelected' => $this->minSelected,
-            'maxSelected' => $this->maxSelected,
-            'disabled' => $this->disabled,
-            'searchable' => $this->searchable,
-            'closeOnSelect' => $this->closeOnSelect,
-            'autofocus' => $this->autofocus,
-            'placeholder' => $this->placeholder,
-            'optional' => $this->optional,
-            'initialLabel' => $this->initialLabel,
-            'livewireSearch' => $this->livewireSearch,
+        return Arr::toCssClasses([
+            'form-input',
+            'custom-select__button',
+            "custom-select__button--{$this->size}" => $this->size,
+            'input-error' => $this->hasErrorsAndShow($this->name),
+            config('form-components.defaults.custom_select.input_class'),
         ]);
     }
 
-    public function hasLivewire(): bool
+    public function menuClass(): string
     {
-        return $this->livewire || $this->livewireSearch !== null || $this->hasWireModel();
+        return Arr::toCssClasses([
+            'custom-select__menu',
+            config('form-components.defaults.custom_select.menu_class'),
+        ]);
     }
 
-    protected function resolveIcons(): void
+    public function containerClass(): string
     {
-        $this->clearIcon = $this->clearIcon ?? config('form-components.components.custom-select.clear_icon');
+        return Arr::toCssClasses([
+            'relative custom-select',
+            config('form-components.defaults.custom_select.container_class'),
+            $this->containerClass,
+        ]);
     }
 
-    protected function resolveLang(): void
+    protected function normalizeOptions(array|Collection $options): Collection
     {
-        if ($this->placeholder !== false) {
-            $this->placeholder = $this->placeholder ?? __('form-components::messages.custom_select_filter_placeholder');
-        }
+        return collect($options)
+            ->map(function ($value, $key) {
+                // If the key is not numeric, we're going to assume this is the value.
+                if (! is_numeric($key)) {
+                    return [
+                        $this->valueField => $key,
+                        $this->labelField => $value,
+                    ];
+                }
 
-        if ($this->noOptionsText !== false) {
-            $this->noOptionsText = $this->noOptionsText ?? __('form-components::messages.custom_select_empty_text');
-        }
+                return $value;
+            });
+    }
 
-        if ($this->noResultsText !== false) {
-            $this->noResultsText = $this->noResultsText ?? __('form-components::messages.custom_select_no_results');
-        }
+    public function config(): Js
+    {
+        return Js::from([
+            'valueField' => $this->valueField,
+            'by' => $this->valueField,
+            'labelField' => $this->labelField,
+            'selectedLabelField' => $this->selectedLabelField,
+            'disabledField' => $this->disabledField,
+            'childrenField' => $this->childrenField,
+            'optional' => $this->optional,
+            'minSelected' => $this->minSelected,
+            'maxSelected' => $this->maxSelected,
+        ]);
     }
 }

@@ -6,7 +6,7 @@ use Illuminate\Support\Str;
 
 class Label extends BladeComponent
 {
-    public function __construct(public string $for = '', public bool $customSelectLabel = false)
+    public function __construct(public ?string $for = null)
     {
     }
 
@@ -18,6 +18,6 @@ class Label extends BladeComponent
     public function hasLabel($slot): bool
     {
         return ! $slot->isEmpty()
-            || (bool) $this->fallback();
+            || $this->fallback();
     }
 }

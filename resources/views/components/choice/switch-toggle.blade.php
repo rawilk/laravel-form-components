@@ -1,6 +1,6 @@
-<div x-data="{
-        onValue: {{ \Illuminate\Support\Js::from($onValue) }},
-        offValue: {{ \Illuminate\Support\Js::from($offValue) }},
+<div
+    wire:ignore.self
+    x-data="switchToggle({
         @if ($hasWireModel())
             value: @entangle($attributes->wire('model')),
         @elseif ($hasXModel())
@@ -8,91 +8,68 @@
         @else
             value: {{ \Illuminate\Support\Js::from($value) }},
         @endif
-        get isPressed() {
-            return this.value === this.onValue;
-        },
-        toggle() {
-            this.value = this.isPressed ? this.offValue : this.onValue;
-            $dispatch('input', this.value);
-            @if ($hasXModel())
-                {{ $attributes->first('x-model') }} = this.value;
-            @endif
-        },
-     }"
-     wire:ignore.self
-     class="{{ $getContainerClass() }}"
-     {{ $extraAttributes }}
+        onValue: {{ \Illuminate\Support\Js::from($onValue) }},
+        offValue: {{ \Illuminate\Support\Js::from($offValue) }},
+    })"
+    @if ($hasXModel())
+        x-modelable="value"
+        {{ $attributes->whereStartsWith('x-model') }}
+    @endif
 >
-    @if ($label && $labelPosition === 'left')
-        <span x-on:click="$refs.button.click(); $refs.button.focus();"
-              class="flex-grow switch-toggle-label form-label block text-sm font-medium leading-5 text-slate-700"
-              id="{{ $labelId() }}"
-        >
-            {{ $label }}
-        </span>
-    @endif
+     <label class="{{ $containerClass() }}">
+         <input
+             type="checkbox"
 
-    <button x-bind:aria-pressed="JSON.stringify(isPressed)"
-            x-on:click="toggle()"
-            x-ref="button"
-            x-cloak
-            type="button"
-            @if ($id) id="{{ $id }}" @endif
-            @if ($label) aria-labelledby="{{ $labelId() }}" @endif
-            {{ $attributes->except(['type', 'wire:model', 'wire:model.defer', 'wire:model.lazy', 'x-model'])->merge(['class' => $buttonClass()]) }}
-            x-bind:class="{ 'pressed': isPressed }"
-            @if ($disabled) disabled @endif
-    >
-        <span class="sr-only">{{ __($buttonLabel) }}</span>
+             @if ($onValue && ! is_bool($onValue))
+                 value="{{ $onValue }}"
+             @endif
 
-        @if ($short)
-            <span aria-hidden="true"
-                  class="switch-toggle-short-bg"
-                  x-bind:class="{ 'pressed': isPressed }"
-            >
-            </span>
+             @class([
+                'sr-only peer',
+                'input-error' => $hasErrorsAndShow($name),
+             ])
+             x-bind:checked="isPressed"
+             x-on:change="toggle"
 
-            <span aria-hidden="true"
-                  class="switch-toggle-short-button"
-                  x-bind:class="{ 'pressed': isPressed }"
-            >
-            </span>
-        @else
-            <span aria-hidden="true"
-                  class="switch-toggle-button"
-                  x-bind:class="{ 'pressed': isPressed }"
-            >
-                @if ($offIcon)
-                    <span class="absolute inset-0 h-full w-full flex items-center justify-center transition-opacity"
-                          x-bind:class="{ 'opacity-0 ease-out duration-100': isPressed, 'opacity-100 ease-in duration-200': ! isPressed }"
-                          aria-hidden="true"
-                    >
-                        {{ $offIcon }}
-                    </span>
-                @endif
+             {{ $attributes->except(['type', 'x-model', 'wire:model', 'wire:model.defer', 'wire:model.lazy', 'aria-describedby', 'class']) }}
 
-                @if ($onIcon)
-                    <span class="absolute inset-0 h-full w-full flex items-center justify-center transition-opacity"
-                          x-bind:class="{ 'opacity-100 ease-in duration-200': isPressed, 'opacity-0 ease-out duration-100': ! isPressed }"
-                          aria-hidden="true"
-                    >
-                        {{ $onIcon }}
-                    </span>
-                @endif
-            </span>
-        @endif
-    </button>
+             @if ($name) name="{{ $name }}" @endif
+             @if ($id) id="{{ $id }}" @endif
+             @if ($disabled) disabled @endif
+             @if ($hasErrorsAndShow($name))
+                 aria-invalid="true"
+             @endif
+             {!! $ariaDescribedBy() !!}
+         />
 
-    @if ($label && $labelPosition === 'right')
-        <span x-on:click="$refs.button.click(); $refs.button.focus()"
-              class="ml-3 switch-toggle-label form-label block text-sm font-medium leading-5 text-slate-700"
-              id="{{ $labelId() }}"
-        >
-            {{ $label }}
-        </span>
-    @endif
+         @if ($labelLeft)
+             <span class="switch-toggle__label switch-toggle__label--left">{{ $labelLeft }}</span>
+         @endif
 
-    @if ($name)
-        <input type="hidden" name="{{ $name }}" x-bind:value="value" />
-    @endif
+         <div class="{{ $switchClass() }}">
+             @if ($offIcon && ! $short)
+                 <span {{ $componentSlot($offIcon)->attributes->class('switch-toggle__icon switch-toggle__icon--off') }}>
+                     @if (is_string($offIcon))
+                         <x-dynamic-component :component="$offIcon" />
+                     @else
+                         {{ $offIcon }}
+                     @endif
+                 </span>
+             @endif
+
+             @if ($onIcon && ! $short)
+                 <span {{ $componentSlot($onIcon)->attributes->class('switch-toggle__icon switch-toggle__icon--on') }}>
+                     @if (is_string($onIcon))
+                         <x-dynamic-component :component="$onIcon" />
+                     @else
+                         {{ $onIcon }}
+                     @endif
+                 </span>
+             @endif
+         </div>
+
+         @if ($label || ! $slot->isEmpty())
+            <span class="switch-toggle__label switch-toggle__label--right">{{ $label ?? $slot }}</span>
+         @endif
+     </label>
 </div>

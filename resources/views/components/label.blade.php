@@ -1,9 +1,8 @@
 @if ($hasLabel($slot))
-<label @if ($for) for="{{ $for }}" @endif {{ $attributes->class('form-label block text-sm font-medium leading-5 text-slate-700') }}
-       @if ($customSelectLabel)
-           x-data
-           x-on:click="document.querySelector('[data-name={{ \Illuminate\Support\Str::slug($for) }}]').focus()"
-       @endif
+<label
+    @if ($for) for="{{ $for }}" @endif
+    {{ $attributes->except('id')->class('form-label') }}
+   :id="$id('fc-label')"
 >
     @if ($slot->isEmpty())
         {{ $fallback }}

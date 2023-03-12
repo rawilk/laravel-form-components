@@ -1,0 +1,106 @@
+@layer components {
+    .choice-container {
+        @apply relative
+        flex
+        items-start;
+    }
+
+    .choice-container--label-left {
+        @apply py-4;
+    }
+
+    .choice-input {
+        @apply flex
+        h-5
+        items-center;
+    }
+
+    .choice-input--right {
+        @apply ml-3;
+    }
+
+    .form-choice {
+        @apply border;
+
+        width: var(--choice-size);
+        height: var(--choice-size);
+        border-color: var(--input-border-color);
+        color: var(--choice-color);
+        background-color: var(--choice-bg);
+    }
+
+    .form-choice:focus {
+        --tw-ring-color: var(--choice-ring-color);
+    }
+
+    .form-checkbox {
+        @apply rounded;
+    }
+
+    .choice-label {
+        @apply ml-3 text-sm;
+    }
+
+    .choice-label--left {
+        @apply ml-0
+        min-w-0
+        flex-1;
+    }
+
+    .choice-label label {
+        font-weight: var(--choice-label-font-weight);
+        color: var(--choice-label-color);
+    }
+
+    .choice-description {
+        color: var(--choice-description-color);
+    }
+
+    .form-choice:is([disabled], [readonly], [disabled]:hover, [readonly]:hover) {
+        color: var(--choice-color);
+        background-color: var(--choice-disabled-bg);
+        border-color: var(--input-disabled-border-color);
+
+        @apply cursor-not-allowed opacity-[.40];
+    }
+
+    .form-choice:is([disabled]:checked, [readonly]:checked) {
+        background-color: currentColor;
+    }
+
+    .choice-label label[data-disabled="true"] {
+        @apply cursor-not-allowed opacity-75;
+    }
+
+    .form-choice:checked {
+        background-color: currentColor;
+    }
+
+    .form-choice:is(:checked, :checked:hover) {
+        border-color: transparent;
+    }
+}
+
+/* sizing */
+@layer utilities {
+    .form-choice--sm .form-choice {
+        width: var(--choice-size);
+        height: var(--choice-size);
+    }
+
+    .form-choice--md .form-choice {
+        @apply h-6 w-6;
+    }
+
+    .form-choice--md .choice-label {
+        @apply -mt-1;
+    }
+
+    .form-choice--lg .form-choice {
+        @apply h-8 w-8;
+    }
+
+    .form-choice--lg .choice-label {
+        @apply text-base -mt-2;
+    }
+}

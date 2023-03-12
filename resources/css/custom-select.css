@@ -1,112 +1,258 @@
 @layer components {
-    .custom-select__button,
-    .tree-select__button {
-        @apply pl-2
-        pr-1
-        border
-        border-slate-300
-        rounded-md
-        bg-white
-        sm:text-sm
-        table
-        table-fixed
-        h-[38px]
-        w-full;
+    .custom-select__button-container {
+        @apply flex
+        relative
+        shadow-sm;
+
+        border-radius: var(--input-border-radius);
     }
 
-    .custom-select__button.disabled,
-    .tree-select__button.disabled {
-        @apply bg-slate-50 cursor-not-allowed;
-    }
-
-    .custom-select-menu,
-    .tree-select-menu {
-        @apply absolute
-        origin-top-right
-        right-0
-        rounded-md
-        bg-white
-        focus:outline-none
+    .custom-select__button {
+        @apply flex-1
+        flex
+        items-center justify-between
+        block
+        gap-2
         w-full
         border
-        border-blue-300;
+        shadow-none
+        text-left
+        sm:text-sm;
+
+        background-color: var(--input-background-color);
+        padding: var(--input-padding-y) var(--input-padding-x);
+        border-radius: var(--input-border-radius);
+        border-color: var(--input-border-color);
+        color: var(--input-color);
     }
 
-    .custom-select-menu[data-popper-placement="top-start"],
-    .tree-select-menu[data-popper-placement="top-start"] {
-        @apply rounded-b-none border-b-0;
+    .custom-select__button:is(:active, :focus, .open) {
+        @apply ring-1;
+        --tw-ring-color: var(--input-focus-border-color);
+        border-color: var(--input-focus-border-color);
     }
 
-    .custom-select-menu[data-popper-placement="top-start"] .custom-select-menu__container,
-    .tree-select-menu[data-popper-placement="top-start"] .tree-select-menu__container {
-        @apply rounded-b-none;
+    .custom-select:is([disabled], [readonly]) .custom-select__button {
+        @apply cursor-not-allowed;
+
+        background-color: var(--input-disabled-bg-color);
+        border-color: var(--input-disabled-border-color);
     }
 
-    .custom-select-menu[data-popper-placement="bottom-start"],
-    .tree-select-menu[data-popper-placement="bottom-start"] {
-        @apply rounded-t-none border-t-0;
+    .custom-select:is([disabled], [readonly]) .custom-select__button:is(:active, :focus) {
+        @apply ring-0 outline-none;
     }
 
-    .custom-select-menu[data-popper-placement="bottom-start"] .custom-select-menu__container,
-    .tree-select-menu[data-popper-placement="bottom-start"] .tree-select-menu__container {
-        @apply rounded-t-none;
+    .custom-select__button-icon {
+        @apply h-5 w-5 shrink-0;
     }
 
-    .custom-select-menu:not(.invisible) + .custom-select__button,
-    .tree-select-menu:not(.invisible) + .tree-select__button {
-        @apply border-blue-300;
+    .custom-select__button-container:has(+ [data-popper-placement="top-start"]) .custom-select__button-icon {
+        @apply rotate-180;
     }
 
-    .custom-select-menu:not(.invisible)[data-popper-placement="bottom-start"] + .custom-select__button,
-    .tree-select-menu:not(.invisible)[data-popper-placement="bottom-start"] + .tree-select__button {
-        @apply rounded-b-none border-b-slate-200;
+    .custom-select__clear {
+        @apply shrink-0;
     }
 
-    .custom-select-menu:not(.invisible)[data-popper-placement="top-start"] + .custom-select__button,
-    .tree-select-menu:not(.invisible)[data-popper-placement="top-start"] + .tree-select__button {
-        @apply rounded-t-none border-t-slate-200;
+    .custom-select__clear:is(:hover, :focus) {
+        @apply relative
+        h-6
+        w-6
+        rounded-full
+        transition-colors;
+
+        color: var(--clear-button-hover-color);
+        background-color: var(--clear-button-hover-bg);
     }
 
-    .custom-select-option,
-    .tree-select-option {
-        @apply w-full focus:outline-none;
+    .custom-select__clear svg {
+        @apply h-5 w-5;
     }
 
-    .custom-select-option__container,
-    .tree-select-option__container {
-        @apply px-2.5 text-sm text-slate-600 flex items-center;
+    .custom-select__button-content {
+        @apply flex-1 w-0 truncate;
     }
 
-    .custom-select-option:not(.disabled).has-focus > .custom-select-option__container,
-    .tree-select-option:not(.disabled).has-focus > .tree-select-option__container {
-        outline: none;
-        background-color: theme(colors.slate.100);
+    .custom-select__menu {
+        @apply absolute
+        mt-2
+        z-10
+        origin-top-right
+        max-w-full
+        w-full
+        border
+        shadow-md
+        overflow-hidden
+        outline-none;
+
+        background-color: var(--custom-select-menu-bg);
+        border-color: var(--custom-select-menu-border-color);
+        border-radius: var(--custom-select-menu-border-radius);
     }
 
-    .custom-select-option.disabled > .custom-select-option__container,
-    .tree-select-option.disabled > .tree-select-option__container {
-        @apply bg-gray-100 opacity-50 cursor-not-allowed;
+    .custom-select__menu-content {
+        @apply overflow-x-hidden
+        overflow-y-auto;
+
+        max-height: var(--custom-select-max-menu-height);
     }
 
-    .custom-select-option__label,
-    .tree-select-option__label {
-        @apply py-3.5;
+    .custom-select__option {
+        @apply flex
+        items-center
+        justify-between
+        cursor-default
+        gap-2
+        w-full
+        px-4
+        py-2
+        text-sm
+        transition-colors
+        focus:outline-none;
+
+        color: var(--custom-select-menu-color);
     }
 
-    .custom-select-option--opt-group .custom-select-option__container {
-        @apply text-slate-400 font-semibold;
+    .custom-select__option--active {
+        @apply cursor-pointer;
+
+        background-color: var(--custom-select-option-active-bg);
+        color: var(--custom-select-option-active-color);
     }
 
-    .custom-select-option--opt-group .custom-select-option__label {
-        @apply py-2;
+    .custom-select__option--selected {
+        font-weight: var(--custom-select-option-selected-font-weight);
     }
 
-    .custom-select-option--opt-group:not(:first-child) {
-        @apply border-t border-t-slate-300;
+    .custom-select__option--selected:not(.custom-select__option--active) {
+        background-color: var(--custom-select-option-selected-bg);
+        color: var(--custom-select-option-selected-color);
     }
 
-    .custom-select-option.selected > .custom-select-option__container,
-    .tree-select-option.selected > .tree-select-option__container {
-        @apply bg-blue-200 font-semibold;
+    .custom-select__option:is(.custom-select__option--disabled, [disabled]) {
+        @apply opacity-50 cursor-not-allowed;
+    }
+
+    .custom-select__selected-icon svg {
+        @apply h-5 w-5;
+    }
+
+    .custom-select__selected-icon {
+        color: var(--custom-select-selected-icon-color);
+    }
+
+    .custom-select__option--active .custom-select__selected-icon {
+        color: var(--custom-select-selected-icon-hover-color);
+    }
+
+    .custom-select__search {
+        @apply w-full
+        sticky
+        top-0
+        py-2
+        px-2.5
+        border-b
+        sm:text-sm
+        z-[2];
+
+        background-color: var(--custom-select-menu-bg);
+        border-color: var(--custom-select-search-border-color);
+    }
+
+    .custom-select__search input {
+        @apply w-full
+        border-0
+        bg-transparent
+        focus:outline-none
+        focus:ring-0;
+
+        color: var(--input-color);
+    }
+
+    .custom-select__search input::placeholder {
+        color: var(--input-placeholder-color);
+    }
+
+    .custom-select__button-tokens {
+        @apply flex
+        flex-wrap
+        gap-1;
+    }
+
+    .custom-select__button-token {
+        @apply inline-flex
+        rounded-full
+        px-2.5
+        py-1
+        break-all
+        transition-colors
+        gap-2
+        items-center
+        justify-between
+        max-w-full
+        text-xs;
+
+        background-color: var(--custom-select-button-token-bg);
+        color: var(--custom-select-button-token-color);
+    }
+
+    .custom-select__button-token.custom-select__button-token--deleteable {
+        @apply pr-1.5;
+    }
+
+    .custom-select__button-token:not(.disabled):is(:hover, :focus) {
+        @apply cursor-pointer outline-none;
+
+        background-color: var(--custom-select-button-token-hover-bg);
+    }
+
+    .custom-select__button-token-delete svg {
+        @apply h-3.5 w-3.5 opacity-75 transition-opacity;
+    }
+
+    .custom-select__button-token.disabled {
+        @apply opacity-75;
+    }
+
+    .group:is(:hover, :focus) .custom-select__button-token-delete svg {
+        @apply opacity-100;
+    }
+
+    .custom-select__opt-group {
+        @apply text-sm pointer-events-none border-b;
+
+        font-weight: var(--custom-select-opt-group-font-weight);
+        color: var(--custom-select-opt-group-color);
+        background-color: var(--custom-select-opt-group-bg);
+        border-color: var(--custom-select-opt-group-border-color);
+    }
+
+    .custom-select__no-results {
+        @apply text-sm py-2 px-2.5;
+
+        color: var(--custom-select-menu-color);
+    }
+}
+
+@layer utilities {
+    /* sizing */
+    .custom-select__button--sm {
+        padding: var(--input-padding-y-sm) var(--input-padding-x-sm);
+        @apply sm:text-xs;
+    }
+
+    .custom-select__button--sm .custom-select__button-token {
+        @apply py-0.5;
+    }
+
+    .custom-select__button--md {
+        padding: var(--input-padding-y) var(--input-padding-x);
+        @apply sm:text-sm;
+    }
+
+    .custom-select__button--lg {
+        padding: var(--input-padding-y-lg) var(--input-padding-x-lg);
+        @apply sm:text-base;
     }
 }

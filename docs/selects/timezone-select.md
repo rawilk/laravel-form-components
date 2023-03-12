@@ -23,6 +23,7 @@ You may not always want or need to show a list of every timezone region. You can
 be rendered either by using the `timezone_subset` config option, or the `only` prop for a per-case basis.
 
 Via config:
+
 ```php
 ...
 'timezone_subset' => [\Rawilk\FormComponents\Support\TimeZoneRegion::AMERICA],

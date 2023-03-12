@@ -2,11 +2,14 @@
 
 namespace Rawilk\FormComponents\Concerns;
 
+/**
+ * @mixin \Illuminate\View\Component
+ */
 trait HasModels
 {
-    protected $hasWireModel;
+    protected ?bool $hasWireModel = null;
 
-    protected $hasXModel;
+    protected ?bool $hasXModel = null;
 
     public function hasBoundModel(): bool
     {

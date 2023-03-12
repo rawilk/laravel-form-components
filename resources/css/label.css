@@ -1,0 +1,10 @@
+@layer components {
+    .form-label {
+        @apply block;
+
+        font-size: var(--label-text-size);
+        font-weight: var(--label-font-weight);
+        line-height: var(--label-line-height);
+        color: var(--label-color);
+    }
+}

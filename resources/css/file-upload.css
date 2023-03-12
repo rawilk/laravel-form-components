@@ -1,0 +1,173 @@
+@layer components {
+    .file-upload {
+        @apply flex
+        items-center
+        space-x-5;
+    }
+
+    .file-upload__input {
+        @apply block
+        w-full
+        border
+        shadow-none
+        cursor-pointer
+        sm:text-sm;
+
+        border-color: var(--input-border-color);
+        border-radius: var(--input-border-radius);
+        background-color: var(--input-background-color);
+        color: var(--input-color);
+    }
+
+    .file-upload__input:is(:focus, :active):not(:is([disabled], [readonly])) {
+        @apply ring-1 outline-none;
+        --tw-ring-color: var(--input-focus-border-color);
+        border-color: var(--input-focus-border-color);
+    }
+
+    .file-upload__input::file-selector-button {
+        @apply cursor-pointer;
+        border-radius: var(--input-border-radius);
+        @apply rounded-r-none border-0 mr-4;
+
+        padding: var(--input-padding-y) var(--input-padding-x);
+        color: var(--file-upload-button-color);
+        background-color: var(--file-upload-button-bg);
+        font-weight: var(--file-upload-button-font-weight);
+    }
+
+    .file-upload__input:is([disabled], [readonly]) {
+        @apply cursor-not-allowed;
+
+        background-color: var(--input-disabled-bg-color);
+        border-color: var(--input-disabled-border-color);
+    }
+
+    .file-upload__input:is([disabled], [readonly])::file-selector-button {
+        @apply cursor-not-allowed opacity-50;
+
+        background-color: var(--file-upload-button-disabled-bg);
+    }
+
+    .file-upload__badge {
+        @apply inline-flex
+        items-center
+        px-2.5
+        py-0.5
+        rounded-full
+        text-xs
+        font-medium;
+
+        background-color: var(--file-upload-badge-bg);
+        color: var(--file-upload-badge-color);
+    }
+
+    .file-upload__percent {
+        @apply text-right;
+    }
+
+    .file-upload__percent > span {
+        @apply text-xs
+        font-semibold
+        inline-block;
+
+        color: var(--file-upload-percent-color);
+    }
+
+    .file-upload__progress--native {
+        @apply overflow-hidden;
+    }
+
+    .file-upload__progress--native progress {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        @apply appearance-none
+        block
+        border-0
+        rounded
+        mb-4
+        p-0
+        w-full;
+
+        height: var(--file-upload-progress-height);
+    }
+
+    /* For now, only webkit browsers seem to be able to style the non-filled in part of the progress bar */
+    .file-upload__progress--native progress::-webkit-progress-bar {
+        @apply rounded;
+
+        background-color: var(--file-upload-progress-bg);
+    }
+
+    /* We cannot combine the selectors for the browser prefixes because it breaks each browser's progress bar for some reason... */
+    .file-upload__progress--native progress::-webkit-progress-value {
+        @apply rounded-l;
+
+        background-color: var(--file-upload-progress-filled-bg);
+    }
+
+    .file-upload__progress--native progress::-moz-progress-bar {
+        @apply rounded-l;
+
+        background-color: var(--file-upload-progress-filled-bg);
+    }
+
+    .file-upload__progress--native progress::-ms-fill {
+        @apply rounded-l;
+
+        background-color: var(--file-upload-progress-filled-bg);
+    }
+
+    /* non native progress bar */
+    .file-upload__progress {
+        @apply overflow-hidden
+        mb-4
+        text-xs
+        flex
+        rounded;
+
+        height: var(--file-upload-progress-height);
+        background-color: var(--file-upload-progress-bg);
+    }
+
+    .file-upload__progress > div {
+        @apply shadow-none
+        flex
+        flex-col
+        justify-center
+        whitespace-nowrap
+        text-white;
+
+        background-color: var(--file-upload-progress-filled-bg);
+    }
+}
+
+/* sizing */
+@layer utilities {
+    .file-upload__input--sm {
+        @apply sm:text-xs;
+    }
+
+    .file-upload__input--sm::file-selector-button {
+        padding: var(--input-padding-y-sm) var(--input-padding-x-sm);
+        @apply sm:text-xs;
+    }
+
+    .file-upload__input--md {
+        @apply sm:text-sm;
+    }
+
+    .file-upload__input--md::file-selector-button {
+        padding: var(--input-padding-y) var(--input-padding-x);
+        @apply sm:text-sm;
+    }
+
+    .file-upload__input--lg {
+        @apply sm:text-base;
+    }
+
+    .file-upload__input--lg::file-selector-button {
+        padding: var(--input-padding-y-lg) var(--input-padding-x-lg);
+        @apply sm:text-base;
+    }
+}

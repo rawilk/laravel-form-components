@@ -5,14 +5,20 @@ namespace Rawilk\FormComponents\Concerns;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ViewErrorBag;
 
+/**
+ * @property null|string $id
+ * @property null|string $name
+ */
 trait HandlesValidationErrors
 {
     public bool $showErrors = true;
 
-    public function ariaDescribedBy()
+    public function ariaDescribedBy(): ?string
     {
         $hasError = $this->hasErrorsAndShow($this->name);
-        if ($this->attributes->offsetExists('aria-describedby') && $hasError) {
+        $hasDefinedAriaDescribedBy = $this->attributes->offsetExists('aria-describedby');
+
+        if ($hasError && $hasDefinedAriaDescribedBy) {
             return "aria-describedby=\"{$this->attributes->get('aria-describedby')} {$this->id}-error\"";
         }
 
@@ -20,14 +26,14 @@ trait HandlesValidationErrors
             return "aria-describedby=\"{$this->id}-error\"";
         }
 
-        return '';
+        return $hasDefinedAriaDescribedBy
+            ? "aria-describedby=\"{$this->attributes->get('aria-describedby')}\""
+            : null;
     }
 
     public function hasErrorsAndShow(string $name = null, string $bag = 'default'): bool
     {
-        return $this->showErrors
-            ? $this->hasError($name, $bag)
-            : false;
+        return $this->showErrors && $this->hasError($name, $bag);
     }
 
     public function hasError(string $name = null, string $bag = 'default'): bool

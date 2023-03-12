@@ -1,79 +1,136 @@
-import selectMixins from '../mixins/select';
+import { generateContext } from '../util/customSelectContext';
+import selectPopper from '../mixins/selectPopper';
+import {
+    buttonDirective,
+    clearButtonDirective,
+    labelDirective,
+    optionsDirective,
+    optionDirective,
+    searchDirective,
+    selectData,
+    tokenDirective,
+} from '../mixins/select';
+import { rootMagic, optionMagic } from '../mixins/selectMagic';
 
-export default options => ({
-    ...selectMixins,
-    ...options,
-    _componentName: 'custom-select',
-    _focusableElementSelector: '.custom-select-option:not(.disabled):not(.select-no-results):not(.custom-select-option--opt-group)',
-    _optionElementSelector: '.custom-select-option:not(.select-no-results):not(.custom-select-option--opt-group)',
+export default function (Alpine) {
+    Alpine.data('customSelect', config => {
+        return {
+            ...selectPopper,
 
-    get hasValue() {
-        return this.multiple
-            ? this.value.length > 0
-            : this.value !== '' && this.value !== null;
-    },
+            ...selectData(config.__el, Alpine, config),
 
-    get hasValueAndCanClear() {
-        if (! this.optional) {
-            return false;
+            __generateContext(el, Alpine, config) {
+                return generateContext({
+                    multiple: this.__isMultiple,
+                    orientation: this.__orientation,
+                    __wire: config.__wire,
+                    __wireSearch: Alpine.bound(el, 'livewire-search'),
+                    __config: config.__config ?? {},
+                    Alpine,
+                });
+            },
         }
+    });
 
-        if (this.disabled) {
-            return false;
+    Alpine.directive('custom-select', (el, directive, { cleanup }) => {
+        switch (directive.value) {
+            case 'button':
+                handleButton(el, Alpine);
+                break;
+            case 'label':
+                handleLabel(el, Alpine);
+                break;
+            case 'clear':
+                handleClearButton(el, Alpine);
+                break;
+            case 'options':
+                handleOptions(el, Alpine);
+                break;
+            case 'option':
+                handleOption(el, Alpine);
+
+                // We need to notify the context that the option has left the DOM.
+                cleanup(() => {
+                    const parent = el.closest('[x-data]');
+
+                    parent && Alpine.$data(parent).__context.destroyItem(el);
+                });
+
+                break;
+            case 'search':
+                handleSearch(el, Alpine);
+                break;
+            case 'token':
+                handleToken(el, Alpine);
+                break;
+
+            default:
+                throw new Error(`Unknown custom-select directive value: ${directive.value}`);
         }
+    });
 
-        return this.hasValue;
-    },
+    Alpine.magic('customSelect', el => {
+        return rootMagic(el, Alpine);
+    });
 
-    get searchPlaceholder() {
-        if (this.multiple) {
-            if (! Array.isArray(this.value)) {
-                return this.placeholder;
-            }
+    Alpine.magic('customSelectOption', el => {
+        return optionMagic(
+            el,
+            Alpine,
+            (data, context, optionEl) => {
+                return {
+                    get isOptGroup() {
+                        return Alpine.bound(optionEl, 'is-opt-group');
+                    },
+                };
+            },
+            () => {
+                return {
+                    isOptGroup: false,
+                };
+            },
+        );
+    });
+}
 
-            return this.value.length
-                ? null
-                : this.placeholder;
-        }
+function handleLabel(el, Alpine) {
+    Alpine.bind(el, {
+        ...labelDirective(el, Alpine),
+    });
+}
 
-        return this.value !== '' && this.value !== null
-            ? this.valuePlaceholder
-            : this.placeholder;
-    },
+function handleButton(el, Alpine) {
+    Alpine.bind(el, {
+        ...buttonDirective(el, Alpine),
+    });
+}
 
-    get showSearchInput() {
-        if (this.multiple) {
-            return true;
-        }
+function handleSearch(el, Alpine) {
+    Alpine.bind(el, {
+        ...searchDirective(el, Alpine),
+    });
+}
 
-        return this.open;
-    },
+function handleOptions(el, Alpine) {
+    Alpine.bind(el, {
+        ...optionsDirective(el, Alpine),
+    });
+}
 
-    init() {
-        this._initSelect();
-    },
+function handleOption(el, Alpine) {
+    Alpine.bind(el, {
+        ...optionDirective(el, Alpine, 'custom'),
+    });
+}
 
-    closeMenu(options = { focusRoot: true }) {
-        if (! this.open) {
-            return;
-        }
+function handleToken(el, Alpine) {
+    Alpine.bind(el, {
+        ...tokenDirective(el, Alpine),
+    });
+}
 
-        this._closeMenu();
-
-        const focusRoot = options.focusRoot !== false;
-
-        if (focusRoot) {
-            this._focusRoot();
-        }
-    },
-
-    selectOption(option) {
-        if (this.disabled) {
-            return;
-        }
-
-        try {
-            option._x_dataStack[0].toggle({ parentMenu: this });
-        } catch (e) {}
-    },
-});
+function handleClearButton(el, Alpine) {
+    Alpine.bind(el, {
+        ...clearButtonDirective(el, Alpine, 'custom'),
+    });
+}

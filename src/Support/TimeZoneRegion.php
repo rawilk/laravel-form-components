@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace Rawilk\FormComponents\Support;
 
+/**
+ * We will be dropping this class at some point in the future if we
+ * drop support for PHP 8.0.
+ *
+ * @deprecated Use TimeZoneRegionEnum instead if on PHP 8.1+.
+ */
 final class TimeZoneRegion
 {
     /**

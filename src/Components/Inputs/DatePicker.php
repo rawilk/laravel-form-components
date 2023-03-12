@@ -6,60 +6,67 @@ namespace Rawilk\FormComponents\Components\Inputs;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
+use Rawilk\FormComponents\Concerns\HasUniqueInitFunctionName;
 
 class DatePicker extends Input
 {
-    protected static array $assets = ['alpine', 'flatpickr'];
-
-    public ?string $placeholder;
+    use HasUniqueInitFunctionName;
 
     public function __construct(
-        public ?string $name = null,
-        public ?string $id = null,
-        public mixed $value = null,
-        public ?string $maxWidth = null,
-        bool $showErrors = true,
-        $leadingAddon = false,
-        $inlineAddon = false,
-        $inlineAddonPadding = self::DEFAULT_INLINE_ADDON_PADDING,
-        $leadingIcon = false,
-        $trailingAddon = false,
-        $trailingAddonPadding = self::DEFAULT_TRAILING_ADDON_PADDING,
-        $trailingIcon = false,
-        public array $options = [], // date picker options
-        public bool $clickOpens = false,
-        public bool $allowInput = true,
-        public bool $enableTime = false,
-        public bool|null|string $format = false,
-        public bool $clearable = false,
-        ?string $placeholder = 'form-components::messages.date_picker_placeholder',
-        public bool|null|string $toggleIcon = null,
-        public ?string $clearIcon = null,
-        public ?string $containerClass = null,
-        public $after = null,
+        ?string $name = null,
+        ?string $id = null,
+        mixed $value = null,
+        ?string $containerClass = null,
+        ?string $size = null,
+        ?bool $showErrors = null,
 
         // Extra Attributes
-        null|string|HtmlString|array|Collection $extraAttributes = null,
+        null|HtmlString|array|string|Collection $extraAttributes = null,
+
+        // Addons
+        ?string $leadingAddon = null,
+        ?string $leadingIcon = null,
+        ?string $inlineAddon = null,
+        ?string $trailingAddon = null,
+        ?string $trailingInlineAddon = null,
+        ?string $trailingIcon = null,
+
+        // Date picker specific
+        public array $options = [],
+        public ?bool $clickOpens = null,
+        public ?bool $allowInput = null,
+        public ?bool $enableTime = null,
+        public ?string $format = null,
+        public ?string $toggleIcon = null,
+        public ?bool $clearable = null,
+        public ?string $clearIcon = null,
+        public ?string $placeholder = null,
     ) {
         parent::__construct(
             name: $name,
             id: $id,
             value: $value,
-            maxWidth: $maxWidth,
-            showErrors: $showErrors,
             containerClass: $containerClass,
-            leadingAddon: $leadingAddon,
-            inlineAddon: $inlineAddon,
-            inlineAddonPadding: $inlineAddonPadding,
-            leadingIcon: $leadingIcon,
-            trailingAddon: $trailingAddon,
-            trailingAddonPadding: $trailingAddonPadding,
-            trailingIcon: $trailingIcon,
+            size: $size,
+            showErrors: $showErrors,
             extraAttributes: $extraAttributes,
+            leadingAddon: $leadingAddon,
+            leadingIcon: $leadingIcon,
+            inlineAddon: $inlineAddon,
+            trailingAddon: $trailingAddon,
+            trailingInlineAddon: $trailingInlineAddon,
+            trailingIcon: $trailingIcon,
         );
 
-        $this->resolveIcons();
-        $this->placeholder = __($placeholder);
+        $this->clickOpens = $clickOpens ?? config('form-components.defaults.date_picker.click_opens', true);
+        $this->allowInput = $allowInput ?? config('form-components.defaults.date_picker.allow_input', true);
+        $this->enableTime = $enableTime ?? config('form-components.defaults.date_picker.enable_time', false);
+        $this->format = $format ?? config('form-components.date_picker.format', null);
+        $this->clearable = $clearable ?? config('form-components.defaults.date_picker.clearable', true);
+        $this->placeholder = $placeholder ?? __(config('form-components.defaults.date_picker.placeholder'));
+
+        $this->toggleIcon = $toggleIcon ?? config('form-components.defaults.date_picker.toggle_icon');
+        $this->clearIcon = $clearIcon ?? config('form-components.defaults.date_picker.clear_icon');
     }
 
     public function options(): array
@@ -70,36 +77,30 @@ class DatePicker extends Input
             'enableTime' => $this->enableTime,
         ];
 
-        if ($this->format !== false) {
+        if ($this->format) {
             $defaultOptions['dateFormat'] = $this->format;
         }
 
         return array_merge($defaultOptions, $this->options);
     }
 
-    public function jsonOptions(): string
+    public function isClearable(): bool
     {
-        if (empty($this->options())) {
-            return '';
-        }
-
-        return '...' . json_encode((object) $this->options()) . ',';
+        return $this->clearable && $this->clearIcon;
     }
 
-    private function resolveIcons(): void
+    protected function hasLeadingAddon(): bool
     {
-        /** @psalm-suppress RedundantCondition */
-        $this->toggleIcon = is_null($this->toggleIcon) && $this->toggleIcon !== false
-            ? config('form-components.components.date-picker.icon')
-            : $this->toggleIcon;
-        $this->clearIcon = is_null($this->clearIcon) ? config('form-components.components.date-picker.clear_icon') : $this->clearIcon;
+        return $this->toggleIcon || $this->leadingAddon;
+    }
 
-        if ($this->toggleIcon !== false) {
-            $this->leadingAddon = true; // for styling...
-        }
+    protected function hasTrailingIcon(): bool
+    {
+        return $this->isClearable() || $this->trailingIcon;
+    }
 
-        if ($this->clearable) {
-            $this->trailingIcon = true; // for styling...
-        }
+    protected function initFunctionSuffix(): string
+    {
+        return 'Flatpickr';
     }
 }

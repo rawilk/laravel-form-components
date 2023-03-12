@@ -1,2 +1,2 @@
 import './components';
-import './util/prototypes';
+import './directives';

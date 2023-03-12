@@ -14,4 +14,59 @@
     input.busy[type="search"]::-webkit-search-results-decoration {
         display: none;
     }
+
+    .form-text-container {
+        @apply flex
+        relative
+        shadow-sm;
+
+        border-radius: var(--input-border-radius);
+    }
+
+    .form-text {
+        @apply flex-1
+        block
+        w-full
+        border
+        shadow-none
+        sm:text-sm;
+
+        background-color: var(--input-background-color);
+        padding: var(--input-padding-y) var(--input-padding-x);
+        border-radius: var(--input-border-radius);
+        border-color: var(--input-border-color);
+        color: var(--input-color);
+    }
+
+    .form-text::placeholder {
+        color: var(--input-placeholder-color);
+    }
+
+    .form-text:focus {
+        --tw-ring-color: var(--input-focus-border-color);
+        border-color: var(--input-focus-border-color);
+    }
+
+    .form-text:is([disabled], [readonly]) {
+        background-color: var(--input-disabled-bg-color);
+        border-color: var(--input-disabled-border-color);
+    }
+}
+
+/* sizing */
+@layer utilities {
+    .form-input--sm .form-text {
+        padding: var(--input-padding-y-sm) var(--input-padding-x-sm);
+        @apply sm:text-xs;
+    }
+
+    .form-input--md .form-text {
+        padding: var(--input-padding-y) var(--input-padding-x);
+        @apply sm:text-sm;
+    }
+
+    .form-input--lg .form-text {
+        padding: var(--input-padding-y-lg) var(--input-padding-x-lg);
+        @apply sm:text-base;
+    }
 }

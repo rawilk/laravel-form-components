@@ -1,418 +1,185 @@
 @layer components {
+    .switch-toggle-container {
+        @apply relative
+        inline-flex
+        items-center
+        cursor-pointer;
+    }
+
+    .switch-toggle__label {
+        @apply text-sm;
+
+        font-weight: var(--switch-toggle-label-font-weight);
+        color: var(--switch-toggle-label-color);
+    }
+
+    .switch-toggle__label--left {
+        @apply mr-3;
+    }
+
+    .switch-toggle__label--right {
+        @apply ml-3;
+    }
+
     .switch-toggle {
         @apply relative
-        flex-shrink-0
-        inline-flex
-        rounded-full
-        cursor-pointer
-        focus:outline-none
-        focus:ring-2
-        focus:ring-offset-2
-        focus:ring-blue-500;
+        rounded-full;
+
+        background-color: var(--switch-toggle-bg);
+        width: var(--switch-toggle-width);
+        height: var(--switch-toggle-height);
     }
 
-    .switch-toggle-simple {
-        @apply h-6
-        w-11
-        border-2
-        border-transparent
-        transition-colors
-        ease-in-out
-        duration-200
-        bg-slate-200;
-    }
-
-    .switch-toggle-simple.pressed {
-        @apply bg-blue-600;
-    }
-
-    .switch-toggle-short {
-        @apply items-center
-        justify-center
-        h-5
-        w-10;
-    }
-
-    .switch-toggle-button {
-        @apply inline-block
-        h-5
-        w-5
-        rounded-full
+    .switch-toggle:after {
+        @apply absolute
         bg-white
-        shadow
-        transform
-        ring-0
-        transition
-        ease-in-out
-        duration-200
-        translate-x-0;
-    }
-
-    .switch-toggle-button.pressed {
-        @apply translate-x-5;
-    }
-
-    .switch-toggle-short-bg {
-        @apply absolute
-        h-4
-        w-9
-        mx-auto
-        rounded-full
-        transition-colors
-        ease-in-out
-        duration-200
-        bg-gray-200;
-    }
-
-    .switch-toggle-short-bg.pressed {
-        @apply bg-blue-600;
-    }
-
-    .switch-toggle-short-button {
-        @apply absolute
-        left-0
-        inline-block
-        h-5
-        w-5
         border
-        border-slate-200
+        border-slate-300
         rounded-full
-        bg-white
-        shadow
-        transform
-        ring-0
-        transition-transform
-        ease-in-out
-        duration-200
-        translate-x-0;
+        transition-all;
+        content: '';
+        top: 2px;
+        left: 2px;
+
+        width: var(--switch-toggle-circle-size);
+        height: var(--switch-toggle-circle-size);
     }
 
-    .switch-toggle-short-button.pressed {
-        @apply translate-x-5;
+    .peer:focus ~ .switch-toggle {
+        @apply outline-none
+        ring-4;
+
+        --tw-ring-color: var(--switch-toggle-ring-color);
     }
 
-    .switch-toggle.disabled,
-    .switch-toggle[disabled] {
-        @apply cursor-not-allowed;
+    .peer:checked ~ .switch-toggle {
+        background-color: var(--switch-toggle-bg-checked);
     }
 
-    .switch-toggle.disabled .switch-toggle-simple,
-    .switch-toggle[disabled] .switch-toggle-simple {
-        @apply opacity-75;
+    .peer:checked ~ .switch-toggle:after {
+        @apply translate-x-full
+        border-white;
     }
 
-    .switch-toggle.disabled.switch-toggle-simple,
-    .switch-toggle[disabled].switch-toggle-simple,
-    .switch-toggle.disabled .switch-toggle-short-bg,
-    .switch-toggle[disabled] .switch-toggle-short-bg {
-        @apply bg-gray-200;
+    .peer:disabled ~ .switch-toggle {
+        @apply cursor-not-allowed opacity-50;
     }
 
-    .switch-toggle.disabled.switch-toggle-simple.pressed,
-    .switch-toggle[disabled].switch-toggle-simple.pressed,
-    .switch-toggle.disabled .switch-toggle-short-bg.pressed,
-    .switch-toggle[disabled] .switch-toggle-short-bg.pressed {
-        @apply bg-blue-400 opacity-75;
+    .peer:disabled ~ .switch-toggle__label {
+        @apply cursor-not-allowed opacity-75;
+
+        color: var(--switch-toggle-disabled-label-color);
     }
 
-    .switch-toggle.disabled .switch-toggle-button,
-    .switch-toggle.disabled .switch-toggle-short-button,
-    .switch-toggle[disabled] .switch-toggle-button,
-    .switch-toggle[disabled] .switch-toggle-short-button {
-        @apply bg-slate-100;
+    .switch-toggle__icon {
+        @apply absolute
+        hidden
+        z-[1];
+
+        top: 5px;
+        width: var(--switch-toggle-icon-size);
+        height: var(--switch-toggle-icon-size);
     }
 
-    /*
-     * responsive switch variants.
-     * doing it this way because the selectors are not simple, and tailwind
-     * appends the size prefixes to the last selector, which is not desired.
-     */
-
-    /* simple - sm */
-    .switch-toggle--sm.switch-toggle-simple {
-        @apply h-5 w-10;
+    .switch-toggle__icon--off {
+        @apply inline-block;
+        left: 5px;
     }
 
-    .switch-toggle--sm.switch-toggle-simple .switch-toggle-button {
-        @apply h-4 w-4;
+    .switch-toggle__icon--on {
+        right: 5px;
+        color: var(--switch-toggle-bg-checked);
     }
 
-    .switch-toggle--sm.switch-toggle-simple .switch-toggle-button.pressed {
-        @apply translate-x-5;
+    .peer:checked ~ .switch-toggle .switch-toggle__icon--off {
+        @apply hidden;
     }
 
-    /* simple - base */
-    .switch-toggle--base.switch-toggle-simple {
-        @apply h-6 w-11;
+    .peer:checked ~ .switch-toggle .switch-toggle__icon--on {
+        @apply inline-block;
     }
 
-    .switch-toggle--base.switch-toggle-simple .switch-toggle-button {
-        @apply h-5 w-5;
+    .switch-toggle--short {
+        height: var(--switch-toggle-short-height);
     }
 
-    .switch-toggle--base.switch-toggle-simple .switch-toggle-button.pressed {
-        @apply translate-x-5;
+    .switch-toggle--short:after {
+        top: -3px;
+        left: -1px;
     }
 
-    /* simple - lg */
-    .switch-toggle--lg.switch-toggle-simple {
-        @apply h-8 w-14;
+    .peer:focus ~ .switch-toggle--short {
+        @apply ring-2 ring-offset-4;
     }
 
-    .switch-toggle--lg.switch-toggle-simple .switch-toggle-button {
-        @apply h-7 w-7;
+    .peer:checked ~ .switch-toggle--short:after {
+        left: 5px;
+        @apply border-slate-300;
+    }
+}
+
+@layer utilities {
+    .switch-toggle--sm {
+        width: var(--switch-toggle-sm-width);
+        height: var(--switch-toggle-sm-height);
     }
 
-    .switch-toggle--lg.switch-toggle-simple .switch-toggle-button.pressed {
-        @apply translate-x-6;
+    .switch-toggle--sm:after {
+        width: var(--switch-toggle-sm-circle-size);
+        height: var(--switch-toggle-sm-circle-size);
     }
 
-    /* short - lg */
-    .switch-toggle--lg.switch-toggle-short {
-        @apply h-7 w-12;
+    .switch-toggle--sm .switch-toggle__icon {
+        top: 4px;
+        width: var(--switch-toggle-sm-icon-size);
+        height: var(--switch-toggle-sm-icon-size);
     }
 
-    .switch-toggle--lg.switch-toggle-short .switch-toggle-short-bg {
-        @apply h-5 w-11;
+    .switch-toggle--sm .switch-toggle__icon--off {
+        left: 4px;
     }
 
-    .switch-toggle--lg.switch-toggle-short .switch-toggle-short-button {
-        @apply h-6 w-6;
+    .switch-toggle--sm .switch-toggle__icon--on {
+        right: 4px;
     }
 
-    .switch-toggle--lg.switch-toggle-short .switch-toggle-short-button.pressed {
-        @apply translate-x-6;
+    .switch-toggle--md {
+        width: var(--switch-toggle-width);
+        height: var(--switch-toggle-height);
     }
 
-    @screen sm {
-        /* simple - sm */
-        .sm\:switch-toggle--sm.switch-toggle-simple {
-            @apply h-5 w-10;
-        }
-
-        .sm\:switch-toggle--sm.switch-toggle-simple .switch-toggle-button {
-            @apply h-4 w-4;
-        }
-
-        .sm\:switch-toggle--sm.switch-toggle-simple .switch-toggle-button.pressed {
-            @apply translate-x-5;
-        }
-
-        /* simple - base */
-        .sm\:switch-toggle--base.switch-toggle-simple {
-            @apply h-6 w-11;
-        }
-
-        .sm\:switch-toggle--base.switch-toggle-simple .switch-toggle-button {
-            @apply h-5 w-5;
-        }
-
-        .sm\:switch-toggle--base.switch-toggle-simple .switch-toggle-button.pressed {
-            @apply translate-x-5;
-        }
-
-        /* simple - lg */
-        .sm\:switch-toggle--lg.switch-toggle-simple {
-            @apply h-8 w-14;
-        }
-
-        .sm\:switch-toggle--lg.switch-toggle-simple .switch-toggle-button {
-            @apply h-7 w-7;
-        }
-
-        .sm\:switch-toggle--lg.switch-toggle-simple .switch-toggle-button.pressed {
-            @apply translate-x-6;
-        }
-
-        /* short - lg */
-        .sm\:switch-toggle--lg.switch-toggle-short {
-            @apply h-7 w-12;
-        }
-
-        .sm\:switch-toggle--lg.switch-toggle-short .switch-toggle-short-bg {
-            @apply h-5 w-11;
-        }
-
-        .sm\:switch-toggle--lg.switch-toggle-short .switch-toggle-short-button {
-            @apply h-6 w-6;
-        }
-
-        .sm\:switch-toggle--lg.switch-toggle-short .switch-toggle-short-button.pressed {
-            @apply translate-x-6;
-        }
+    .switch-toggle--md:after {
+        width: var(--switch-toggle-circle-size);
+        height: var(--switch-toggle-circle-size);
     }
 
-    @screen md {
-        /* simple - sm */
-        .md\:switch-toggle--sm.switch-toggle-simple {
-            @apply h-5 w-10;
-        }
-
-        .md\:switch-toggle--sm.switch-toggle-simple .switch-toggle-button {
-            @apply h-4 w-4;
-        }
-
-        .md\:switch-toggle--sm.switch-toggle-simple .switch-toggle-button.pressed {
-            @apply translate-x-5;
-        }
-
-        /* simple - base */
-        .md\:switch-toggle--base.switch-toggle-simple {
-            @apply h-6 w-11;
-        }
-
-        .md\:switch-toggle--base.switch-toggle-simple .switch-toggle-button {
-            @apply h-5 w-5;
-        }
-
-        .md\:switch-toggle--base.switch-toggle-simple .switch-toggle-button.pressed {
-            @apply translate-x-5;
-        }
-
-        /* simple - lg */
-        .md\:switch-toggle--lg.switch-toggle-simple {
-            @apply h-8 w-14;
-        }
-
-        .md\:switch-toggle--lg.switch-toggle-simple .switch-toggle-button {
-            @apply h-7 w-7;
-        }
-
-        .md\:switch-toggle--lg.switch-toggle-simple .switch-toggle-button.pressed {
-            @apply translate-x-6;
-        }
-
-        /* short - lg */
-        .md\:switch-toggle--lg.switch-toggle-short {
-            @apply h-7 w-12;
-        }
-
-        .md\:switch-toggle--lg.switch-toggle-short .switch-toggle-short-bg {
-            @apply h-5 w-11;
-        }
-
-        .md\:switch-toggle--lg.switch-toggle-short .switch-toggle-short-button {
-            @apply h-6 w-6;
-        }
-
-        .md\:switch-toggle--lg.switch-toggle-short .switch-toggle-short-button.pressed {
-            @apply translate-x-6;
-        }
+    .switch-toggle--lg {
+        width: var(--switch-toggle-lg-width);
+        height: var(--switch-toggle-lg-height);
     }
 
-    @screen lg {
-        /* simple - sm */
-        .lg\:switch-toggle--sm.switch-toggle-simple {
-            @apply h-5 w-10;
-        }
-
-        .lg\:switch-toggle--sm.switch-toggle-simple .switch-toggle-button {
-            @apply h-4 w-4;
-        }
-
-        .lg\:switch-toggle--sm.switch-toggle-simple .switch-toggle-button.pressed {
-            @apply translate-x-5;
-        }
-
-        /* simple - base */
-        .lg\:switch-toggle--base.switch-toggle-simple {
-            @apply h-6 w-11;
-        }
-
-        .lg\:switch-toggle--base.switch-toggle-simple .switch-toggle-button {
-            @apply h-5 w-5;
-        }
-
-        .lg\:switch-toggle--base.switch-toggle-simple .switch-toggle-button.pressed {
-            @apply translate-x-5;
-        }
-
-        /* simple - lg */
-        .lg\:switch-toggle--lg.switch-toggle-simple {
-            @apply h-8 w-14;
-        }
-
-        .lg\:switch-toggle--lg.switch-toggle-simple .switch-toggle-button {
-            @apply h-7 w-7;
-        }
-
-        .lg\:switch-toggle--lg.switch-toggle-simple .switch-toggle-button.pressed {
-            @apply translate-x-6;
-        }
-
-        /* short - lg */
-        .lg\:switch-toggle--lg.switch-toggle-short {
-            @apply h-7 w-12;
-        }
-
-        .lg\:switch-toggle--lg.switch-toggle-short .switch-toggle-short-bg {
-            @apply h-5 w-11;
-        }
-
-        .lg\:switch-toggle--lg.switch-toggle-short .switch-toggle-short-button {
-            @apply h-6 w-6;
-        }
-
-        .lg\:switch-toggle--lg.switch-toggle-short .switch-toggle-short-button.pressed {
-            @apply translate-x-6;
-        }
+    .switch-toggle--lg:after {
+        width: var(--switch-toggle-lg-circle-size);
+        height: var(--switch-toggle-lg-circle-size);
+        @apply top-0.5;
+        left: 3px;
     }
 
-    @screen xl {
-        /* simple - sm */
-        .xl\:switch-toggle--sm.switch-toggle-simple {
-            @apply h-5 w-10;
-        }
+    .peer:checked ~ .switch-toggle--lg:after {
+        left: 5px;
+    }
 
-        .xl\:switch-toggle--sm.switch-toggle-simple .switch-toggle-button {
-            @apply h-4 w-4;
-        }
+    .switch-toggle--lg .switch-toggle__icon {
+        top: 6px;
+        width: var(--switch-toggle-lg-icon-size);
+        height: var(--switch-toggle-lg-icon-size);
+    }
 
-        .xl\:switch-toggle--sm.switch-toggle-simple .switch-toggle-button.pressed {
-            @apply translate-x-5;
-        }
+    .switch-toggle--lg .switch-toggle__icon--off {
+        left: 6px;
+    }
 
-        /* simple - base */
-        .xl\:switch-toggle--base.switch-toggle-simple {
-            @apply h-6 w-11;
-        }
-
-        .xl\:switch-toggle--base.switch-toggle-simple .switch-toggle-button {
-            @apply h-5 w-5;
-        }
-
-        .xl\:switch-toggle--base.switch-toggle-simple .switch-toggle-button.pressed {
-            @apply translate-x-5;
-        }
-
-        /* simple - lg */
-        .xl\:switch-toggle--lg.switch-toggle-simple {
-            @apply h-8 w-14;
-        }
-
-        .xl\:switch-toggle--lg.switch-toggle-simple .switch-toggle-button {
-            @apply h-7 w-7;
-        }
-
-        .xl\:switch-toggle--lg.switch-toggle-simple .switch-toggle-button.pressed {
-            @apply translate-x-6;
-        }
-
-        /* short - lg */
-        .xl\:switch-toggle--lg.switch-toggle-short {
-            @apply h-7 w-12;
-        }
-
-        .xl\:switch-toggle--lg.switch-toggle-short .switch-toggle-short-bg {
-            @apply h-5 w-11;
-        }
-
-        .xl\:switch-toggle--lg.switch-toggle-short .switch-toggle-short-button {
-            @apply h-6 w-6;
-        }
-
-        .xl\:switch-toggle--lg.switch-toggle-short .switch-toggle-short-button.pressed {
-            @apply translate-x-6;
-        }
+    .switch-toggle--lg .switch-toggle__icon--on {
+        right: 6px;
     }
 }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Rawilk\FormComponents\Dto;
 
+use InvalidArgumentException;
+
 class QuillOptions
 {
     public string $theme = 'snow';
@@ -49,11 +51,35 @@ class QuillOptions
 
     public array $customToolbarButtons = [];
 
-    public array $toolbarHandlers = [];
+    public static $defaultCallback;
 
-    public static function defaults(): self
+    public static function default(): self
     {
-        return new static;
+        $options = is_callable(static::$defaultCallback)
+            ? call_user_func(static::$defaultCallback)
+            : static::$defaultCallback;
+
+        return $options instanceof static ? $options : new static;
+    }
+
+    public static function make(): self
+    {
+        return new self;
+    }
+
+    public static function defaults(?callable $callback = null): ?self
+    {
+        if (is_null($callback)) {
+            return static::default();
+        }
+
+        if (! is_callable($callback) && ! $callback instanceof static) {
+            throw new InvalidArgumentException('The callback must be a callable or an instance of ' . static::class);
+        }
+
+        static::$defaultCallback = $callback;
+
+        return null;
     }
 
     public function theme(string $theme): self
@@ -229,11 +255,10 @@ class QuillOptions
         return $this;
     }
 
-    public function withToolbarButton(string $key, $handler, $options = null): self
+    public function withToolbarButton(string $key, $options = null): self
     {
-        $this->toolbarHandlers[$key] = $handler;
-
         $button = is_array($options) ? [$key => $options] : $key;
+
         $this->customToolbarButtons[] = $button;
 
         return $this;

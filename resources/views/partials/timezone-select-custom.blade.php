@@ -1,32 +1,29 @@
 <x-form-components::inputs.custom-select
     :name="$name"
     :id="$id"
+    :options="$options"
     :value="$value"
     :show-errors="$showErrors"
-    :searchable="$searchable"
-    :optional="$optional"
-    :placeholder="$placeholder"
     :multiple="$multiple"
-    :disabled="$disabled"
-    :autofocus="$autofocus"
     :min-selected="$minSelected"
     :max-selected="$maxSelected"
-    :show-checkbox="$showCheckbox"
-    :clear-icon="$clearIcon"
+    :optional="$optional"
+    :searchable="$searchable"
+    :clearable="$clearable"
+    :leading-addon="$leadingAddon"
+    :leading-icon="$leadingIcon"
+    :inline-addon="$inlineAddon"
+    :trailing-addon="$trailingAddon"
     :extra-attributes="$extraAttributes"
+    :always-open="$alwaysOpen"
+    :clear-icon="$clearIcon"
+    :option-selected-icon="$optionSelectedIcon"
+    :placeholder="$placeholder"
+    :button-icon="$buttonIcon"
+    value-field="id"
+    label-field="name"
     {{ $attributes }}
 >
-    @foreach (app('fc-timezone')->only($only)->all() as $region => $regionTimezones)
-        <x-form-components::inputs.custom-select-option
-            label="{{ $region }}"
-            is-opt-group
-        />
-
-        @foreach ($regionTimezones as $id => $name)
-            <x-form-components::inputs.custom-select-option
-                value="{{ $id }}"
-                label="{{ $name }}"
-            />
-        @endforeach
-    @endforeach
+    {{-- slot is meant for passing in slotted addons --}}
+    {{ $slot }}
 </x-form-components::inputs.custom-select>

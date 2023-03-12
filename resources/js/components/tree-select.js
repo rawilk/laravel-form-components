@@ -1,172 +1,221 @@
-import selectMixins from '../mixins/select';
+import { generateContext } from '../util/treeSelectContext';
+import selectPopper from '../mixins/selectPopper';
+import {
+    buttonDirective,
+    clearButtonDirective,
+    labelDirective,
+    optionsDirective,
+    optionDirective,
+    searchDirective,
+    selectData,
+    tokenDirective,
+} from '../mixins/select';
+import { rootMagic, optionMagic } from '../mixins/selectMagic';
 
-export default options => ({
-    ...selectMixins,
-    ...options,
-    _componentName: 'tree-select',
-    _focusableElementSelector: '.tree-select-option:not(.disabled):not(.select-no-results)',
-    _optionElementSelector: '.tree-select-option:not(.select-no-results)',
-    _topLevelOptionElementSelector: '.tree-select-option[data-level=":level"]:not(.select-no-results)',
+export default function (Alpine) {
+    Alpine.data('treeSelect', config => {
+        return {
+            ...selectPopper,
 
-    get hasValue() {
-        return this.multiple
-            ? this.value.length > 0
-            : this.value !== '' && this.value !== null;
-    },
+            ...selectData(config.__el, Alpine, config),
 
-    get hasValueAndCanClear() {
-        if (! this.optional) {
-            return false;
-        }
+            __type: 'tree',
 
-        if (this.disabled) {
-            return false;
-        }
+            __generateContext(el, Alpine, config) {
+                return generateContext({
+                    multiple: this.__isMultiple,
+                    orientation: this.__orientation,
+                    __wire: config.__wire,
+                    __wireSearch: Alpine.bound(el, 'livewire-search'),
+                    __config: config.__config ?? {},
+                    Alpine,
+                });
+            },
+        };
+    });
 
-        return this.hasValue;
-    },
+    Alpine.directive('tree-select', (el, directive, { cleanup }) => {
+        switch (directive.value) {
+            case 'button':
+                handleButton(el, Alpine);
+                break;
+            case 'label':
+                handleLabel(el, Alpine);
+                break;
+            case 'clear':
+                handleClearButton(el, Alpine);
+                break;
+            case 'options':
+                handleOptions(el, Alpine);
+                break;
+            case 'option':
+                handleOption(el, Alpine);
 
-    get searchPlaceholder() {
-        if (this.multiple) {
-            if (! Array.isArray(this.value)) {
-                return this.placeholder;
-            }
+                // We need to notify the context that the option has left the DOM.
+                cleanup(() => {
+                    const parent = el.closest('[x-data]');
 
-            return this.value.length
-                ? null
-                : this.placeholder;
-        }
-
-        return this.value !== '' && this.value !== null
-            ? this.valuePlaceholder
-            : this.placeholder;
-    },
-
-    get showSearchInput() {
-        if (this.multiple) {
-            return true;
-        }
-
-        return this.open;
-    },
-
-    init() {
-        this._initSelect();
-    },
-
-    closeMenu(options = { focusRoot: true }) {
-        if (! this.open) {
-            return;
-        }
-
-        this._closeMenu();
-
-        const focusRoot = options.focusRoot !== false;
-
-        if (focusRoot) {
-            this._focusRoot();
-        }
-    },
-
-    onArrowRight(event) {
-        if (! this.open || this.focusedOptionIndex < 0) {
-            return;
-        }
-
-        const option = this._getFocusableElements()[this.focusedOptionIndex];
-
-        try {
-            const wasExpanded = option._x_dataStack[0].expand();
-
-            if (wasExpanded) {
-                event.preventDefault();
-            }
-        } catch (e) {}
-    },
-
-    onArrowLeft(event) {
-        if (! this.open || this.focusedOptionIndex < 0) {
-            return;
-        }
-
-        const option = this._getFocusableElements()[this.focusedOptionIndex];
-
-        try {
-            const wasCollapsed = option._x_dataStack[0].collapse({ parent: this });
-
-            if (wasCollapsed === true) {
-                event.preventDefault();
-            }
-        } catch (e) {}
-    },
-
-    selectOption(option) {
-        if (this.disabled) {
-            return;
-        }
-
-        try {
-            option._x_dataStack[0].toggle({ parentMenu: this });
-        } catch (e) {}
-    },
-
-    _doLocalSearch() {
-        const options = this._getTopLevelOptionElements();
-        const lowercaseSearch = this.search ? this.search.toLowerCase() : null;
-        let matchCount = 0;
-
-        const optionMatches = option => {
-            let matches = true;
-            if (lowercaseSearch) {
-                try {
-                    const value = option._x_dataStack[0].optionValue;
-                    const label = option._x_dataStack[0].optionLabel;
-
-                    matches = String(value).toLowerCase().includes(lowercaseSearch)
-                        || String(label).toLowerCase().includes(lowercaseSearch);
-                } catch (e) {}
-            }
-
-            // Check if any children match
-            try {
-                const level = option._x_dataStack[0].level;
-                const children = [...option.querySelectorAll(this._levelOptionSelector(level + 1))];
-                let childMatches = false;
-                children.forEach(child => {
-                    const childMatch = optionMatches(child);
-
-                    if (childMatch) {
-                        childMatches = true;
-                    }
+                    parent && Alpine.$data(parent).__context.destroyItem(el);
                 });
 
-                if (childMatches) {
-                    matches = true;
-                }
-            } catch (e) {}
+                break;
+            case 'search':
+                handleSearch(el, Alpine);
+                break;
+            case 'token':
+                handleToken(el, Alpine);
+                break;
+            case 'child-toggle':
+                handleChildToggle(el, Alpine);
+                break;
+            case 'children':
+                handleChildren(el, Alpine);
+                break;
 
-            if (matches) {
-                matchCount++;
-            }
-
-            option.style.display = matches ? null : 'none';
-
-            return matches;
-        };
-
-        options.forEach(o => optionMatches(o));
-
-        const noResults = this.$refs.noResults;
-        if (noResults) {
-            noResults.style.display = matchCount === 0 ? null : 'none';
+            default:
+                throw new Error(`Unknown tree-select directive: ${directive.value}`);
         }
-    },
+    });
 
-    _getTopLevelOptionElements() {
-        return [...this.menu().querySelectorAll(this._levelOptionSelector(0))];
-    },
+    Alpine.magic('treeSelect', el => {
+        return rootMagic(
+            el,
+            Alpine,
+            data => {
+                return {
+                    get hasExpandableOptions() {
+                        return Object.keys(data.__context.expandableEls).length > 0;
+                    },
+                };
+            },
+        );
+    });
 
-    _levelOptionSelector(level) {
-        return this._topLevelOptionElementSelector.replace(':level', level);
-    }
-});
+    Alpine.magic('treeSelectOption', el => {
+        return optionMagic(
+            el,
+            Alpine,
+            (data, context, optionEl) => {
+                return {
+                    get hasChildren() {
+                        return optionEl.__children && optionEl.__children.length > 0;
+                    },
+                    get isExpanded() {
+                        return context.isExpandedEl(optionEl);
+                    },
+                };
+            },
+            () => {
+                return {
+                    hasChildren: false,
+                };
+            },
+        );
+    });
+}
+
+function handleButton(el, Alpine) {
+    Alpine.bind(el, {
+        ...buttonDirective(el, Alpine),
+    });
+}
+
+function handleLabel(el, Alpine) {
+    Alpine.bind(el, {
+        ...labelDirective(el, Alpine),
+    });
+}
+
+function handleClearButton(el, Alpine) {
+    Alpine.bind(el, {
+        ...clearButtonDirective(el, Alpine, 'tree'),
+    });
+}
+
+function handleOptions(el, Alpine) {
+    Alpine.bind(el, {
+        ...optionsDirective(el, Alpine),
+    });
+}
+
+function handleOption(el, Alpine) {
+    Alpine.bind(el, {
+        ...optionDirective(el, Alpine, 'tree'),
+
+        'data-tree-select-option': 'true',
+        ':role'() { return 'option' },
+
+        'x-init'() {
+            const initCallback = () => {
+                let value = Alpine.bound(el, 'value');
+                let disabled = Alpine.bound(el, 'disabled');
+
+                el.__level = Alpine.bound(el, 'level', 0);
+
+                el.__optionKey = this.$data.__context.initItem(el, value, disabled);
+
+                const childrenField = this.$data.__config.childrenField;
+                if (value?.hasOwnProperty(childrenField)) {
+                    el.__children = value[childrenField];
+                }
+            };
+
+            // Our $customSelectOption magic only seems to work with queueMicrotask on initial page load,
+            // so if our component says it's ready, we'll just run the code to initialize the option right away.
+            if (this.$data.__ready) {
+                initCallback();
+            } else {
+                queueMicrotask(initCallback);
+            }
+        },
+    });
+}
+
+function handleSearch(el, Alpine) {
+    Alpine.bind(el, {
+        ...searchDirective(el, Alpine),
+    });
+}
+
+function handleToken(el, Alpine) {
+    Alpine.bind(el, {
+        ...tokenDirective(el, Alpine),
+    });
+}
+
+function handleChildToggle(el, Alpine) {
+    Alpine.bind(el, {
+        'x-init'() {
+            if (el.tagName.toLowerCase() !== 'button') {
+                el.setAttribute('role', 'button');
+            }
+        },
+        '@click.stop.prevent'() {
+            let optionEl = Alpine.findClosest(el, i => i.__optionKey);
+
+            optionEl && this.$data.__context.toggleExpandedEl(optionEl);
+        },
+    });
+}
+
+// We are using this directive to hide/show the children of an option because it is out of the scope
+// of where the $treeSelectOption magic will pick up on the state of the option.
+function handleChildren(el, Alpine) {
+    Alpine.bind(el, {
+        'data-tree-select-children': 'true',
+        'x-data'() {
+            return {
+                __optionEl: undefined,
+                init() {
+                    try {
+                        this.__optionEl = el.parentNode.querySelector('[data-tree-select-option="true"]');
+                    } catch (e) {}
+                },
+                get __isExpanded() {
+                    return this.__optionEl && this.$data.__context.isExpandedEl(this.__optionEl);
+                }
+            };
+        },
+        'x-show'() { return this.$data.__isExpanded },
+    });
+}

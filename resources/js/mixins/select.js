@@ -1,614 +1,438 @@
-// Common functionality needed across custom selects.
-import { isArray, isObject } from '../util/inspect';
+import { renderHiddenInputs } from './selectContext';
 
-let createPopper;
+export function selectData(el, Alpine, config) {
+    return {
+        __ready: false,
+        __value: config.__value ?? false,
+        __richValue: false,
+        __isOpen: false,
+        __context: undefined,
+        __isMultiple: false,
+        __isStatic: false,
+        __isClearable: undefined,
+        __isDisabled: false,
+        __compareBy: null,
+        __inputName: undefined,
+        __fixed: false,
+        __searchable: undefined,
+        __hasCustomSelectLabel: false,
+        __orientation: 'vertical',
+        __externalChanged: false,
+        __config: config.__config,
+        __wireSearch: undefined,
+        __type: 'custom',
 
-export default {
-    open: false,
-    disabled: false,
-    fixed: false,
-    optional: false,
-    searchable: true,
-    closeOnSelect: false,
-    multiple: false,
-    placeholder: null,
-    valuePlaceholder: null,
-    search: '',
-    value: null,
-    valueLabel: null,
-    initialLabel: null,
-    focusedOptionIndex: -1,
-    focusableElements: null,
-    autofocus: false,
-    minSelected: 1,
-    maxSelected: null,
-    selectedOptions: [],
-    livewireSearch: null,
-    _wire: null,
-    _root: null,
-    _popper: null,
-    _componentName: '',
-    _focusableElementSelector: '',
-    _optionElementSelector: '',
-    _wireToggleMethod: '',
-    _focusedOptionId: null,
-    _noCloseOnSelect: false, // flag we can set for certain actions that shouldn't close the menu
-    _wireModelName: null,
+        init() {
+            this.__createPopper = window.Popper ? window.Popper.createPopper : window.createPopper;
 
-    menu() {
-        if (! this.$refs.menu) {
-            return this._root.querySelector('[x-ref="menu"]');
-        }
-
-        return this.$refs.menu;
-    },
-
-    searchInput() {
-        if (! this.$refs.search) {
-            return this._root.querySelector('[x-ref="search"]');
-        }
-
-        return this.$refs.search;
-    },
-
-    _closeMenu() {
-        this.search = '';
-        this.focusableElements = null;
-        this.open = false;
-        this._resetPopper();
-    },
-
-    openMenu() {
-        if (this.disabled) {
-            return;
-        }
-
-        this._initPopper();
-        this.open = true;
-        this._focusSearch();
-        this._focusSelectedOption();
-    },
-
-    onBackspace() {
-        if (! this.open || this.disabled || this.search) {
-            return;
-        }
-
-        const value = this.multiple
-            ? this.value[this.value.length - 1]
-            : this.value;
-
-        if (value) {
-            this._noCloseOnSelect = true;
-            this.toggleOptionByValue(value);
-        }
-    },
-
-    onEnter() {
-        if (! this.open) {
-            return this.openMenu();
-        }
-
-        if (this.focusedOptionIndex < 0) {
-            return;
-        }
-
-        const elements = this._getFocusableElements();
-
-        if (elements.length) {
-            this.selectOption(elements[this.focusedOptionIndex]);
-        }
-    },
-
-    onTab() {
-        if (this.disabled || ! this.open) {
-            return;
-        }
-
-        this.closeMenu({ focusRoot: false });
-    },
-
-    focusNextOption() {
-        if (this.disabled) {
-            return;
-        }
-
-        if (! this.open) {
-            return this.openMenu();
-        }
-
-        const elements = this._getFocusableElements();
-        if (! elements.length) {
-            return this.focusedOptionIndex = -1;
-        }
-
-        this.focusedOptionIndex++;
-        if (this.focusedOptionIndex + 1 > elements.length) {
-            this.focusedOptionIndex = 0;
-        }
-
-        this._focusOption(elements[this.focusedOptionIndex]);
-    },
-
-    focusPreviousOption() {
-        if (this.disabled) {
-            return;
-        }
-
-        if (! this.open) {
-            return this.openMenu();
-        }
-
-        const elements = this._getFocusableElements();
-        if (! elements.length) {
-            return this.focusedOptionIndex = -1;
-        }
-
-        this.focusedOptionIndex--;
-        if (this.focusedOptionIndex < 0) {
-            this.focusedOptionIndex = elements.length - 1;
-        }
-
-        this._focusOption(elements[this.focusedOptionIndex], { block: 'start' });
-    },
-
-    focusFirstOption() {
-        if (this.disabled) {
-            return;
-        }
-
-        const elements = this._getFocusableElements();
-        if (! elements.length) {
-            return this.focusedOptionIndex = -1;
-        }
-
-        this.focusedOptionIndex = 0;
-
-        this._focusOption(elements[this.focusedOptionIndex], { block: 'start' });
-    },
-
-    focusLastOption() {
-        if (this.disabled) {
-            return;
-        }
-
-        const elements = this._getFocusableElements();
-        if (! elements.length) {
-            return this.focusedOptionIndex = -1;
-        }
-
-        this.focusedOptionIndex = elements.length - 1;
-
-        this._focusOption(elements[this.focusedOptionIndex], { block: 'end' });
-    },
-
-    updateFocusedOptionIndexFromElement(el) {
-        const elements = this._getFocusableElements();
-
-        if (elements.length) {
-            this.focusedOptionIndex = elements.findIndex(other => other.isEqualNode(el));
-
-            try {
-                this._focusedOptionId = el._x_dataStack[0]._id;
-            } catch (e) {}
-        }
-    },
-
-    canToggleOption(value) {
-        if (this.disabled) {
-            return false;
-        }
-
-        const isSelected = this._isValueSelected(value);
-
-        if (this.multiple) {
-            if (isSelected && this.value.length <= this.minSelected) {
-                return this.optional;
+            if (typeof this.__createPopper !== 'function') {
+                throw new TypeError(`${this.__type}-select requires Popper.js (https://popper.js.org)`);
             }
 
-            if (! isSelected && ! this._canSelectAnotherOption()) {
-                return false;
+            this.__isMultiple = Alpine.bound(el, 'data-multiple', false);
+            this.__isDisabled = Alpine.bound(el, 'disabled', false) || Alpine.bound(el, 'readonly', false);
+            this.__inputName = Alpine.bound(el, 'name', null);
+            this.__compareBy = Alpine.bound(el, 'by');
+            this.__orientation = Alpine.bound(el, 'horizontal') ? 'horizontal' : 'vertical';
+            this.__searchable = Alpine.bound(el, 'searchable', false);
+            this.__isClearable = Alpine.bound(el, 'clearable', false);
+            this.__wireSearch = Alpine.bound(el, 'livewire-search');
+            this.__fixed = Alpine.bound(el, 'fixed', false);
+
+            const autoFocus = Alpine.bound(el, 'autofocus');
+
+            this.__context = this.__generateContext(el, Alpine, config);
+
+            const defaultValue = Alpine.bound(el, 'default-value', null);
+            if (defaultValue && ! this.__value) {
+                this.__value = defaultValue;
             }
 
-            return true;
-        }
-
-        if (isSelected && ! this.optional) {
-            return false;
-        }
-
-        return true;
-    },
-
-    clearValue() {
-        if (this.disabled) {
-            return;
-        }
-
-        if (! this.optional) {
-            return;
-        }
-
-        this.value = this.multiple ? [] : null;
-        this.valueLabel = null;
-    },
-
-    toggleOption(option) {
-        if (this.disabled) {
-            return;
-        }
-
-        if (this.multiple) {
-            this._toggleMultiSelectOption(option);
-        } else {
-            this._toggleSingleSelectOption(option);
-        }
-    },
-
-    toggleOptionByValue(value) {
-        let option = this._getOptionByValue(value);
-        if (option) {
-            option = option._x_dataStack[0];
-        } else {
-            option = { optionValue: value };
-        }
-
-        return this.toggleOption(option);
-    },
-
-    setNewValue(newValue) {
-        if (this.multiple) {
-            this.value = [];
-            this.selectedOptions = [];
-
-            newValue.forEach(value => this.toggleOptionByValue(value));
-
-            return;
-        }
-
-        // When emitting `null` values from php, sometimes it comes through as an object,
-        // so we'll "fix" it here.
-        if (isObject(newValue)) {
-            newValue = null;
-        }
-
-        this.value = newValue;
-    },
-
-    handleValueChange() {
-        if (! this.closeOnSelect && this.open) {
-            this._initPopper();
-            this._focusSearch();
-
-            return;
-        }
-
-        if (this.closeOnSelect && this.open) {
-            this._handleCloseOnSelect();
-        }
-    },
-
-    labelForValue(value) {
-        const option = this.selectedOptions.find(o => String(o.optionValue) === String(value));
-
-        if (! option) {
-            return value;
-        }
-
-        return option.optionSelectedLabel ? option.optionSelectedLabel : option.optionLabel;
-    },
-
-    _toggleMultiSelectOption(option) {
-        const value = option.optionValue;
-        let newValue = [...this.value];
-
-        if (this._isValueSelected(value) && this._canDeSelectAnOption()) {
-            newValue.splice(newValue.indexOf(value), 1);
-            this.selectedOptions.splice(
-                this.selectedOptions.findIndex(o => String(o.optionValue) === String(value)),
-                1
-            );
-        } else if (! this._isValueSelected(value) && this._canSelectAnotherOption()) {
-            newValue.push(value);
-            this.selectedOptions.push(option);
-        }
-
-        this.value = newValue;
-    },
-
-    _toggleSingleSelectOption(option) {
-        const optionValue = typeof option === 'object' ? option.optionValue : option;
-        this.value = this._isValueSelected(optionValue)
-            ? null
-            : optionValue;
-    },
-
-    _canDeSelectAnOption() {
-        if (this.optional) {
-            return true;
-        }
-
-        return this.value.length > this.minSelected;
-    },
-
-    _canSelectAnotherOption() {
-        if (this.maxSelected === null) {
-            return true;
-        }
-
-        return this.value.length < this.maxSelected;
-    },
-
-    _isValueSelected(value) {
-        const stringValue = String(value);
-
-        if (this.multiple) {
-            // In certain edge cases, `this.value` may not be an array, so
-            // we'll force it to be one if it's not here.
-            const value = isArray(this.value) ? this.value : [];
-
-            return value.some(v => String(v) === stringValue);
-        }
-
-        return stringValue === String(this.value);
-    },
-
-    _focusOption(option, options = {}) {
-        try {
-            option._x_dataStack[0].focus({ parent: this, ...options });
-            this.updateFocusedOptionIndexFromElement(option);
-        } catch (e) {}
-    },
-
-    _focusRoot() {
-        if (! this.disabled) {
-            setTimeout(() => this._root.focus(), 50);
-        }
-    },
-
-    _focusSearch() {
-        if (! this.searchable) {
-            return;
-        }
-
-        try {
-            setTimeout(() => this.searchInput().focus(), 50);
-        } catch (e) {}
-    },
-
-    _focusSelectedOption() {
-        const firstValue = this.multiple ? String(this.value[0]) : String(this.value);
-        if (! firstValue) {
-            return;
-        }
-
-        const option = this._getOptionByValue(firstValue);
-
-        if (option && ! option.optionDisabled) {
-            setTimeout(() => this._focusOption(option), 50);
-        }
-    },
-
-    _getOptionByValue(value) {
-        const focusableElements = this._getAllOptionElements();
-        if (! focusableElements.length) {
-            return null;
-        }
-
-        return focusableElements.find(o => {
-            try {
-                return String(o._x_dataStack[0].optionValue) === String(value);
-            } catch (e) {}
-        });
-    },
-
-    _getAllOptionElements() {
-        return [...this.menu().querySelectorAll(this._optionElementSelector)];
-    },
-
-    _getFocusableElements() {
-        if (this.focusableElements !== null) {
-            return this.focusableElements;
-        }
-
-        return this.focusableElements = [...this.menu().querySelectorAll(this._focusableElementSelector)]
-            .filter(el => el.offsetParent !== null); // Ensure option is visible
-    },
-
-    _handleCloseOnSelect() {
-        if (this._shouldCloseOnSelect()) {
-            this.closeMenu();
-        }
-    },
-
-    _handleSearch() {
-        this.focusableElements = null;
-
-        if (this.livewireSearch && this._wire) {
-            try {
-                this._wire[this.livewireSearch](this.search);
-            } catch (e) {}
-
-            return;
-        }
-
-        this._doLocalSearch();
-    },
-
-    _doLocalSearch() {
-        const options = this._getAllOptionElements();
-        const lowercaseSearch = this.search ? this.search.toLowerCase() : null;
-        let matchCount = 0;
-        options.forEach(o => {
-            let matches = true;
-            if (lowercaseSearch) {
-                try {
-                    const optionValue = o._x_dataStack[0].optionValue;
-                    const label = o._x_dataStack[0].optionLabel;
-
-                    matches = String(optionValue).toLowerCase().includes(lowercaseSearch)
-                        || String(label).toLowerCase().includes(lowercaseSearch);
-                } catch (e) {}
-            }
-
-            if (matches) {
-                matchCount++;
-            }
-
-            o.style.display = matches ? null : 'none';
-        });
-
-        const noResults = this.$refs.noResults;
-        if (noResults) {
-            noResults.style.display = matchCount === 0 ? null : 'none';
-        }
-    },
-
-    _initPopper() {
-        this._resetPopper();
-
-        this._popper = createPopper(this._root, this.menu(), this._popperConfig());
-    },
-
-    _initSelect() {
-        this._root = this.$root;
-
-        createPopper = window.Popper ? window.Popper.createPopper : window.createPopper;
-
-        if (typeof createPopper !== 'function') {
-            throw new TypeError(`<${this._componentName}> requires Popper (https://popper.js.org)`);
-        }
-
-        if (this.autofocus) {
-            this._focusRoot();
-        }
-
-        if (this.searchable) {
-            this.$watch('search', () => this._handleSearch());
-        }
-
-        if (! this.multiple && this.value && ! this.initialLabel) {
-            this._determineInitialLabel();
-        }
-
-        if (this.initialLabel) {
-            this.valueLabel = this.initialLabel;
-            this.valuePlaceholder = this.initialLabel;
-        }
-
-        if (this.multiple) {
-            this.$nextTick(() => {
-                this.selectedOptions = [...this.value].map(v => this._getOptionByValue(v)._x_dataStack[0]);
+            // We have to wait for the rest of the HTML to initialize in Alpine before
+            // we can mark this component as "ready".
+            queueMicrotask(() => {
+                this.__ready = true;
+
+                // We have to wait again after the "ready" processes are finished
+                // to settle up currently selected values (this prevents this next bit
+                // of code from running multiple times on startup).
+                queueMicrotask(() => {
+                    // This "fingerprint" acts as a checksum of the last-known "value"
+                    // passed into x-model. We need to track this so that we can determine
+                    // from the reactive effect if it was the value that changed externally
+                    // or an option was selected internally.
+                    let lastValueFingerprint = false;
+
+                    Alpine.effect(() => {
+                        // Accessing the selected keys, so a change in it always triggers this effect.
+                        this.__context.selectedKeys;
+
+                        if (lastValueFingerprint === false || lastValueFingerprint !== JSON.stringify(this.__value)) {
+                            // Here we know that the value changed externally, and we can add the selection.
+                            this.__externalChanged = true;
+
+                            if (this.__isMultiple) {
+                                this.__context.clearSelected();
+
+                                const keys = [];
+
+                                for (let value of this.__value) {
+                                    const object = this.__context.getObjectFromValue(value, this.__compareBy);
+                                    object && keys.push(object);
+                                }
+
+                                this.__context.selectValue(keys, this.__compareBy);
+                                this.__richValue = this.__context.selectedValueOrValues();
+                            } else {
+                                if (typeof this.__value !== 'object' && ! Array.isArray(this.__value) && this.__value !== null) {
+                                    const key = this.__context.getKeyFromSimpleValue(this.__value, this.__compareBy);
+                                    key && this.__context.selectKey(key);
+                                } else {
+                                    this.__context.selectValue(this.__value, this.__compareBy);
+                                }
+
+                                this.__richValue = this.__context.selectedValueOrValues();
+                            }
+                        } else {
+                            // Here we know that an option was selected, and we can change the value.
+                            this.__value = this.__context.selectedBasicValueOrValues(this.__compareBy);
+                            this.__richValue = this.__context.selectedValueOrValues();
+                        }
+
+                        // Generate the "value" checksum for comparison next time.
+                        lastValueFingerprint = JSON.stringify(this.__value);
+
+                        // Everytime the value changes, we need to re-render the hidden inputs
+                        // if a user passed the "name" prop.
+                        this.__inputName && renderHiddenInputs(this.$el, this.__inputName, this.__value);
+                    });
+
+                    // If select is searchable, we want to hide any opt groups when a query is present.
+                    if (this.__searchable) {
+                        Alpine.effect(() => {
+                            const query = this.__context.searchableQuery;
+
+                            this.$refs.__options && this.$refs.__options.querySelectorAll('[role="presentation"]:not([data-placeholder="true"])').forEach(el => {
+                                if (query) {
+                                    this.__context.hideEl(el);
+                                } else {
+                                    this.__context.showEl(el);
+                                }
+                            });
+                        });
+                    }
+
+                    (autoFocus && this.$refs.__button) && this.$refs.__button.focus({ preventScroll: true });
+                });
             });
-        }
 
-        this.$watch('value', (newValue, oldValue) => {
-            // Possible bug: When livewire components are updated, the watcher
-            // gets triggered again, even if the new and old values are the same,
-            // so we want to prevent our handlers from running in those cases...
-            if (JSON.stringify(newValue) === JSON.stringify(oldValue)) {
+            this.$watch('__value', newValue => {
+                this.$dispatch('input', newValue);
+            });
+
+            this.__componentBooted(el, Alpine, config);
+        },
+
+        __open() {
+            if (this.__isDisabled) {
                 return;
             }
 
-            this._updateSelectedOption(newValue);
-            this.handleValueChange();
+            this.__isOpen = true;
 
-            this.$dispatch('input', newValue);
+            this.__context.activateSelectedOrFirst();
 
-            // For some reason when using a wire:model.defer, livewire is not
-            // sending null values back to the server for updates, so we will
-            // force it to here...
-            if (newValue === null && this._wire && this._wireModelName) {
-                this._wire.set(this._wireModelName, null, true);
+            // Safari needs more of a "tick" for focusing after x-show for some reason.
+            // Probably because Alpine adds an extra tick when x-showing for @click.outside.
+            let nextTick = callback => requestAnimationFrame(() => requestAnimationFrame(callback));
+
+            nextTick(() => {
+                if (this.__searchable && this.$refs.__search) {
+                    this.$refs.__search.focus({ preventScroll: true });
+                } else {
+                    this.$refs.__options.focus({ preventScroll: true });
+                }
+
+                this.__initPopper();
+            });
+        },
+
+        __close() {
+            this.__isOpen = false;
+            this.__resetPopper();
+
+            this.$nextTick(() => this.$refs.__button.focus({ preventScroll: true }));
+        },
+
+        __generateContext(el, Alpine, config) {},
+
+        __componentBooted(el, Alpine, config) {},
+    };
+}
+
+export function buttonDirective(el, Alpine) {
+    return {
+        'x-ref': '__button',
+        ':id'() { return this.$id(`fc-${this.__type}-select-button`) },
+        'aria-haspopup': 'true',
+        'data-custom-select-button': 'true',
+        ':aria-labelledby'() { return this.$data.__hasCustomSelectLabel ? this.$id(`fc-${this.__type}-select-label`) : this.$id('fc-label') },
+        ':aria-expanded'() { return this.$data.__isOpen },
+        ':aria-controls'() { return this.$data.__isOpen && this.$id(`fc-${this.__type}-select-options`) },
+        ':tabindex'() { return this.$data.__isDisabled ? '-1' : '0' },
+        'x-init'() {
+            if (this.$el.tagName.toLowerCase() === 'button' && ! this.$el.hasAttribute('type')) {
+                this.$el.type = 'button';
             }
-        });
-    },
 
-    _updateSelectedOption(newValue) {
-        if (this.multiple) {
-            return;
-        }
+            if (this.$el.tagName.toLowerCase() !== 'button') {
+                this.$el.setAttribute('role', 'button');
+            }
+        },
+        '@click'() { this.$data.__open() },
+        '@focus'() { this.$data.__isDisabled && this.$el.blur() },
+        '@keydown'(e) {
+            if (['ArrowDown', 'ArrowUp', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+                e.stopPropagation();
+                e.preventDefault();
 
-        if (! newValue) {
-            this.valueLabel = this.placeholder;
-        }
+                this.$data.__open();
+            }
 
-        const option = this._getOptionByValue(newValue);
+            const $magic = this.__type === 'tree' ? this.$treeSelect : this.$customSelect;
 
-        if (option) {
-            try {
-                this.valueLabel = option._x_dataStack[0].optionSelectedLabel;
-                this.valuePlaceholder = option._x_dataStack[0].optionLabel;
-            } catch (e) {}
-        }
-    },
+            if (e.key === 'Backspace') {
+                e.stopPropagation();
+                e.preventDefault();
 
-    _popperConfig() {
-        return {
-            placement: 'bottom-start',
-            strategy: this.fixed ? 'fixed' : 'absolute',
-            modifiers: [
-                {
-                    name: 'offset',
-                    options: {
-                        offset: [0, 0],
-                    },
-                },
-                {
-                    name: 'preventOverflow',
-                    options: {
-                        boundariesElement: this._root,
-                    },
-                },
-            ],
-        };
-    },
-
-    _resetPopper() {
-        if (this._popper) {
-            this._popper.destroy();
-            this._popper = null;
-        }
-    },
-
-    _determineInitialLabel() {
-        this.$nextTick(() => {
-            const option = this._getOptionByValue(this.value);
-
-            if (option) {
-                try {
-                    this.initialLabel = option._x_dataStack[0].optionSelectedLabel;
-
-                    this.valueLabel = this.initialLabel;
-                    this.valuePlaceholder = this.initialLabel;
-
+                if (this.$data.__isDisabled) {
                     return;
-                } catch (e) {}
+                }
+
+                const lastSelected = this.$data.__isMultiple
+                    ? $magic.selectedObject[$magic.selectedObject.length - 1]
+                    : $magic.selectedObject;
+
+                lastSelected && this.$data.__context.toggleValue(lastSelected, this.$data.__compareBy);
+            }
+        },
+        '@keydown.space.stop.prevent'() { this.$data.__open() },
+        '@keydown.enter.stop.prevent'() { this.$data.__open() },
+    };
+}
+
+export function labelDirective(el, Alpine) {
+    return {
+        'x-ref': '__label',
+        ':id'() { return this.$id(`fc-${this.__type}-custom-select-label`) },
+        'x-init'() {
+            this.$data.__hasCustomSelectLabel = true;
+        },
+        '@click'() { this.$refs.__button.focus({ preventScroll: true }) },
+    };
+}
+
+export function clearButtonDirective(el, Alpine, type) {
+    const magic = type === 'tree' ? '$treeSelect' : '$customSelect';
+
+    return {
+        ':tabindex'()  { return (this.$data.__isDisabled || ! this[magic].hasValue) ? false : '0' },
+        'x-show'() { return this[magic].shouldShowClear },
+        'x-init'() {
+            if (this.$el.tagName.toLowerCase() === 'button' && ! this.$el.hasAttribute('type')) {
+                this.$el.type = 'button';
             }
 
-            this.initialLabel = this.value;
-            this.valueLabel = this.initialLabel;
-            this.valuePlaceholder = this.initialLabel;
-        });
-    },
+            if (this.$el.tagName.toLowerCase !== 'button') {
+                this.$el.setAttribute('role', 'button');
+            }
+        },
+        '@click.stop.prevent'() {
+            if (this.$data.__isDisabled) {
+                return;
+            }
 
-    _shouldCloseOnSelect() {
-        if (this._noCloseOnSelect) {
-            this._noCloseOnSelect = false;
+            this.$data.__context.clearSelected();
+            this.$data.__close();
 
-            return false;
+            // Our value is not reacting to the changes made in context, so we'll set it manually.
+            this.$data.__value = this.$data.__isMultiple ? [] : null;
+        },
+        '@keydown.space.stop.prevent'() {
+            if (this.$data.__isDisabled) {
+                return;
+            }
+
+            this.$data.__context.clearSelected();
+            this.$data.__close();
+
+            // Our value is not reacting to the changes made in context, so we'll set it manually.
+            this.$data.__value = this.$data.__isMultiple ? [] : null;
+        },
+    };
+}
+
+export function optionsDirective(el, Alpine) {
+    return {
+        'x-ref': '__options',
+        ':id'() { return this.$id(`fc-${this.__type}-select-options`) },
+        'x-init'() {
+            this.$data.__isStatic = Alpine.bound(this.$el, 'static', false);
+        },
+        'x-show'() { return this.$data.__isStatic ? true : this.$data.__isOpen },
+        '@click.outside'() { this.$data.__close() },
+        '@keydown.escape.stop.prevent'() { this.$data.__close() },
+        tabindex: '0',
+        role: 'listbox',
+        ':aria-orientation'() {return this.$data.__orientation },
+        ':aria-labelledby'() { return this.$id(`fc-${this.__type}-select-button`) },
+        ':aria-activedescendant'() { return this.$data.__context.activeEl() && this.$data.__context.activeEl().id },
+        ':aria-multiselectable'() { return this.$data.__isMultiple ? 'true' : 'false' },
+        '@focus'() { this.$data.__context.activateSelectedOrFirst() },
+        'x-trap'() { return this.$data.__isOpen },
+        '@keydown'(e) { this.$data.__context.activateByKeyEvent(e) },
+        '@keydown.enter.stop.prevent'() {
+            this.$data.__context.selectActive();
+
+            this.$data.__isMultiple || this.$data.__close();
+        },
+        '@keydown.space.stop.prevent'() {
+            this.$data.__context.selectActive();
+
+            this.$data.__isMultiple || this.$data.__close();
+        },
+    };
+}
+
+export function optionDirective(el, Alpine, type) {
+    const rootMagic = type === 'tree' ? '$treeSelect' : '$customSelect';
+    const magic = type === 'tree' ? '$treeSelectOption' : '$customSelectOption';
+
+    return {
+        ':id'() { return this.$id(`fc-${this.__type}-select-option`) },
+        ':tabindex'() { return this.$data.__isDisabled ? false : '-1' },
+        ':role'() { return this[magic].isOptGroup ? 'presentation' : 'option' },
+        'x-init'() {
+            const initCallback = () => {
+                let value = Alpine.bound(el, 'value');
+                let disabled = Alpine.bound(el, 'disabled');
+                let isOptGroup = Alpine.bound(el, 'is-opt-group');
+
+                el.__optionKey = this.$data.__context.initItem(el, value, disabled, isOptGroup);
+            };
+
+            // Our $customSelectOption magic only seems to work with queueMicrotask on initial page load,
+            // so if our component says it's ready, we'll just run the code to initialize the option right away.
+            if (this.$data.__ready) {
+                initCallback();
+            } else {
+                queueMicrotask(initCallback);
+            }
+        },
+        ':aria-selected'() { return this[magic].isSelected },
+        ':aria-disabled'() { return this[magic].isDisabled },
+        '@click'() {
+            if (this.$data.__isDisabled || this[magic].isDisabled) {
+                return;
+            }
+
+            if (! this[magic].isSelected && ! this[rootMagic].canSelectMore) {
+                return;
+            }
+
+            this.$data.__context.selectEl(el);
+
+            this.$data.__isMultiple || this.$data.__close();
+        },
+        '@mousemove'() { this.$data.__context.activateEl(el) },
+        '@mouseleave'() { this.$data.__context.deactivate() },
+    };
+}
+
+export function searchDirective(el, Alpine) {
+    return {
+        'x-ref': '__search',
+        ':id'() { return this.$id(`fc-${this.__type}-select-search`) },
+        'x-init'() {
+            // When using livewire search, the directive re-evaluates even when inside a wire:ignore,
+            // so we'll need to re-populate the value of the search query, so we don't lose it...
+            const searchableQuery = this.$data.__context.searchableQuery;
+            this.$el.value = searchableQuery;
+
+            if (this.$data.__ready && this.$data.__isOpen && searchableQuery.length) {
+                this.$nextTick(() => {
+                    if (this.$el.createTextRange) {
+                        let range = this.$el.createTextRange();
+                        range.move('character', searchableQuery.length);
+                        range.select();
+                    } else {
+                        // This sets the cursor position to the end of the input and prevents
+                        // the entire text from being highlighted. IMO this creates a better UX.
+                        this.$el.focus();
+                        this.$el.setSelectionRange && this.$el.setSelectionRange(searchableQuery.length, searchableQuery.length);
+                    }
+                });
+            }
+        },
+        '@keyup.debounce.250ms'(e) {
+            // We don't want our keyboard nav events to trigger this.
+            const keysToSkip = [
+                'Enter',
+                'ArrowDown',
+                'ArrowUp',
+                'ArrowRight',
+                'ArrowLeft',
+                'Home',
+                'PageUp',
+                'End',
+                'PageDown',
+                'Tab',
+                'Meta',
+            ];
+            if (keysToSkip.includes(e.key)) {
+                return;
+            }
+
+            this.$data.__context.handleSearchableQuery(e.target.value);
+        },
+        // Prevent our option handler from firing when we're typing in the search box.
+        '@keydown.space.stop'() {},
+        '@keydown.tab.prevent.stop'() {
+            // Options has x-trap on it, which prevent us from tabbing out of the search box.
+            // We'll allow the user to tab to the options, which will allow selecting an option using the space key.
+            this.$refs.__options.focus();
         }
+    };
+}
 
-        if (! this.closeOnSelect) {
-            return false;
-        }
+export function tokenDirective(el, Alpine) {
+    return {
+        ':tabindex'() { return this.$data.__isDisabled ? false : '0' },
+        ':role'() { return this.$el.tagName.toLowerCase() !== 'button' && ! this.$data.__isDisabled ? 'button' : false },
+        'x-init'() {
+            const initCallback = () => {
+                el.__key = this.$data.__context.getKeyFromValue(el.value);
+            };
 
-        if (this.multiple) {
-            return this.maxSelected === null
-                ? this.value.length >= this.minSelected
-                : this.value.length >= this.maxSelected;
-        }
+            if (this.$data.__ready) {
+                initCallback();
+            } else {
+                queueMicrotask(initCallback);
+            }
+        },
+        '@click.stop.prevent'() {
+            if (this.$data.__isDisabled || ! el.__key) {
+                return;
+            }
 
-        return true;
-    },
-};
+            this.$data.__context.toggleSelected(el.__key);
+        },
+        '@keydown.space.stop.prevent'() {
+            if (this.$data.__isDisabled || ! el.__key) {
+                return;
+            }
+
+            this.$data.__context.toggleSelected(el.__key);
+        },
+    };
+}

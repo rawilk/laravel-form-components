@@ -1,13 +1,20 @@
-@if ($after ?? null)
-    {{ $after }}
-@elseif ($trailingAddon)
-    <div class="trailing-addon absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-        <span class="text-slate-500 sm:text-sm sm:leading-5">{!! $trailingAddon !!}</span>
+@if ($trailingAddon ?? false)
+    <span {{ $componentSlot($trailingAddon)->attributes->class('trailing-addon') }}>
+        {!! $trailingAddon !!}
+    </span>
+@elseif ($trailingInlineAddon ?? false)
+    <div {{ $componentSlot($trailingInlineAddon)->attributes->class('trailing-inline-addon') }}>
+        {!! $trailingInlineAddon !!}
     </div>
-@elseif ($trailingIcon)
-    <div class="trailing-icon pr-3 flex items-center absolute inset-y-0 right-0">
-        <span class="h-5 w-5 text-slate-400">
-            {!! $trailingIcon !!}
+@elseif ($trailingIcon ?? false)
+    <div {{ $componentSlot($trailingIcon)->attributes->class('trailing-icon') }}>
+        <span class="trailing-icon-container">
+            @if (is_string($trailingIcon))
+                <x-dynamic-component :component="$trailingIcon" />
+            @else
+                {!! $trailingIcon !!}
+            @endif
         </span>
     </div>
 @endif
+{{ $after ?? '' }}

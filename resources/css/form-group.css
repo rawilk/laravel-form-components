@@ -1,0 +1,65 @@
+@layer components {
+    .form-group--inline {
+        @apply sm:grid
+        sm:grid-cols-3
+        sm:gap-4
+        sm:items-start;
+    }
+
+    .form-group--mb {
+        @apply mb-5 last:mb-0;
+    }
+
+    .form-group--border {
+        @apply sm:pt-5
+        sm:border-t
+        first:sm:pt-0
+        first:sm:border-none;
+
+        border-color: var(--form-group-border-color);
+    }
+
+    .form-group__label-container:has(.form-group__hint) {
+        @apply flex justify-between;
+    }
+
+    .form-group__content {
+        @apply mt-1;
+    }
+
+    .form-group__content--inline {
+        @apply sm:mt-0 sm:col-span-2;
+    }
+
+    .form-group--inline .form-group__label-container .form-group__hint {
+        @apply inline-block sm:hidden;
+    }
+
+    .form-group__label-container .form-group__hint {
+        @apply ml-2;
+    }
+
+    .form-group__label-container--inline:not(.form-group__label-container--checkbox-group) label {
+        @apply sm:mt-px sm:pt-2;
+    }
+
+    .form-group__hint {
+        font-size: var(--form-group-hint-text-size);
+        line-height: var(--form-group-hint-line-height);
+        color: var(--form-group-hint-color);
+    }
+
+    .form-group__hint--inline {
+        @apply mt-1
+        hidden
+        sm:block;
+    }
+
+    .form-help {
+        @apply mt-2;
+
+        font-size: var(--form-group-hint-text-size);
+        line-height: var(--form-group-hint-line-height);
+        color: var(--form-group-hint-color);
+    }
+}

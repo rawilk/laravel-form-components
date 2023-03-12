@@ -1,0 +1,207 @@
+:root {
+    /* addons */
+    --leading-addon-background-color: theme('colors.slate.50');
+    --leading-addon-color: theme('colors.slate.400');
+    --leading-icon-color: theme('colors.slate.400');
+    --input-error-leading-icon-color: theme('colors.red.400');
+    --inline-addon-pl: theme('spacing.16');
+    --trailing-inline-addon-pr: theme('spacing.12');
+    --clear-button-hover-bg: theme('colors.slate.200');
+    --clear-button-hover-color: theme('colors.slate.600');
+
+    --leading-addon-dark-background-color: theme('colors.slate.500');
+    --leading-addon-dark-color: theme('colors.slate.300');
+    --clear-button-dark-hover-bg: theme('colors.slate.500');
+    --clear-button-dark-hover-color: theme('colors.slate.300');
+
+    /* checkbox group */
+    --fc-checkbox-grid-cols: 3;
+    --fc-checkbox-grid-gap: theme('spacing.4');
+
+    /* choice */
+    --choice-size: theme("width.4");
+    --choice-color: theme("colors.blue.600");
+    --choice-bg: theme("colors.white");
+    --choice-ring-color: theme("colors.blue.500");
+    --choice-label-font-weight: theme("fontWeight.medium");
+    --choice-label-color: theme("colors.slate.700");
+    --choice-description-color: theme("colors.slate.500");
+    --choice-disabled-bg: theme("colors.slate.100");
+
+    --choice-dark-ring-offset-color: theme("colors.slate.800");
+    --choice-dark-label-color: theme("colors.slate.300");
+    --choice-dark-ring-color: theme("colors.blue.600");
+
+    /* custom select */
+    --custom-select-menu-bg: theme('colors.white');
+    --custom-select-menu-color: theme('colors.slate.600');
+    --custom-select-menu-border-color: theme('colors.slate.200');
+    --custom-select-menu-border-radius: theme('borderRadius.md');
+    --custom-select-option-active-bg: theme('colors.blue.300');
+    --custom-select-option-active-color: theme('colors.slate.900');
+    --custom-select-option-selected-font-weight: theme('fontWeight.semibold');
+    --custom-select-option-selected-bg: theme('colors.blue.100');
+    --custom-select-option-selected-color: theme('colors.slate.900');
+    --custom-select-max-menu-height: 345px;
+    --custom-select-button-token-bg: theme('colors.blue.500');
+    --custom-select-button-token-color: theme('colors.white');
+    --custom-select-button-token-hover-bg: theme('colors.blue.600');
+    --custom-select-opt-group-font-weight: theme('fontWeight.bold');
+    --custom-select-opt-group-color: theme('colors.slate.800');
+    --custom-select-opt-group-bg: theme('colors.slate.100');
+    --custom-select-opt-group-border-color: theme('colors.slate.300');
+    --custom-select-selected-icon-color: theme('colors.green.500');
+    --custom-select-selected-icon-hover-color: theme('colors.green.600');
+    --custom-select-search-border-color: theme('colors.slate.300');
+
+    --custom-select-dark-menu-color: theme('colors.slate.400');
+    --custom-select-dark-menu-bg: theme('colors.slate.700');
+    --custom-select-dark-menu-border-color: theme('colors.slate.600');
+    --custom-select-dark-opt-group-bg: theme('colors.slate.600');
+    --custom-select-dark-opt-group-border-color: theme('colors.slate.500');
+    --custom-select-dark-opt-group-color: theme('colors.slate.400');
+    --custom-select-dark-search-border-color: var(--custom-select-dark-opt-group-border-color);
+    --custom-select-dark-option-selected-bg: theme('colors.slate.600');
+    --custom-select-dark-option-selected-color: theme('colors.slate.400');
+    --custom-select-dark-option-active-bg: theme('colors.slate.500');
+    --custom-select-dark-option-active-color: theme('colors.slate.300');
+    --custom-select-dark-selected-icon-hover-color: theme('colors.green.500');
+
+    /* tree select */
+    --tree-select-child-border-style: dashed;
+    --tree-select-child-border-color: theme('colors.slate.400');
+    --tree-select-child-hover-border-color: theme('colors.slate.500');
+
+    --tree-select-dark-child-border-color: theme('colors.slate.400');
+    --tree-select-dark-child-hover-border-color: theme('colors.slate.300');
+
+    /* input */
+    --input-padding-y: theme('spacing[2.5]');
+    --input-padding-x: theme('spacing.3');
+    --input-padding-y-sm: theme('spacing.2');
+    --input-padding-x-sm: theme('spacing.2');
+    --input-padding-y-lg: theme('spacing.4');
+    --input-padding-x-lg: theme('spacing.4');
+    --input-background-color: theme('colors.white');
+    --input-border-color: theme('colors.slate.300');
+    --input-placeholder-color: theme('colors.slate.400');
+    --input-border-radius: theme('borderRadius.lg');
+    --input-focus-border-color: theme('colors.blue.300');
+    --input-color: theme('colors.slate.900');
+    --input-disabled-bg-color: theme('colors.slate.100');
+    --input-disabled-border-color: theme('colors.slate.300');
+
+    --input-dark-background-color: theme('colors.slate.700');
+    --input-dark-border-color: theme('colors.slate.600');
+    --input-dark-color: theme('colors.white');
+    --input-dark-placeholder-color: theme('colors.slate.400');
+    --input-dark-disabled-bg-color: theme('colors.slate.500');
+    --input-dark-disabled-border-color: theme('colors.slate.600');
+    --input-dark-disabled-color: theme('colors.slate.300');
+
+    --input-error-label-color: theme('colors.red.600');
+    --input-error-border-color: theme('colors.red.500');
+    --input-error-color: theme('colors.red.900');
+    --input-error-placeholder-color: theme('colors.red.500');
+    --input-error-bg-color: theme('colors.red.50');
+    --input-error-focus-border-color: theme('colors.red.500');
+    --input-error-message-color: theme('colors.red.500');
+
+    --input-error-dark-label-color: theme('colors.red.500');
+    --input-error-dark-color: theme('colors.red.500');
+    --input-error-dark-placeholder-color: theme('colors.red.400');
+    --input-error-dark-border-color: theme('colors.red.500');
+
+    /* label */
+    --label-text-size: theme('fontSize.base');
+    --label-font-weight: theme('fontWeight.medium');
+    --label-line-height: theme('lineHeight.5');
+    --label-color: theme('colors.slate.700');
+
+    --label-dark-color: theme('colors.slate.300');
+
+    /* form group */
+    --form-group-hint-text-size: theme('fontSize.sm');
+    --form-group-hint-line-height: theme('lineHeight.5');
+    --form-group-hint-color: theme('colors.slate.500');
+    --form-group-border-color: theme('colors.slate.200');
+
+    --form-group-dark-border-color: theme('colors.slate.600');
+
+    /* file upload */
+    --file-upload-button-bg: theme('colors.slate.100');
+    --file-upload-button-color: theme('colors.slate.600');
+    --file-upload-button-font-weight: theme('fontWeight.medium');
+    --file-upload-button-disabled-bg: theme('colors.slate.200');
+    --file-upload-badge-bg: theme('colors.green.100');
+    --file-upload-badge-color: theme('colors.green.800');
+    --file-upload-percent-color: theme('colors.green.600');
+    --file-upload-progress-bg: theme('colors.green.200');
+    --file-upload-progress-filled-bg: theme('colors.green.500');
+    --file-upload-progress-height: theme('height.2');
+
+    --file-upload-button-error-bg: theme('colors.red.100');
+    --file-upload-button-error-color: theme('colors.red.600');
+
+    --file-upload-button-dark-bg: theme('colors.slate.600');
+    --file-upload-button-dark-color: theme('colors.white');
+    --file-upload-button-dark-disabled-bg: theme('colors.slate.600');
+    --file-upload-button-error-dark-color: theme('colors.red.500');
+
+    /* filepond */
+    --filepond-border-style: dashed;
+    --filepond-border-width: theme('borderWidth.2');
+    --filepond-bg: theme('colors.transparent');
+    --filepond-hover-bg: theme('colors.slate.50');
+    --filepond-label-link-color: theme('colors.blue.600');
+    --filepond-desc-color: theme('colors.slate.500');
+
+    --filepond-dark-hover-bg: theme('colors.slate.600');
+
+    /* switch toggle */
+    --switch-toggle-label-font-weight: theme('fontWeight.medium');
+    --switch-toggle-label-color: theme('colors.slate.900');
+    --switch-toggle-bg: theme('colors.slate.200');
+    --switch-toggle-bg-checked: theme('colors.blue.600');
+    --switch-toggle-ring-color: theme('colors.blue.300');
+    --switch-toggle-width: theme('width.11');
+    --switch-toggle-height: theme('height.6');
+    --switch-toggle-short-height: theme('height[3.5]');
+    --switch-toggle-circle-size: theme('width.5');
+    --switch-toggle-disabled-label-color: theme('colors.slate.400');
+    --switch-toggle-icon-size: theme('width[3.5]');
+
+    --switch-toggle-sm-width: theme('width.9');
+    --switch-toggle-sm-height: theme('height.5');
+    --switch-toggle-sm-circle-size: theme('width.4');
+    --switch-toggle-sm-icon-size: theme('width.3');
+
+    --switch-toggle-lg-width: theme('width.14');
+    --switch-toggle-lg-height: theme('height.7');
+    --switch-toggle-lg-circle-size: theme('width.6');
+    --switch-toggle-lg-icon-size: theme('width.4');
+
+    --switch-toggle-dark-label-color: theme('colors.slate.300');
+    --switch-toggle-dark-ring-color: theme('colors.blue.800');
+    --switch-toggle-dark-bg: theme('colors.slate.700');
+    --switch-toggle-dark-border-color: theme('colors.slate.600');
+    --switch-toggle-dark-disabled-label-color: theme('colors.slate.500');
+    --switch-toggle-dark-ring-offset-color: theme('colors.slate.800');
+
+    /* quill */
+    --quill-dark-toolbar-bg: theme('colors.slate.600');
+    --quill-dark-toolbar-color: theme('colors.slate.300');
+    --quill-dark-toolbar-hover-color: theme('colors.slate.400');
+    --quill-dark-toolbar-dropdown-bg: theme('colors.slate.700');
+    --quill-dark-toolbar-dropdown-border-color: theme('colors.slate.600');
+    --quill-dark-button-focus-border-color: theme('colors.slate.700');
+    --quill-dark-toolbar-selected-color: theme('colors.slate.400');
+
+    /* flatpickr */
+    --flatpickr-header-bg: theme('colors.blue.600');
+    --flatpickr-header-color: theme('colors.white');
+    --flatpickr-nav-button-hover-color: theme('colors.slate.800');
+    --flatpickr-nav-button-hover-bg: theme('colors.slate.300');
+    --flatpickr-current-day-color: theme('colors.slate.500');
+    --flatpickr-current-day-bg: theme('colors.slate.300');
+}

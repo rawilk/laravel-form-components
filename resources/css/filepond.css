@@ -1,20 +1,67 @@
 /* filepond overrides */
-/* purgecss start ignore */
+.filepond--root {
+    @apply cursor-pointer;
+}
+
 .filepond--panel-root {
-    @apply border-dashed border-2 border-slate-200 rounded-md max-w-full transition;
-    @apply bg-transparent !important;
+    @apply max-w-full transition;
+
+    border-style: var(--filepond-border-style);
+    border-width: var(--filepond-border-width);
+    border-color: var(--input-border-color);
+    border-radius: var(--input-border-radius);
+    background-color: var(--filepond-bg);
+
+    pointer-events: unset;
+}
+
+.filepond--root:hover .filepond--panel-root {
+    background-color: var(--filepond-hover-bg);
 }
 
 .filepond--label-action {
-    @apply text-blue-600 transition hover:opacity-75 focus:opacity-75;
-    text-decoration-color: theme('colors.blue.600');
+    @apply transition-colors hover:opacity-75 focus:opacity-75;
+
+    color: var(--filepond-label-link-color);
+    text-decoration-color: var(--filepond-label-link-color);
 }
 
-.fc-filepond-desc {
-    @apply text-slate-500;
+.fc-filepond--desc {
+    @apply cursor-pointer;
+
+    color: var(--filepond-desc-color);
 }
 
 .fc-filepond--sub-desc {
     @apply text-xs !important;
 }
-/* purgecss end ignore */
+
+/* error states */
+:is(.has-error, .input-error) .filepond--panel-root {
+    border-color: var(--input-error-border-color);
+}
+
+:is(.has-error, .input-error) .filepond--root:hover .filepond--panel-root {
+    background-color: var(--input-error-bg-color);
+}
+
+/* dark mode */
+.dark .filepond--panel-root {
+    border-color: var(--input-dark-border-color);
+    background-color: var(--input-dark-background-color);
+}
+
+.dark .filepond--root:hover .filepond--panel-root {
+    background-color: var(--filepond-dark-hover-bg);
+}
+
+@media (prefers-color-scheme: dark) {
+    .filepond--panel-root {
+        border-color: var(--input-dark-border-color);
+        background-color: var(--input-dark-background-color);
+    }
+
+    .filepond--root:hover .filepond--panel-root {
+        background-color: var(--filepond-dark-hover-bg);
+    }
+}
