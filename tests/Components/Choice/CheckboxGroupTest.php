@@ -7,13 +7,16 @@ use Illuminate\Support\Facades\Route;
 use function Pest\Laravel\get;
 use Sinnbeck\DomAssertions\Asserts\AssertElement;
 
+beforeEach(function () {
+    config()->set('form-components.defaults.choice.size', null);
+});
+
 it('can be rendered', function () {
     Route::get('/test', fn () => Blade::render('<x-checkbox-group>Checkboxes...</x-checkbox-group>'));
 
     get('/test')
-        ->assertElementExists('div', function (AssertElement $div) {
-            $div->has('class', 'space-y-4')
-                ->containsText('Checkboxes...');
+        ->assertElementExists('.form-checkbox-group', function (AssertElement $div) {
+            $div->has('text', 'Checkboxes...');
         });
 });
 
@@ -21,17 +24,17 @@ it('can be rendered as a grid instead of being stacked', function () {
     Route::get('/test', fn () => Blade::render('<x-checkbox-group :stacked="false">Checkboxes...</x-checkbox-group>'));
 
     get('/test')
-        ->assertElementExists('div', function (AssertElement $div) {
-            $div->has('class', 'grid')
-                ->doesntHave('class', 'space-y-4');
+        ->assertElementExists('.form-checkbox-group', function (AssertElement $div) {
+            $div->has('class', 'form-checkbox-group--inline')
+                ->doesntHave('class', 'form-checkbox-group--stacked');
         });
 });
 
 it('can have a custom amount of grid columns', function () {
-    Route::get('/test', fn () => Blade::render('<x-checkbox-group :stacked="false" grid-cols="6" />'));
+    Route::get('/test', fn () => Blade::render('<x-checkbox-group :stacked="false" :grid-cols="6" />'));
 
     get('/test')
-        ->assertElementExists('div', function (AssertElement $div) {
+        ->assertElementExists('.form-checkbox-group', function (AssertElement $div) {
             $div->has('style', '--fc-checkbox-grid-cols: 6;');
         });
 });

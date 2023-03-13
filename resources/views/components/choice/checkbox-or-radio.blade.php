@@ -17,6 +17,7 @@
             @endif
             {!! $ariaDescribedBy() !!}
             {{ $extraAttributes ?? '' }}
+            @if ($value && ! $hasBoundModel()) value="{{ $value }}" @endif
             @checked($checked && ! $hasBoundModel())
         />
     </div>

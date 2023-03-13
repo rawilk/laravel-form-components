@@ -7,6 +7,16 @@ use Illuminate\Support\Facades\Route;
 use function Pest\Laravel\get;
 use Sinnbeck\DomAssertions\Asserts\AssertElement;
 
+beforeEach(function () {
+    config()->set('form-components.defaults.choice', [
+        'container_class' => null,
+        'input_class' => null,
+        'size' => null,
+        'inline_description' => false,
+        'label_left' => false,
+    ]);
+});
+
 it('can be rendered', function () {
     Route::get('/test', fn () => Blade::render('<x-radio name="remember_me" />'));
 
