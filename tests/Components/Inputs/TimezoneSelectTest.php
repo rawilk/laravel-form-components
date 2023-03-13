@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
-use Rawilk\FormComponents\Support\TimeZoneRegionEnum;
 use function Pest\Laravel\get;
 use Rawilk\FormComponents\Support\TimeZoneRegion;
+use Rawilk\FormComponents\Support\TimeZoneRegionEnum;
 use Sinnbeck\DomAssertions\Asserts\AssertElement;
 use Sinnbeck\DomAssertions\Asserts\AssertForm;
 use Sinnbeck\DomAssertions\Asserts\AssertSelect;

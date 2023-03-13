@@ -38,7 +38,7 @@ test('a placeholder can be set globally', function () {
 });
 
 it('allows custom config to be set in a slot', function () {
-    $template = <<<HTML
+    $template = <<<'HTML'
     <x-date-picker name="date">
         <x-slot:config>
             onClose() {
@@ -60,7 +60,7 @@ it('allows custom config to be set in a slot', function () {
 });
 
 test('content can set at the bottom of the element markup', function () {
-    $template = <<<HTML
+    $template = <<<'HTML'
     <x-date-picker name="date">
         <x-slot:end>
             <div class="my-content">My content</div>
