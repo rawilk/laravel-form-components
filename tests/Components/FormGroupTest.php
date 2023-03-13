@@ -79,7 +79,7 @@ it('can have label inline with inputs', function () {
 
     get('/test')
         ->assertElementExists('div', function (AssertElement $div) {
-            $div->has('class', 'form-group-inline')
+            $div->has('class', 'form-group--inline')
                 ->contains('div', [
                     'class' => 'form-group__content--inline',
                 ]);
