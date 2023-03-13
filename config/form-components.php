@@ -344,7 +344,7 @@ return [
     | so you may define a subset of regions to pull from instead. Set
     | the value to `false` to use all regions.
     |
-    | Example: [\Rawilk\FormComponents\Support\TimezoneRegion::AMERICA]
+    | Example: [\Rawilk\FormComponents\Support\TimezoneRegionEnum::America->value]
     |
     */
     'timezone_subset' => false,
