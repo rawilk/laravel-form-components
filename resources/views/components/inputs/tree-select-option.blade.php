@@ -7,7 +7,7 @@
     'hasChildIcon' => false,
 ])
 
-<li>
+<li class="tree-select__option-li">
     <div
         x-tree-select:option
         level="{{ $level }}"

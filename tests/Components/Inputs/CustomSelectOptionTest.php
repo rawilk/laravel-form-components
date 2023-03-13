@@ -7,90 +7,76 @@ use Illuminate\Support\Facades\Route;
 use function Pest\Laravel\get;
 use Sinnbeck\DomAssertions\Asserts\AssertElement;
 
+beforeEach(function () {
+    config()->set('form-components.defaults.custom_select', [
+        'container_class' => null,
+        'input_class' => null,
+        'menu_class' => null,
+        'searchable' => true,
+        'clearable' => false,
+        'optional' => false,
+        'option_selected_icon' => null,
+        'button_icon' => null,
+        'clear_icon' => null,
+        'min_selected' => null,
+        'max_selected' => null,
+    ]);
+
+    config()->set('form-components.defaults.global.value_field', 'id');
+    config()->set('form-components.defaults.global.label_field', 'name');
+    config()->set('form-components.defaults.global.children_field', 'children');
+});
+
 it('can be rendered', function () {
-    Route::get('/test', fn () => Blade::render('<x-custom-select-option />'));
+    $option = ['id' => 'foo', 'name' => 'Foo'];
+
+    $template = <<<'HTML'
+    <x-custom-select>
+        <x-custom-select-option :value="$option" />
+    </x-custom-select>
+    HTML;
+
+    Route::get('/test', fn () => Blade::render($template, ['option' => $option]));
 
     get('/test')
-        ->assertElementExists('.custom-select-option', function (AssertElement $option) {
+        ->assertElementExists('.custom-select__option', function (AssertElement $option) {
             $option->is('li')
-                ->has('role', 'option')
-                ->has('x-data');
-        });
-});
-
-it('is aware of parent select name', function () {
-    $template = <<<'HTML'
-    <x-custom-select name="foo">
-        <x-custom-select-option value="bar" />
-    </x-custom-select>
-    HTML;
-
-    Route::get('/test', fn () => Blade::render($template));
-
-    // Every option gets an id assigned that is a combination of the parent
-    // select's name and the option's value.
-    get('/test')
-        ->assertElementExists('.custom-select-option', function (AssertElement $option) {
-            $option->has('id', 'customSelectfooOption-bar');
-        });
-});
-
-it('can render a checkbox on the option', function () {
-    $template = <<<'HTML'
-    <x-custom-select name="foo" show-checkbox multiple>
-        <x-custom-select-option value="foo" label="Foo" />
-    </x-custom-select>
-    HTML;
-
-    Route::get('/test', fn () => Blade::render($template));
-
-    get('/test')
-        ->assertElementExists('.custom-select-option', function (AssertElement $option) {
-            $option->contains('input', [
-                'type' => 'checkbox',
-                'name' => 'foo',
-                'id' => 'foofoo',
-                'value' => 'foo',
-            ]);
-        });
-});
-
-test('showing a checkbox is optional', function () {
-    $template = <<<'HTML'
-    <x-custom-select name="foo" :show-checkbox="false" multiple>
-        <x-custom-select-option value="foo" label="Foo" />
-    </x-custom-select>
-    HTML;
-
-    Route::get('/test', fn () => Blade::render($template));
-
-    get('/test')
-        ->assertElementExists('.custom-select-option', function (AssertElement $option) {
-            $option->doesntContain('input', [
-                'type' => 'checkbox',
-            ]);
-        });
-});
-
-test('label can be slotted', function () {
-    Route::get('/test', fn () => Blade::render('<x-custom-select-option value="foo">My custom label</x-custom-select-option>'));
-
-    get('/test')
-        ->assertElementExists('.custom-select-option', function (AssertElement $option) {
-            $option->containsText('My custom label');
+                ->contains('span', [
+                    'text' => 'Foo',
+                ])
+                ->has('x-custom-select:option', '');
         });
 });
 
 it('can be classified as an opt group', function () {
-    Route::get('/test', fn () => Blade::render('<x-custom-select-option value="foo" label="Foo" is-opt-group />'));
+    $option = [
+        'id' => 'foo',
+        'name' => 'Foo',
+        'children' => [
+            ['id' => 'bar', 'name' => 'Bar'],
+        ],
+    ];
+
+    $template = <<<'HTML'
+    <x-custom-select>
+        <x-custom-select-option :value="$option" />
+    </x-custom-select>
+    HTML;
+
+    Route::get('/test', fn () => Blade::render($template, ['option' => $option]));
 
     get('/test')
-        ->assertElementExists('.custom-select-option', function (AssertElement $option) {
-            $option->has('class', 'custom-select-option--opt-group')
-                ->doesntHave('x-data')
-                ->doesntHave('x-on:click.stop')
-                ->contains('span', [
-                    'text' => 'Foo',
-                ]);
+        ->assertElementExists('.custom-select__menu', function (AssertElement $menu) {
+            $menu->contains('li', [
+                'text' => 'Foo',
+                'class' => 'custom-select__opt-group',
+                'is-opt-group' => '',
+            ]);
+
+            // Opt group children should be recursively rendered into the DOM.
+            $menu->contains('li', [
+                'text' => 'Bar',
+                'class' => 'custom-select__option',
+            ]);
         });
 });

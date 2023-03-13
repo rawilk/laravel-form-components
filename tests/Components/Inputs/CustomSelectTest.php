@@ -7,17 +7,40 @@ use Illuminate\Support\Facades\Route;
 use function Pest\Laravel\get;
 use Sinnbeck\DomAssertions\Asserts\AssertElement;
 
+beforeEach(function () {
+    config()->set('form-components.defaults.custom_select', [
+        'container_class' => null,
+        'input_class' => null,
+        'menu_class' => null,
+        'searchable' => true,
+        'clearable' => false,
+        'optional' => false,
+        'option_selected_icon' => null,
+        'button_icon' => null,
+        'clear_icon' => null,
+        'min_selected' => null,
+        'max_selected' => null,
+    ]);
+
+    config()->set('form-components.defaults.global.value_field', 'id');
+    config()->set('form-components.defaults.global.label_field', 'name');
+});
+
 it('can be rendered', function () {
     Route::get('/test', fn () => Blade::render('<x-custom-select />'));
 
     get('/test')
-        ->assertElementExists('div:first-child > div:first-child', function (AssertElement $select) {
+        ->assertElementExists('.custom-select', function (AssertElement $select) {
             $select->has('x-data')
-                ->has('data-name')
-                ->contains('div', [
-                    'x-ref' => 'menu',
+                ->has('x-id')
+                ->contains('button', [
+                    'class' => 'custom-select__button',
+                    'x-custom-select:button' => '',
                 ])
-                ->contains('.custom-select__button');
+                ->contains('div', [
+                    'class' => 'custom-select__menu',
+                    'x-custom-select:options' => '',
+                ]);
         });
 });
 
@@ -30,47 +53,43 @@ it('renders an array of options', function () {
     Route::get('/test', fn () => Blade::render('<x-custom-select name="my_select" :options="$options" />', ['options' => $options]));
 
     get('/test')
-        ->assertElementExists('[x-ref="menu"]', function (AssertElement $menu) {
-            $foo = $menu->find('li#customSelectmy_selectOption-foo');
-            $foo->containsText('Foo');
-
-            $bar = $menu->find('li#customSelectmy_selectOption-bar');
-            $bar->containsText('Bar');
+        ->assertElementExists('.custom-select__menu', function (AssertElement $menu) {
+            $menu->contains('li', [
+                'text' => 'Foo',
+                'x-custom-select:option' => '',
+                'class' => 'custom-select__option',
+            ])->contains('li', [
+                'text' => 'Bar',
+                'x-custom-select:option' => '',
+                'class' => 'custom-select__option',
+            ]);
         });
 });
 
 it('can render slotted options', function () {
+    $foo = ['id' => 'foo', 'name' => 'Foo'];
+    $bar = ['id' => 'bar', 'name' => 'Bar'];
+
     $template = <<<'HTML'
     <x-custom-select name="foo">
-        <x-custom-select-option value="foo" label="Foo" />
-        <x-custom-select-option value="bar" label="Bar" />
+        <x-custom-select-option :value="$foo" />
+        <x-custom-select-option :value="$bar" />
     </x-custom-select>
     HTML;
 
-    Route::get('/test', fn () => Blade::render($template));
+    Route::get('/test', fn () => Blade::render($template, ['foo' => $foo, 'bar' => $bar]));
 
     get('/test')
-        ->assertElementExists('[x-ref="menu"]', function (AssertElement $menu) {
-            $foo = $menu->find('li#customSelectfooOption-foo');
-            $foo->containsText('Foo');
-
-            $bar = $menu->find('li#customSelectfooOption-bar');
-            $bar->containsText('Bar');
-        });
-});
-
-it('accepts a flat array of options', function () {
-    $options = ['foo', 'bar'];
-
-    Route::get('/test', fn () => Blade::render('<x-custom-select name="my_select" :options="$options" />', ['options' => $options]));
-
-    get('/test')
-        ->assertElementExists('[x-ref="menu"]', function (AssertElement $menu) {
-            $foo = $menu->find('li#customSelectmy_selectOption-foo');
-            $foo->containsText('foo');
-
-            $bar = $menu->find('li#customSelectmy_selectOption-bar');
-            $bar->containsText('bar');
+        ->assertElementExists('.custom-select__menu', function (AssertElement $menu) {
+            $menu->contains('li', [
+                'text' => 'Foo',
+                'x-custom-select:option' => '',
+                'class' => 'custom-select__option',
+            ])->contains('li', [
+                'text' => 'Bar',
+                'x-custom-select:option' => '',
+                'class' => 'custom-select__option',
+            ]);
         });
 });
 
@@ -83,29 +102,15 @@ it('can use custom value and label keys', function () {
     Route::get('/test', fn () => Blade::render('<x-custom-select name="my_select" :options="$options" value-field="value" label-field="text" />', ['options' => $options]));
 
     get('/test')
-        ->assertElementExists('[x-ref="menu"]', function (AssertElement $menu) {
-            $foo = $menu->find('li#customSelectmy_selectOption-foo');
-            $foo->containsText('Foo');
-
-            $bar = $menu->find('li#customSelectmy_selectOption-bar');
-            $bar->containsText('Bar');
-        });
-});
-
-it('renders a hidden input when no wire:model or x-model is present', function () {
-    Route::get('/test', fn () => Blade::render('<x-custom-select name="my_select" />'));
-
-    get('/test')
-        ->assertElementExists('input[type="hidden"]', function (AssertElement $input) {
-            $input->has('name', 'my_select')
-                ->has('x-bind:value', 'value');
-        });
-
-    Route::get('/test2', fn () => Blade::render('<x-custom-select name="my_select" multiple />'));
-
-    get('/test2')
-        ->assertElementExists('input[type="hidden"]', function (AssertElement $input) {
-            $input->has('name', 'my_select[]')
-                ->has('x-bind:value', 'singleValue');
+        ->assertElementExists('.custom-select__menu', function (AssertElement $menu) {
+            $menu->contains('li', [
+                'text' => 'Foo',
+                'x-custom-select:option' => '',
+                'class' => 'custom-select__option',
+            ])->contains('li', [
+                'text' => 'Bar',
+                'x-custom-select:option' => '',
+                'class' => 'custom-select__option',
+            ]);
         });
 });
