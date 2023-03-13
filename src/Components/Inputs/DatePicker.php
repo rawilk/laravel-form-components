@@ -6,12 +6,10 @@ namespace Rawilk\FormComponents\Components\Inputs;
 
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
-use Rawilk\FormComponents\Concerns\HasUniqueInitFunctionName;
+use InvalidArgumentException;
 
 class DatePicker extends Input
 {
-    use HasUniqueInitFunctionName;
-
     public function __construct(
         ?string $name = null,
         ?string $id = null,
@@ -33,6 +31,7 @@ class DatePicker extends Input
 
         // Date picker specific
         public array $options = [],
+        public string $mode = 'single',
         public ?bool $clickOpens = null,
         public ?bool $allowInput = null,
         public ?bool $enableTime = null,
@@ -58,6 +57,8 @@ class DatePicker extends Input
             trailingIcon: $trailingIcon,
         );
 
+        $this->ensureModeIsValid($mode);
+
         $this->clickOpens = $clickOpens ?? config('form-components.defaults.date_picker.click_opens', true);
         $this->allowInput = $allowInput ?? config('form-components.defaults.date_picker.allow_input', true);
         $this->enableTime = $enableTime ?? config('form-components.defaults.date_picker.enable_time', false);
@@ -75,6 +76,7 @@ class DatePicker extends Input
             'clickOpens' => $this->clickOpens,
             'allowInput' => $this->allowInput,
             'enableTime' => $this->enableTime,
+            'mode' => $this->mode,
         ];
 
         if ($this->format) {
@@ -99,8 +101,11 @@ class DatePicker extends Input
         return $this->isClearable() || $this->trailingIcon;
     }
 
-    protected function initFunctionSuffix(): string
+    protected function ensureModeIsValid(string $mode): void
     {
-        return 'Flatpickr';
+        throw_unless(
+            in_array($mode, ['single', 'range', 'multiple']),
+            new InvalidArgumentException("Invalid date picker mode: {$mode}.")
+        );
     }
 }
