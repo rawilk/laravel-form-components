@@ -7,24 +7,31 @@ use Illuminate\Support\Facades\Route;
 use function Pest\Laravel\get;
 use Sinnbeck\DomAssertions\Asserts\AssertElement;
 
+beforeEach(function () {
+    config()->set('form-components.defaults.file-upload', [
+        'container_class' => null,
+        'input_class' => null,
+        'display_upload_progress' => false,
+        'use_native_progress_bar' => false,
+    ]);
+});
+
 it('can be rendered', function () {
     Route::get('/test', fn () => Blade::render('<x-file-upload name="file" />'));
 
     get('/test')
-        ->assertElementExists('.file-upload', function (AssertElement $div) {
+        ->assertElementExists('div', function (AssertElement $div) {
             $div->contains('input', [
                 'type' => 'file',
                 'name' => 'file',
                 'id' => 'file',
-            ])->contains('label', [
-                'for' => 'file',
-                'class' => 'file-upload__label',
+                'class' => 'file-upload__input',
             ]);
         });
 });
 
 it('can show a file upload progress if wire:model is set', function () {
-    Route::get('/test', fn () => Blade::render('<x-file-upload name="file" wire:model="file" />'));
+    Route::get('/test', fn () => Blade::render('<x-file-upload name="file" wire:model="file" display-upload-progress />'));
 
     get('/test')
         ->assertElementExists('.file-upload', function (AssertElement $div) {
