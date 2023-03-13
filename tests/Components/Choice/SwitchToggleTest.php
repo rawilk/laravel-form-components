@@ -7,19 +7,32 @@ use Illuminate\Support\Facades\Route;
 use function Pest\Laravel\get;
 use Sinnbeck\DomAssertions\Asserts\AssertElement;
 
+beforeEach(function () {
+    config()->set('form-components.defaults.switch_toggle', [
+        'container_class' => null,
+        'input_class' => null,
+        'size' => null,
+        'color' => null,
+        'on_icon' => null,
+        'off_icon' => null,
+    ]);
+});
+
 it('can be rendered', function () {
     Route::get('/test', fn () => Blade::render('<x-switch-toggle id="foo" />'));
 
     get('/test')
-        ->assertElementExists('div:first-of-type', function (AssertElement $div) {
+        ->assertElementExists('div', function (AssertElement $div) {
             $div->has('x-data')
                 ->has('wire:ignore.self')
-                ->contains('button', [
-                    'x-ref' => 'button',
-                    'type' => 'button',
-                    'id' => 'foo',
-                    'text' => __('form-components::messages.switch_button_label'),
-                ]);
+                ->contains('label', [
+                    'class' => 'switch-toggle-container',
+                ])
+                ->contains('input', [
+                    'class' => 'sr-only peer',
+                    'type' => 'checkbox',
+                ])
+                ->contains('.switch-toggle');
         });
 });
 
@@ -27,19 +40,32 @@ it('accepts a container class', function () {
     Route::get('/test', fn () => Blade::render('<x-switch-toggle container-class="foo" />'));
 
     get('/test')
-        ->assertElementExists('div:first-of-type', function (AssertElement $div) {
-            $div->has('class', 'foo');
+        ->assertElementExists('.switch-toggle-container', function (AssertElement $container) {
+            $container->has('class', 'foo');
         });
 });
 
-it('applies custom attributes to the button', function () {
+test('container class can be set globally', function () {
+    config()->set('form-components.defaults.switch_toggle.container_class', 'my-default');
+
+    Route::get('/test', fn () => Blade::render('<x-switch-toggle />'));
+
+    get('/test')
+        ->assertElementExists('.switch-toggle-container', function (AssertElement $container) {
+            $container->has('class', 'my-default');
+        });
+});
+
+it('applies custom attributes to the input', function () {
     Route::get('/test', fn () => Blade::render('<x-switch-toggle data-foo="bar" id="foo" class="foo-class" />'));
 
     get('/test')
-        ->assertElementExists('div:first-of-type', function (AssertElement $div) {
-            $div->contains('button', [
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->contains('input', [
                 'data-foo' => 'bar',
                 'id' => 'foo',
+            ])
+            ->contains('.switch-toggle', [
                 'class' => 'foo-class',
             ]);
         });
@@ -52,17 +78,8 @@ it('can have a wire:model', function () {
 
     get('/test')
         ->assertSee('value: window.Livewire.find(')
-        ->assertElementExists('button', function (AssertElement $button) {
-            $button->doesntHave('wire:model');
-        });
-});
-
-it('creates a hidden input when a name is given', function () {
-    Route::get('/test', fn () => Blade::render('<x-switch-toggle name="foo" />'));
-
-    get('/test')
-        ->assertElementExists('input[type="hidden"]', function (AssertElement $input) {
-            $input->has('name', 'foo');
+        ->assertElementExists('input', function (AssertElement $input) {
+            $input->doesntHave('wire:model');
         });
 });
 
@@ -70,20 +87,22 @@ it('can have a label', function () {
     Route::get('/test', fn () => Blade::render('<x-switch-toggle label="My label" />'));
 
     get('/test')
-        ->assertElementExists('.switch-toggle-label', function (AssertElement $label) {
-            $label->containsText('My label')
-                ->has('x-on:click');
+        ->assertElementExists('.switch-toggle__label', function (AssertElement $label) {
+            $label->containsText('My label');
         });
 });
 
 it('can have a label on the left', function () {
-    Route::get('/test', fn () => Blade::render('<x-switch-toggle label="My label" label-position="left" />'));
+    Route::get('/test', fn () => Blade::render('<x-switch-toggle label-left="Left label" />'));
 
     get('/test')
         ->assertSeeInOrder([
-            'My label',
-            '<button',
-        ], false);
+            'switch-toggle__label',
+            'switch-toggle',
+        ], false)
+        ->assertElementExists('.switch-toggle__label', function (AssertElement $label) {
+            $label->containsText('Left label')->has('class', 'switch-toggle__label--left');
+        });
 });
 
 it('can have on and off state icons', function () {
@@ -101,7 +120,7 @@ it('can have on and off state icons', function () {
     Route::get('/test', fn () => Blade::render($template));
 
     get('/test')
-        ->assertElementExists('div:first-of-type', function (AssertElement $div) {
+        ->assertElementExists('div', function (AssertElement $div) {
             $div->contains('span.off', [
                 'text' => 'off',
             ])
@@ -115,8 +134,8 @@ it('can be different sizes', function () {
     Route::get('/test', fn () => Blade::render('<x-switch-toggle size="sm" />'));
 
     get('/test')
-        ->assertElementExists('div:first-of-type', function (AssertElement $div) {
-            $div->contains('button', [
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->contains('.switch-toggle', [
                 'class' => 'switch-toggle--sm',
             ]);
         });
