@@ -23,20 +23,4 @@
         --file-upload-button-bg: var(--file-upload-button-error-bg);
         --file-upload-button-color: var(--file-upload-button-error-color);
     }
-
-
-    /*.input-error:not(.password-toggleable),*/
-    /*.has-error .custom-select__button,*/
-    /*.has-error .form-input:not(.password-toggleable),*/
-    /*.has-error .form-select:not(.password-toggleable) {*/
-    /*    !*@apply focus:ring-red-400 focus:ring-opacity-50;*!*/
-    /*}*/
-
-    /*.has-error .password-input-container {*/
-    /*    !*@apply focus-within:ring-red-400 focus-within:border-red-300 focus-within:ring-opacity-50;*!*/
-    /*}*/
-
-    /*.has-error .password-toggle {*/
-    /*    !*@apply border-red-300;*!*/
-    /*}*/
 }
