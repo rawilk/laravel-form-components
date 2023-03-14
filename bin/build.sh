@@ -1,3 +1,3 @@
 #!/bin/sh
 
-npx mix --production
+npm run build
