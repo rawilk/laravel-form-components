@@ -23,29 +23,34 @@ The most basic usage of the component exists in setting a `name` attribute:
 You can easily add a label to a radio by using the `label` attribute, or by using the `default slot`:
 
 Via prop:
+
 ```html
 <x-radio name="tier" id="tier_1" value="tier_1" label="Tier 1" />
 <x-radio name="tier" id="tier_2" value="tier_2" label="Tier 2" />
 ```
 
 Via slot:
+
 ```html
-<x-radio name="tier" id="tier_1" value="tier_1">
-    Tier 1
-</x-radio>
-<x-radio name="tier" id="tier_2" value="tier_2">
-    Tier 2
-</x-radio>
+<x-radio name="tier" id="tier_1" value="tier_1"> Tier 1 </x-radio>
+<x-radio name="tier" id="tier_2" value="tier_2"> Tier 2 </x-radio>
 ```
 
 ## Description
 
-You can also add a description (help text) for a radio by either setting the `description` attribute or 
+You can also add a description (help text) for a radio by either setting the `description` attribute or
 by using the `description` slot.
 
 Via prop:
+
 ```html
-<x-radio name="tier" id="tier_1" value="tier_1" label="Tier 1" description="Our most basic tier" />
+<x-radio
+    name="tier"
+    id="tier_1"
+    value="tier_1"
+    label="Tier 1"
+    description="Our most basic tier"
+/>
 ```
 
 ```html

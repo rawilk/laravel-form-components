@@ -15,7 +15,7 @@ for more info.
 While the `switch-toggle` component works out-of-the-box when you've [set the directive](/docs/laravel-form-components/{version}/installation#directives),
 we recommend that you install and compile the JavaScript libraries before you deploy to production:
 
-- [Alpine.js](https://github.com/alpinejs/alpine) `^2.8`
+-   [Alpine.js](https://github.com/alpinejs/alpine) `^2.8`
 
 ## Basic Usage
 
@@ -54,7 +54,10 @@ to use this component when you are using Laravel Livewire. Behind-the-scenes, th
 from livewire to bind the value to a local variable on the component.
 
 ```html
-<x-switch-toggle wire:model.defer="allowNotifications" label="Notifications on" />
+<x-switch-toggle
+    wire:model.defer="allowNotifications"
+    label="Notifications on"
+/>
 ```
 
 For non-livewire forms, you may also give the component a `value` to use for the initial value, but be sure to include a `name` attribute so that your server
@@ -106,13 +109,15 @@ Both the simple and short toggle variations allow for different sizing out-of-th
 Here are the sizes the package provides by default for each variation:
 
 **Simple**:
-- sm
-- base (default)
-- lg
+
+-   sm
+-   base (default)
+-   lg
 
 **Short**:
-- base (default)
-- lg
+
+-   base (default)
+-   lg
 
 These sizes also come in responsive variants, so if you wanted the switch small on small screens, but large on larger screens, you could do something like this:
 
@@ -132,7 +137,7 @@ toggle component allows you to specify icons to display on the button for both "
     <x-slot name="offIcon">
         <x-heroicon-s-x class="w-3 h-3 text-gray-400" />
     </x-slot>
-    
+
     <x-slot name="onIcon">
         <x-heroicon-s-check class="w-3 h-3 text-blue-600" />
     </x-slot>
@@ -141,5 +146,5 @@ toggle component allows you to specify icons to display on the button for both "
 
 In this example, you will see an "x" icon when the switch is "off", and a checkmark icon when the switch is "on".
 
-> {note} This example requires the 
-[blade heroicon](https://github.com/blade-ui-kit/blade-heroicons) package.
+> {note} This example requires the
+> [blade heroicon](https://github.com/blade-ui-kit/blade-heroicons) package.

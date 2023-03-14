@@ -6,7 +6,7 @@ sort: 1
 ## Introduction
 
 The `select` component offers an easy way to provide select menus in your forms.
-By simply setting the `name` attribute it also automatically defines your `id` 
+By simply setting the `name` attribute it also automatically defines your `id`
 and makes sure old values are respected.
 
 ## Basic Usage
@@ -38,6 +38,7 @@ key/value pairs. This will allow the select component to automatically determine
 ### Via Default Slot
 
 Another way is to use the default slot on the component:
+
 ```html
 <x-select name="state">
     <option value="al">Alabama</option>
@@ -62,6 +63,7 @@ add your slotted options **after** the passed in options:
 ```
 
 ### Combining Methods
+
 You can also pass in options using multiple methods. For example, if you pass options in using the `options`
 attribute, and also via the default slot, your slotted options will be rendered **before** the passed in options:
 
@@ -77,7 +79,11 @@ attribute, and also via the default slot, your slotted options will be rendered 
 You can easily create a multiple select by setting `multiple` to `true`:
 
 ```html
-<x-select name="state" :options="['al' => 'Alabama', 'wi' => 'Wisconsin']" multiple />
+<x-select
+    name="state"
+    :options="['al' => 'Alabama', 'wi' => 'Wisconsin']"
+    multiple
+/>
 ```
 
 ## Reference

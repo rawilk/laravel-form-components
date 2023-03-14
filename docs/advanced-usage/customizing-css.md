@@ -6,6 +6,7 @@ sort: 1
 If you want to change the look of the Laravel Form Components to match the style of your own app, you have multiple options.
 
 ## Option 1: Use Your Own Tailwind CSS Configuration
+
 You can import the `index.css` and run every `@apply` rule through your own `tailwind.config.js`.
 
 ```css
@@ -15,7 +16,7 @@ You can import the `index.css` and run every `@apply` rule through your own `tai
 @tailwind components;
 @tailwind utilities;
 
-@import '../../vendor/rawilk/laravel-form-components/resources/css/index.css';
+@import "../../vendor/rawilk/laravel-form-components/resources/css/index.css";
 
 /* override our styles here */
 ```
@@ -25,15 +26,14 @@ You can import the `index.css` and run every `@apply` rule through your own `tai
 You may also import only the stylesheets you need instead of everything in the index.css file. Most components have their own stylesheets (i.e. `input.css` for input elements).
 
 ## Option 2: Copy the CSS To Your Own Project
+
 If you want full-control, you can always copy the each of the stylesheets from `resources/css` to your own project and go wild. In this example, we renamed the file to `custom/laravel-form-components.css`.
 Beware: you will have to manually keep this CSS in sync with changes in future package updates:
 
 ```css
 /* app.css */
 
-...
-
-@import 'custom/laravel-form-components.css';
+... @import "custom/laravel-form-components.css";
 ```
 
 Let's say you wanted to change the background color of disabled inputs. You could do so like this in the file you just created with the pasted in styles from the package:
@@ -45,7 +45,7 @@ input[disabled],
 textarea[disabled],
 select[disabled] {
     @apply bg-gray-100;
-    
+
     /* default styles from the package */
     /*@apply bg-slate-50 cursor-not-allowed;*/
 }
@@ -54,12 +54,13 @@ select[disabled] {
 ```
 
 ## Required Variants
+
 If you choose [Option 1](#option-1-use-your-own-tailwind-css-configuration), you will need the following color variants added inside your `tailwind.config.js` file:
 
 ```js
 // tailwind.config.js
 
-const colors = require('tailwindcss/colors');
+const colors = require("tailwindcss/colors");
 
 module.exports = {
     // ...
@@ -83,7 +84,7 @@ Certain components make use of a custom utility class called `outline-slate`, wh
 ```css
 @layer utilities {
     .outline-slate {
-        outline: 2px dotted theme('colors.slate.400');
+        outline: 2px dotted theme("colors.slate.400");
         outline-offset: 2px;
     }
 }
@@ -103,14 +104,14 @@ module.exports = {
     purge: {
         content: [
             // Typical laravel app purge css content
-            './app/**/*.php',
-            './resources/**/*.php',
-            './resources/**/*.js',
-            
+            "./app/**/*.php",
+            "./resources/**/*.php",
+            "./resources/**/*.js",
+
             // Make sure you add these lines
-            './vendor/rawilk/laravel-form-components/src/**/*.php',
-            './vendor/rawilk/laravel-form-components/resources/**/*.php',
-            './vendor/rawilk/laravel-form-components/resources/js/*.js',
+            "./vendor/rawilk/laravel-form-components/src/**/*.php",
+            "./vendor/rawilk/laravel-form-components/resources/**/*.php",
+            "./vendor/rawilk/laravel-form-components/resources/js/*.js",
         ],
     },
 };
@@ -123,6 +124,6 @@ in a `/* purgecss start ignore */`:
 
 ```css
 /* purgecss start ignore */
-@import '../../vendor/rawilk/laravel-form-components/resources/css/index.css';
+@import "../../vendor/rawilk/laravel-form-components/resources/css/index.css";
 /* purgecss end ignore */
 ```

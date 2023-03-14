@@ -11,9 +11,9 @@ The `password` component offers an easy way to set up a password input field for
 
 By default, the component shows a toggle icon, which allows the user to show and hide the password. The use of this feature requires:
 
-- AlpineJS
-- Blade Heroicons (different icons can be specified in the config file)
-- Proper tailwind configuration
+-   AlpineJS
+-   Blade Heroicons (different icons can be specified in the config file)
+-   Proper tailwind configuration
 
 As of version 1.4.10, you will need to specify a `focus-within` utility for the `box-shadow` styles so that focus can be properly shown
 on the password inputs that are toggleable. In your `tailwind.config.js` file, you should add the following variant to it:
@@ -22,9 +22,9 @@ on the password inputs that are toggleable. In your `tailwind.config.js` file, y
 module.exports = {
     // ...
     variants: {
-        boxShadow: ['responsive', 'hover', 'focus', 'focus-within'],
+        boxShadow: ["responsive", "hover", "focus", "focus-within"],
     },
-}
+};
 ```
 
 > {note} If you are using Tailwind's JIT, you shouldn't need to specify these variants anymore.

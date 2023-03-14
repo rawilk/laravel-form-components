@@ -34,9 +34,9 @@ re-rendering the form, the `textarea` component will remember the old value:
 
 ```html
 <div class="form-text-container ...">
-    <textarea name="about"
-              id="about"
-              class="form-input form-text ..." rows="3">About me text</textarea>
+    <textarea name="about" id="about" class="form-input form-text ..." rows="3">
+About me text</textarea
+    >
 </div>
 ```
 

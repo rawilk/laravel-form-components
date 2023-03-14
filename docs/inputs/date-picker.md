@@ -13,13 +13,13 @@ By using it, you can simply add a date and/or time picker to your form with one 
 While the `date-picker` component works out-of-the-box when you've [set the directives](/docs/laravel-form-components/installation#directives),
 we recommend that you install and compile the JavaScript libraries before you deploy to production:
 
-- [Alpine.js](https://github.com/alpinejs/alpine) `^2.8`
-- [Flatpickr](https://flatpickr.js.org/) `^4.6.9`
+-   [Alpine.js](https://github.com/alpinejs/alpine) `^2.8`
+-   [Flatpickr](https://flatpickr.js.org/) `^4.6.9`
 
 Make sure you import flatpickr as `flatpickr` in your JavaScript, and make sure it's available globally:
 
 ```js
-import flatpickr from 'flatpickr';
+import flatpickr from "flatpickr";
 
 window.flatpickr = flatpickr;
 ```
@@ -29,7 +29,7 @@ window.flatpickr = flatpickr;
 If you pull the `flatpickr` package in via npm, you should import the styles into your stylesheet:
 
 ```css
-@import 'flatpickr/dist/flatpickr.min.css';
+@import "flatpickr/dist/flatpickr.min.css";
 ```
 
 > {note} Be sure these styles are imported before the styles for this package so we can override the styles for flatpickr correctly.
@@ -118,9 +118,7 @@ specify any option callbacks you need to:
 ```html
 <x-date-picker name="birthday">
     <x-slot name="optionsSlot">
-        onChange: (selectedDates, dateStr, instance) => {
-            // ...
-        }
+        onChange: (selectedDates, dateStr, instance) => { // ... }
     </x-slot>
 </x-date-picker>
 ```
@@ -134,9 +132,7 @@ the `onOpen` slot to add your own callback function if needed on the component.
 ```html
 <x-date-picker name="birthday">
     <x-slot name="onOpen">
-        function (selectedDates, dateStr, instance) {
-            // do something
-        },
+        function (selectedDates, dateStr, instance) { // do something },
     </x-slot>
 </x-date-picker>
 ```

@@ -34,7 +34,13 @@ lose their input data when you show the form again with the validation errors.
 When re-rendering the form, the `input` component will remember the old value.
 
 ```html
-<input class="form-input form-text" name="search" id="search" type="text" value="Eloquent" />
+<input
+    class="form-input form-text"
+    name="search"
+    id="search"
+    type="text"
+    value="Eloquent"
+/>
 ```
 
 > {note} This doesn't apply when using `wire:model`, as livewire will take care of setting the value instead
@@ -48,12 +54,13 @@ When there are errors for a field, the `aria-invalid` and `aria-describedby` att
 
 ```html
 <div class="form-text-container ...">
-    <input class="form-input form-text input-error ..." 
-           name="first_name"
-           id="first_name"
-           type="text"
-           aria-invalid="true"
-           aria-describedby="first_name-error"
+    <input
+        class="form-input form-text input-error ..."
+        name="first_name"
+        id="first_name"
+        type="text"
+        aria-invalid="true"
+        aria-describedby="first_name-error"
     />
 </div>
 ```
@@ -81,11 +88,13 @@ A leading addon will be rendered as text on top of a light gray background at th
 addon, specify the text either in the `leading-addon` attribute or the `leadingAddon` slot.
 
 Via prop:
+
 ```html
 <x-input name="url" leading-addon="https://" />
 ```
 
 Via slot:
+
 ```html
 <x-input name="url">
     <x-slot name="leadingAddon">https://</x-slot>
@@ -101,11 +110,13 @@ input (defaults to `pl-16 sm:pl-14`) by setting the `inline-addon-padding` attri
 You can set the inline addon by using the `inline-addon` attribute or the `inlineAddon` slot.
 
 Via prop:
+
 ```html
 <x-input name="url" inline-addon="https://" />
 ```
 
 Via slot:
+
 ```html
 <x-input name="url">
     <x-slot name="inlineAddon">https://</x-slot>
@@ -114,7 +125,7 @@ Via slot:
 
 ### Leading Icon
 
-Instead of text, you can prepend an icon to the input instead. The package is styled for 
+Instead of text, you can prepend an icon to the input instead. The package is styled for
 [blade heroicon svgs](https://github.com/blade-ui-kit/blade-heroicons), but you are free
 to use whatever icons you want to.
 
@@ -122,9 +133,7 @@ To prepend an icon, use the `leadingIcon` slot:
 
 ```html
 <x-input name="url">
-    <x-slot name="leadingIcon">
-        icon svg...
-    </x-slot>
+    <x-slot name="leadingIcon"> icon svg... </x-slot>
 </x-input>
 ```
 
@@ -137,11 +146,13 @@ by using the `trailing-addon-padding` attribute.
 You can add a trailing addon by using either the `trailing-addon` attribute or the `trailingAddon` slot.
 
 Via prop:
+
 ```html
 <x-input name="amount" trailing-addon="USD" />
 ```
 
 Via slot:
+
 ```html
 <x-input name="amount">
     <x-slot name="trailingAddon">USD</x-slot>

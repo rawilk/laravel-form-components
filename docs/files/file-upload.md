@@ -13,7 +13,7 @@ as well just by adding a `wire:model` to the input.
 Even though the `file-upload` component will work out-of-the-box if you're using the script blade directives in your layout (`@fcScripts`),
 we recommend that you install and compile the JavaScript libraries before you deploy to production.
 
-- [Alpine.js](https://github.com/alpinejs/alpine) `^2.8`
+-   [Alpine.js](https://github.com/alpinejs/alpine) `^2.8`
 
 ## Basic Usage
 
@@ -24,8 +24,8 @@ In its most basic usage, you can use it as a self-closing component and pass it 
 ```
 
 > {note} Since the component applies a class of `sr-only` (hides the input) to the input itself, the input must have an id assigned to it
-for the label to be able to trigger a click on the input. By default, the component assigns the `id` to the `name` attribute if you don't
-provide an `id` to it.
+> for the label to be able to trigger a click on the input. By default, the component assigns the `id` to the `name` attribute if you don't
+> provide an `id` to it.
 
 ## Upload Progress
 
@@ -60,9 +60,12 @@ If you are using livewire and would like to show a photo here, you can do so by 
 <x-file-upload name="avatar" wire:model="avatar">
     <div>
         @if ($avatar)
-            <span class="block w-20 h-20">
-                <img class="rounded-full w-full" src="{{ $avatar->temporaryUrl() }}" />
-            </span>
+        <span class="block w-20 h-20">
+            <img
+                class="rounded-full w-full"
+                src="{{ $avatar->temporaryUrl() }}"
+            />
+        </span>
         @endif
     </div>
 </x-file-upload>

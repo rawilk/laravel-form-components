@@ -19,6 +19,7 @@ composer require rawilk/laravel-form-components
 ```
 
 You can publish the config file with:
+
 ```bash
 php artisan fc:publish
 ```
@@ -41,7 +42,7 @@ For a demo of some of the components, please visit: https://laravel-form-compone
 
 ## Testing
 
-``` bash
+```bash
 composer test
 ```
 
@@ -59,19 +60,19 @@ Please review [my security policy](../../security) on how to report security vul
 
 ## Credits
 
-- [Randall Wilk](https://github.com/rawilk)
-- [All Contributors](../../contributors)
+-   [Randall Wilk](https://github.com/rawilk)
+-   [All Contributors](../../contributors)
 
 This package is also heavily inspired by [Laravel Form Components](https://github.com/protonemedia/laravel-form-components) and [Blade UI Kit](https://blade-ui-kit.com/).
-A lot of inspiration for some JS components is taken from [Alpine Headless Components](https://alpinejs.dev/components#headless). 
+A lot of inspiration for some JS components is taken from [Alpine Headless Components](https://alpinejs.dev/components#headless).
 
 ## Alternatives
 
 This package was created to satisfy my own needs and preferences, and relies on TailwindCSS, TailwindUI, and AlpineJS for styling and functionality. You can always
 try one of these alternatives if your needs differ:
 
-- [Blade UI Kit](https://blade-ui-kit.com/)
-- [Laravel Form Components](https://github.com/protonemedia/laravel-form-components)
+-   [Blade UI Kit](https://blade-ui-kit.com/)
+-   [Laravel Form Components](https://github.com/protonemedia/laravel-form-components)
 
 ## Disclaimer
 

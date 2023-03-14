@@ -30,6 +30,7 @@ Via config:
 ```
 
 Via prop:
+
 ```html
 <x-timezone-select name="timezone" :only="['America']" />
 ```
@@ -50,4 +51,4 @@ By default, the timezone select uses the native select input, so you will explic
 the custom-select component any time you render the timezone select component.
 
 > {note} If you want to render it as a custom-select, you need to ensure you have followed the
-[installation steps](/docs/laravel-form-components/{version}/selects/custom-select#installation) for the `custom-select` component.
+> [installation steps](/docs/laravel-form-components/{version}/selects/custom-select#installation) for the `custom-select` component.

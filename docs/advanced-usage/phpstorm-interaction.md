@@ -13,18 +13,18 @@ You may wish to extend PhpStorm to extend the blade directives of this package:
 
 ### @fcStyles
 
-- has parameter = YES
-- Prefix: `<?php echo \\Rawilk\\FormComponents\\Facades\\FormComponents::outputStyles(`
-- Suffix: `); ?>`
+-   has parameter = YES
+-   Prefix: `<?php echo \\Rawilk\\FormComponents\\Facades\\FormComponents::outputStyles(`
+-   Suffix: `); ?>`
 
 ### @fcScripts
 
-- has parameter = YES
-- Prefix: `<?php echo \\Rawilk\\FormComponents\\Facades\\FormComponents::outputScripts(`
-- Suffix: `); ?>`
+-   has parameter = YES
+-   Prefix: `<?php echo \\Rawilk\\FormComponents\\Facades\\FormComponents::outputScripts(`
+-   Suffix: `); ?>`
 
 ### @fcJavaScript
 
-- has parameter = YES
-- Prefix: `<?php echo \\Rawilk\\FormComponents\\Facades\\FormComponents::javaScript(`
-- Suffix: `); ?>`
+-   has parameter = YES
+-   Prefix: `<?php echo \\Rawilk\\FormComponents\\Facades\\FormComponents::javaScript(`
+-   Suffix: `); ?>`

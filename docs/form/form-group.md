@@ -45,7 +45,9 @@ with the id given to the error message element.
 You can disable the showing of error messages in the form group by setting the `show-errors` attribute to `false`:
 
 ```html
-<x-form-group label="First name" name="first_name" :show-errors="false">...</x-form-group>
+<x-form-group label="First name" name="first_name" :show-errors="false"
+    >...</x-form-group
+>
 ```
 
 ## Help Text
@@ -53,13 +55,19 @@ You can disable the showing of error messages in the form group by setting the `
 You can show form help text by either using the `help-text` attribute or the `helpText` slot:
 
 Via prop:
+
 ```html
-<x-form-group label="First name" name="first_name" help-text="Some helpful text...">
+<x-form-group
+    label="First name"
+    name="first_name"
+    help-text="Some helpful text..."
+>
     Input element
 </x-form-group>
 ```
 
 Via slot:
+
 ```html
 <x-form-group label="First name" name="first_name">
     Input element
@@ -75,7 +83,9 @@ or left-aligned below in input when the form-group is set to `inline`. We like t
 optional.
 
 ```html
-<x-form-group label="First name" name="first_name" hint="Optional">...</x-form-group>
+<x-form-group label="First name" name="first_name" hint="Optional"
+    >...</x-form-group
+>
 ```
 
 You can also have the component render the text `Optional` automatically for you by passing in `true` for the `optional` attribute.
@@ -112,7 +122,9 @@ As of v4, by default the form-group component will render a border on top of eac
 You can prevent this behavior by passing in `false` to the `border` attribute.
 
 ```html
-<x-form-group label="First name" name="first_name" inline :border="false">...</x-form-group>
+<x-form-group label="First name" name="first_name" inline :border="false"
+    >...</x-form-group
+>
 ```
 
 By default, the styles will add some padding to the label's column to center align it with the input, but that

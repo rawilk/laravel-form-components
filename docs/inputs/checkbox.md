@@ -22,25 +22,30 @@ The most basic usage of the component exists in setting a `name` attribute:
 You can easily add a label to a checkbox by using the `label` attribute, or by using the `default slot`:
 
 Via prop:
+
 ```html
 <x-checkbox name="remember_me" label="Remember" />
 ```
 
 Via slot:
+
 ```html
-<x-checkbox name="remember_me">
-    Remember me
-</x-checkbox>
+<x-checkbox name="remember_me"> Remember me </x-checkbox>
 ```
 
 ## Description
 
-You can also add a description (help text) for a checkbox by either setting the `description` attribute or 
+You can also add a description (help text) for a checkbox by either setting the `description` attribute or
 by using the `description` slot.
 
 Via prop:
+
 ```html
-<x-checkbox name="remember_me" label="Remember" description="Keep me logged in" />
+<x-checkbox
+    name="remember_me"
+    label="Remember"
+    description="Keep me logged in"
+/>
 ```
 
 ```html

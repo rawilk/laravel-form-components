@@ -15,8 +15,8 @@ The custom select component requires Alpine.js and Popper.js, as well as some cu
 Ensure you have the proper [directives](/docs/laravel-form-components/installation#directives) in your layout file.
 In production, we recommend you install and compile the JavaScript libraries before you deploy:
 
-- [Alpine.js](https://github.com/alpinejs/alpine) `^3.8`
-- [Popper.js](https://popper.js.org/) `^2.9.1`
+-   [Alpine.js](https://github.com/alpinejs/alpine) `^3.8`
+-   [Popper.js](https://popper.js.org/) `^2.9.1`
 
 > {tip} See the [JavaScript Dependencies section](/docs/laravel-form-components/{version}/installation#javascript-dependencies) for more information on installing them.
 
@@ -40,10 +40,12 @@ If you provide an array of strings, the component will use the strings as both t
 should provide an array of keyed arrays for each option, or you can even pass in an array of Eloquent models as options.
 
 ```html
-<x-custom-select :options="[
+<x-custom-select
+    :options="[
     ['id' => 'foo', 'name' => 'Foo'],
     ['id' => 'bar', 'name' => 'Bar'],
-]" />
+]"
+/>
 
 <!-- using models -->
 <x-custom-select :options="\App\Models\User::get(['id', 'name'])" />
@@ -63,16 +65,19 @@ If you want more control over the display of an option, you can render your opti
 ```html
 <x-custom-select name="foo">
     @foreach ($options as $option)
-        <x-custom-select-option value="{{ $option->id }}" label="{{ $option->name }}">
-            <span class="italic">{{ $option->name }}</span>
-        </x-custom-select-option>
+    <x-custom-select-option
+        value="{{ $option->id }}"
+        label="{{ $option->name }}"
+    >
+        <span class="italic">{{ $option->name }}</span>
+    </x-custom-select-option>
     @endforeach
 </x-custom-select>
 ```
 
 > {note} It is important to still pass in the `label` prop to each option as our JavaScript will use that to determine the
 > text to display for the selected option.
- 
+
 ### Customizing the selected option display
 
 By default, when an option is selected it will display the same text that is provided to it on the `label` prop on the select's trigger.
@@ -80,7 +85,7 @@ If you want to display something different for the selected option, you may prov
 This is also possible when not using the options slot on the select by specifying the `selected-label-field` prop on the custom select.
 
 ```html
-<x-custom-select 
+<x-custom-select
     name="foo"
     :options="[
         ['id' => 'foo', 'name' => 'Foo', 'short_name' => 'F'],
@@ -98,13 +103,18 @@ of the option's `name` field.
 You may disable specific options by setting `disabled` to true on the option:
 
 ```html
-<x-custom-select :options="[['value' => 'foo', 'text' => 'Foo', 'disabled' => true]]" />
+<x-custom-select
+    :options="[['value' => 'foo', 'text' => 'Foo', 'disabled' => true]]"
+/>
 ```
 
 You can use a different key for `disabled` on the option, by specifying it via the `disabled-field` attribute on the select.
 
 ```html
-<x-custom-select :options="[['id' => 'foo', 'name' => 'Foo', 'inactive' => true]]" disabled-field="inactive" />
+<x-custom-select
+    :options="[['id' => 'foo', 'name' => 'Foo', 'inactive' => true]]"
+    disabled-field="inactive"
+/>
 ```
 
 ### Opt Groups
@@ -112,13 +122,15 @@ You can use a different key for `disabled` on the option, by specifying it via t
 You can specify an option as an "optgroup" header by using a `true` value on an `is_opt_group` key on the option:
 
 ```html
-<x-custom-select :options="[
+<x-custom-select
+    :options="[
     ['name' => 'Opt Group', 'is_opt_group' => true],
-]"/>
+]"
+/>
 ```
 
 > {tip} You can use a different key for the opt group by specifying it for the `is-opt-group-field` on the select.
- 
+
 > {note} As of v7, you should flatten your array of options as the custom select will no longer render an opt group's options
 > automatically.
 
@@ -139,12 +151,16 @@ This will provide basic search functionality, which will hide any non-matching o
 If you use Livewire, you can easily add server-side filtering of options via the `livewire-search` prop on the component.
 
 ```html
-<x-custom-select :options="$options" searchable livewire-search="handleSearch" />
+<x-custom-select
+    :options="$options"
+    searchable
+    livewire-search="handleSearch"
+/>
 ```
 
 In this example, this will require you to have a method called `handleSearch` on your livewire component. Our JavaScript will
 call that method via livewire's JavaScript API, passing it the value of the current search term. Your livewire component
-should filter out the options based on the search. The select component debounces the search input so each keystroke is 
+should filter out the options based on the search. The select component debounces the search input so each keystroke is
 not triggering another ajax request to your server.
 
 ## Multiple Select
@@ -189,48 +205,48 @@ the select menu now. In addition to positioning the menu when opened, Popper.js 
 
 ### Props
 
-| Prop          | Type            | Default      | Description                                                                    |
-|---------------|-----------------|--------------|--------------------------------------------------------------------------------|
-| name          | `string`, `null` | `null`       | Name of input                                                                  |
-| id            | `string`, `null` | `null`       | ID of input. Defaults to name                                                  |
-| value         | `mixed` | `null`       | Current/previous value of input                                                |
-| options       | `array`, `Collection` | `[]`         | Options to render in select                                                    |
-| multiple      | `boolean` | `false`      | Allow multiple selected options                                                |
-| minSelected   | `int` | 1            | Min. amount of options that must be selected                                   |
-| maxSelected   | `null`, `int` | `null`       | Max amount of options that may be selected                                     |
-| disabled      | `boolean` | `false`      | Disable the input                                                              |
-| labelledby    | `null`, `string` | `null`       | Add an aria-labelled by to the input                                           |
-| searchable    | `boolean` | `true`       | Make select searchable                                                         |
-| closeOnSelect | `boolean` | `false`      | Close the select when an option is selected                                    |
-| autofocus     | `boolean` | `false`      | Give focus to input on page load                                               |
-| optional      | `boolean` | `false`      | Allow value to be cleared                                                      |
-| clearIcon     | `null`, `string` | heroicon-o-x | Icon component name to use - see config                                        |
-| placeholder   | `bool`, `null`, `string` | See lang file | Text to use when no value is selected. Use `false` for no placeholder          |
-| noOptionsText | `bool`, `null`, `string` | See lang file | Text to use when no options are available. Use `false` for none                |
-| noResultsText | `bool`, `null`, `string` | See lang file | Text to use when no options are available from searching. Use `false` for none |
-| showCheckbox | `null`, `bool` | `null` | Show a checkbox/radio next to each option. Defaults to `true` on multi select and `false` on single select |
-| valueField | `string` | `id` | Key to use for the option's value |
-| labelField | `string` | `name` | Key to use for the option's label |
-| selectedLabelField | `string`, `null` | `null` | Key to use for the options' label when selected. Defaults to labelField |
-| disabledField | `string` | `disabled` | Key to use to determine if an option is disabled |
-| isOptGroupField | `string` | `is_opt_group` | Key to use to determine if an option is an opt group |
-| extraAttributes | `string`, `HtmlString` | `''` | Extra attributes to render on the component |
-| showErrors | `boolean` | `true` | Show validation error state |
-| livewire | `boolean` | `false` | If `true`, provides livewire instance to component JavaScript. Will be true if a `wire:model` is provided |
-| livewireSearch | `null`, `string` | `null` | Name of livewire component search method to call |
+| Prop               | Type                     | Default        | Description                                                                                                |
+| ------------------ | ------------------------ | -------------- | ---------------------------------------------------------------------------------------------------------- |
+| name               | `string`, `null`         | `null`         | Name of input                                                                                              |
+| id                 | `string`, `null`         | `null`         | ID of input. Defaults to name                                                                              |
+| value              | `mixed`                  | `null`         | Current/previous value of input                                                                            |
+| options            | `array`, `Collection`    | `[]`           | Options to render in select                                                                                |
+| multiple           | `boolean`                | `false`        | Allow multiple selected options                                                                            |
+| minSelected        | `int`                    | 1              | Min. amount of options that must be selected                                                               |
+| maxSelected        | `null`, `int`            | `null`         | Max amount of options that may be selected                                                                 |
+| disabled           | `boolean`                | `false`        | Disable the input                                                                                          |
+| labelledby         | `null`, `string`         | `null`         | Add an aria-labelled by to the input                                                                       |
+| searchable         | `boolean`                | `true`         | Make select searchable                                                                                     |
+| closeOnSelect      | `boolean`                | `false`        | Close the select when an option is selected                                                                |
+| autofocus          | `boolean`                | `false`        | Give focus to input on page load                                                                           |
+| optional           | `boolean`                | `false`        | Allow value to be cleared                                                                                  |
+| clearIcon          | `null`, `string`         | heroicon-o-x   | Icon component name to use - see config                                                                    |
+| placeholder        | `bool`, `null`, `string` | See lang file  | Text to use when no value is selected. Use `false` for no placeholder                                      |
+| noOptionsText      | `bool`, `null`, `string` | See lang file  | Text to use when no options are available. Use `false` for none                                            |
+| noResultsText      | `bool`, `null`, `string` | See lang file  | Text to use when no options are available from searching. Use `false` for none                             |
+| showCheckbox       | `null`, `bool`           | `null`         | Show a checkbox/radio next to each option. Defaults to `true` on multi select and `false` on single select |
+| valueField         | `string`                 | `id`           | Key to use for the option's value                                                                          |
+| labelField         | `string`                 | `name`         | Key to use for the option's label                                                                          |
+| selectedLabelField | `string`, `null`         | `null`         | Key to use for the options' label when selected. Defaults to labelField                                    |
+| disabledField      | `string`                 | `disabled`     | Key to use to determine if an option is disabled                                                           |
+| isOptGroupField    | `string`                 | `is_opt_group` | Key to use to determine if an option is an opt group                                                       |
+| extraAttributes    | `string`, `HtmlString`   | `''`           | Extra attributes to render on the component                                                                |
+| showErrors         | `boolean`                | `true`         | Show validation error state                                                                                |
+| livewire           | `boolean`                | `false`        | If `true`, provides livewire instance to component JavaScript. Will be true if a `wire:model` is provided  |
+| livewireSearch     | `null`, `string`         | `null`         | Name of livewire component search method to call                                                           |
 
 ### Events
 
 These are the events that our JavaScript will emit.
 
-| Event | Args  | Description                   |
-| --- |-----------|-------------------------------|
+| Event | Args       | Description                   |
+| ----- | ---------- | ----------------------------- |
 | input | `newValue` | Emitted when value is updated |
 
 ### Listeners
 
 These are JavaScript event listeners our component listens for that you can broadcast to it.
 
-| Listener | Args | Description                                                                          |
-| --- | --- |--------------------------------------------------------------------------------------|
+| Listener                     | Args       | Description                                                                          |
+| ---------------------------- | ---------- | ------------------------------------------------------------------------------------ |
 | :name-value-manually-updated | `newValue` | Update the current value. Replace `:name` with a slugified version of the input name |

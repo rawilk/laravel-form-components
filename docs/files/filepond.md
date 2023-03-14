@@ -13,8 +13,8 @@ Before using this component, we recommend familiarizing yourself with the FilePo
 While the `file-pond` component works out-of-the-box when you've [set the directive](/docs/laravel-form-components/{version}/installation#directives),
 we recommend that you install and compile the JavaScript libraries before you deploy to production:
 
-- [Alpine.js](https://github.com/alpinejs/alpine) `^2.8`
-- [FilePond](https://pqina.nl/filepond/) `^4.21`
+-   [Alpine.js](https://github.com/alpinejs/alpine) `^2.8`
+-   [FilePond](https://pqina.nl/filepond/) `^4.21`
 
 As per the [FilePond docs](https://pqina.nl/filepond/docs/patterns/installation/), you can install FilePond via npm:
 
@@ -25,13 +25,13 @@ npm i filepond --save
 You can then import it in your project using imports:
 
 ```js
-import * as FilePond from 'filepond';
+import * as FilePond from "filepond";
 ```
 
 There are also some styles required for FilePond. If you're using Sass, you can import it **before** you import the styles for this package:
 
 ```css
-@import '~filepond/dist/filepond.min.css';
+@import "~filepond/dist/filepond.min.css";
 ```
 
 ## Basic Usage
@@ -45,15 +45,8 @@ The most basic usage of the `file-pond` component involves just adding a self-cl
 This will output the following HTML (omitting JS):
 
 ```html
-<div wire:ignore
-     x-data
-     x-cloak
-     x-init="..."
->
-    <input x-ref="input"
-           type="file"
-           style="display:none;"
-    />
+<div wire:ignore x-data x-cloak x-init="...">
+    <input x-ref="input" type="file" style="display:none;" />
 </div>
 ```
 
@@ -105,11 +98,7 @@ specify an option callbacks, such as `server` that you need to:
 
 ```html
 <x-file-pond wire:model="avatar">
-    <x-slot name="optionsSlot">
-        server: {
-            process: () => { ... }
-        }
-    </x-slot>
+    <x-slot name="optionsSlot"> server: { process: () => { ... } } </x-slot>
 </x-file-pond>
 ```
 
@@ -133,7 +122,10 @@ preview FilePond Plugin.
 If you're into using CDNs, you can add these lines to your layout file for the above example:
 
 ```html
-<link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+<link
+    href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css"
+    rel="stylesheet"
+/>
 <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
 ```
 

@@ -15,8 +15,8 @@ Like the custom select, the tree select component requires Alpine.js and Popper.
 Ensure you have the proper [directives](/docs/laravel-form-components/installation#directives) in your layout file.
 In production, we recommend you install and compile the JavaScript libraries before you deploy:
 
-- [Alpine.js](https://github.com/alpinejs/alpine) `^3.8`
-- [Popper.js](https://popper.js.org) `^2.9.1`
+-   [Alpine.js](https://github.com/alpinejs/alpine) `^3.8`
+-   [Popper.js](https://popper.js.org) `^2.9.1`
 
 > {tip} See the [JavaScript Dependencies section](/docs/laravel-form-components/{version}/installation#javascript-dependencies) for more information on installing them.
 
@@ -25,8 +25,8 @@ In production, we recommend you install and compile the JavaScript libraries bef
 You can use the tree select menu by providing some basic options.
 
 ```html
-<x-tree-select 
-    name="foo" 
+<x-tree-select
+    name="foo"
     :options="[
         ['id' => 'foo', 'name' => 'Foo', 'children' => [
             ['id' => 'child_1', 'name' => 'Child 1'],
@@ -46,10 +46,12 @@ If you provide an array of strings, the component will use the strings as both t
 of keyed arrays for each option, or you can even pass in an array of Eloquent models as options.
 
 ```html
-<x-tree-select :options="[
+<x-tree-select
+    :options="[
     ['id' => 'foo', 'name' => 'Foo'],
     ['id' => 'bar', 'name' => 'Bar'],
-]" />
+]"
+/>
 
 <!-- using models -->
 <x-tree-select :options="\App\Models\User::get(['id', name'])" />
@@ -72,9 +74,13 @@ If you want more control over the display of an option, you can render your opti
 ```html
 <x-tree-select name="foo">
     @foreach ($options as $option)
-        <x-tree-select-option value="{{ $option->id }}" label="{{ $option->name }}" :children="$option->children">
-            <span class="italic">{{ $option->name }}</span>
-        </x-tree-select-option>
+    <x-tree-select-option
+        value="{{ $option->id }}"
+        label="{{ $option->name }}"
+        :children="$option->children"
+    >
+        <span class="italic">{{ $option->name }}</span>
+    </x-tree-select-option>
     @endforeach
 </x-tree-select>
 ```
