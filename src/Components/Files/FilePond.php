@@ -11,7 +11,6 @@ use Rawilk\FormComponents\Concerns\AcceptsFiles;
 use Rawilk\FormComponents\Concerns\HandlesValidationErrors;
 use Rawilk\FormComponents\Concerns\HasExtraAttributes;
 use Rawilk\FormComponents\Concerns\HasModels;
-use Rawilk\FormComponents\Concerns\HasUniqueInitFunctionName;
 
 class FilePond extends BladeComponent
 {
@@ -19,7 +18,6 @@ class FilePond extends BladeComponent
     use AcceptsFiles;
     use HasExtraAttributes;
     use HasModels;
-    use HasUniqueInitFunctionName;
 
     public function __construct(
         public ?string $name = null,
@@ -72,10 +70,5 @@ class FilePond extends BladeComponent
         ]);
 
         return array_merge($defaultOptions, $this->options);
-    }
-
-    protected function initFunctionSuffix(): string
-    {
-        return 'FilePond';
     }
 }
