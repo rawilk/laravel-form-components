@@ -165,6 +165,165 @@
 
     /* os strategy */
     @media (prefers-color-scheme: dark) {
+        /* choice */
+        .form-choice {
+            color: var(--choice-dark-ring-color);
+            border-color: var(--input-dark-border-color);
+            background-color: var(--input-dark-background-color);
+            --tw-ring-offset-color: var(--choice-dark-ring-offset-color);
+        }
 
+        .choice-label label {
+            --choice-label-color: var(--choice-dark-label-color);
+        }
+
+        .form-choice:focus {
+            --tw-ring-color: var(--choice-dark-ring-color);
+        }
+
+        .form-choice:is(:checked, :checked:hover) {
+            border-color: transparent;
+            background-color: currentColor;
+        }
+
+        /* input */
+        .form-text {
+            --input-background-color: var(--input-dark-background-color);
+            --input-border-color: var(--input-dark-border-color);
+            color: var(--input-dark-color);
+        }
+
+        .form-text::placeholder {
+            color: var(--input-dark-placeholder-color);
+        }
+
+        .form-text:is([disabled], [readonly]) {
+            --input-disabled-bg-color: var(--input-dark-disabled-bg-color);
+            --input-disabled-border-color: var(--input-dark-disabled-border-color);
+            color: var(--input-dark-disabled-color);
+            opacity: .4;
+        }
+
+        .custom-select {
+            --input-background-color: var(--input-dark-background-color);
+            --input-border-color: var(--input-dark-border-color);
+            --input-color: var(--input-dark-color);
+            --custom-select-menu-bg: var(--custom-select-dark-menu-bg);
+            --custom-select-menu-color: var(--custom-select-dark-menu-color);
+            --custom-select-menu-border-color: var(--custom-select-dark-menu-border-color);
+            --custom-select-opt-group-bg: var(--custom-select-dark-opt-group-bg);
+            --custom-select-opt-group-border-color: var(--custom-select-dark-opt-group-border-color);
+            --custom-select-search-border-color: var(--custom-select-dark-search-border-color);
+            --custom-select-opt-group-color: var(--custom-select-dark-opt-group-color);
+            --custom-select-option-selected-bg: var(--custom-select-dark-option-selected-bg);
+            --custom-select-option-selected-color: var(--custom-select-dark-option-selected-color);
+            --custom-select-option-active-bg: var(--custom-select-dark-option-active-bg);
+            --custom-select-option-active-color: var(--custom-select-dark-option-active-color);
+            --custom-select-selected-icon-hover-color: var(--custom-select-dark-selected-icon-hover-color);
+            --tree-select-child-border-color: var(--tree-select-dark-child-border-color);
+            --tree-select-child-hover-border-color: var(--tree-select-dark-child-hover-border-color);
+        }
+
+        .custom-select:is([disabled], [readonly]) {
+            --input-disabled-bg-color: var(--input-dark-disabled-bg-color);
+            --input-disabled-border-color: var(--input-dark-disabled-border-color);
+        }
+
+        /* file upload */
+        .file-upload__input {
+            --input-background-color: var(--input-dark-background-color);
+            --input-border-color: var(--input-dark-border-color);
+            --input-color: var(--input-dark-color);
+        }
+
+        .file-upload__input::file-selector-button {
+            --file-upload-button-color: var(--file-upload-button-dark-color);
+            --file-upload-button-bg: var(--file-upload-button-dark-bg);
+        }
+
+        .file-upload__input:is([disabled], [readonly]) {
+            background-color: var(--input-dark-disabled-bg-color);
+            border-color: var(--input-dark-disabled-border-color);
+            color: var(--input-dark-disabled-color);
+            opacity: .4;
+        }
+
+        .file-upload__input:is([disabled], [readonly])::file-selector-button {
+            @apply opacity-75;
+            background-color: var(--file-upload-button-dark-disabled-bg);
+        }
+
+        /* addons */
+        :is(.leading-addon, .trailing-addon) {
+            --leading-addon-background-color: var(--leading-addon-dark-background-color);
+            --leading-addon-color: var(--leading-addon-dark-color);
+            border-color: var(--input-dark-border-color);
+        }
+
+        :is(.inline-addon, .trailing-inline-addon) {
+            color: var(--input-dark-color);
+        }
+
+        .inline-addon:has(+ .input-error),
+        .input-error + .trailing-inline-addon {
+            color: var(--input-error-dark-color);
+        }
+
+        .clear-button:hover {
+            --clear-button-hover-bg: var(--clear-button-dark-hover-bg);
+            --clear-button-hover-color: var(--clear-button-dark-hover-color);
+        }
+
+        /* label */
+        .form-label {
+            --label-color: var(--label-dark-color);
+        }
+
+        /* form group */
+        .form-group--border {
+            --form-group-border-color: var(--form-group-dark-border-color);
+        }
+
+        /* switch toggle */
+        .switch-toggle__label {
+            --switch-toggle-label-color: var(--switch-toggle-dark-label-color);
+        }
+
+        .switch-toggle {
+            background-color: var(--switch-toggle-dark-bg);
+            border-color: var(--switch-toggle-dark-border-color);
+        }
+
+        .peer:focus ~ .switch-toggle {
+            --tw-ring-color: var(--switch-toggle-dark-ring-color);
+        }
+
+        .peer:disabled ~ .switch-toggle__label {
+            color: var(--switch-toggle-dark-disabled-label-color);
+        }
+
+        .peer:focus ~ .switch-toggle--short {
+            --tw-ring-offset-color: var(--switch-toggle-dark-ring-offset-color);
+        }
+
+        /* errors */
+        .has-error label {
+            color: var(--input-error-dark-label-color);
+        }
+
+        .input-error,
+        .has-error :is(.form-text, .form-select, .custom-select__button, .file-upload__input) {
+            --input-dark-color: var(--input-error-dark-color);
+            --input-dark-placeholder-color: var(--input-error-dark-placeholder-color);
+            --input-dark-border-color: var(--input-error-dark-border-color);
+        }
+
+        .has-error .file-upload__input::file-selector-button {
+            --file-upload-button-color: var(--file-upload-button-error-dark-color);
+        }
+
+        .has-error :is(.ql-container, .ql-toolbar).ql-snow {
+            border-color: var(--input-error-dark-border-color);
+        }
     }
 }
