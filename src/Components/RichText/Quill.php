@@ -9,16 +9,12 @@ use Illuminate\Support\Js;
 use Rawilk\FormComponents\Components\BladeComponent;
 use Rawilk\FormComponents\Concerns\HandlesValidationErrors;
 use Rawilk\FormComponents\Concerns\HasModels;
-use Rawilk\FormComponents\Concerns\HasUniqueInitFunctionName;
 use Rawilk\FormComponents\Dto\QuillOptions;
 
 class Quill extends BladeComponent
 {
     use HandlesValidationErrors;
     use HasModels;
-    use HasUniqueInitFunctionName;
-
-    protected ?string $quillId = null;
 
     public function __construct(
         public ?string $name = null,
@@ -58,10 +54,5 @@ class Quill extends BladeComponent
             'placeholder' => $this->placeholder,
             'toolbar' => $this->quillOptions->getToolbar(),
         ]);
-    }
-
-    protected function initFunctionSuffix(): string
-    {
-        return 'Quill';
     }
 }

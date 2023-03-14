@@ -1,25 +1,42 @@
 <div
-    x-data="{{ $initFunctionName() }}({
+    x-data="quill({
         @if ($hasWireModel())
-            value: @entangle($attributes->wire('model')),
+            __value: @entangle($attributes->wire('model')),
         @elseif ($hasXModel())
-            value: {{ $attributes->first('x-model') }},
+            __value: {{ $attributes->first('x-model') }},
         @else
-            value: {{ \Illuminate\Support\Js::from($value) }},
+            __value: {{ \Illuminate\Support\Js::from($value) }},
         @endif
+
         options: {{ $options() }},
+
+        __config(instance, quillOptions) {
+            return { {{ $config ?? '' }} };
+        },
+
+        @isset($onTextChange)
+            onTextChange(instance) {
+                {{ $onTextChange }}
+            },
+        @endisset
+
+        @isset($onInit)
+            onInit(instance) {
+                {{ $onInit }}
+            },
+        @endisset
     })"
     x-cloak
     @if ($id) id="{{ $id }}" @endif
     {{ $attributes->class($containerClass()) }}
 
     @if ($hasXModel())
-        x-modelable="content"
+        x-modelable="__value"
         {{ $attributes->whereStartsWith('x-model') }}
     @endif
 >
     @if ($name)
-        <input type="hidden" name="{{ $name }}" x-bind:value="value">
+        <input type="hidden" name="{{ $name }}" x-bind:value="__value">
     @endif
 
     <div
@@ -31,55 +48,3 @@
         <div x-ref="quill"></div>
     </div>
 </div>
-
-<script>
-    window.{{ $initFunctionName() }} = function ({ value, options }) {
-        let quill;
-
-        function quillOptions() {
-            const quillOptions = {
-                theme: options.theme,
-                readOnly: options.readOnly,
-                placeholder: options.placeholder,
-                modules: {
-                    toolbar: {
-                        container: options.toolbar,
-                        handlers: {},
-                    },
-                },
-            };
-
-            {{ $config ?? '' }}
-
-            return quillOptions;
-        }
-
-        return {
-            value,
-
-            init() {
-                if (typeof Quill !== 'function') {
-                    throw new TypeError(`Quill Editor requires Quill (https://quilljs.com)`);
-                }
-
-                quill = new Quill(this.$refs.quill, quillOptions());
-
-                quill.root.innerHTML = this.value;
-
-                quill.on('text-change', () => {
-                    {{ $onTextChange ?? '' }}
-
-                    this.value = quill.root.innerHTML;
-
-                    this.$dispatch('input', this.value);
-                });
-
-                if (options.autofocus) {
-                    this.$nextTick(() => quill.focus());
-                }
-
-                {{ $init ?? '' }}
-            },
-        };
-    };
-</script>
