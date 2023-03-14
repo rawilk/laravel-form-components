@@ -7,116 +7,101 @@ use Illuminate\Support\Facades\Route;
 use function Pest\Laravel\get;
 use Sinnbeck\DomAssertions\Asserts\AssertElement;
 
+beforeEach(function () {
+    config()->set('form-components.defaults.custom_select', [
+        'container_class' => null,
+        'input_class' => null,
+        'menu_class' => null,
+        'searchable' => true,
+        'clearable' => false,
+        'optional' => false,
+        'option_selected_icon' => null,
+        'button_icon' => null,
+        'clear_icon' => null,
+        'min_selected' => null,
+        'max_selected' => null,
+    ]);
+
+    config()->set('form-components.defaults.tree_select.has_child_icon', null);
+
+    config()->set('form-components.defaults.global.value_field', 'id');
+    config()->set('form-components.defaults.global.label_field', 'name');
+    config()->set('form-components.defaults.global.children_field', 'children');
+});
+
 it('can be rendered', function () {
-    Route::get('/test', fn () => Blade::render('<x-tree-select-option />'));
+    $option = ['id' => 'foo', 'name' => 'Foo'];
 
-    get('/test')
-        ->assertElementExists('.tree-select-option', function (AssertElement $option) {
-            $option->is('li')
-                ->has('role', 'option')
-                ->has('x-data');
-        });
-});
-
-it('is aware of parent select name', function () {
     $template = <<<'HTML'
-    <x-tree-select name="foo">
-        <x-tree-select-option value="bar" />
+    <x-tree-select>
+        <x-tree-select-option :value="$option" />
     </x-tree-select>
     HTML;
 
-    Route::get('/test', fn () => Blade::render($template));
-
-    // Every option gets an id assigned that is a combination of the parent
-    // select's name and the option's value.
-    get('/test')
-        ->assertElementExists('.tree-select-option', function (AssertElement $option) {
-            $option->has('id', 'treeSelectfooOption-bar');
-        });
-});
-
-it('can render a checkbox on the option', function () {
-    $template = <<<'HTML'
-    <x-tree-select name="foo" show-checkbox multiple>
-        <x-tree-select-option value="foo" label="Foo" />
-    </x-tree-select>
-    HTML;
-
-    Route::get('/test', fn () => Blade::render($template));
+    Route::get('/test', fn () => Blade::render($template, ['option' => $option]));
 
     get('/test')
-        ->assertElementExists('.tree-select-option', function (AssertElement $option) {
-            $option->contains('input', [
-                'type' => 'checkbox',
-                'name' => 'foo',
-                'id' => 'foofoo',
-                'value' => 'foo',
-            ]);
-        });
-});
-
-test('showing a checkbox is optional', function () {
-    $template = <<<'HTML'
-    <x-tree-select name="foo" :show-checkbox="false" multiple>
-        <x-tree-select-option value="foo" label="Foo" />
-    </x-tree-select>
-    HTML;
-
-    Route::get('/test', fn () => Blade::render($template));
-
-    get('/test')
-        ->assertElementExists('.tree-select-option', function (AssertElement $option) {
-            $option->doesntContain('input', [
-                'type' => 'checkbox',
-            ]);
-        });
-});
-
-test('label can be slotted', function () {
-    Route::get('/test', fn () => Blade::render('<x-tree-select-option value="foo">My custom label</x-tree-select-option>'));
-
-    get('/test')
-        ->assertElementExists('.tree-select-option', function (AssertElement $option) {
-            $option->containsText('My custom label');
+        ->assertElementExists('.custom-select__option', function (AssertElement $option) {
+            $option->is('div')
+                ->contains('span', [
+                    'text' => 'Foo',
+                ])
+                ->has('x-tree-select:option', '');
         });
 });
 
 it('renders children options', function () {
-    // Note: To render child options, the option must be inside a tree select component,
-    // so it can reference the child's value and text keys correctly.
-    $children = [
-        ['id' => 'child_1_value', 'name' => 'Child 1', 'children' => []],
-        ['id' => 'child_2_value', 'name' => 'Child 2', 'children' => []],
+    $option = [
+        'id' => 'foo',
+        'name' => 'Foo',
+        'children' => [
+            ['id' => 'foo_1', 'name' => 'Foo 1'],
+            ['id' => 'foo_2', 'name' => 'Foo 2', 'children' => [
+                ['id' => 'foo_2_1', 'name' => 'Foo 2.1'],
+            ]],
+        ],
     ];
 
     $template = <<<'HTML'
-    <x-tree-select name="foo">
-        <x-tree-select-option value="parent_1" label="Parent" :children="$children" />
+    <x-tree-select>
+        <x-tree-select-option :value="$option" />
     </x-tree-select>
     HTML;
 
-    Route::get('/test', fn () => Blade::render($template, ['children' => $children]));
+    Route::get('/test', fn () => Blade::render($template, ['option' => $option]));
 
     get('/test')
-        ->assertElementExists('.tree-select-option', function (AssertElement $option) {
-            $option->has('id', 'treeSelectfooOption-parent_1')
-                ->has('data-level', '0')
-                ->containsText('Parent');
+        ->assertElementExists('.custom-select__menu-content', function (AssertElement $menu) {
+            $menu->find('.tree-select__option-li', function (AssertElement $option) {
+                $option->contains('.tree-select__option', [
+                    'text' => 'Foo',
+                    'level' => '0',
+                ]);
 
-            $option->contains('.tree-select-option__children');
-
-            $ul = $option->find('.tree-select-option__children > ul');
-
-            $ul->contains('li:first-child', [
-                'data-level' => '1',
-                'role' => 'option',
-                'id' => 'treeSelectfooOption-child_1_value',
-                'text' => 'Child 1',
-            ])->contains('li:last-child', [
-                'data-level' => '1',
-                'role' => 'option',
-                'id' => 'treeSelectfooOption-child_2_value',
-                'text' => 'Child 2',
-            ]);
+                $option->find('.tree-select__children', function (AssertElement $children) {
+                    $children->find('.tree-select__option-li:first-child', function (AssertElement $option) {
+                        $option->contains('.tree-select__option', [
+                            'text' => 'Foo 1',
+                            'level' => '1',
+                        ])
+                        ->doesntContain('.tree-select__children');
+                    })
+                    ->find('.tree-select__option-li:last-child', function (AssertElement $option) {
+                        $option->contains('.tree-select__option', [
+                            'text' => 'Foo 2',
+                            'level' => '1',
+                        ])
+                            ->find('.tree-select__children', function (AssertElement $children) {
+                                $children->find('.tree-select__option-li', function (AssertElement $option) {
+                                    $option->contains('.tree-select__option', [
+                                        'text' => 'Foo 2.1',
+                                        'level' => '2',
+                                    ])
+                                        ->doesntContain('.tree-select__children');
+                                });
+                            });
+                    });
+                });
+            });
         });
 });

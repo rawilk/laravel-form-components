@@ -8,22 +8,22 @@ trait HandlesSelectOptions
 {
     use GetsSelectOptionProperties;
 
-    public string $valueField = 'id';
+    public ?string $valueField = null;
 
-    public string $labelField = 'name';
+    public ?string $labelField = null;
 
     public ?string $selectedLabelField = null;
 
-    public string $disabledField = 'disabled';
+    public ?string $disabledField = null;
 
-    public string $isOptGroupField = 'is_opt_group';
+    public ?string $childrenField = null;
 
-    public function handleSearch($search): void
+    public function handleSearch(?string $search): void
     {
         $this->search = $search;
     }
 
-    public function options($search = null)
+    public function options(?string $search = null)
     {
         return collect();
     }

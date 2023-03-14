@@ -1,22 +1,24 @@
 @if ($label !== false || ! is_null($hint))
-    <div @class(['flex justify-between' => ! is_null($hint)])>
+    <div @class([
+        'form-group__label-container',
+        'form-group__label-container--checkbox-group' => $isCheckboxGroup,
+        'form-group__label-container--inline' => $inline,
+        config('form-components.defaults.form_group.label_container_class'),
+    ])>
         @unless ($label === false)
             <x-form-components::label
                 :for="$inputId"
                 :id="$labelId"
-                :custom-select-label="$customSelectLabel"
-                class="{{ $inline && ! $isCheckboxGroup ? 'form-group__inline-label sm:mt-px sm:pt-2' : '' }}"
+                x-form-group:label=""
             >
                 {{ $label }}
             </x-form-components::label>
         @endunless
 
         @unless (is_null($hint))
-            <span @class([
-                'text-sm text-slate-500',
-                'inline-block sm:hidden' => $inline,
-            ])
-            @if ($inputId) id="{{ $inputId }}-hint" @endif
+            <span
+                class="form-group__hint"
+                @if ($inputId) id="{{ $inputId }}-hint" @endif
             >
                 {{ $hint }}
             </span>

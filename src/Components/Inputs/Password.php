@@ -10,73 +10,65 @@ use Illuminate\Support\HtmlString;
 
 class Password extends Input
 {
-    protected static array $assets = ['alpine'];
-
-    protected bool $ignoreAddons = true;
-
     public function __construct(
-        public ?string $name = null,
-        public ?string $id = null,
-        public mixed $value = null,
-        public ?string $maxWidth = null,
-        bool $showErrors = true,
-        $leadingAddon = false,
-        $inlineAddon = false,
-        $inlineAddonPadding = self::DEFAULT_INLINE_ADDON_PADDING,
-        $leadingIcon = false,
-        public bool $showToggle = true,
-        public ?string $showPasswordIcon = null,
-        public ?string $hidePasswordIcon = null,
-        public ?string $containerClass = null,
-        public $after = null,
+        ?string $name = null,
+        ?string $id = null,
+        mixed $value = null,
+        ?string $containerClass = null,
+        ?string $size = null,
+        ?bool $showErrors = null,
 
         // Extra Attributes
-        null|string|HtmlString|array|Collection $extraAttributes = null,
+        null|HtmlString|array|string|Collection $extraAttributes = null,
+
+        // Addons
+        ?string $leadingAddon = null,
+        ?string $leadingIcon = null,
+        ?string $inlineAddon = null,
+        ?string $trailingAddon = null,
+        ?string $trailingInlineAddon = null,
+        ?string $trailingIcon = null,
+
+        // Password specific
+        public ?bool $showToggle = null,
+        public ?string $showPasswordIcon = null,
+        public ?string $hidePasswordIcon = null,
+        public bool $initiallyShowPassword = false,
     ) {
         parent::__construct(
             name: $name,
             id: $id,
             value: $value,
-            maxWidth: $maxWidth,
-            showErrors: $showErrors,
             containerClass: $containerClass,
-            leadingAddon: $leadingAddon,
-            inlineAddon: $inlineAddon,
-            inlineAddonPadding: $inlineAddonPadding,
-            leadingIcon: $leadingIcon,
+            size: $size,
+            showErrors: $showErrors,
             extraAttributes: $extraAttributes,
+            leadingAddon: $leadingAddon,
+            leadingIcon: $leadingIcon,
+            inlineAddon: $inlineAddon,
+            trailingAddon: $trailingAddon,
+            trailingInlineAddon: $trailingInlineAddon,
+            trailingIcon: $trailingIcon,
         );
 
-        $this->showPasswordIcon = $this->showPasswordIcon ?? config('form-components.components.password.show_password_icon');
-        $this->hidePasswordIcon = $this->hidePasswordIcon ?? config('form-components.components.password.hide_password_icon');
+        $this->showToggle = $showToggle ?? config('form-components.defaults.password.show_toggle', true);
+        $this->showPasswordIcon = $showPasswordIcon ?? config('form-components.defaults.password.show_icon', 'heroicon-m-eye');
+        $this->hidePasswordIcon = $hidePasswordIcon ?? config('form-components.defaults.password.hide_icon', 'heroicon-m-eye-slash');
     }
 
     public function inputClass(): string
     {
         return Arr::toCssClasses([
             parent::inputClass(),
-            'password-toggleable border-r-0 rounded-r-none focus:ring-0 focus:border-slate-300' => $this->showToggle,
-            'focus:border-blue-300' => $this->showToggle && ! $this->hasErrorsAndShow($this->name),
+            'password-toggleable' => $this->showToggle,
         ]);
-    }
-
-    public function isPasswordToggleable(): bool
-    {
-        return $this->showToggle;
     }
 
     public function containerClass(): string
     {
-        $colorClasses = $this->hasErrorsAndShow($this->name)
-            ? 'focus-within:ring-red-400 focus-within:border-red-300'
-            : 'focus-within:ring-blue-400 focus-within:border-blue-300';
-
         return Arr::toCssClasses([
-            $this->getContainerClass(),
-            'group',
-            'password-input-container',
-            'focus-within:ring-4 focus-within:ring-opacity-50 rounded-lg' => $this->showToggle,
-            $colorClasses => $this->showToggle,
+            parent::containerClass(),
+            'password-toggleable-container' => $this->showToggle,
         ]);
     }
 }

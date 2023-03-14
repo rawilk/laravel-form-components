@@ -7,7 +7,6 @@ namespace Rawilk\FormComponents\Components\Choice;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
-use Illuminate\Support\Str;
 use Rawilk\FormComponents\Components\BladeComponent;
 use Rawilk\FormComponents\Concerns\HandlesValidationErrors;
 use Rawilk\FormComponents\Concerns\HasExtraAttributes;
@@ -19,71 +18,52 @@ class SwitchToggle extends BladeComponent
     use HasModels;
     use HasExtraAttributes;
 
-    protected static array $assets = ['alpine'];
-
-    private string $labelId;
-
     public function __construct(
         public ?string $name = null,
         public ?string $id = null,
         public mixed $value = false,
         public mixed $onValue = true,
         public mixed $offValue = false,
-        public ?string $containerClass = null,
-        public bool $short = false,
         public ?string $label = null,
-        public string $labelPosition = 'right',
-        public ?string $offIcon = null, // doesn't apply to short mode
-        public ?string $onIcon = null, // doesn't apply to short mode
-        public ?string $buttonLabel = 'form-components::messages.switch_button_label',
-        public ?string $size = null,
+        public ?string $labelLeft = null,
+        public ?string $containerClass = null,
         public bool $disabled = false,
+        public ?string $size = null,
+        public ?string $color = null,
+        public ?string $onIcon = null,
+        public ?string $offIcon = null,
+        public bool $short = false,
 
         // Extra Attributes
         null|string|HtmlString|array|Collection $extraAttributes = null,
     ) {
-        $this->id = $this->id ?? $this->name;
-        $this->labelId = $this->id ?? Str::random(8);
-        $this->value = $this->name ? old($this->name, $this->value) : $this->value;
+        $this->id = $id ?? $name;
+
+        $this->size = $size ?? config('form-components.defaults.switch_toggle.size');
+        $this->onIcon = $onIcon ?? config('form-components.defaults.switch_toggle.on_icon');
+        $this->offIcon = $offIcon ?? config('form-components.defaults.switch_toggle.off_icon');
 
         $this->setExtraAttributes($extraAttributes);
     }
 
-    public function labelId(): string
-    {
-        return "{$this->labelId}-label";
-    }
-
-    public function buttonClass(): string
+    public function switchClass(): string
     {
         return Arr::toCssClasses([
-            'switch-toggle',
-            $this->toggleSize(),
-            'switch-toggle-short' => $this->short,
-            'switch-toggle-simple' => ! $this->short,
-            'disabled' => $this->disabled,
+            'switch-toggle peer',
+            "switch-toggle--{$this->size}" => $this->size && ! $this->short,
+            "switch-toggle--{$this->color}" => $this->color,
+            'switch-toggle--short' => $this->short,
+            config('form-components.defaults.switch_toggle.input_class'),
+            $this->attributes->only('class')->get('class'),
         ]);
     }
 
-    private function toggleSize(): string
-    {
-        /*
-         * We are defining the size classes explicitly here to prevent
-         * tailwind from purging them.
-         */
-        return match ($this->size ?? '') {
-            'sm' => 'switch-toggle--sm',
-            'lg' => 'switch-toggle--lg',
-            default => 'switch-toggle--base',
-        };
-    }
-
-    public function getContainerClass(): string
+    public function containerClass(): string
     {
         return Arr::toCssClasses([
-            'flex',
-            'items-center',
-            'justify-between' => $this->labelPosition === 'left',
+            'switch-toggle-container',
+            'cursor-not-allowed' => $this->disabled,
+            config('form-components.defaults.switch_toggle.container_class'),
             $this->containerClass,
         ]);
     }

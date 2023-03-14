@@ -1,102 +1,75 @@
 @aware([
-    'name' => '',
-    'multiple' => false,
-    'showCheckbox' => false,
-    'childrenField' => 'children',
-    'valueField' => 'id',
-    'labelField' => 'name',
-    'selectedLabelField' => 'name',
+    'valueField' => 'value',
+    'labelField' => 'label',
     'disabledField' => 'disabled',
+    'childrenField' => 'children',
+    'optionSelectedIcon' => null,
+    'hasChildIcon' => false,
 ])
 
-<li wire:key="treeSelect{{ $name }}Option-{{ $value }}"
-    x-data="treeSelectOption({{ $configToJs() }})"
-    x-bind:data-disabled="optionDisabled ? '1' : '0'"
-    x-on:mouseover.stop="focus({ updateParentIndex: true, scroll: false })"
-    x-on:mouseout.stop="hasFocus = false"
-    x-on:tree-select-{{ \Illuminate\Support\Str::slug($name) }}-option-focused.window="onReceivedFocus"
-    role="option"
-    @class([
-        'tree-select-option',
-        'relative group',
-        'disabled' => $disabled,
-        'has-children' => $hasChildren,
-    ])
-    x-bind:class="{ 'has-focus': hasFocus, 'selected': optionSelected() }"
-    x-bind:aria-selected="optionSelected() ? 'true' : 'false'"
-    tabindex="-1"
-    id="treeSelect{{ $name }}Option-{{ $value }}"
-    data-level="{{ $level }}"
->
-    <div class="tree-select-option__container">
-        {{-- arrow --}}
-        <div
-            @if ($hasChildren)
-                x-on:click="expanded = ! expanded"
-                role="button"
-            @endif
-            @class([
-                'flex-shrink-0 w-7 h-7 flex items-center',
-                'cursor-pointer rounded-full group' => $hasChildren,
-            ])
-        >
-            @if ($hasChildren)
-                <x-heroicon-s-chevron-right
-                    class="h-4 w-4 text-slate-400 group-hover:text-slate-600 transition-colors"
-                    x-bind:class="{ 'rotate-90': expanded }"
-                />
-            @endif
-        </div>
-
-        {{-- label --}}
-        <div x-on:click.stop="toggle"
-             @class([
-                'tree-select-option__label',
-                'flex-1 flex',
-                'cursor-pointer' => ! $disabled,
-             ])
-        >
-            {{-- checkbox --}}
-            @if ($showCheckbox)
-                <div class="flex-shrink-0 mr-2" x-on:input.prevent.stop="() => {}">
-                    <x-dynamic-component
-                        :component="$multiple ? 'checkbox' : 'radio'"
-                        x-bind:checked="optionSelected()"
-                        name="{{ $name }}"
-                        value="{{ $value }}"
-                        :id="$name . $value"
-                        :disabled="$disabled"
-                    />
-                </div>
+<li class="tree-select__option-li">
+    <div
+        x-tree-select:option
+        level="{{ $level }}"
+        :value="{{ $optionValue() }}"
+        {{ $attributes->class('custom-select__option tree-select__option') }}
+        style="--level: {{ $level }};"
+        :disabled="{{ \Illuminate\Support\Js::from($optionIsDisabled($disabledField)) }}"
+        x-bind:class="{
+            {{-- $treeSelectOption magic doesn't play nicely with class binding on ajax refresh for some reason, we just use __context for now... --}}
+            'custom-select__option--active': __context.isActiveEl($el),
+            'custom-select__option--selected': __context.isSelectedEl($el),
+            'custom-select__option--disabled': __context.isDisabledEl($el) || (! $treeSelect.canSelectMore && ! __context.isSelectedEl($el)),
+        }"
+    >
+        <div class="truncate flex-1 flex gap-1 items-center">
+            @if ($hasChildIcon)
+                <template x-if="$treeSelect.hasExpandableOptions">
+                    <span class="tree-select__has-child-icon"
+                          x-bind:class="{ 'expanded': $treeSelectOption.isExpanded }"
+                    >
+                        @if ($hasChildren($childrenField))
+                            <span x-tree-select:child-toggle>
+                                <x-dynamic-component :component="$hasChildIcon" />
+                            </span>
+                        @endif
+                    </span>
+                </template>
             @endif
 
-            {{-- label --}}
-            <div class="flex-1 w-0 truncate">
-                @if ($slot->isNotEmpty())
-                    <span>{{ $slot }}</span>
+            <span class="truncate">
+                @isset($optionTemplate)
+                    <span class="truncate" x-data="{ option: {{ \Illuminate\Support\Js::from($value) }} }">{{ $optionTemplate }}</span>
                 @else
-                    <span>{{ $label }}</span>
-                @endif
-            </div>
+                    {{ $optionLabel($labelField) }}
+                @endisset
+            </span>
         </div>
+
+        @if ($optionSelectedIcon)
+            {{-- if we don't render this in a conditional that checks if the element is connected to the DOM, Alpine will throw an error from x-show... --}}
+            <template x-if="$el.isConnected">
+                <span x-show="$treeSelectOption.isSelected"
+                      class="shrink-0 custom-select__selected-icon"
+                >
+                    <x-dynamic-component :component="$optionSelectedIcon" />
+                </span>
+            </template>
+        @endif
     </div>
 
-    @if ($hasChildren)
-        <div class="tree-select-option__children"
-             x-bind:class="{ 'hidden': ! expanded }"
+    @if ($hasChildren($childrenField))
+        <ul class="tree-select__children group"
+            style="--level: {{ $level }};"
+            x-tree-select:children
         >
-            <ul>
-                @foreach ($children as $child)
-                    <x-form-components::inputs.tree-select-option
-                        :level="$level + 1"
-                        :value="$optionValue($child, $valueField)"
-                        :label="$optionLabel($child, $labelField, $valueField)"
-                        :selected-label="$optionSelectedLabel($child, $selectedLabelField, $labelField, $valueField)"
-                        :disabled="$optionIsDisabled($child, $disabledField)"
-                        :children="$optionChildren($child, $childrenField)"
-                    />
-                @endforeach
-            </ul>
-        </div>
+            @foreach ($optionChildren($childrenField) as $child)
+                <x-form-components::inputs.tree-select-option :value="$child" :level="$level + 1" {{ $attributes }}>
+                    @isset($optionTemplate)
+                        <x-slot:option-template>{{ $optionTemplate }}</x-slot:option-template>
+                    @endisset
+                </x-form-components::inputs.tree-select-option>
+            @endforeach
+        </ul>
     @endif
 </li>

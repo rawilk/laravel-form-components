@@ -5,34 +5,22 @@ declare(strict_types=1);
 namespace Rawilk\FormComponents\Components;
 
 use Illuminate\Support\Str;
-use Illuminate\View\Component as IlluminateComponent;
+use Illuminate\View\Component;
+use Illuminate\View\ComponentSlot;
 
-abstract class BladeComponent extends IlluminateComponent
+abstract class BladeComponent extends Component
 {
-    protected static array $assets = [];
-
-    public static function assets(): array
-    {
-        return static::$assets;
-    }
-
     public function render()
     {
-        return view(static::viewName());
+        return view("form-components::components.{$this::getName()}");
     }
 
-    public static function viewName(): string
-    {
-        return 'form-components::components.' . static::getName();
-    }
-
-    /*
-     * This method is pretty much a direct copy of how livewire/livewire
-     * determines which view to render in Component.php.
+    /**
+     * This method is derived from livewire/livewire from Component.php.
      */
     public static function getName(): string
     {
-        $namespace = collect(explode('.', Str::replace(['/', '\\'], '.', 'Rawilk\\FormComponents\\Components')))
+        $namespace = collect(explode('.', str_replace(['/', '\\'], '.', 'Rawilk\\FormComponents\\Components')))
             ->map([Str::class, 'kebab'])
             ->implode('.');
 
@@ -40,10 +28,22 @@ abstract class BladeComponent extends IlluminateComponent
             ->map([Str::class, 'kebab'])
             ->implode('.');
 
-        if (Str::startsWith($fullName, $namespace)) {
-            return (string) Str::of($fullName)->substr(strlen($namespace) + 1);
+        if (str($fullName)->startsWith($namespace)) {
+            return (string) str($fullName)->substr(strlen($namespace) + 1);
         }
 
         return $fullName;
+    }
+
+    /**
+     * Ensures we always have an instance of ComponentSlot for merging attributes in slots.
+     * Useful when the "slot" may not always be provided to the component but we
+     * need some default attributes always present.
+     */
+    public function componentSlot(mixed $slot): ComponentSlot
+    {
+        return $slot instanceof ComponentSlot
+            ? $slot
+            : new ComponentSlot;
     }
 }

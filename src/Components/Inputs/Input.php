@@ -16,82 +16,73 @@ use Rawilk\FormComponents\Concerns\HasModels;
 class Input extends BladeComponent
 {
     use HandlesValidationErrors;
-    use HasAddons;
-    use HasModels;
     use HasExtraAttributes;
+    use HasModels;
+    use HasAddons;
 
-    /*
-     * Normally we want arrays to be encoded, but some components don't need that, like CustomSelect.
+    /**
+     * Normally we want arrays to be encoded, but some components don't need that, like Select.
      */
     protected bool $jsonEncodeArrayValues = true;
-
-    /** @var string */
-    public const DEFAULT_INLINE_ADDON_PADDING = 'pl-16 sm:pl-14';
-
-    /** @var string */
-    public const DEFAULT_TRAILING_ADDON_PADDING = 'pr-12';
 
     public function __construct(
         public ?string $name = null,
         public ?string $id = null,
         public string $type = 'text',
         public mixed $value = null,
-        public ?string $maxWidth = null,
-        bool $showErrors = true,
         public ?string $containerClass = null,
-        $leadingAddon = false,
-        $inlineAddon = false,
-        $inlineAddonPadding = self::DEFAULT_INLINE_ADDON_PADDING,
-        $leadingIcon = false,
-        $trailingAddon = false,
-        $trailingAddonPadding = self::DEFAULT_TRAILING_ADDON_PADDING,
-        $trailingIcon = false,
-        public $after = null,
+        public ?string $size = null,
+        ?bool $showErrors = null,
 
         // Extra Attributes
         null|string|HtmlString|array|Collection $extraAttributes = null,
+
+        // Addons
+        ?string $leadingAddon = null,
+        ?string $leadingIcon = null,
+        ?string $inlineAddon = null,
+        ?string $trailingAddon = null,
+        ?string $trailingInlineAddon = null,
+        ?string $trailingIcon = null,
     ) {
         $this->id = $this->id ?? $this->name;
-        $this->value = $this->name ? old($this->name, $this->value) : $this->value;
-        $this->resolveMaxWidth();
+        $this->value = $name ? old($name, $value) : $value;
+        $this->size = $size ?? config('form-components.defaults.input.size', 'md');
 
-        $this->showErrors = $showErrors;
+        $this->showErrors = $showErrors ?? config('form-components.defaults.global.show_errors', true);
 
-        $this->leadingAddon = $leadingAddon;
-        $this->inlineAddon = $inlineAddon;
-        $this->inlineAddonPadding = $inlineAddonPadding;
-        $this->leadingIcon = $leadingIcon;
-
-        $this->trailingAddon = $trailingAddon;
-        $this->trailingAddonPadding = $trailingAddonPadding;
-        $this->trailingIcon = $trailingIcon;
-
-        if (is_array($this->value) && $this->jsonEncodeArrayValues) {
+        if (is_iterable($this->value) && $this->jsonEncodeArrayValues) {
             $this->value = json_encode($this->value);
         }
 
         $this->setExtraAttributes($extraAttributes);
+
+        $this->leadingAddon = $leadingAddon;
+        $this->leadingIcon = $leadingIcon;
+        $this->inlineAddon = $inlineAddon;
+        $this->trailingAddon = $trailingAddon;
+        $this->trailingInlineAddon = $trailingInlineAddon;
+        $this->trailingIcon = $trailingIcon;
     }
 
     public function inputClass(): string
     {
         return Arr::toCssClasses([
-            'form-input',
             'form-text',
-            'flex-1 block w-full px-3 py-2 border-slate-300 placeholder-slate-400 sm:text-sm',
-            'focus:border-blue-300 focus:ring-opacity-50 focus:ring-4 focus:ring-blue-400' => ! $this->isPasswordToggleable(),
-            $this->getAddonClass(),
+            config('form-components.defaults.input.input_class'),
             'input-error' => $this->hasErrorsAndShow($this->name),
         ]);
     }
 
-    /*
-     * Should always return false, except on the Password input class when
-     * $showToggle is set to true.
-     */
-    public function isPasswordToggleable(): bool
+    public function containerClass(): string
     {
-        return false;
+        return Arr::toCssClasses([
+            'form-text-container',
+            config('form-components.defaults.input.container_class'),
+            "form-input--{$this->size}" => $this->size,
+            $this->getAddonClass(),
+            $this->containerClass,
+        ]);
     }
 
     public function render()
@@ -99,24 +90,7 @@ class Input extends BladeComponent
         return function (array $data) {
             $this->setSlotAddonAttributes($data);
 
-            return static::viewName();
+            return "form-components::components.{$this::getName()}";
         };
-    }
-
-    public function getContainerClass(): string
-    {
-        return Arr::toCssClasses([
-            'form-text-container',
-            'flex rounded-sm shadow-sm relative',
-            $this->maxWidth,
-            $this->containerClass,
-        ]);
-    }
-
-    protected function resolveMaxWidth(): void
-    {
-        if ($this->maxWidth) {
-            $this->maxWidth = "max-w-{$this->maxWidth}";
-        }
     }
 }

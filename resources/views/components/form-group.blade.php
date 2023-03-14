@@ -1,27 +1,33 @@
-<div {{ $attributes->class($groupClass()) }}>
-    @include('form-components::partials.form-group-label')
+<div {{ $attributes->only('class')->class($groupClass()) }}>
+    <div wire:ignore.self x-data x-form-group>
+        <div {{ $attributes->except('class') }}>
+            @include('form-components::partials.form-group-label')
 
-    <div @class([
-        'form-group__content mt-1',
-        'form-group__content--inline sm:mt-0 sm:col-span-2' => $inline,
-    ])
-    >
-        {{ $slot }}
+            <div @class([
+                'form-group__content',
+                'form-group__content--inline' => $inline,
+                config('form-components.defaults.form_group.content_class'),
+            ])>
+                {{ $slot }}
 
-        @if ($hasErrorsAndShow($name))
-            <x-form-components::form-error :name="$name" :input-id="$inputId" />
-        @endif
+                @if ($hasErrorsAndShow($name))
+                    <x-form-components::form-error :name="$name" :input-id="$inputId" />
+                @endif
 
-        @if ($inline && $hint)
-            <span class="text-sm mt-1 text-slate-500 hidden sm:block"
-                  @if ($inputId) id="{{ $inputId }}-hint-inline" @endif
-            >
-                {{ $hint }}
-            </span>
-        @endif
+                @if ($inline && $hint)
+                    <span class="form-group__hint form-group__hint--inline"
+                          @if ($inputId) id="{{ $inputId }}-hint-inline" @endif
+                    >
+                        {{ $hint }}
+                    </span>
+                @endif
 
-        @if ($helpText)
-            <p class="form-help mt-2 text-sm text-slate-500" id="{{ $inputId }}-description">{{ $helpText }}</p>
-        @endif
+                @if ($helpText)
+                    <p class="form-help" @if ($inputId) id="{{ $inputId }}-description" @endif>{{ $helpText }}</p>
+                @endif
+
+                {{ $after ?? '' }}
+            </div>
+        </div>
     </div>
 </div>

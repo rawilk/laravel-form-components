@@ -10,63 +10,66 @@ use Illuminate\Support\HtmlString;
 class TimezoneSelect extends Select
 {
     public function __construct(
-        public ?string $name = null,
-        public ?string $id = null,
-        public mixed $value = null,
-        public bool $multiple = false,
-        public ?string $maxWidth = null, // Native only
-        bool $showErrors = true,
-        $leadingAddon = false, // Native only
-        $inlineAddon = false, // Native only
-        $inlineAddonPadding = self::DEFAULT_INLINE_ADDON_PADDING, // Native only
-        $leadingIcon = false, // Native only
-        $trailingAddon = false, // Native only
-        $trailingAddonPadding = self::DEFAULT_TRAILING_ADDON_PADDING, // Native only
-        $trailingIcon = false, // Native only
-        public bool|array|string|null $only = null,
-        public bool $useCustomSelect = false,
-        public bool $searchable = true,
-        public bool $optional = false,
-        public bool|null|string $placeholder = null,
-        public ?string $containerClass = null, // Native only
-        public $after = null, // Native only
-        public int $minSelected = 1,
-        public ?int $maxSelected = null,
-        public bool $disabled = false,
-        public ?string $clearIcon = null,
-        public ?bool $showCheckbox = null,
-        public bool $autofocus = false,
+        ?string $name = null,
+        ?string $id = null,
+        mixed $value = null,
+        ?string $containerClass = null,
+        ?string $size = null,
+        ?bool $showErrors = null,
 
         // Extra Attributes
-        null|string|HtmlString|array|Collection $extraAttributes = null,
+        null|HtmlString|array|string|Collection $extraAttributes = null,
+
+        // Addons
+        ?string $leadingAddon = null,
+        ?string $leadingIcon = null,
+        ?string $inlineAddon = null,
+        ?string $trailingAddon = null,
+        ?string $trailingInlineAddon = null,
+        ?string $trailingIcon = null,
+
+        bool $multiple = false,
+        array|Collection $options = [],
+
+        // Custom select specific
+        public ?bool $useCustomSelect = null,
+        public ?int $minSelected = null,
+        public ?int $maxSelected = null,
+        public ?bool $optional = null,
+        public ?bool $searchable = null,
+        public ?bool $clearable = null,
+        public bool $alwaysOpen = false,
+        public ?string $buttonIcon = null,
+        public ?string $clearIcon = null,
+        public ?string $placeholder = null,
+        public ?string $optionSelectedIcon = null,
+
+        // Timezone specific
+        null|array|string|bool $only = null,
     ) {
         parent::__construct(
             name: $name,
             id: $id,
             value: $value,
-            multiple: $multiple,
-            maxWidth: $maxWidth,
-            showErrors: $showErrors,
-            leadingAddon: $leadingAddon,
-            inlineAddon: $inlineAddon,
-            inlineAddonPadding: $inlineAddonPadding,
-            leadingIcon: $leadingIcon,
-            trailingAddon: $trailingAddon,
-            trailingAddonPadding: $trailingAddonPadding,
-            trailingIcon: $trailingIcon,
             containerClass: $containerClass,
+            size: $size,
+            showErrors: $showErrors,
             extraAttributes: $extraAttributes,
+            leadingAddon: $leadingAddon,
+            leadingIcon: $leadingIcon,
+            inlineAddon: $inlineAddon,
+            trailingAddon: $trailingAddon,
+            trailingInlineAddon: $trailingInlineAddon,
+            trailingIcon: $trailingIcon,
+            multiple: $multiple,
+            options: $options,
         );
 
-        $this->only = is_null($only) ? config('form-components.timezone_subset', false) : $only;
+        $this->only = $only ?? config('form-components.timezone_subset', false);
+        $this->useCustomSelect = $useCustomSelect ?? config('form-components.defaults.timezone_select.use_custom_select', true);
 
-        $this->resolveLang();
-    }
+        $this->placeholder = $placeholder ?? __('form-components::messages.timezone_select_placeholder');
 
-    protected function resolveLang(): void
-    {
-        if ($this->placeholder !== false) {
-            $this->placeholder = $this->placeholder ?? __('form-components::messages.timezone_select_placeholder');
-        }
+        $this->options = app('fc-timezone')->only($this->only)->allMapped();
     }
 }

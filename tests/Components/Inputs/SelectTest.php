@@ -9,6 +9,12 @@ use Sinnbeck\DomAssertions\Asserts\AssertElement;
 use Sinnbeck\DomAssertions\Asserts\AssertForm;
 use Sinnbeck\DomAssertions\Asserts\AssertSelect;
 
+beforeEach(function () {
+    config()->set('form-components.defaults.select', [
+        'input_class' => null,
+    ]);
+});
+
 it('can be rendered', function () {
     Route::get('/test', fn () => Blade::render('<x-select name="country" id="countrySelect" />'));
 
@@ -177,14 +183,38 @@ it('indicates it has an error', function () {
         });
 });
 
+it('respects global show error config value', function () {
+    config()->set('form-components.defaults.global.show_errors', false);
+
+    $this->withViewErrors(['country' => 'required']);
+
+    $options = [
+        'can' => 'Canada',
+        'usa' => 'United States',
+    ];
+
+    Route::get('/test', fn () => Blade::render('<x-select name="country" :options="$options" />', ['options' => $options]));
+
+    get('/test')
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->has('class', 'form-text-container')
+                ->contains('select');
+        })
+        ->assertElementExists('select', function (AssertElement $select) {
+            $select->doesntHave('class', 'input-error')
+                ->doesntHave('aria-invalid')
+                ->doesntHave('aria-describedby', 'country-error');
+        });
+});
+
 it('accepts options in the default slot', function () {
     flashOld(['country' => 'usa']);
 
     $template = <<<'HTML'
     <form>
         <x-select name="country">
-            <option value="can" @selected(old('country') === 'can')>Canada</option>
-            <option value="usa" @selected(old('country') === 'usa')>United States</option>
+            <option value="can" @selected($component->isSelected('can'))>Canada</option>
+            <option value="usa" @selected($component->isSelected('usa'))>United States</option>
         </x-select>
     </form>
     HTML;

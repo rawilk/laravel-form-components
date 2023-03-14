@@ -1,13 +1,192 @@
 @layer components {
+    .leading-addon,
+    .trailing-addon {
+        @apply inline-flex
+        items-center
+        px-3
+        border
+        sm:text-sm;
+
+        background-color: var(--leading-addon-background-color);
+        color: var(--leading-addon-color);
+        border-color: var(--input-border-color);
+    }
+
+    .leading-addon {
+        @apply border-r-0;
+
+        border-top-left-radius: var(--input-border-radius);
+        border-bottom-left-radius: var(--input-border-radius);
+    }
+
+    .leading-addon + :is(.leading-addon, .form-text, .custom-select__button) {
+        @apply rounded-l-none;
+    }
+
+    .leading-icon {
+        @apply absolute
+        inset-y-0
+        left-0
+        pl-3
+        flex
+        items-center;
+
+        color: var(--leading-icon-color);
+    }
+
+    :is(.leading-icon, .trailing-icon):not(button):not([role="button"]):not(:has(button, [role="button"])) {
+        @apply pointer-events-none;
+    }
+
+    .leading-icon-container,
+    .trailing-icon-container {
+        @apply h-5 w-5;
+    }
+
+    .clear-button {
+        @apply relative
+        h-6
+        w-6
+        rounded-full
+        transition-colors
+        flex
+        items-center
+        justify-center
+        bg-transparent
+        focus:outline-none
+        focus:ring-0;
+    }
+
+    .clear-button:is(:hover, :focus) {
+        background-color: var(--clear-button-hover-bg);
+    }
+
+    .clear-button:is(:hover, :focus) svg {
+        color: var(--clear-button-hover-color);
+    }
+
+    .clear-button svg {
+        @apply h-5 w-5;
+    }
+
+    .leading-icon + :is(.form-text, .custom-select__button) {
+        @apply pl-10 !important;
+    }
+
     .leading-addon svg {
         @apply h-5 w-5;
     }
 
-    .leading-icon {
-        z-index: 1;
+    .leading-icon,
+    .trailing-icon {
+        z-index: 3;
     }
 
     .leading-icon svg {
         @apply max-w-full;
+    }
+
+    .inline-addon {
+        @apply absolute
+        inset-y-0
+        left-0
+        pl-3
+        flex
+        items-center
+        sm:text-sm
+        sm:leading-5;
+
+        color: var(--input-color);
+    }
+
+    .inline-addon + :is(.form-text, .custom-select__button) {
+        padding-left: var(--inline-addon-pl) !important;
+    }
+
+    @screen sm {
+        .inline-addon + :is(.form-text, .custom-select__button) {
+            --inline-addon-pl: theme('spacing.14');
+        }
+    }
+
+    .trailing-addon {
+        @apply border-l-0;
+    }
+
+    :is(.form-text, .custom-select__button):has(+ .trailing-addon) {
+        @apply rounded-r-none;
+        @apply z-[2];
+    }
+
+    .trailing-addon:last-of-type {
+        border-top-right-radius: var(--input-border-radius);
+        border-bottom-right-radius: var(--input-border-radius);
+    }
+
+    .trailing-icon {
+        @apply absolute
+        inset-y-0
+        right-0
+        pr-3
+        flex
+        items-center;
+
+        color: var(--leading-icon-color);
+    }
+
+    .form-text:has(+ .trailing-icon) {
+        @apply pr-10 !important;
+    }
+
+    .trailing-inline-addon {
+        @apply absolute
+        inset-y-0
+        right-0
+        pr-3
+        flex
+        items-center
+        sm:text-sm
+        sm:leading-5;
+
+        color: var(--input-color);
+    }
+
+    .form-text:has(+ .trailing-inline-addon) {
+        padding-right: var(--trailing-inline-addon-pr) !important;
+    }
+
+    /* sizing */
+    .has-leading-icon.form-input--lg .form-text {
+        @apply pl-11 !important;
+    }
+
+    .has-trailing-icon.form-input--lg .form-text {
+        @apply pr-11 !important;
+    }
+
+    :is(.has-leading-icon, .has-trailing-icon).form-input--lg :is(.leading-icon-container, .trailing-icon-container) {
+        @apply h-6 w-6;
+    }
+
+    /* error states */
+    .leading-icon:has(+ .input-error),
+    .input-error + .trailing-icon {
+        color: var(--input-error-leading-icon-color);
+    }
+
+    .inline-addon:has(+ .input-error),
+    .input-error + .trailing-inline-addon {
+        color: var(--input-error-color);
+    }
+}
+
+/* sizing */
+@layer utilities {
+    .form-input--sm :is(.leading-addon, .inline-addon, .trailing-addon, .trailing-inline-addon) {
+        @apply sm:text-xs;
+    }
+
+    .form-input--lg :is(.leading-addon, .inline-addon, .trailing-addon, .trailing-inline-addon) {
+        @apply sm:text-base;
     }
 }

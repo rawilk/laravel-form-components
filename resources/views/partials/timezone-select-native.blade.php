@@ -1,28 +1,12 @@
-<div class="{{ $getContainerClass() }}">
+<div class="{{ $containerClass() }}">
     @include('form-components::partials.leading-addons')
 
-    <select @if ($name) name="{{ $name }}" @endif
-            @if ($id) id="{{ $id }}" @endif
-            @if ($multiple) multiple @endif
-            @if ($disabled) disabled @endif
-            @if ($autofocus) autofocus @endif
-
-            {!! $ariaDescribedBy() !!}
-            @if ($hasErrorsAndShow($name))
-                aria-invalid="true"
-            @endif
-
-            {{ $attributes->class($inputClass()) }}
-            {{ $extraAttributes }}
+    <select
+        @include('form-components::components.inputs.partials.attributes')
+        @if ($multiple) multiple @endif
     >
-        {{ $slot }}
-
-        @foreach (app('fc-timezone')->only($only)->all() as $region => $regionTimezones)
-            <optgroup label="{{ $region }}">
-                @foreach ($regionTimezones as $key => $display)
-                    <option value="{{ $key }}"@if ($isSelected($key)) selected @endif>{{ $display }}</option>
-                @endforeach
-            </optgroup>
+        @foreach ($options as $option)
+            @include('form-components::components.inputs.partials.select-option', ['option' => $option])
         @endforeach
     </select>
 

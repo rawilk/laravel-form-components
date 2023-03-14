@@ -1,52 +1,85 @@
-export default options => ({
-    autofocus: false,
-    value: '',
-    theme: 'snow',
-    readOnly: false,
-    placeholder: null,
-    toolbar: {},
-    toolbarHandlers: {},
-    ...options,
-    _quill: null,
-
-    init() {
-        if (typeof Quill !== 'function') {
-            throw new TypeError(`Quill Editor requires Quill (https://quilljs.com)`);
-        }
-
-        this._quill = new Quill(this.$refs.quill, this._quillOptions());
-
-        this._quill.root.innerHTML = this.value;
-
-        this._quill.on('text-change', () => {
-            this.value = this._quill.root.innerHTML;
-
-            this.$dispatch('quill-input', this.value);
-        });
-
-        if (this.autofocus) {
-            this.$nextTick(() => this._quill.focus());
-        }
-    },
-
-    _quillOptions() {
-        const toolbarHandlers = this.toolbarHandlers;
-        if (toolbarHandlers !== null) {
-            Object.keys(toolbarHandlers).forEach(key => {
-                toolbarHandlers[key] = new Function('value', toolbarHandlers[key]);
-            });
-        }
-
+export default function (Alpine) {
+    Alpine.data('quill', ({ __value, options, __config, onTextChange, onInit }) => {
         return {
-            theme: this.theme,
-            readOnly: this.readOnly,
-            placeholder: this.placeholder,
-            modules: {
-                toolbar: {
-                    container: this.toolbar,
-                    handlers: toolbarHandlers || {},
-                },
+            __ready: false,
+            __value,
+            __quill: undefined,
+
+            init() {
+                if (typeof window.Quill !== 'function') {
+                    throw new Error(`quill requires Quill to be loaded. See https://quilljs.com/docs/installation/`);
+                }
+
+                queueMicrotask(() => {
+                    this.__ready = true;
+
+                    this.__quill = new window.Quill(this.$refs.quill, this.__quillOptions());
+
+                    this.__quill.root.innerHTML = this.__value;
+
+                    this.__quill.on('text-change', () => {
+                        if (typeof onTextChange === 'function') {
+                            const result = onTextChange(this);
+
+                            if (result === false) {
+                                return;
+                            }
+                        }
+
+                        this.__value = this.__quill.root.innerHTML;
+
+                        this.$dispatch('input', this.__value);
+                    });
+
+                    if (options.autofocus) {
+                        this.$nextTick(() => {
+                            this.focus();
+                        });
+                    }
+
+                    if (typeof onInit === 'function') {
+                        onInit(this);
+                    }
+                });
+            },
+
+            focus() {
+                if (! this.__ready) {
+                    return;
+                }
+
+                this.__quill.focus();
+            },
+
+            __quillOptions() {
+                let config = __config(this, options);
+                let toolbarHandlers = {};
+                let modules = {};
+
+                if (config.hasOwnProperty('toolbarHandlers')) {
+                    toolbarHandlers = config.toolbarHandlers;
+                    delete config.toolbarHandlers;
+                }
+
+                if (config.hasOwnProperty('modules')) {
+                    modules = config.modules;
+                    delete config.modules;
+                }
+
+                return {
+                    theme: options.theme,
+                    readOnly: options.readOnly,
+                    placeholder: options.placeholder,
+                    modules: {
+                        toolbar: {
+                            container: options.toolbar,
+                            handlers: toolbarHandlers,
+                        },
+                        ...modules,
+                    },
+                    ...config,
+                };
             },
         };
-    }
-});
+    });
+}

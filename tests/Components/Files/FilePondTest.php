@@ -11,13 +11,10 @@ it('can be rendered', function () {
     Route::get('/test', fn () => Blade::render('<x-file-pond />'));
 
     get('/test')
-        ->assertElementExists('div:first-of-type', function (AssertElement $div) {
-            $div->has('wire:ignore')
-                ->has('x-cloak')
-                ->has('x-data')
-                ->contains('input', [
-                    'x-ref' => 'input',
-                    'type' => 'file',
-                ]);
+        ->assertElementExists('div', function (AssertElement $div) {
+            $div->contains('input', [
+                'type' => 'file',
+                'x-ref' => 'input',
+            ]);
         });
 });

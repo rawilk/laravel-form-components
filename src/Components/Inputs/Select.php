@@ -2,79 +2,100 @@
 
 namespace Rawilk\FormComponents\Components\Inputs;
 
+use function config;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
+use Rawilk\FormComponents\Concerns\GetsSelectOptionProperties;
 
 class Select extends Input
 {
-    public mixed $selectedKey;
-
-    /** @var string */
-    public const DEFAULT_TRAILING_ADDON_PADDING = 'pr-14';
+    use GetsSelectOptionProperties;
 
     public function __construct(
-        public ?string $name = null,
-        public ?string $id = null,
-        public array|Collection $options = [],
-        public mixed $value = null,
-        public bool $multiple = false,
-        public ?string $maxWidth = null,
-        bool $showErrors = true,
-        $leadingAddon = false,
-        $inlineAddon = false,
-        $inlineAddonPadding = self::DEFAULT_INLINE_ADDON_PADDING,
-        $leadingIcon = false,
-        $trailingAddon = false,
-        $trailingAddonPadding = self::DEFAULT_TRAILING_ADDON_PADDING,
-        $trailingIcon = false,
-        public ?string $containerClass = null,
-        public $after = null,
+        ?string $name = null,
+        ?string $id = null,
+        mixed $value = null,
+        ?string $containerClass = null,
+        ?string $size = null,
+        ?bool $showErrors = null,
 
-        // Extra Attributes
-        null|string|HtmlString|array|Collection $extraAttributes = null,
+        // Extra attributes
+        null|HtmlString|array|string|Collection $extraAttributes = null,
+
+        // Addons
+        ?string $leadingAddon = null,
+        ?string $leadingIcon = null,
+        ?string $inlineAddon = null,
+        ?string $trailingAddon = null,
+        ?string $trailingInlineAddon = null,
+        ?string $trailingIcon = null,
+
+        // Select specific
+        public bool $multiple = false,
+        public array|Collection $options = [],
+        public ?string $valueField = null,
+        public ?string $labelField = null,
+        public ?string $disabledField = null,
+        public ?string $childrenField = null,
     ) {
+        $this->jsonEncodeArrayValues = false;
+
         parent::__construct(
             name: $name,
             id: $id,
             value: $value,
-            maxWidth: $maxWidth,
-            showErrors: $showErrors,
             containerClass: $containerClass,
-            leadingAddon: $leadingAddon,
-            inlineAddon: $inlineAddon,
-            inlineAddonPadding: $inlineAddonPadding,
-            leadingIcon: $leadingIcon,
-            trailingAddon: $trailingAddon,
-            trailingAddonPadding: $trailingAddonPadding,
-            trailingIcon: $trailingIcon,
+            size: $size,
+            showErrors: $showErrors,
             extraAttributes: $extraAttributes,
+            leadingAddon: $leadingAddon,
+            leadingIcon: $leadingIcon,
+            inlineAddon: $inlineAddon,
+            trailingAddon: $trailingAddon,
+            trailingInlineAddon: $trailingInlineAddon,
+            trailingIcon: $trailingIcon,
         );
 
-        $this->selectedKey = $this->name ? old($this->name, $this->value) : $this->value;
+        $this->valueField = $valueField ?? config('form-components.defaults.global.value_field', 'id');
+        $this->labelField = $labelField ?? config('form-components.defaults.global.label_field', 'name');
+        $this->disabledField = $disabledField ?? config('form-components.defaults.global.disabled_field', 'disabled');
+        $this->childrenField = $childrenField ?? config('form-components.defaults.global.children_field', 'children');
+
+        $this->options = collect($options)
+            ->map(function ($value, $key) {
+                // If the key is not numeric, we're going to assume this is the value.
+                if (! is_numeric($key)) {
+                    return [
+                        $this->valueField => $key,
+                        $this->labelField => $value,
+                    ];
+                }
+
+                return $value;
+            })->values();
     }
 
-    public function isSelected($key): bool
+    /**
+     * We are not using a strict comparison so that numeric key values can be shown
+     * as "selected" too. e.g. 1 == '1'
+     *
+     * @see: https://github.com/rawilk/laravel-form-components/issues/11
+     */
+    public function isSelected($value): bool
     {
-        /*
-         * Not using a strict comparison so that numeric key values can be shown
-         * as "selected" too. e.g. 1 == '1'
-         *
-         * See: https://github.com/rawilk/laravel-form-components/issues/11
-         */
-        if ($this->selectedKey == $key) {
+        if ($this->value == $value) {
             return true;
         }
 
-        return is_array($this->selectedKey) && in_array($key, $this->selectedKey, false);
+        return is_array($this->value) && in_array($value, $this->value, false);
     }
 
     public function inputClass(): string
     {
         return Arr::toCssClasses([
-            'form-select',
-            'block w-full pl-3 pr-10 py-2 rounded-md border-slate-300 sm:text-sm focus:outline-none focus:border-blue-300 focus:ring-4 focus:ring-opacity-50 focus:ring-blue-400',
-            $this->getAddonClass(),
+            'form-text form-select',
+            config('form-components.defaults.select.input_class', ''),
             'input-error' => $this->hasErrorsAndShow($this->name),
         ]);
     }

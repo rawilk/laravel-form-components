@@ -1,62 +1,62 @@
-@aware(['name' => '', 'multiple' => false, 'showCheckbox' => false])
+@aware([
+    'valueField' => 'value',
+    'labelField' => 'label',
+    'disabledField' => 'disabled',
+    'childrenField' => 'children',
+    'optionSelectedIcon' => null,
+])
 
-<li wire:key="customSelect{{ $name }}Option-{{ $value }}"
-    @unless ($isOptGroup)
-        x-data="customSelectOption({{ $configToJs() }})"
-        x-bind:data-disabled="optionDisabled ? '1' : '0'"
-        x-on:mouseover.stop="focus({ updateParentIndex: true, scroll: false })"
-        x-on:mouseout.stop="hasFocus = false"
-        x-on:custom-select-{{ \Illuminate\Support\Str::slug($name) }}-option-focused.window="onReceivedFocus"
-        role="option"
-    @endunless
+@if ($level === 0 && $hasChildren($childrenField))
+    <li x-custom-select:option
+        is-opt-group
+        :value="{{ $optionValue() }}"
+        {{ $attributes->class('custom-select__option custom-select__opt-group') }}
+    >
+        <span class="truncate">
+            @isset($optionTemplate)
+                <span class="truncate" x-data="{ option: {{ \Illuminate\Support\Js::from($value) }} }">{{ $optionTemplate }}</span>
+            @else
+                {{ $optionLabel($labelField) }}
+            @endisset
+        </span>
+    </li>
 
-    @class([
-        'custom-select-option',
-        'custom-select-option--opt-group' => $isOptGroup,
-        'relative group',
-        'disabled' => $disabled,
-    ])
+    @foreach ($optionChildren($childrenField) as $child)
+        <x-form-components::inputs.custom-select-option :value="$child" :level="$level + 1" {{ $attributes }}>
+            @isset($optionTemplate)
+                <x-slot:option-template>{{ $optionTemplate }}</x-slot:option-template>
+            @endisset
+        </x-form-components::inputs.custom-select-option>
+    @endforeach
+@else
+    <li x-custom-select:option
+        :value="{{ $optionValue() }}"
+        :disabled="{{ \Illuminate\Support\Js::from($optionIsDisabled($disabledField)) }}"
+        {{ $attributes->class('custom-select__option') }}
+        x-bind:class="{
+            {{-- $customSelectOption magic doesn't play nicely with class binding on ajax refresh for some reason, we just use __context for now... --}}
+            'custom-select__option--active': __context.isActiveEl($el),
+            'custom-select__option--selected': __context.isSelectedEl($el),
+            'custom-select__option--disabled': __context.isDisabledEl($el) || (! $customSelect.canSelectMore && ! __context.isSelectedEl($el)),
+        }"
+    >
+        <span class="truncate flex-1">
+            @isset($optionTemplate)
+                <span class="truncate" x-data="{ option: {{ \Illuminate\Support\Js::from($value) }} }">{{ $optionTemplate }}</span>
+            @else
+                {{ $optionLabel($labelField) }}
+            @endisset
+        </span>
 
-    @unless ($isOptGroup)
-        x-bind:class="{ 'has-focus': hasFocus, 'selected': optionSelected() }"
-        x-bind:aria-selected="optionSelected() ? 'true' : 'false'"
-    @endunless
-    tabindex="-1"
-    id="customSelect{{ $name }}Option-{{ $value }}"
->
-    <div class="custom-select-option__container">
-        <div
-            @unless ($isOptGroup)
-                x-on:click.stop="toggle"
-            @endunless
-            @class([
-                'custom-select-option__label',
-                'flex-1 flex',
-                'cursor-pointer' => ! $disabled && ! $isOptGroup,
-            ])
-        >
-            {{-- checkbox --}}
-            @if ($showCheckbox && ! $isOptGroup)
-                <div class="flex-shrink-0 mr-2" x-on:input.prevent.stop="() => {}">
-                    <x-dynamic-component
-                        :component="$multiple ? 'checkbox' : 'radio'"
-                        x-bind:checked="optionSelected()"
-                        name="{{ $name }}"
-                        value="{{ $value }}"
-                        :id="$name . $value"
-                        :disabled="$disabled"
-                    />
-                </div>
-            @endif
-
-            {{-- label --}}
-            <div class="flex-1 w-0 truncate">
-                @if ($slot->isNotEmpty())
-                    <span>{{ $slot }}</span>
-                @else
-                    <span>{{ $label }}</span>
-                @endif
-            </div>
-        </div>
-    </div>
-</li>
+        @if ($optionSelectedIcon)
+            {{-- if we don't render this in a conditional that checks if the element is connected to the DOM, Alpine will throw an error from x-show... --}}
+            <template x-if="$el.isConnected">
+                <span x-show="$customSelectOption.isSelected"
+                      class="shrink-0 custom-select__selected-icon"
+                >
+                    <x-dynamic-component :component="$optionSelectedIcon" />
+                </span>
+            </template>
+        @endif
+    </li>
+@endif

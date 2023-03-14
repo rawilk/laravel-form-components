@@ -1,9 +1,19 @@
-:root {
-    --fc-checkbox-grid-cols: 3;
+@layer components {
+    .form-checkbox-group--inline {
+        @apply grid
+        items-start;
+
+        grid-template-columns: repeat(var(--fc-checkbox-grid-cols), minmax(0, 1fr));
+        gap: var(--fc-checkbox-grid-gap);
+    }
+
+    .form-checkbox-group--stacked {
+        @apply space-y-4;
+    }
 }
 
-@layer components {
-    .form-checkbox-group {
-        grid-template-columns: repeat(var(--fc-checkbox-grid-cols), minmax(0, 1fr));
+@layer utilities {
+    .form-checkbox-group--stacked.form-checkbox-group--lg {
+        @apply space-y-6;
     }
 }

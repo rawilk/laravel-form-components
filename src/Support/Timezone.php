@@ -50,6 +50,9 @@ class Timezone
         return $this;
     }
 
+    /**
+     * @deprecated Use allMapped() instead.
+     */
     public function all(): array
     {
         if (! empty($this->timezones) && $this->only === config('form-components.timezone_subset', false)) {
@@ -83,6 +86,62 @@ class Timezone
         return $this->timezones = $timezones;
     }
 
+    /**
+     * Return the requested timezones but mapped to be compatible with our selects.
+     *
+     * @version 8.0.0
+     */
+    public function allMapped(): array
+    {
+        if (! empty($this->timezones) && $this->only === config('form-components.timezone_subset', false)) {
+            return $this->timezones;
+        }
+
+        $timezones = [];
+
+        if ($this->shouldIncludeRegion(TimeZoneRegion::GENERAL)) {
+            $timezones[] = [
+                'id' => TimeZoneRegion::GENERAL,
+                'name' => TimeZoneRegion::GENERAL,
+                'children' => array_values(array_map(function ($timezone) {
+                    return [
+                        'id' => $timezone,
+                        'name' => $timezone,
+                    ];
+                }, self::$generalTimezones)),
+            ];
+        }
+
+        foreach ($this->regionsToInclude() as $region => $regionCode) {
+            $regionTimezones = DateTimeZone::listIdentifiers($regionCode);
+            $model = [
+                'id' => $region,
+                'name' => $region,
+                'children' => [],
+            ];
+
+            foreach ($regionTimezones as $timezone) {
+                $format = $this->format($timezone);
+
+                if ($format === false) {
+                    continue;
+                }
+
+                $model['children'][] = [
+                    'id' => $timezone,
+                    'name' => $format,
+                ];
+            }
+
+            $timezones[] = $model;
+        }
+
+        // Reset to default options.
+        $this->only = false;
+
+        return $this->timezones = $timezones;
+    }
+
     protected function format(string $timezone): bool|string
     {
         $time = new DateTime('', new DateTimeZone($timezone));
@@ -101,7 +160,7 @@ class Timezone
         return "(GMT/UTC {$offset}) {$timezone}";
     }
 
-    /*
+    /**
      * This is only here because automated tests are returning different
      * timezone offsets for certain timezones than when tests are
      * ran locally. This may need to be addressed in the future...

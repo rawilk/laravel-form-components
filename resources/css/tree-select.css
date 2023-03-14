@@ -1,9 +1,69 @@
 @layer components {
-    [data-level="1"] .tree-select-option__container {
-        @apply pl-8;
+    .tree-select__has-child-icon {
+        @apply w-4
+        h-4
+        flex
+        items-center
+        justify-center
+        opacity-50
+        hover:opacity-100;
     }
 
-    [data-level="1"] .tree-select-option__label {
-        @apply py-2.5;
+    .tree-select__has-child-icon svg {
+        @apply h-4 w-4;
+    }
+
+    .tree-select__has-child-icon.expanded svg {
+        @apply transform
+        rotate-90;
+    }
+
+    .tree-select__option + .tree-select__children .tree-select__option {
+        padding-left: calc((var(--level) * theme('spacing.5')) + theme('spacing.5'));
+    }
+
+    .tree-select__children {
+        @apply relative;
+    }
+
+    .tree-select__children:before {
+        @apply absolute
+        top-0
+        bottom-5
+        left-0
+        border-l
+        transition-colors
+        z-[2];
+
+        content: '';
+        border-style: var(--tree-select-child-border-style);
+        border-color: var(--tree-select-child-border-color);
+    }
+
+    .tree-select__option + .tree-select__children:before {
+        left: calc((var(--level) * theme('spacing.6')) + theme('spacing.6'));
+    }
+
+    .tree-select__children .tree-select__option:before {
+        @apply absolute
+        transition-colors
+        border-t;
+
+        content: '';
+        border-style: var(--tree-select-child-border-style);
+        width: 1rem;
+        left: calc(((var(--level) - 1) * theme('spacing.6')) + theme('spacing.6'));
+        border-color: var(--tree-select-child-border-color);
+    }
+
+    .tree-select__option:not(:has(+ .tree-select__children)):before {
+        width: 1.6rem;
+    }
+
+    .tree-select__children:hover:before,
+    .tree-select__children.group:hover :is(.tree-select__children, .tree-select__option):before,
+    .tree-select__children:has(:is(.custom-select__option--active, .custom-select__option--selected)) :is(.tree-select__children, .tree-select__option):before,
+    .tree-select__children:has(:is(.custom-select__option--active, .custom-select__option--selected)):before {
+        border-color: var(--tree-select-child-hover-border-color);
     }
 }

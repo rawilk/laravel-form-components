@@ -1,24 +1,14 @@
-<div class="{{ $getContainerClass() }}">
+<div class="{{ $containerClass() }}">
     @include('form-components::partials.leading-addons')
 
-    <select @if ($name) name="{{ $name }}" @endif
-            @if ($id) id="{{ $id }}" @endif
-            @if ($multiple) multiple @endif
-            {!! $ariaDescribedBy() !!}
-            {{ $extraAttributes }}
-
-            @if ($hasErrorsAndShow($name))
-                aria-invalid="true"
-            @endif
-
-            {{ $attributes->class($inputClass()) }}
+    <select
+        @include('form-components::components.inputs.partials.attributes')
+        @if ($multiple) multiple @endif
     >
         {{ $slot }}
 
-        @foreach ($options as $key => $label)
-            <option value="{{ $key }}" @if ($isSelected($key)) selected @endif>
-                {{ $label }}
-            </option>
+        @foreach ($options as $option)
+            @include('form-components::components.inputs.partials.select-option', ['option' => $option])
         @endforeach
 
         {{ $append ?? '' }}

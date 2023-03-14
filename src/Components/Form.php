@@ -9,9 +9,10 @@ use Illuminate\Support\ViewErrorBag;
 
 class Form extends BladeComponent
 {
-    /*
+    /**
      * Form method spoofing to support PUT, PATCH and DELETE actions.
-     * https://laravel.com/docs/master/routing#form-method-spoofing
+     *
+     * @see: https://laravel.com/docs/master/routing#form-method-spoofing
      */
     public bool $spoofMethod;
 
@@ -27,7 +28,7 @@ class Form extends BladeComponent
 
     public function hasError(string $bag = 'default'): bool
     {
-        $errors = View::shared('errors', fn () => request()->session()->get('errors', new ViewErrorBag));
+        $errors = View::shared('errors', fn () => session()->get('errors', new ViewErrorBag));
 
         return $errors->getBag($bag)->isNotEmpty();
     }

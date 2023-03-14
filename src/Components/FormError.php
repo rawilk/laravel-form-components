@@ -10,10 +10,11 @@ class FormError extends BladeComponent
         public ?string $name = null,
         public ?string $inputId = null,
         public string $bag = 'default',
-        public string $tag = 'p',
+        public ?string $tag = null,
     ) {
-        $this->name = str_replace(['[', ']'], ['.', ''], $this->name);
-        $this->inputId = $this->inputId ?? $this->name;
+        $this->name = str_replace(['[', ']'], ['.', ''], $name);
+        $this->inputId = $inputId ?? $this->name;
+        $this->tag = $tag ?? config('form-components.defaults.form_error.tag');
     }
 
     public function messages(ViewErrorBag $errors): array

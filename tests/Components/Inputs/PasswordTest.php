@@ -7,6 +7,14 @@ use Illuminate\Support\Facades\Route;
 use function Pest\Laravel\get;
 use Sinnbeck\DomAssertions\Asserts\AssertElement;
 
+beforeEach(function () {
+    config()->set('form-components.defaults.password', [
+        'show_toggle' => true,
+        'show_icon' => 'heroicon-s-eye',
+        'hide_icon' => 'heroicon-s-eye',
+    ]);
+});
+
 it('can be rendered', function () {
     Route::get('/test', fn () => Blade::render('<x-password name="password" />'));
 
@@ -23,6 +31,21 @@ it('can be rendered', function () {
 
 test('password toggle can be disabled', function () {
     Route::get('/test', fn () => Blade::render('<x-password name="password" :show-toggle="false" />'));
+
+    get('/test')
+        ->assertElementExists('.form-text-container', function (AssertElement $div) {
+            $div->doesntHave('x-data');
+        })
+        ->assertElementExists('input', function (AssertElement $input) {
+            $input->doesntHave('class', 'password-toggleable')
+                ->has('type', 'password');
+        });
+});
+
+test('password toggle can be by default', function () {
+    config()->set('form-components.defaults.password.show_toggle', false);
+
+    Route::get('/test', fn () => Blade::render('<x-password name="password" />'));
 
     get('/test')
         ->assertElementExists('.form-text-container', function (AssertElement $div) {

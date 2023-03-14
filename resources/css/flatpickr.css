@@ -1,5 +1,5 @@
 /* flatpickr overrides */
-/* purgecss start ignore */
+
 .flatpickr-calendar {
     width: 345px !important;
 }
@@ -9,7 +9,10 @@
 }
 
 .flatpickr-months {
-    @apply relative bg-blue-600 text-white py-3 px-2 items-center;
+    @apply relative py-3 px-2 items-center;
+
+    background-color: var(--flatpickr-header-bg);
+    color: var(--flatpickr-header-color);
 }
 
 .flatpickr-months .flatpickr-prev-month,
@@ -27,18 +30,18 @@
 
 .flatpickr-months .flatpickr-prev-month:hover svg,
 .flatpickr-months .flatpickr-next-month:hover svg {
-    fill: theme('colors.slate.800') !important;
+    fill: var(--flatpickr-nav-button-hover-color) !important;
 }
 
 .flatpickr-months .flatpickr-prev-month svg,
 .flatpickr-months .flatpickr-next-month svg {
-    fill: #fff;
+    fill: var(--flatpickr-header-color);
     opacity: .8;
 }
 
 .flatpickr-months .flatpickr-prev-month:hover,
 .flatpickr-months .flatpickr-next-month:hover {
-    @apply bg-slate-300;
+    background-color: var(--flatpickr-nav-button-hover-bg);
 }
 
 .flatpickr-months .flatpickr-month {
@@ -46,9 +49,10 @@
 }
 
 .flatpickr-months .flatpickr-month .flatpickr-current-month {
-    @apply text-white w-full relative;
+    @apply w-full relative;
     left: unset;
     transform: unset;
+    color: var(--flatpickr-header-color);
 }
 
 .flatpickr-months .flatpickr-month .flatpickr-current-month .flatpickr-monthDropdown-months {
@@ -68,6 +72,8 @@
 }
 
 .flatpickr-day.today:not(.selected) {
-    @apply border-none bg-slate-300 rounded-full text-slate-500;
+    @apply border-none rounded-full;
+
+    color: var(--flatpickr-current-day-color);
+    background-color: var(--flatpickr-current-day-bg);
 }
-/* purgecss end ignore */

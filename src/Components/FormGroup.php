@@ -2,6 +2,7 @@
 
 namespace Rawilk\FormComponents\Components;
 
+use function config;
 use Illuminate\Support\Arr;
 use Rawilk\FormComponents\Concerns\HandlesValidationErrors;
 
@@ -10,24 +11,27 @@ class FormGroup extends BladeComponent
     use HandlesValidationErrors;
 
     public function __construct(
-        public string $name = '',
-        public null|string|bool $label = null,
+        public ?string $name = null,
         public ?string $inputId = null,
-        public bool $inline = false,
-        bool $showErrors = true,
+        public null|bool|string $label = null,
+        public ?bool $inline = null,
+        ?bool $showErrors = null,
         public ?string $helpText = null,
-        public bool $border = true,
         public bool $isCheckboxGroup = false,
         public ?string $labelId = null,
-        public bool $marginBottom = true,
+        public ?bool $marginBottom = null,
+        public ?bool $border = null,
         public ?string $hint = null,
         public bool $optional = false,
-        public bool $customSelectLabel = false,
     ) {
-        $this->inputId = $this->inputId ?? $this->name;
-        $this->showErrors = $showErrors;
+        $this->inputId = $inputId ?? $name;
 
-        if ($this->optional && ! $this->hint) {
+        $this->showErrors = $showErrors ?? config('form-components.defaults.global.show_errors', true);
+        $this->inline = $inline ?? config('form-components.defaults.form_group.inline', false);
+        $this->marginBottom = $marginBottom ?? config('form-components.defaults.form_group.margin_bottom', true);
+        $this->border = $border ?? config('form-components.defaults.form_group.border', true);
+
+        if ($optional && ! $hint) {
             $this->hint = __(config('form-components.optional_hint_text'));
         }
     }
@@ -37,9 +41,10 @@ class FormGroup extends BladeComponent
         return Arr::toCssClasses([
             'form-group',
             'has-error' => $this->hasErrorsAndShow($this->name),
-            'form-group-inline sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start' => $this->inline,
-            'form-group-inline--border sm:pt-5 sm:border-t sm:border-slate-200 first:sm:pt-0 first:sm:border-none' => $this->inline && $this->border,
-            'mb-5 last:mb-0' => $this->marginBottom,
+            config('form-components.defaults.form_group.class'),
+            'form-group--inline' => $this->inline,
+            'form-group--mb' => $this->marginBottom,
+            'form-group--border' => $this->border && $this->inline,
         ]);
     }
 }

@@ -8,6 +8,14 @@ use Illuminate\Support\HtmlString;
 use function Pest\Laravel\get;
 use Sinnbeck\DomAssertions\Asserts\AssertElement;
 
+beforeEach(function () {
+    config()->set('form-components.defaults.input', [
+        'size' => 'md',
+        'container_class' => null,
+        'input_class' => null,
+    ]);
+});
+
 it('can be rendered', function () {
     Route::get('/test', fn () => Blade::render('<x-input name="search" />'));
 
@@ -63,12 +71,10 @@ it('can have a leading addon', function () {
     get('/test')
         ->assertElementExists('div', function (AssertElement $div) {
             $div->has('class', 'form-text-container')
+                ->has('class', 'has-leading-addon')
                 ->contains('span', [
                     'text' => 'my addon',
                     'class' => 'leading-addon',
-                ])
-                ->contains('input', [
-                    'class' => 'has-leading-addon rounded-r-md rounded-none',
                 ]);
         });
 });
@@ -85,12 +91,10 @@ test('leading addon can be slotted', function () {
     get('/test')
         ->assertElementExists('div', function (AssertElement $div) {
             $div->has('class', 'form-text-container')
+                ->has('class', 'has-leading-addon')
                 ->contains('span', [
                     'text' => 'foo',
                     'class' => 'leading-addon',
-                ])
-                ->contains('input', [
-                    'class' => 'has-leading-addon rounded-r-md rounded-none',
                 ]);
         });
 });
@@ -101,21 +105,10 @@ it('can have an inline addon', function () {
     get('/test')
         ->assertElementExists('div', function (AssertElement $div) {
             $div->has('class', 'form-text-container')
+                ->has('class', 'has-inline-addon')
                 ->contains('div', [
                     'text' => 'my addon',
-                    'class' => 'inline-addon absolute',
-                ]);
-        });
-});
-
-it('can have custom inline addon padding', function () {
-    Route::get('/test', fn () => Blade::render('<x-input name="search" inline-addon="my addon" inline-addon-padding="pl-64" />'));
-
-    get('/test')
-        ->assertElementExists('div', function (AssertElement $div) {
-            $div->has('class', 'form-text-container')
-                ->contains('input', [
-                    'class' => 'pl-64',
+                    'class' => 'inline-addon',
                 ]);
         });
 });
@@ -132,26 +125,28 @@ test('inline addon can be slotted', function () {
     get('/test')
         ->assertElementExists('div', function (AssertElement $div) {
             $div->has('class', 'form-text-container')
+                ->has('class', 'has-inline-addon')
                 ->contains('div', [
                     'text' => 'foo',
-                    'class' => 'inline-addon absolute',
+                    'class' => 'inline-addon',
                 ]);
         });
 });
 
 it('can have a leading icon', function () {
-    Route::get('/test', fn () => Blade::render('<x-input name="search" leading-icon="my icon" />'));
+    Route::get('/test', fn () => Blade::render('<x-input name="search" leading-icon="heroicon-s-eye" />'));
 
     get('/test')
         ->assertElementExists('div', function (AssertElement $div) {
             $div->has('class', 'form-text-container')
+                ->has('class', 'has-leading-icon')
                 ->contains('div', [
                     'class' => 'leading-icon',
-                    'text' => 'my icon',
-                ])
-                ->contains('input', [
-                    'class' => 'has-leading-icon',
                 ]);
+
+            $icon = $div->find('.leading-icon');
+
+            $icon->contains('svg');
         });
 });
 
@@ -168,6 +163,9 @@ it('only renders one type of leading addon', function () {
     get('/test')
         ->assertElementExists('div', function (AssertElement $div) {
             $div->has('class', 'form-text-container')
+                ->has('class', 'has-leading-addon')
+                ->doesntHave('class', 'has-inline-addon')
+                ->doesntHave('class', 'has-leading-icon')
                 ->contains('span', [
                     'text' => 'foo',
                     'class' => 'leading-addon',
@@ -187,21 +185,24 @@ it('can have a trailing addon', function () {
     get('/test')
         ->assertElementExists('div', function (AssertElement $div) {
             $div->has('class', 'form-text-container')
-                ->contains('div', [
+                ->has('class', 'has-trailing-addon')
+                ->contains('span', [
                     'text' => 'my addon',
                     'class' => 'trailing-addon',
                 ]);
         });
 });
 
-it('can have custom trailing addon padding', function () {
-    Route::get('/test', fn () => Blade::render('<x-input name="search" trailing-addon="foo" trailing-addon-padding="pr-64" />'));
+it('can have an inline trailing addon', function () {
+    Route::get('/test', fn () => Blade::render('<x-input name="search" trailing-inline-addon="my addon" />'));
 
     get('/test')
         ->assertElementExists('div', function (AssertElement $div) {
             $div->has('class', 'form-text-container')
-                ->contains('input', [
-                    'class' => 'pr-64',
+                ->has('class', 'has-trailing-inline-addon')
+                ->contains('div', [
+                    'text' => 'my addon',
+                    'class' => 'trailing-inline-addon',
                 ]);
         });
 });
@@ -218,7 +219,8 @@ test('trailing addon can be slotted', function () {
     get('/test')
         ->assertElementExists('div', function (AssertElement $div) {
             $div->has('class', 'form-text-container')
-                ->contains('div', [
+                ->has('class', 'has-trailing-addon')
+                ->contains('span', [
                     'text' => 'foo',
                     'class' => 'trailing-addon',
                 ]);
@@ -237,9 +239,7 @@ it('can have a trailing icon', function () {
     get('/test')
         ->assertElementExists('div', function (AssertElement $div) {
             $div->has('class', 'form-text-container')
-                ->contains('input', [
-                    'class' => 'has-trailing-icon',
-                ])
+                ->has('class', 'has-trailing-icon')
                 ->contains('div', [
                     'class' => 'trailing-icon',
                     'text' => 'my icon',
@@ -250,7 +250,7 @@ it('can have a trailing icon', function () {
 it('will only render one type of trailing addon', function () {
     // The icon should not be rendered as we check for it last.
     $template = <<<'HTML'
-    <x-input name="search" trailing-addon="foo">
+    <x-input name="search" trailing-addon="foo" trailing-inline-addon="bar">
         <x-slot:trailing-icon>my icon</x-slot:trailing-icon>
     </x-input>
     HTML;
@@ -260,9 +260,16 @@ it('will only render one type of trailing addon', function () {
     get('/test')
         ->assertElementExists('div', function (AssertElement $div) {
             $div->has('class', 'form-text-container')
-                ->contains('div', [
+                ->has('class', 'has-trailing-addon')
+                ->doesntHave('class', 'has-trailing-inline-addon')
+                ->doesntHave('class', 'has-trailing-icon')
+                ->contains('span', [
                     'text' => 'foo',
                     'class' => 'trailing-addon',
+                ])
+                ->doesntContain('div', [
+                    'class' => 'trailing-inline-addon',
+                    'text' => 'bar',
                 ])
                 ->doesntContain('div', [
                     'class' => 'trailing-icon',
@@ -283,14 +290,13 @@ it('can have both leading and trailing addons at the same time', function () {
     get('/test')
         ->assertElementExists('div', function (AssertElement $div) {
             $div->has('class', 'form-text-container')
-                ->contains('input', [
-                    'class' => 'has-leading-addon',
-                ])
+                ->has('class', 'has-leading-addon')
+                ->has('class', 'has-trailing-addon')
                 ->contains('span', [
                     'text' => 'leading addon',
                     'class' => 'leading-addon',
                 ])
-                ->contains('div', [
+                ->contains('span', [
                     'text' => 'trailing addon',
                     'class' => 'trailing-addon',
                 ]);
@@ -301,6 +307,34 @@ it('adds aria attributes when there is an error', function () {
     $this->withViewErrors(['search' => 'required']);
 
     Route::get('/test', fn () => Blade::render('<x-input name="search" id="inputSearch" />'));
+
+    get('/test')
+        ->assertElementExists('input', function (AssertElement $input) {
+            $input->has('aria-invalid', 'true')
+                ->has('aria-describedby', 'inputSearch-error');
+        });
+});
+
+it('respects the global show errors setting', function () {
+    config()->set('form-components.defaults.global.show_errors', false);
+
+    $this->withViewErrors(['search' => 'required']);
+
+    Route::get('/test', fn () => Blade::render('<x-input name="search" id="inputSearch" />'));
+
+    get('/test')
+        ->assertElementExists('input', function (AssertElement $input) {
+            $input->doesntHave('aria-invalid')
+                ->doesntHave('aria-describedby', 'inputSearch-error');
+        });
+});
+
+test('the global show errors setting can be overridden', function () {
+    config()->set('form-components.defaults.global.show_errors', false);
+
+    $this->withViewErrors(['search' => 'required']);
+
+    Route::get('/test', fn () => Blade::render('<x-input name="search" id="inputSearch" show-errors />'));
 
     get('/test')
         ->assertElementExists('input', function (AssertElement $input) {
@@ -321,21 +355,24 @@ it('combines the aria-describedby attribute on errors if it is already defined o
         });
 });
 
-it('can have a max width set on the input container', function () {
-    Route::get('/test', fn () => Blade::render('<x-input name="search" max-width="sm" />'));
-
-    get('/test')
-        ->assertElementExists('.form-text-container', function (AssertElement $div) {
-            $div->has('class', 'max-w-sm');
-        });
-});
-
 it('accepts a container class', function () {
     Route::get('/test', fn () => Blade::render('<x-input name="search" container-class="bg-red-500" />'));
 
     get('/test')
         ->assertElementExists('.form-text-container', function (AssertElement $div) {
             $div->has('class', 'bg-red-500');
+        });
+});
+
+test('a container class can be set by default', function () {
+    config()->set('form-components.defaults.input.container_class', 'default-container-class');
+
+    Route::get('/test', fn () => Blade::render('<x-input name="search" container-class="one-off-container-class" />'));
+
+    get('/test')
+        ->assertElementExists('.form-text-container', function (AssertElement $div) {
+            $div->has('class', 'one-off-container-class')
+                ->has('class', 'default-container-class');
         });
 });
 
@@ -385,3 +422,23 @@ it('can have extra attributes', function ($extraAttributes) {
     [['data-foo' => 'bar']],
     collect(['data-foo' => 'bar']),
 ]);
+
+test('an input class can be applied by default', function () {
+    config()->set('form-components.defaults.input.input_class', 'default-input-class');
+
+    Route::get('/test', fn () => Blade::render('<x-input name="search" />'));
+
+    get('/test')
+        ->assertElementExists('input', function (AssertElement $input) {
+            $input->has('class', 'default-input-class');
+        });
+});
+
+test('a size class can be applied to the input container for styling', function () {
+    Route::get('/test', fn () => Blade::render('<x-input name="search" size="lg" />'));
+
+    get('/test')
+        ->assertElementExists('.form-text-container', function (AssertElement $div) {
+            $div->has('class', 'form-input--lg');
+        });
+});
