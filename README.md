@@ -63,6 +63,7 @@ Please review [my security policy](../../security) on how to report security vul
 - [All Contributors](../../contributors)
 
 This package is also heavily inspired by [Laravel Form Components](https://github.com/protonemedia/laravel-form-components) and [Blade UI Kit](https://blade-ui-kit.com/).
+A lot of inspiration for some JS components is taken from [Alpine Headless Components](https://alpinejs.dev/components#headless). 
 
 ## Alternatives
 
@@ -74,7 +75,7 @@ try one of these alternatives if your needs differ:
 
 ## Disclaimer
 
-This package is not affiliated with, maintained, authorized, endorsed or sponsored by Laravel, TailwindCSS, Laravel Livewire, or any of its affiliates.
+This package is not affiliated with, maintained, authorized, endorsed or sponsored by Laravel, TailwindCSS, Laravel Livewire, Alpine.js, or any of its affiliates.
 
 ## License
 
