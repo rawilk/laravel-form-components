@@ -18,7 +18,6 @@ class FormGroup extends BladeComponent
         ?bool $showErrors = null,
         public ?string $helpText = null,
         public bool $isCheckboxGroup = false,
-        public ?string $labelId = null,
         public ?bool $marginBottom = null,
         public ?bool $border = null,
         public ?string $hint = null,
