@@ -59,7 +59,7 @@ class DatePicker extends Input
 
         $this->ensureModeIsValid($mode);
 
-        $this->clickOpens = $clickOpens ?? config('form-components.defaults.date_picker.click_opens', true);
+        $this->clickOpens = $clickOpens ?? config('form-components.defaults.date_picker.click_opens', false);
         $this->allowInput = $allowInput ?? config('form-components.defaults.date_picker.allow_input', true);
         $this->enableTime = $enableTime ?? config('form-components.defaults.date_picker.enable_time', false);
         $this->format = $format ?? config('form-components.date_picker.format', null);
