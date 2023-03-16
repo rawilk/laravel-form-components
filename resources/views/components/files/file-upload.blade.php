@@ -14,10 +14,9 @@
         @endif
     >
         @include('form-components::components.files.partials.file-input')
+        @includeWhen($canShowUploadProgress(), 'form-components::components.files.partials.upload-progress')
 
         {{ $afterInput ?? '' }}
-
-        @includeWhen($canShowUploadProgress(), 'form-components::components.files.partials.upload-progress')
     </div>
 
     {{ $after ?? '' }}
