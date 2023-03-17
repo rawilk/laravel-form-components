@@ -16,7 +16,7 @@ Purchase a license here: [https://tailwindui.com/](https://tailwindui.com)
 You can install the package via composer:
 
 ```bash
-composer require rawilk/laravel-form-components
+composer require rawilk/laravel-form-components:2.0
 ```
 
 ## Configuration
@@ -93,13 +93,13 @@ color ranging from `50` to `900`:
 -   `danger` (red)
 -   `blue-gray`
 
-There also needs to be `blue-gray` outline variant defined as well in your tailwind config. See the [upgrade guide](/docs/laravel-form-components/{version}/upgrade#styling) for more information.
+There also needs to be `blue-gray` outline variant defined as well in your tailwind config. See the [upgrade guide](/docs/laravel-form-components/{version}/upgrade#user-content-styling) for more information.
 
 ## Components
 
 Even though all components come enabled out-of-the-box, you might just want to
 only load the components you need in your app for performance reasons. To do so,
-first [publish the config file](#configuration), then remove the components
+first [publish the config file](#user-content-configuration), then remove the components
 you don't need from the `components` settings.
 
 You can also choose to use different classes and views for components. This allows you
@@ -111,7 +111,7 @@ and/or view of your own.
 Some components, such as the [custom select component](/docs/laravel-form-components/{version}/components/custom-select), require custom
 JavaScript to run. The JavaScript is extracted to an external file since it is pretty substantial and should be minified. If
 you are using any components that depend on this JavaScript, be sure you are pulling the scripts in through either the
-`@fcJavaScript` or `@fcScripts` blade directives in your layout file. See [directives](#directives) for more information.
+`@fcJavaScript` or `@fcScripts` blade directives in your layout file. See [directives](#user-content-directives) for more information.
 
 ### Asset URL
 

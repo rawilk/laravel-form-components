@@ -13,10 +13,6 @@ trait InteractsWithViews
 {
     /**
      * Create a new TestView from the given view.
-     *
-     * @param string $view
-     * @param array $data
-     * @return \Rawilk\FormComponents\Tests\TestView
      */
     public function view(string $view, array $data = []): TestView
     {
@@ -25,10 +21,6 @@ trait InteractsWithViews
 
     /**
      * Render the contents of the given Blade template string.
-     *
-     * @param string $template
-     * @param array $data
-     * @return \Rawilk\FormComponents\Tests\TestView
      */
     protected function blade(string $template, array $data = []): TestView
     {
@@ -38,7 +30,7 @@ trait InteractsWithViews
             ViewFacade::addLocation(sys_get_temp_dir());
         }
 
-        $tempFile = tempnam($tempDirectory, 'laravel-blade') . '.blade.php';
+        $tempFile = tempnam($tempDirectory, 'laravel-blade').'.blade.php';
 
         file_put_contents($tempFile, $template);
 
@@ -47,10 +39,6 @@ trait InteractsWithViews
 
     /**
      * Render the given view component.
-     *
-     * @param string $componentClass
-     * @param array $data
-     * @return \Rawilk\FormComponents\Tests\TestView
      */
     protected function component(string $componentClass, array $data = []): TestView
     {
@@ -65,9 +53,6 @@ trait InteractsWithViews
 
     /**
      * Populate the shared view error bag with the given errors.
-     *
-     * @param array $errors
-     * @param string $bag
      */
     protected function withViewErrors(array $errors, string $bag = 'default'): void
     {

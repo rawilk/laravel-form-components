@@ -35,7 +35,7 @@ class FormComponentsServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->registerFacade();
-        $this->mergeConfigFrom(__DIR__ . '/../config/form-components.php', 'form-components');
+        $this->mergeConfigFrom(__DIR__.'/../config/form-components.php', 'form-components');
         $this->registerTimezone();
     }
 
@@ -61,17 +61,17 @@ class FormComponentsServiceProvider extends ServiceProvider
     private function bootForConsole(): void
     {
         $this->publishes([
-            __DIR__ . '/../config/form-components.php' => $this->app->configPath('form-components.php'),
+            __DIR__.'/../config/form-components.php' => $this->app->configPath('form-components.php'),
         ], 'config');
 
         $this->publishes([
-            __DIR__ . '/../resources/views' => $this->app->resourcePath('views/vendor/form-components'),
+            __DIR__.'/../resources/views' => $this->app->resourcePath('views/vendor/form-components'),
         ], 'views');
     }
 
     private function bootResources(): void
     {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views', 'form-components');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'form-components');
     }
 
     private function bootDirectives(): void

@@ -30,7 +30,7 @@ class TimezoneSelectTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-timezone-select name="timezone" only="America" />
         HTML;
 
@@ -50,8 +50,8 @@ class TimezoneSelectTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
-        <x-timezone-select name="timezone" :only="\$only" />
+        $template = <<<'HTML'
+        <x-timezone-select name="timezone" :only="$only" />
         HTML;
 
         $regions = [TimeZoneRegion::GENERAL, TimeZoneRegion::ASIA];
@@ -74,11 +74,11 @@ class TimezoneSelectTest extends ComponentTestCase
 
         config(['form-components.timezone_subset' => TimeZoneRegion::GENERAL]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-timezone-select name="timezone" />
         HTML;
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="form-text-container ">
             <select name="timezone" id="timezone" class="form-select">
                 <optgroup label="General">

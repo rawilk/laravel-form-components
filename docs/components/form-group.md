@@ -192,4 +192,3 @@ This will output:
 
 > {tip} To help space your form elements evenly in a form, you should use a `space-y-*` utility class
 > provided by tailwind on the wrapping element (usually `<form>`).
->

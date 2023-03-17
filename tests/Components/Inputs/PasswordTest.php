@@ -59,7 +59,7 @@ class PasswordTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="form-text-container">
             <input class="form-input form-text" name="password" id="password" type="password" />
         </div>
@@ -113,12 +113,12 @@ class PasswordTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-password name="password" :show-toggle="false" trailing-addon="foo" />
         HTML;
 
         // The "trailing-addon" should be regarded as a custom attribute instead
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="form-text-container">
             <input class="form-input form-text" trailing-addon="foo" name="password" id="password" type="password" />
         </div>
@@ -133,7 +133,7 @@ class PasswordTest extends ComponentTestCase
         $this->withViewErrors([]);
 
         // Even if we try to specify a trailing addon, the component should render its toggle trailing addon instead.
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-password name="password" leading-addon="foo">
             <x-slot name="trailingAddon">foo</x-slot>
         </x-password>

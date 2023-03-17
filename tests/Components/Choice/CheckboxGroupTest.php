@@ -9,13 +9,13 @@ class CheckboxGroupTest extends ComponentTestCase
     /** @test */
     public function can_be_rendered(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-checkbox-group>
             Checkboxes...
         </x-checkbox-group>
         HTML;
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="space-y-4">
             Checkboxes...
         </div>
@@ -27,13 +27,13 @@ class CheckboxGroupTest extends ComponentTestCase
     /** @test */
     public function can_be_not_stacked(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-checkbox-group :stacked="false">
             Checkboxes...
         </x-checkbox-group>
         HTML;
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="form-checkbox-group">
             Checkboxes...
         </div>

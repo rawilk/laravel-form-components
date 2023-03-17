@@ -12,7 +12,7 @@ custom option markup while still providing usability functionalities such as key
 ## Installation
 
 The custom select component requires Alpine.js, as well as some custom JavaScript written into the package to work.
-Ensure you have the proper [directives](/docs/laravel-form-components/{version}/installation#directives) in your layout file.
+Ensure you have the proper [directives](/docs/laravel-form-components/{version}/installation#user-content-directives) in your layout file.
 In production, we recommend you install and compile the JavaScript libraries before you deploy:
 
 - [Alpine.js](https://github.com/alpinejs/alpine) `^2.7`
@@ -237,4 +237,4 @@ it is opened.
 ## Addons
 
 The custom select component supports leading addons, but since there are already elements appended to the end
-of the button trigger, trailing addons are not supported. For more information on addons, see [the input documentation](/docs/laravel-form-components/{version}/components/input#addons).
+of the button trigger, trailing addons are not supported. For more information on addons, see [the input documentation](/docs/laravel-form-components/{version}/components/input#user-content-addons).

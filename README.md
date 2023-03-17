@@ -1,17 +1,21 @@
-# Laravel Form Components
+# Form Components for Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/rawilk/laravel-form-components.svg?style=flat-square)](https://packagist.org/packages/rawilk/laravel-form-components)
 ![Tests](https://github.com/rawilk/laravel-form-components/workflows/Tests/badge.svg?style=flat-square)
 [![Total Downloads](https://img.shields.io/packagist/dt/rawilk/laravel-form-components.svg?style=flat-square)](https://packagist.org/packages/rawilk/laravel-form-components)
+[![PHP from Packagist](https://img.shields.io/packagist/php-v/rawilk/laravel-form-components?style=flat-square)](https://packagist.org/packages/rawilk/laravel-form-components)
+[![License](https://img.shields.io/github/license/rawilk/laravel-form-components?style=flat-square)](https://github.com/rawilk/laravel-form-components/blob/main/LICENSE.md)
 
-Laravel form components provides common form components to help build forms faster using Tailwind CSS. Supports validation, old form values, and wire:model.
+![social image](https://banners.beyondco.de/Form%20Components%20for%20Laravel.png?theme=light&packageManager=composer+require&packageName=rawilk%2Flaravel-form-components&pattern=diagonalStripes&style=style_1&description=Form+components+built+for+tailwind+%26+Livewire&md=1&showWatermark=0&fontSize=100px&images=code)
+
+Form Components for Laravel provides common form components to help build forms faster using Tailwind CSS. Supports validation, old form values, and wire:model.
 
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require rawilk/laravel-form-components
+composer require rawilk/laravel-form-components:2.0
 ```
 
 You can publish the config file with:
@@ -67,6 +71,10 @@ try one of these alternatives if your needs differ:
 ## Roadmap
 
 - Add more form components, such as file inputs and date pickers.
+
+## Disclaimer
+
+This package is not affiliated with, maintained, authorized, endorsed or sponsored by Laravel, TailwindCSS, Laravel Livewire, Alpine.js, or any of its affiliates.
 
 ## License
 

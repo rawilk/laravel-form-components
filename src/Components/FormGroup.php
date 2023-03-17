@@ -24,7 +24,9 @@ class FormGroup extends BladeComponent
     public $labelId;
 
     public bool $inline;
+
     public bool $border;
+
     public bool $isCheckboxGroup;
 
     public function __construct(

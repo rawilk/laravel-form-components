@@ -10,8 +10,11 @@ use Illuminate\Support\ViewErrorBag;
 class Form extends BladeComponent
 {
     public string $action;
+
     public string $method;
+
     public bool $hasFiles;
+
     public bool $spellcheck;
 
     /*

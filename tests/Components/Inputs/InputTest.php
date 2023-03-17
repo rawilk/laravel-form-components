@@ -14,7 +14,7 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="form-text-container ">
             <input class="form-input form-text" name="search" id="search" type="text" />
         </div>
@@ -31,7 +31,7 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="form-text-container ">
             <input class="form-input form-text p-4" name="confirm_password" id="confirmPassword" type="password" />
         </div>
@@ -49,7 +49,7 @@ class InputTest extends ComponentTestCase
         $this->flashOld(['search' => 'Eloquent']);
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="form-text-container ">
             <input class="form-input form-text" name="search" id="search" type="text" value="Eloquent" />
         </div>
@@ -67,7 +67,7 @@ class InputTest extends ComponentTestCase
         $this->flashOld(['search' => 'Eloquent']);
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="form-text-container ">
             <input class="form-input form-text" wire:model="search" name="search" id="search" type="text" />
         </div>
@@ -84,7 +84,7 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="form-text-container ">
             <span class="leading-addon">foo</span>
 
@@ -103,13 +103,13 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-input name="search">
             <x-slot name="leadingAddon">foo</x-slot>
         </x-input>
         HTML;
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="form-text-container ">
             <span class="leading-addon">foo</span>
 
@@ -143,7 +143,7 @@ class InputTest extends ComponentTestCase
         );
 
         // With custom inline addon padding
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="form-text-container ">
             <div class="inline-addon">
                 <span>foo</span>
@@ -164,7 +164,7 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-input name="search">
             <x-slot name="inlineAddon">foo</x-slot>
         </x-input>
@@ -190,13 +190,13 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-input name="search">
             <x-slot name="leadingIcon">icon here</x-slot>
         </x-input>
         HTML;
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="form-text-container ">
             <div class="leading-icon">icon here</div>
 
@@ -212,13 +212,13 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-input name="search" leading-addon="foo" inline-addon="bar">
             <x-slot name="leadingIcon">icon here</x-slot>
         </x-input>
         HTML;
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="form-text-container ">
             <span class="leading-addon">foo</span>
 
@@ -252,7 +252,7 @@ class InputTest extends ComponentTestCase
         );
 
         // With custom trailing addon padding
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="form-text-container ">
             <input class="form-input form-text pr-20" name="search" id="search" type="text" />
 
@@ -273,7 +273,7 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-input name="search" trailing-addon-padding="pr-20">
             <x-slot name="trailingAddon">
                 foo slotted
@@ -281,7 +281,7 @@ class InputTest extends ComponentTestCase
         </x-input>
         HTML;
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="form-text-container ">
             <input class="form-input form-text pr-20" name="search" id="search" type="text" />
 
@@ -299,13 +299,13 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-input name="search">
             <x-slot name="trailingIcon">icon here</x-slot>
         </x-input>
         HTML;
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="form-text-container ">
             <input class="form-input form-text has-trailing-icon" name="search" id="search" type="text" />
 
@@ -321,13 +321,13 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-input name="search" trailing-addon="foo">
             <x-slot name="trailingIcon">icon here</x-slot>
         </x-input>
         HTML;
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="form-text-container ">
             <input class="form-input form-text pr-12" name="search" id="search" type="text" />
 
@@ -345,13 +345,13 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-input name="search" leading-addon="foo">
             <x-slot name="trailingIcon">icon here</x-slot>
         </x-input>
         HTML;
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="form-text-container ">
             <span class="leading-addon">foo</span>
 
@@ -369,7 +369,7 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors(['search' => 'required']);
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="form-text-container ">
             <input class="form-input form-text input-error" name="search" id="inputSearch" type="text" aria-invalid="true" aria-describedby="inputSearch-error" />
         </div>
@@ -386,7 +386,7 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors(['search' => 'required']);
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="form-text-container ">
             <input class="form-input form-text input-error" aria-describedby="search-help search-error" name="search" id="search" type="text" aria-invalid="true" />
         </div>
@@ -403,11 +403,11 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-input max-width="sm" name="name" />
         HTML;
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="form-text-container max-w-sm">
             <input class="form-input form-text" name="name" id="name" type="text" />
         </div>
