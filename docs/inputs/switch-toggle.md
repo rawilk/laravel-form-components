@@ -7,12 +7,12 @@ sort: 9
 
 The `switch-toggle` component offers an easy alternative to a traditional checkbox and is heavily based on
 the [Tailwind UI toggle component](https://tailwindui.com/components/application-ui/forms/toggles). The
-switch toggle acts like a checkbox, however it allows for an "off" value and an "on" value; see [custom on and off values](#custom-on-and-off-values)
+switch toggle acts like a checkbox, however it allows for an "off" value and an "on" value; see [custom on and off values](#user-content-custom-on-and-off-values)
 for more info.
 
 ## Installation
 
-While the `switch-toggle` component works out-of-the-box when you've [set the directive](/docs/laravel-form-components//{version}/installation#directives),
+While the `switch-toggle` component works out-of-the-box when you've [set the directive](/docs/laravel-form-components/{version}/installation#user-content-directives),
 we recommend that you install and compile the JavaScript libraries before you deploy to production:
 
 - [Alpine.js](https://github.com/alpinejs/alpine) `^2.8`

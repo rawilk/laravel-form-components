@@ -173,5 +173,5 @@ This will output:
 
 ## Reference
 
-Since the select component extends the [input component](/docs/laravel-form-components//{version}/components/input), you are able
+Since the select component extends the [input component](/docs/laravel-form-components/{version}/components/input), you are able
 to do a lot of the same things you can with the input element, such as error handling and addons.

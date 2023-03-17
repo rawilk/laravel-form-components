@@ -9,7 +9,7 @@ class FormErrorTest extends ComponentTestCase
     {
         $this->withViewErrors(['first_name' => 'Name is required.']);
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <p class="form-error" id="first_name-error">
             Name is required.
         </p>
@@ -26,17 +26,17 @@ class FormErrorTest extends ComponentTestCase
     {
         $this->withViewErrors(['first_name' => ['Incorrect first name.', 'Needs at least 5 characters.']]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-form-error name="first_name" tag="div">
             <ul>
-                @foreach (\$component->messages(\$errors) as \$error)
-                    <li>{{ \$error }}</li>
+                @foreach ($component->messages($errors) as $error)
+                    <li>{{ $error }}</li>
                 @endforeach
             </ul>
         </x-form-error>
         HTML;
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="form-error" id="first_name-error">
             <ul>
                 <li>Incorrect first name.</li>

@@ -13,7 +13,7 @@ class FileUploadTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="file-upload space-x-5 ">
             <div x-data="{ focused: false, isUploading: false, progress: 0 }"
                  class="space-y-4 w-full">
@@ -51,13 +51,13 @@ class FileUploadTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="file-upload space-x-5 ">
             <div x-data="{ focused: false, isUploading: false, progress: 0 }"
                  x-on:livewire-upload-start="isUploading = true"
                  x-on:livewire-upload-finish="isUploading = false"
                  x-on:livewire-upload-error="isUploading = false"
-                 x-on:livewire-upload-progress="progress = \$event.detail.progress"
+                 x-on:livewire-upload-progress="progress = $event.detail.progress"
                  class="space-y-4 w-full">
                 <span class="file-upload__input">
                     <input x-on:focus="focused = true"
@@ -112,7 +112,7 @@ class FileUploadTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="file-upload space-x-5 ">
             <div x-data="{ focused: false, isUploading: false, progress: 0 }"
                  class="space-y-4 w-full">
@@ -152,7 +152,7 @@ class FileUploadTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-file-upload name="file">
             <x-slot name="after">
                 <div>After slot content...</div>
@@ -160,7 +160,7 @@ class FileUploadTest extends ComponentTestCase
         </x-file-upload>
         HTML;
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="file-upload space-x-5 ">
             <div x-data="{ focused: false, isUploading: false, progress: 0 }"
                  class="space-y-4 w-full">
@@ -197,13 +197,13 @@ class FileUploadTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-file-upload name="file">
             <div>Default slot content...</div>
         </x-file-upload>
         HTML;
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="file-upload space-x-5 ">
             <div>Default slot content...</div>
 
@@ -240,7 +240,7 @@ class FileUploadTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="file-upload space-x-5 foo">
             <div x-data="{ focused: false, isUploading: false, progress: 0 }"
                  class="space-y-4 w-full">
@@ -278,7 +278,7 @@ class FileUploadTest extends ComponentTestCase
     {
         $this->withViewErrors(['file' => 'required']);
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="file-upload space-x-5 ">
             <div x-data="{ focused: false, isUploading: false, progress: 0 }"
                  class="space-y-4 w-full">
@@ -315,9 +315,8 @@ class FileUploadTest extends ComponentTestCase
 
     /**
      * @test
+     *
      * @dataProvider acceptsTypes
-     * @param string $type
-     * @param string $shouldAccept
      */
     public function can_be_told_to_accept_certain_preset_types(string $type, string $shouldAccept): void
     {

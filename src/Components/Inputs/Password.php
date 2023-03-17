@@ -7,6 +7,7 @@ namespace Rawilk\FormComponents\Components\Inputs;
 class Password extends Input
 {
     protected static array $assets = ['alpine'];
+
     protected bool $ignoreAddons = true;
 
     public function __construct(

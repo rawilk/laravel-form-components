@@ -7,7 +7,7 @@ class LabelTest extends ComponentTestCase
     /** @test */
     public function can_be_rendered(): void
     {
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <label for="first_name" class="form-label">
             First name
         </label>
@@ -22,13 +22,13 @@ class LabelTest extends ComponentTestCase
     /** @test */
     public function a_custom_label_can_be_used(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-label for="first_name">
             My custom label
         </x-label>
         HTML;
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <label for="first_name" class="form-label">
             My custom label
         </label>
@@ -40,7 +40,7 @@ class LabelTest extends ComponentTestCase
     /** @test */
     public function for_attribute_is_optional(): void
     {
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <label class="form-label">
             Label...
         </label>

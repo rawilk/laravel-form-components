@@ -13,7 +13,7 @@ class EmailTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="form-text-container">
             <input class="form-input form-text" name="email" id="email" type="email" />
         </div>
@@ -30,7 +30,7 @@ class EmailTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <div class="form-text-container">
             <input class="form-input form-text custom-class" name="foo" id="bar" type="email" />
         </div>

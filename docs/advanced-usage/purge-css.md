@@ -38,4 +38,4 @@ in a `/* purgecss start ignore */`:
 /* purgecss end ignore */
 ```
 
-> {tip} Please refer to [styling](/docs/laravel-form-components//{version}/installation#styling) for more information.
+> {tip} Please refer to [styling](/docs/laravel-form-components/{version}/installation#user-content-styling) for more information.
