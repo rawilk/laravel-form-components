@@ -15,7 +15,7 @@ Form Components for Laravel provides common form components to help build forms 
 You can install the package via composer:
 
 ```bash
-composer require rawilk/laravel-form-components
+composer require rawilk/laravel-form-components:4.0
 ```
 
 You can publish the config file with:
@@ -29,7 +29,7 @@ php artisan fc:publish
 php artisan fc:publish --views
 ```
 
-You can view the default configuration here: https://github.com/rawilk/laravel-form-components/blob/master/config/form-components.php
+You can view the default configuration here: https://github.com/rawilk/laravel-form-components/blob/v4/config/form-components.php
 
 ## Documentation
 
