@@ -45,8 +45,8 @@ class TimezoneSelectTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
-        <x-timezone-select name="timezone" :only="\$only" />
+        $template = <<<'HTML'
+        <x-timezone-select name="timezone" :only="$only" />
         HTML;
 
         $regions = [TimeZoneRegion::GENERAL, TimeZoneRegion::ANTARCTICA];

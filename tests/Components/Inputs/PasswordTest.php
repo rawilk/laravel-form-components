@@ -57,7 +57,7 @@ class PasswordTest extends ComponentTestCase
         $this->withViewErrors([]);
 
         // Even if we try to specify a trailing addon, the component should render its toggle trailing addon instead.
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-password name="password" leading-addon="foo">
             <x-slot name="trailingAddon">foo</x-slot>
         </x-password>

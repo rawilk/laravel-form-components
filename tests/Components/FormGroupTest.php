@@ -13,7 +13,7 @@ class FormGroupTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-form-group label="First name" name="first_name">
             Name input
         </x-form-group>
@@ -29,7 +29,7 @@ class FormGroupTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-form-group label="First name" name="first_name" help-text="Some help text">
             Name field
         </x-form-group>
@@ -45,7 +45,7 @@ class FormGroupTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-form-group label="First name" name="first_name">
             Name field
 
@@ -65,7 +65,7 @@ class FormGroupTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-form-group label="First name" name="first_name" inline>
             Name field
         </x-form-group>
@@ -81,7 +81,7 @@ class FormGroupTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-form-group label="First name" name="first_name" inline :border="false">
             Name field
         </x-form-group>
@@ -97,7 +97,7 @@ class FormGroupTest extends ComponentTestCase
     {
         $this->withViewErrors(['name' => 'Name is required.']);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-form-group label="First name" name="name">
             Name field
         </x-form-group>
@@ -113,7 +113,7 @@ class FormGroupTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-form-group label="First name" name="name" inline is-checkbox-group>
             Name field
         </x-form-group>
@@ -129,7 +129,7 @@ class FormGroupTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-form-group :label="false" name="name">
             Name field
         </x-form-group>
@@ -147,7 +147,7 @@ class FormGroupTest extends ComponentTestCase
 
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-form-group name="foo" optional>
             <x-input name="foo" aria-describedby="foo-hint" />
         </x-form-group>
@@ -163,7 +163,7 @@ class FormGroupTest extends ComponentTestCase
 
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-form-group name="foo" optional inline>
             <x-input name="foo" aria-describedby="foo-hint foo-hint-inline" />
         </x-form-group>
@@ -177,7 +177,7 @@ class FormGroupTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-form-group name="foo" hint="My hint text">
             <x-input name="foo" aria-describedby="foo-hint" />
         </x-form-group>

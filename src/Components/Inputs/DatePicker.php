@@ -30,7 +30,7 @@ class DatePicker extends Input
         public bool|null|string $format = false,
         public bool $clearable = false,
         null|string $placeholder = 'form-components::messages.date_picker_placeholder',
-        public bool|null|string  $toggleIcon = null,
+        public bool|null|string $toggleIcon = null,
         public null|string $clearIcon = null,
         public null|string $containerClass = null,
         public $extraAttributes = '',
@@ -77,7 +77,7 @@ class DatePicker extends Input
             return '';
         }
 
-        return '...' . json_encode((object) $this->options()) . ',';
+        return '...'.json_encode((object) $this->options()).',';
     }
 
     private function resolveIcons(): void

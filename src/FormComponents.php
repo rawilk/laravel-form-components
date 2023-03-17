@@ -7,6 +7,7 @@ namespace Rawilk\FormComponents;
 final class FormComponents
 {
     private array $styles = [];
+
     private array $scripts = [];
 
     public function addStyle(string $style): void
@@ -28,7 +29,7 @@ final class FormComponents
         }
 
         return collect($this->styles)->map(function (string $style) {
-            return '<link rel="stylesheet" href="' . $style . '" />';
+            return '<link rel="stylesheet" href="'.$style.'" />';
         })->implode(PHP_EOL);
     }
 
@@ -52,17 +53,14 @@ final class FormComponents
             return $js;
         }
 
-        return $js . collect($this->scripts)->map(function (string $script) {
-            return '<script src="' . $script . '"></script>';
+        return $js.collect($this->scripts)->map(function (string $script) {
+            return '<script src="'.$script.'"></script>';
         })->implode(PHP_EOL);
     }
 
     /**
      * This will output the JavaScript necessary to run some components
      * such as CustomSelect.
-     *
-     * @param array $options
-     * @return string
      */
     public function javaScript(array $options = []): string
     {
@@ -86,7 +84,7 @@ final class FormComponents
     {
         $appUrl = config('form-components.asset_url', rtrim($options['asset_url'] ?? '', '/'));
 
-        $manifest = json_decode(file_get_contents(__DIR__ . '/../dist/manifest.json'), true);
+        $manifest = json_decode(file_get_contents(__DIR__.'/../dist/manifest.json'), true);
         $versionedFileName = $manifest['/form-components.js'];
 
         $fullAssetPath = "{$appUrl}/form-components{$versionedFileName}";

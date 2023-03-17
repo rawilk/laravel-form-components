@@ -69,7 +69,7 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-input name="search">
             <x-slot name="leadingAddon">foo</x-slot>
         </x-input>
@@ -103,7 +103,7 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-input name="search">
             <x-slot name="inlineAddon">foo</x-slot>
         </x-input>
@@ -117,7 +117,7 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-input name="search">
             <x-slot name="leadingIcon">icon here</x-slot>
         </x-input>
@@ -132,7 +132,7 @@ class InputTest extends ComponentTestCase
         $this->withViewErrors([]);
 
         // leading-addon should be the only one rendered.
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-input name="search" leading-addon="foo" inline-addon="bar">
             <x-slot name="leadingIcon">icon here</x-slot>
         </x-input>
@@ -166,7 +166,7 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-input name="search" trailing-addon-padding="pr-20">
             <x-slot name="trailingAddon">
                 foo slotted
@@ -182,7 +182,7 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-input name="search">
             <x-slot name="trailingIcon">icon here</x-slot>
         </x-input>
@@ -197,7 +197,7 @@ class InputTest extends ComponentTestCase
         $this->withViewErrors([]);
 
         // should only render the trailing-addon.
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-input name="search" trailing-addon="foo">
             <x-slot name="trailingIcon">icon here</x-slot>
         </x-input>
@@ -211,7 +211,7 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-input name="search" leading-addon="foo">
             <x-slot name="trailingIcon">icon here</x-slot>
         </x-input>
@@ -245,7 +245,7 @@ class InputTest extends ComponentTestCase
     {
         $this->withViewErrors([]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-input max-width="sm" name="name" />
         HTML;
 
@@ -283,8 +283,8 @@ class InputTest extends ComponentTestCase
             'x-on:keydown="$wire.submit()"',
         ]));
 
-        $template = <<<HTML
-        <x-input name="foo" :extra-attributes="\$attributes" />
+        $template = <<<'HTML'
+        <x-input name="foo" :extra-attributes="$attributes" />
         HTML;
 
         $this->assertMatchesSnapshot($this->renderComponent($template, compact('attributes')));

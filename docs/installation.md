@@ -61,7 +61,7 @@ links by passing a `true` boolean:
 ```
 
 Libraries are only loaded for components that are enabled through the `components` config option. You can learn more about
-[disabling specific components](#components) below.
+[disabling specific components](#user-content-components) below.
 
 ## Views
 
@@ -88,14 +88,14 @@ You could copy the built CSS from `vendor/rawilk/laravel-components/resources/js
 
 If you would like to customize the CSS we provide, head over to [the section on Customizing CSS](/docs/laravel-form-components/{version}/advanced-usage/customizing-css).
 
-> {tip} If you are using Purge CSS or Tailwind's JIT compiler, you should check out the section on [Purge CSS](/docs/laravel-form-components/{version}/advanced-usage/customizing-css#purge-csstailwind-jit)
+> {tip} If you are using Purge CSS or Tailwind's JIT compiler, you should check out the section on [Purge CSS](/docs/laravel-form-components/{version}/advanced-usage/customizing-css#user-content-purge-csstailwind-jit)
 > to prevent styles from being lost in production or at compile time.
 
 ## Components
 
 Even though all components come enabled out-of-the-box, you might just want to
 only load the components you need in your app for performance reasons. To do so,
-first [publish the config file](#configuration), then remove the components
+first [publish the config file](#user-content-configuration), then remove the components
 you don't need from the `components` settings.
 
 You can also choose to use different classes and views for components. This allows you

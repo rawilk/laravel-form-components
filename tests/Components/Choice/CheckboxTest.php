@@ -54,7 +54,7 @@ class CheckboxTest extends ComponentTestCase
     /** @test */
     public function description_can_be_slotted(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-checkbox name="remember_me" label="Remember me">
             <x-slot name="description">
                 My <strong>description</strong>

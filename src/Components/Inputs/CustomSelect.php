@@ -12,6 +12,7 @@ class CustomSelect extends Select
     protected static array $assets = ['alpine', 'popper'];
 
     public null|string $placeholder;
+
     public null|string $emptyText;
 
     public function __construct(
@@ -139,7 +140,7 @@ class CustomSelect extends Select
 
     public function configToJson(): string
     {
-        return '...' . json_encode((object) $this->config()) . ',';
+        return '...'.json_encode((object) $this->config()).',';
     }
 
     private function resolveIcons(): void
