@@ -65,7 +65,7 @@ the required third-party assets [installed](#user-content-installation).
 
 ## Addons
 
-The timezone select component supports most of the available addons this package offers. Header over to the [Addons](/docs/laravel-form-components/{version}/advanced-usage/addons) documentation
+The timezone select component supports most of the available addons this package offers. Head over to the [Addons](/docs/laravel-form-components/{version}/advanced-usage/addons) documentation
 for an in-depth guide on how to use them.
 
 ## API Reference
