@@ -18,12 +18,12 @@ class FilePond extends BladeComponent
     public function __construct(
         public bool $multiple = false,
         public bool $allowDrop = true,
-        public null | string $name = null,
+        public null|string $name = null,
         public array $options = [],
         public bool $disabled = false,
-        public null | int $maxFiles = null,
+        public null|int $maxFiles = null,
         null|string $type = null,
-        public null | string $description = null,
+        public null|string $description = null,
         /*
          * When set to true, the component will watch for changes to the wire:model
          * and manually remove the files from the FilePond instance if they are
@@ -45,7 +45,7 @@ class FilePond extends BladeComponent
         ]);
 
         if (isset($label[1])) {
-            $label[1] = '<span class="fc-filepond--sub-desc">' . $label[1] . '</span>';
+            $label[1] = '<span class="fc-filepond--sub-desc">'.$label[1].'</span>';
         }
 
         /** @psalm-suppress InvalidArgument */
@@ -56,7 +56,7 @@ class FilePond extends BladeComponent
         ] + array_filter([
             'maxFiles' => $this->multiple && $this->maxFiles ? $this->maxFiles : null,
             'name' => $this->name,
-            'labelIdle' => '<span class="fc-filepond--desc">' . implode('<br>', $label) . '</span>',
+            'labelIdle' => '<span class="fc-filepond--desc">'.implode('<br>', $label).'</span>',
         ]);
 
         return array_merge($defaultOptions, $this->options);
@@ -68,7 +68,7 @@ class FilePond extends BladeComponent
             return '';
         }
 
-        return '...' . json_encode((object) $this->options()) . ',';
+        return '...'.json_encode((object) $this->options()).',';
     }
 
     public function shouldWatch($attributes): bool

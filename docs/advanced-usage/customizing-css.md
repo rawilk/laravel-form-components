@@ -3,7 +3,7 @@ title: Customizing CSS
 sort: 1
 ---
 
-If you want to change the look of the Laravel Form Components to match the style of your own app, you have multiple options.
+If you want to change the look of the form components to match the style of your own app, you have multiple options.
 
 ## Option 1: Use Your Own Tailwind CSS Configuration
 Instead of importing/linking the pre-built `dist/styles.css` from the package, you can import the `src/styles.css` and run every `@apply` rule through your own `tailwind.config.js`.
@@ -20,7 +20,7 @@ Instead of importing/linking the pre-built `dist/styles.css` from the package, y
 /* override our styles here */
 ```
 
-> {note} If you choose this option, make sure you have the [required variants](#required-variants) included in your `tailwind.config.js` configuration.
+> {note} If you choose this option, make sure you have the [required variants](#user-content-required-variants) included in your `tailwind.config.js` configuration.
 
 ## Option 2: Override Only Portions In Your CSS
 If you only want to tinker with certain aspects of the components but like to keep the CSS in sync with future package updates, nothing stops you from overriding only certain CSS rules with your own tweaks. Most DOM elements have their own custom class names.
@@ -70,7 +70,7 @@ select[disabled] {
 ```
 
 ## Required Variants
-If you choose [Option 1](#option-1-use-your-own-tailwind-css-configuration), you will need the following color variants added inside your `tailwind.config.js` file:
+If you choose [Option 1](#user-content-option-1-use-your-own-tailwind-css-configuration), you will need the following color variants added inside your `tailwind.config.js` file:
 
 ```js
 // tailwind.config.js

@@ -13,17 +13,18 @@ class CustomSelect extends Select
     protected static array $assets = ['alpine', 'popper'];
 
     public null|string $placeholder;
+
     public null|string $emptyText;
 
     protected bool $jsonEncodeArrayValues = false;
 
     public function __construct(
-        public null | string $name = null,
-        public null | string $id = null,
-        public array | Collection $options = [],
+        public null|string $name = null,
+        public null|string $id = null,
+        public array|Collection $options = [],
         public mixed $value = null,
         public bool $multiple = false,
-        public null | string $maxWidth = null,
+        public null|string $maxWidth = null,
         bool $showErrors = true,
         $leadingAddon = false,
         $inlineAddon = false,
@@ -35,17 +36,17 @@ class CustomSelect extends Select
         public string $textField = 'text',
         public string $disabledField = 'disabled',
         public bool $filterable = false,
-        public null | string $clearIcon = null,
+        public null|string $clearIcon = null,
         public bool $disabled = false,
-        public null | string $selectedIcon = null,
-        public null | string $uncheckIcon = null,
+        public null|string $selectedIcon = null,
+        public null|string $uncheckIcon = null,
         public bool $maxOptionsSelected = false,
-        public bool | null | string $optionDisplay = false,
-        public bool | null | string $buttonDisplay = false,
+        public bool|null|string $optionDisplay = false,
+        public bool|null|string $buttonDisplay = false,
         public array $wireListeners = [],
         null|string $emptyText = 'form-components::messages.custom_select_empty_text',
         public bool $convertValuesToString = false,
-        public null | string $containerClass = null,
+        public null|string $containerClass = null,
         public $extraAttributes = '',
         public $after = null,
     ) {
@@ -143,7 +144,7 @@ class CustomSelect extends Select
 
     public function configToJson(): string
     {
-        return '...' . json_encode((object) $this->config()) . ',';
+        return '...'.json_encode((object) $this->config()).',';
     }
 
     private function resolveIcons(): void

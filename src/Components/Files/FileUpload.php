@@ -18,11 +18,12 @@ class FileUpload extends BladeComponent
     protected static array $assets = ['alpine'];
 
     protected null|bool $canShowUploadProgress = null;
+
     public null|string $label;
 
     public function __construct(
-        public null | string $name = null,
-        public null | string $id = null,
+        public null|string $name = null,
+        public null|string $id = null,
         null|string $label = 'form-components::messages.file_upload_label',
         public bool $multiple = false,
         null|string $type = null,

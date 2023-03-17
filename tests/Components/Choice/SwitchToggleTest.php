@@ -75,7 +75,7 @@ final class SwitchToggleTest extends ComponentTestCase
     /** @test */
     public function can_have_on_and_off_state_icons(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-switch-toggle id="foo">
             <x-slot name="offIcon">off</x-slot>
             <x-slot name="onIcon">on</x-slot>

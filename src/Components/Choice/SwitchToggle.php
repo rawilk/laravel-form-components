@@ -20,19 +20,19 @@ class SwitchToggle extends BladeComponent
     private string $labelId;
 
     public function __construct(
-        public null | string $name = null,
-        public null | string $id = null,
+        public null|string $name = null,
+        public null|string $id = null,
         public mixed $value = false,
         public mixed $onValue = true,
         public mixed $offValue = false,
-        public null | string $containerClass = null,
+        public null|string $containerClass = null,
         public bool $short = false,
-        public null | string $label = null,
+        public null|string $label = null,
         public string $labelPosition = 'right',
-        public null | string $offIcon = null, // doesn't apply to short mode
-        public null | string $onIcon = null, // doesn't apply to short mode
-        public null | string $buttonLabel = 'form-components::messages.switch_button_label',
-        public null | string $size = null,
+        public null|string $offIcon = null, // doesn't apply to short mode
+        public null|string $onIcon = null, // doesn't apply to short mode
+        public null|string $buttonLabel = 'form-components::messages.switch_button_label',
+        public null|string $size = null,
         public bool $disabled = false,
         public $extraAttributes = '',
     ) {

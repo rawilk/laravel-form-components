@@ -51,7 +51,7 @@ final class PasswordTest extends ComponentTestCase
     public function slotted_trailing_addons_are_ignored(): void
     {
         // Even if we try to specify a trailing addon, the component should render its toggle trailing addon instead.
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-password name="password" leading-addon="leading addon">
             <x-slot name="trailingAddon">trailing addon</x-slot>
         </x-password>

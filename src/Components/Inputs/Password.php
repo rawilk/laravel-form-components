@@ -9,22 +9,23 @@ use Illuminate\Support\Arr;
 class Password extends Input
 {
     protected static array $assets = ['alpine'];
+
     protected bool $ignoreAddons = true;
 
     public function __construct(
-        public null | string $name = null,
-        public null | string $id = null,
+        public null|string $name = null,
+        public null|string $id = null,
         public mixed $value = null,
-        public null | string $maxWidth = null,
+        public null|string $maxWidth = null,
         bool $showErrors = true,
         $leadingAddon = false,
         $inlineAddon = false,
         $inlineAddonPadding = self::DEFAULT_INLINE_ADDON_PADDING,
         $leadingIcon = false,
         public bool $showToggle = true,
-        public null | string $showPasswordIcon = null,
-        public null | string $hidePasswordIcon = null,
-        public null | string $containerClass = null,
+        public null|string $showPasswordIcon = null,
+        public null|string $hidePasswordIcon = null,
+        public null|string $containerClass = null,
         public $extraAttributes = '',
         public $after = null,
     ) {

@@ -20,7 +20,7 @@ class MySelect extends Select
 {
     // Override stuff here...
     
-    /*
+    /**
      * You will need to override this method to
      * let the BladeComponent parent class
      * know where to look for this component's

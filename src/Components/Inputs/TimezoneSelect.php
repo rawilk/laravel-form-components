@@ -9,11 +9,11 @@ class TimezoneSelect extends Select
     public null|string $placeholder;
 
     public function __construct(
-        public null | string $name = null,
-        public null | string $id = null,
+        public null|string $name = null,
+        public null|string $id = null,
         public mixed $value = null,
         public bool $multiple = false,
-        public null | string $maxWidth = null,
+        public null|string $maxWidth = null,
         bool $showErrors = true,
         $leadingAddon = false,
         $inlineAddon = false,
@@ -22,12 +22,12 @@ class TimezoneSelect extends Select
         $trailingAddon = false,
         $trailingAddonPadding = self::DEFAULT_TRAILING_ADDON_PADDING,
         $trailingIcon = false,
-        public bool | array | string | null $only = null,
+        public bool|array|string|null $only = null,
         public bool $useCustomSelect = false,
         public bool $filterable = true,
         public bool $optional = false,
         null|string $placeholder = 'form-components::messages.timezone_select_placeholder',
-        public null | string $containerClass = null,
+        public null|string $containerClass = null,
         public $extraAttributes = '',
         public $after = null,
     ) {

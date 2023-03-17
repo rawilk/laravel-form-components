@@ -88,7 +88,7 @@ You could copy the built CSS from `vendor/rawilk/laravel-components/resources/js
 
 If you would like to customize the CSS we provide, head over to [the section on Customizing CSS](/docs/laravel-form-components/{version}/advanced-usage/customizing-css).
 
-> {tip} If you are using Purge CSS or Tailwind's JIT compiler, you should check out the section on [Purge CSS](/docs/laravel-form-components/{version}/advanced-usage/customizing-css#purge-csstailwind-jit)
+> {tip} If you are using Purge CSS or Tailwind's JIT compiler, you should check out the section on [Purge CSS](/docs/laravel-form-components/{version}/advanced-usage/customizing-css#user-content-purge-csstailwind-jit)
 > to prevent styles from being lost in production or at compile time.
 
 ## Components
