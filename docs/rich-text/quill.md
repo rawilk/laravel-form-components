@@ -239,7 +239,7 @@ Here's an example of how you could hook into the `selection-change` event that Q
 </x-quill>
 ```
 
-> {note} If you need to hook into the `text-change` event fired by Quill, you should use the [onTextChange](#user-content-onTextChange-slot) slot instead.
+> {note} If you need to hook into the `text-change` event fired by Quill, you should use the [onTextChange](#user-content-ontextchange-slot) slot instead.
 
 ## onTextChange Slot
 
