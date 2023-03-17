@@ -29,7 +29,7 @@ php artisan fc:publish
 php artisan fc:publish --views
 ```
 
-You can view the default configuration here: https://github.com/rawilk/laravel-form-components/blob/master/config/form-components.php
+You can view the default configuration here: https://github.com/rawilk/laravel-form-components/blob/v2/config/form-components.php
 
 ## Documentation
 
