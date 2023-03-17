@@ -8,7 +8,11 @@
         "form",
         "Laravel",
         "Blade",
-        "date picker"
+        "date picker",
+        "toggle",
+        "flatpickr",
+        "custom-select",
+        "filepond"
     ],
     "homepage": "https://github.com/rawilk/laravel-form-components",
     "license": "MIT",
