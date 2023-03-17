@@ -3,7 +3,7 @@ title: Customizing CSS
 sort: 1
 ---
 
-If you want to change the look of the Laravel Form Components to match the style of your own app, you have multiple options.
+If you want to change the look of the form components to match the style of your own app, you have multiple options.
 
 ## Option 1: Use Your Own Tailwind CSS Configuration
 You can import the `index.css` and run every `@apply` rule through your own `tailwind.config.js`.

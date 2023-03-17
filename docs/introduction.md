@@ -5,7 +5,7 @@ sort: 1
 
 ## Introduction
 
-Laravel form components provides common form components to help build forms faster using Tailwind CSS. Supports validation, old form values, and wire:model.
+Form Components for Laravel provides common form components to help build forms faster using Tailwind CSS. Supports validation, old form values, and wire:model.
 
 ## Alternatives
 
