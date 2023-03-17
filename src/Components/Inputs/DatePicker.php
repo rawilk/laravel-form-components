@@ -9,17 +9,24 @@ class DatePicker extends Input
     protected static array $assets = ['alpine', 'flatpickr'];
 
     public array $options;
+
     public $toggleIcon;
+
     public $clearIcon;
+
     public bool $clearable;
+
     public string $placeholder;
 
     /*
      * Convenience options
      */
     public bool $clickOpens;
+
     public bool $allowInput;
+
     public bool $enableTime;
+
     public $format;
 
     public function __construct(
@@ -102,6 +109,6 @@ class DatePicker extends Input
             return '';
         }
 
-        return '...' . json_encode((object) $this->options()) . ',';
+        return '...'.json_encode((object) $this->options()).',';
     }
 }

@@ -12,7 +12,7 @@ custom option markup while still providing usability functionalities such as key
 ## Installation
 
 The custom select component requires Alpine.js, as well as some custom JavaScript written into the package to work.
-Ensure you have the proper [directives](/docs/laravel-form-components/{version}/installation#directives) in your layout file.
+Ensure you have the proper [directives](/docs/laravel-form-components/{version}/installation#user-content-directives) in your layout file.
 In production, we recommend you install and compile the JavaScript libraries before you deploy:
 
 - [Alpine.js](https://github.com/alpinejs/alpine) `^2.7`
@@ -71,10 +71,10 @@ The `custom-select-option` also has a default slot which will allow you to custo
 ```
 
 In either case, you still need to provide the `option` attribute, and then any value/text mapping you need. The `option` attribute
-is used by the package's JavaScript to help with keyboard navigation and also for local [filtering](#server-side-filtering) of options if you
+is used by the package's JavaScript to help with keyboard navigation and also for local [filtering](#user-content-server-side-filtering) of options if you
 have filters enabled on the select.
 
-> {note} Any content you place inside of the option will also be displayed on the button when the option is selected.
+> {note} Any content you place inside the option will also be displayed on the button when the option is selected.
 
 ### Disabling Options
 
@@ -149,4 +149,4 @@ it is opened.
 ## Addons
 
 The custom select component supports leading addons, but since there are already elements appended to the end
-of the button trigger, trailing addons are not supported. For more information on addons, see [the input documentation](/docs/laravel-form-components/{version}/components/input#addons).
+of the button trigger, trailing addons are not supported. For more information on addons, see [the input documentation](/docs/laravel-form-components/{version}/components/input#user-content-addons).

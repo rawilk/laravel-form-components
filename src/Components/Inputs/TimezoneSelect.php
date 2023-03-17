@@ -18,9 +18,13 @@ class TimezoneSelect extends Select
 
     // Options that apply if using custom select...
     public bool $useCustomSelect;
+
     public bool $filterable;
+
     public bool $optional;
+
     public $placeholder;
+
     public bool $fixedPosition;
 
     public function __construct(

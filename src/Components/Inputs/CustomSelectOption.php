@@ -10,11 +10,17 @@ use Rawilk\FormComponents\Components\BladeComponent;
 class CustomSelectOption extends BladeComponent
 {
     public $option;
+
     public bool $disabled;
+
     public $selectedIcon;
+
     public $uncheckIcon;
+
     public $valueKey;
+
     public $textKey;
+
     public bool $isGroup;
 
     public function __construct(

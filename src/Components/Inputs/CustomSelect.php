@@ -14,11 +14,17 @@ class CustomSelect extends Select
     public $placeholder;
 
     public bool $optional;
+
     public $valueKey;
+
     public $textKey;
+
     public bool $filterable;
+
     public $clearIcon;
+
     public bool $disabled;
+
     public bool $fixedPosition;
 
     public function __construct(
@@ -105,6 +111,6 @@ class CustomSelect extends Select
 
     public function configToJson(): string
     {
-        return '...' . json_encode((object) $this->config()) . ',';
+        return '...'.json_encode((object) $this->config()).',';
     }
 }

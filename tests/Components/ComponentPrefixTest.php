@@ -16,7 +16,7 @@ class ComponentPrefixTest extends ComponentTestCase
     /** @test */
     public function a_custom_prefix_can_be_used(): void
     {
-        $expected = <<<HTML
+        $expected = <<<'HTML'
         <form method="POST" action="http://example.com" spellcheck="false">
             <input type="hidden" name="_token" value="">
         </form>

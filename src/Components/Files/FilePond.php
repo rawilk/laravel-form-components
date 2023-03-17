@@ -16,8 +16,11 @@ class FilePond extends BladeComponent
     protected static array $assets = ['alpine', 'filepond'];
 
     public bool $multiple;
+
     public bool $allowDrop;
+
     public bool $disabled;
+
     public array $options;
 
     /** @var string|null */
@@ -33,8 +36,6 @@ class FilePond extends BladeComponent
      * When set to true, the component will watch for changes to the wire:model
      * and manually remove the files from the FilePond instance if they are
      * still present.
-     *
-     * @var bool
      */
     public bool $watchValue;
 
@@ -70,7 +71,7 @@ class FilePond extends BladeComponent
         ]);
 
         if (isset($label[1])) {
-            $label[1] = '<span class="fc-filepond--sub-desc">' . $label[1] . '</span>';
+            $label[1] = '<span class="fc-filepond--sub-desc">'.$label[1].'</span>';
         }
 
         $defaultOptions = [
@@ -80,7 +81,7 @@ class FilePond extends BladeComponent
         ] + array_filter([
             'maxFiles' => $this->multiple && $this->maxFiles ? $this->maxFiles : null,
             'name' => $this->name,
-            'labelIdle' => '<span class="fc-filepond--desc">' . implode('<br>', $label) . '</span>',
+            'labelIdle' => '<span class="fc-filepond--desc">'.implode('<br>', $label).'</span>',
         ]);
 
         return array_merge($defaultOptions, $this->options);
@@ -92,7 +93,7 @@ class FilePond extends BladeComponent
             return '';
         }
 
-        return '...' . json_encode((object) $this->options()) . ',';
+        return '...'.json_encode((object) $this->options()).',';
     }
 
     public function shouldWatch($attributes): bool

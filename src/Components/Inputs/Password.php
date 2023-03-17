@@ -9,7 +9,9 @@ class Password extends Input
     protected static array $assets = ['alpine'];
 
     public bool $showToggle;
+
     public ?string $showPasswordIcon;
+
     public ?string $hidePasswordIcon;
 
     public function __construct(
