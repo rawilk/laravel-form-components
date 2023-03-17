@@ -13,9 +13,9 @@ can be done with the timezone select.
 
 If you choose to render the timezone select as a `custom-select`, the following third-party libraries will need to be installed:
 
-- Alpine.js
-- Alpine [Focus Plugin](https://alpinejs.dev/plugins/focus)
-- Popper
+-   Alpine.js
+-   Alpine [Focus Plugin](https://alpinejs.dev/plugins/focus)
+-   Popper
 
 See [Third-Party Assets](/docs/laravel-form-components/{version}/installation#user-content-third-party-assets) on the installation guide for further setup information.
 
@@ -72,52 +72,52 @@ for an in-depth guide on how to use them.
 
 ### props
 
-| prop | description                                                                                                                             |
-| --- |-----------------------------------------------------------------------------------------------------------------------------------------|
-| `name` | Name of the select                                                                                                                      |
-| `id` | Id of the select. Defaults to `name`.                                                                                                   |
-| `value` | Initial value of the select                                                                                                             |
-| `containerClass` | Defines a CSS class to apply to the **container** of the select                                                                         |
-| `size` | Define a size for the select. Default size is `md`                                                                                      |
-| `showErrors` | If a validation error is present for the select, it will show the error state on the select                                             |
-| `extraAttributes` | Pass an array of HTML attributes to render on the select                                                                                |
-| `leadingAddon` | Render text on the left of the input                                                                                                    |
-| `leadingIcon` | Render an icon on the left of the input                                                                                                 |
-| `inlineAddon` | Render text inside the input on the left                                                                                                |
-| `trailingAddon` | Render text on the right of the input                                                                                                   |
+| prop                  | description                                                                                                                             |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| `name`                | Name of the select                                                                                                                      |
+| `id`                  | Id of the select. Defaults to `name`.                                                                                                   |
+| `value`               | Initial value of the select                                                                                                             |
+| `containerClass`      | Defines a CSS class to apply to the **container** of the select                                                                         |
+| `size`                | Define a size for the select. Default size is `md`                                                                                      |
+| `showErrors`          | If a validation error is present for the select, it will show the error state on the select                                             |
+| `extraAttributes`     | Pass an array of HTML attributes to render on the select                                                                                |
+| `leadingAddon`        | Render text on the left of the input                                                                                                    |
+| `leadingIcon`         | Render an icon on the left of the input                                                                                                 |
+| `inlineAddon`         | Render text inside the input on the left                                                                                                |
+| `trailingAddon`       | Render text on the right of the input                                                                                                   |
 | `trailingInlineAddon` | Render text inside the input on the right                                                                                               |
-| `trailingIcon` | Render an icon on the right of the input                                                                                                |
-| `multiple` | A boolean indicating that multiple timezones can be selected                                                                            |
-| `only` | Specify a subset of timezones to render. Set to `false` for all. Can be a string, or array of strings containing timezone region names. |
+| `trailingIcon`        | Render an icon on the right of the input                                                                                                |
+| `multiple`            | A boolean indicating that multiple timezones can be selected                                                                            |
+| `only`                | Specify a subset of timezones to render. Set to `false` for all. Can be a string, or array of strings containing timezone region names. |
 
 Custom select only props.
 
-| prop | description |
-| --- | --- |
-| `useCustomSelect` | A boolean indicating whether or not to render the select using the `custom-select` component |
-| `minSelected` | In a multi-select, the minimum amount of timezones that must be selected |
-| `maxSelected` | In a multi-select, the maximum amount of timezones that may be selected |
-| `optional` | A boolean indicating the select is optional |
-| `searchable` | A boolean indicating the select is filterable |
-| `clearable` | A boolean indicating the value of the select can be cleared |
-| `alwaysOpen` | A boolean value indicating that the menu should always be open |
-| `buttonIcon` | A name of an icon component to use for the arrows on the right of the trigger                                                    |
-| `clearIcon` | A name of an icon component to render in the clear button |
-| `placeholder` | Placeholder text to show in the trigger when no option is selected. |
-| `optionSelectedIcon` | A name of an icon component to render next to an option in the menu when it is selected |
+| prop                 | description                                                                                  |
+| -------------------- | -------------------------------------------------------------------------------------------- |
+| `useCustomSelect`    | A boolean indicating whether or not to render the select using the `custom-select` component |
+| `minSelected`        | In a multi-select, the minimum amount of timezones that must be selected                     |
+| `maxSelected`        | In a multi-select, the maximum amount of timezones that may be selected                      |
+| `optional`           | A boolean indicating the select is optional                                                  |
+| `searchable`         | A boolean indicating the select is filterable                                                |
+| `clearable`          | A boolean indicating the value of the select can be cleared                                  |
+| `alwaysOpen`         | A boolean value indicating that the menu should always be open                               |
+| `buttonIcon`         | A name of an icon component to use for the arrows on the right of the trigger                |
+| `clearIcon`          | A name of an icon component to render in the clear button                                    |
+| `placeholder`        | Placeholder text to show in the trigger when no option is selected.                          |
+| `optionSelectedIcon` | A name of an icon component to render next to an option in the menu when it is selected      |
 
 ### slots
 
-| slot | description                                         |
-| --- |-----------------------------------------------------|
-| `before` | Render HTML before the select and/or leading addons |
-| `after` | Render HTML after the select and/or trailing addons |
-| `leadingAddon` | Render text on the left of the select               |
-| `leadingIcon` | Render an icon on the left of the select            |
-| `inlineAddon` | Render text inside the select on the left           |
-| `trailingAddon` | Render text on the right of the select              |
+| slot                  | description                                         |
+| --------------------- | --------------------------------------------------- |
+| `before`              | Render HTML before the select and/or leading addons |
+| `after`               | Render HTML after the select and/or trailing addons |
+| `leadingAddon`        | Render text on the left of the select               |
+| `leadingIcon`         | Render an icon on the left of the select            |
+| `inlineAddon`         | Render text inside the select on the left           |
+| `trailingAddon`       | Render text on the right of the select              |
 | `trailingInlineAddon` | Render text inside the select on the right          |
-| `trailingIcon` | Render an icon on the right of the select           |
+| `trailingIcon`        | Render an icon on the right of the select           |
 
 ### config
 
@@ -128,7 +128,7 @@ you may want for the timezone-select element.
 'defaults' => [
     'global' => [
         // Show error states by default.
-        'show_errors' => true,    
+        'show_errors' => true,
     ],
 
     'input' => [
@@ -136,7 +136,7 @@ you may want for the timezone-select element.
         // Applies to all input types except for checkbox/radios.
         'size' => 'md',
     ],
-    
+
     'custom_select' => [
         // Apply a CSS class by default to the root element of the custom select.
         // Note: this will also apply to tree-select as well.
@@ -180,7 +180,7 @@ you may want for the timezone-select element.
         // Set to null to disable it.
         'max_selected' => null,
     ],
-    
+
     'timezone_select' => [
         // Use the custom select component by default for the timezone select.
         'use_custom_select' => true,

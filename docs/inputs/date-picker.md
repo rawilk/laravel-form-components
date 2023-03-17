@@ -149,11 +149,8 @@ the event.
 ```html
 <x-date-picker name="birthday">
     <x-slot:config>
-        onOpen: [
-            function (selectedDates, dateStr, instance) { 
-                // do something 
-            },
-        ],
+        onOpen: [ function (selectedDates, dateStr, instance) { // do something
+        }, ],
     </x-slot:config>
 </x-date-picker>
 ```
@@ -179,47 +176,47 @@ See [$datePicker](#user-content-datepicker) for more info on the magic variable.
 
 ### props
 
-| prop  | description                                                                                                   |
-|-------|---------------------------------------------------------------------------------------------------------------|
-| `name` | Name of the input                                                                                             |
-| `id` | Id of the input. Defaults to name.                                                                            |
-| `type` | Type of input. Defaults to `text`                                                                             |
-| `value` | Value of the input. Gets omitted if `wire:model` or `x-model` is present                                      |
-| `containerClass` | Defines a CSS class to apply to the **container** of the input                                                |
-| `size` | Define a size for the input. Default size is `md`                                                             |
-| `showErrors` | If a validation error is present for the input, it will show the error state on the input                     |
-| `extraAttributes` | Pass an array of HTML attributes to render on the input                                                       |
-| `leadingAddon` | Render text on the left of the input                                                                          |
-| `leadingIcon` | Render an icon on the left of the input                                                                       |
-| `inlineAddon` | Render text inside the input on the left                                                                      |
-| `trailingAddon` | Render text on the right of the input                                                                         |
+| prop                  | description                                                                                                   |
+| --------------------- | ------------------------------------------------------------------------------------------------------------- |
+| `name`                | Name of the input                                                                                             |
+| `id`                  | Id of the input. Defaults to name.                                                                            |
+| `type`                | Type of input. Defaults to `text`                                                                             |
+| `value`               | Value of the input. Gets omitted if `wire:model` or `x-model` is present                                      |
+| `containerClass`      | Defines a CSS class to apply to the **container** of the input                                                |
+| `size`                | Define a size for the input. Default size is `md`                                                             |
+| `showErrors`          | If a validation error is present for the input, it will show the error state on the input                     |
+| `extraAttributes`     | Pass an array of HTML attributes to render on the input                                                       |
+| `leadingAddon`        | Render text on the left of the input                                                                          |
+| `leadingIcon`         | Render an icon on the left of the input                                                                       |
+| `inlineAddon`         | Render text inside the input on the left                                                                      |
+| `trailingAddon`       | Render text on the right of the input                                                                         |
 | `trailingInlineAddon` | Render text inside the input on the right                                                                     |
-| `trailingIcon` | Render an icon on the right of the input                                                                      |
-| `options` | An array of scalar values to configure flatpickr                                                              |
-| `mode` | The mode of date selection. Supports `single`, `multiple`, and `range`. Defaults to `single`                  |
-| `clickOpens` | Allow the date picker to open when the input element is clicked on.                                           |
-| `allowInput` | Allow user to enter a date into the input element directly.                                                   |
-| `enableTime` | Show a time picker                                                                                            |
-| `format` | Define a format for the date to send to the server                                                            |
-| `toggleIcon` | A name for an icon component to show for the toggle button                                                    |
-| `clearable` | If `true`, a button will be appended to the input to clear the value. Requires `clearIcon` to be set as well. |
-| `clearIcon` | The name of an icon component to display in the clear button                                                  |
-| `placeholder` | Text to show as a placeholder. Defaults to a translation key in package's translations.                       |
+| `trailingIcon`        | Render an icon on the right of the input                                                                      |
+| `options`             | An array of scalar values to configure flatpickr                                                              |
+| `mode`                | The mode of date selection. Supports `single`, `multiple`, and `range`. Defaults to `single`                  |
+| `clickOpens`          | Allow the date picker to open when the input element is clicked on.                                           |
+| `allowInput`          | Allow user to enter a date into the input element directly.                                                   |
+| `enableTime`          | Show a time picker                                                                                            |
+| `format`              | Define a format for the date to send to the server                                                            |
+| `toggleIcon`          | A name for an icon component to show for the toggle button                                                    |
+| `clearable`           | If `true`, a button will be appended to the input to clear the value. Requires `clearIcon` to be set as well. |
+| `clearIcon`           | The name of an icon component to display in the clear button                                                  |
+| `placeholder`         | Text to show as a placeholder. Defaults to a translation key in package's translations.                       |
 
 ### slots
 
-| slot | description |
-| --- | --- |
-| `before` | Render HTML before the input and/or leading addons |
-| `after` | Render HTML after the input and/or trailing addons |
-| `leadingAddon` | Render text on the left of the input |
-| `leadingIcon` | Render an icon on the left of the input |
-| `inlineAddon` | Render text inside the input on the left |
-| `trailingAddon` | Render text on the right of the input |
-| `trailingInlineAddon` | Render text inside the input on the right |
-| `trailingIcon` | Render an icon on the right of the input |
-| `config` | Allows you to define JavaScript callbacks for flatpickr. Slot is rendered inside a JavaScript object. |
-| `end` | Render any kind of HTML at the end of the component markup, but inside of the `x-data` scope. |
+| slot                  | description                                                                                           |
+| --------------------- | ----------------------------------------------------------------------------------------------------- |
+| `before`              | Render HTML before the input and/or leading addons                                                    |
+| `after`               | Render HTML after the input and/or trailing addons                                                    |
+| `leadingAddon`        | Render text on the left of the input                                                                  |
+| `leadingIcon`         | Render an icon on the left of the input                                                               |
+| `inlineAddon`         | Render text inside the input on the left                                                              |
+| `trailingAddon`       | Render text on the right of the input                                                                 |
+| `trailingInlineAddon` | Render text inside the input on the right                                                             |
+| `trailingIcon`        | Render an icon on the right of the input                                                              |
+| `config`              | Allows you to define JavaScript callbacks for flatpickr. Slot is rendered inside a JavaScript object. |
+| `end`                 | Render any kind of HTML at the end of the component markup, but inside of the `x-data` scope.         |
 
 ### config
 
@@ -230,7 +227,7 @@ you may want for the date picker element.
 'defaults' => [
     'global' => [
         // Show error states by default.
-        'show_errors' => true,    
+        'show_errors' => true,
     ],
 
     'input' => [
@@ -245,7 +242,7 @@ you may want for the date picker element.
         // Base input classes applied by default.
         'input_class' => null,
     ],
-    
+
     'date_picker' => [
         // Allow date picker to open from clicking on the input by default.
         'click_opens' => false,
@@ -281,9 +278,9 @@ you may want for the date picker element.
 A magic variable that exposes information about the current state of the date picker. Under normal use,
 you shouldn't need to access this variable. The `end` slot is a convenient way to access it.
 
-| Property | Description |
-| --- | --- |
-| `isDisabled` | A boolean indicating if the date picker is disabled |
-| `flatpickr` | Exposes the `flatpickr` instance on the component |
-| `hasValue` | A boolean indicating if the date picker has a value selected |
-| `open()` | A callable that opens up the date picker |
+| Property     | Description                                                  |
+| ------------ | ------------------------------------------------------------ |
+| `isDisabled` | A boolean indicating if the date picker is disabled          |
+| `flatpickr`  | Exposes the `flatpickr` instance on the component            |
+| `hasValue`   | A boolean indicating if the date picker has a value selected |
+| `open()`     | A callable that opens up the date picker                     |

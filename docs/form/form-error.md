@@ -87,12 +87,12 @@ them and render them.
 
 ### props
 
-| prop | description |
-| --- | --- |
-| `name` | The name of the input to render errors for |
+| prop      | description                                                                                                              |
+| --------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `name`    | The name of the input to render errors for                                                                               |
 | `inputId` | The ID of the input element to render errors for. This is useful for using `aria-describedby` attributes on the element. |
-| `bag` | The name of the validation error bag. Defaults to `default` |
-| `tag` | The tag name of the element to wrap the error(s) in. Defaults to `<p>` |
+| `bag`     | The name of the validation error bag. Defaults to `default`                                                              |
+| `tag`     | The tag name of the element to wrap the error(s) in. Defaults to `<p>`                                                   |
 
 ### methods
 

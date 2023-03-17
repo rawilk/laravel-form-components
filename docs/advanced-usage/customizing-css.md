@@ -33,8 +33,7 @@ Beware: you will have to manually keep this CSS in sync with changes in future p
 ```css
 /* app.css */
 
-... 
-@import "custom/laravel-form-components.css";
+... @import "custom/laravel-form-components.css";
 ```
 
 Let's say you wanted to change the spacing in stacked checkbox groups. You could do so like this in the file you just created with the pasted in styles from the package:
@@ -44,7 +43,7 @@ Let's say you wanted to change the spacing in stacked checkbox groups. You could
 
 .form-checkbox-group--stacked {
     @apply space-y-2;
-    
+
     /* styles from the package */
     /*@apply space-y-4;*/
 }
@@ -92,11 +91,11 @@ The `@tailwindcss/forms` plugin is necessary to for some base styles to be appli
 module.exports = {
     // ...
     plugins: [
-        require('@tailwindcss/forms'),
-        
+        require("@tailwindcss/forms"),
+
         // Only necessary if you're going to use the switch-toggle component with different colors
-        require('./vendor/rawilk/laravel-form-components/resources/js/tailwind-plugins/switch-toggle'),
-    ]
+        require("./vendor/rawilk/laravel-form-components/resources/js/tailwind-plugins/switch-toggle"),
+    ],
 };
 ```
 
@@ -125,7 +124,7 @@ module.exports = {
 };
 ```
 
-Due to the dynamic nature of how some classes are rendered onto the markup, you may still find some of them being purged by Tailwind. Here's a few you may want to 
+Due to the dynamic nature of how some classes are rendered onto the markup, you may still find some of them being purged by Tailwind. Here's a few you may want to
 add to your `safelist` to prevent from being purged:
 
 ```js
@@ -162,10 +161,9 @@ Some styling for components, such as text color and border colors, can be overri
 you could add the following to your app's CSS file:
 
 ```css
-...
-:root {
-    --input-border-color: theme('colors.green.300');
-    --input-dark-border-color: theme('colors.green.500');
+... :root {
+    --input-border-color: theme("colors.green.300");
+    --input-dark-border-color: theme("colors.green.500");
 }
 ```
 
@@ -175,7 +173,7 @@ For a full reference of the variables you can set in your CSS, please refer to t
 
 ## Dark Mode
 
-The package's components have also been styled for dark mode and will work with both the class based and OS based strategies. If you are using the class based dark mode 
+The package's components have also been styled for dark mode and will work with both the class based and OS based strategies. If you are using the class based dark mode
 strategy, be sure to use the default `dark` class for dark mode.
 
 For more information, please refer to [Tailwind's Dark Mode Documentation](https://tailwindcss.com/docs/dark-mode).

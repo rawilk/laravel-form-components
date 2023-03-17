@@ -30,7 +30,11 @@ The show and hide icons shown on the toggle button can be set using the `showPas
 file for the password input; see [config](#user-content-config) below.
 
 ```html
-<x-password name="password" show-password-icon="heroicon-m-eye" hide-password-icon="heroicon-m-eye-slash" />
+<x-password
+    name="password"
+    show-password-icon="heroicon-m-eye"
+    hide-password-icon="heroicon-m-eye-slash"
+/>
 ```
 
 ## Show Password Toggle
@@ -66,41 +70,41 @@ See the [addons documentation](/docs/laravel-form-components/{version}/advanced-
 
 ### props
 
-| prop  | description                                                                                              |
-|-------|----------------------------------------------------------------------------------------------------------|
-| `name` | Name of the input                                                                                        |
-| `id` | Id of the input. Defaults to name.                                                                       |
-| `type` | Type of input. Defaults to `text`                                                                        |
-| `value` | Value of the input. Gets omitted if `wire:model` or `x-model` is present                                 |
-| `containerClass` | Defines a CSS class to apply to the **container** of the input                                           |
-| `size` | Define a size for the input. Default size is `md`                                                        |
-| `showErrors` | If a validation error is present for the input, it will show the error state on the input                |
-| `extraAttributes` | Pass an array of HTML attributes to render on the input                                                  |
-| `leadingAddon` | Render text on the left of the input                                                                     |
-| `leadingIcon` | Render an icon on the left of the input                                                                  |
-| `inlineAddon` | Render text inside the input on the left                                                                 |
-| `trailingAddon` | Render text on the right of the input                                                                    |
-| `trailingInlineAddon` | Render text inside the input on the right                                                                |
-| `trailingIcon` | Render an icon on the right of the input                                                                 |
-| `showToggle` | A boolean value to indicate whether or not the toggle button should be shown. Defaults to config value.  |
-| `showPasswordIcon` | A name of the icon to show when the password is masked. Defaults to config value.                        |
-| `hidePasswordIcon` | A name of the icon to show when the password is not masked. Defaults to config value.                    |
+| prop                    | description                                                                                               |
+| ----------------------- | --------------------------------------------------------------------------------------------------------- |
+| `name`                  | Name of the input                                                                                         |
+| `id`                    | Id of the input. Defaults to name.                                                                        |
+| `type`                  | Type of input. Defaults to `text`                                                                         |
+| `value`                 | Value of the input. Gets omitted if `wire:model` or `x-model` is present                                  |
+| `containerClass`        | Defines a CSS class to apply to the **container** of the input                                            |
+| `size`                  | Define a size for the input. Default size is `md`                                                         |
+| `showErrors`            | If a validation error is present for the input, it will show the error state on the input                 |
+| `extraAttributes`       | Pass an array of HTML attributes to render on the input                                                   |
+| `leadingAddon`          | Render text on the left of the input                                                                      |
+| `leadingIcon`           | Render an icon on the left of the input                                                                   |
+| `inlineAddon`           | Render text inside the input on the left                                                                  |
+| `trailingAddon`         | Render text on the right of the input                                                                     |
+| `trailingInlineAddon`   | Render text inside the input on the right                                                                 |
+| `trailingIcon`          | Render an icon on the right of the input                                                                  |
+| `showToggle`            | A boolean value to indicate whether or not the toggle button should be shown. Defaults to config value.   |
+| `showPasswordIcon`      | A name of the icon to show when the password is masked. Defaults to config value.                         |
+| `hidePasswordIcon`      | A name of the icon to show when the password is not masked. Defaults to config value.                     |
 | `initiallyShowPassword` | A boolean value indicating if the password should be masked or not on initial render. Defaults to `false` |
 
 > {note} If `showToggle` is `true`, the password component will **not** render any trailing addons, as it needs that spot for the toggle button.
 
 ### slots
 
-| slot | description |
-| --- | --- |
-| `before` | Render HTML before the input and/or leading addons |
-| `after` | Render HTML after the input and/or trailing addons |
-| `leadingAddon` | Render text on the left of the input |
-| `leadingIcon` | Render an icon on the left of the input |
-| `inlineAddon` | Render text inside the input on the left |
-| `trailingAddon` | Render text on the right of the input |
-| `trailingInlineAddon` | Render text inside the input on the right |
-| `trailingIcon` | Render an icon on the right of the input |
+| slot                  | description                                        |
+| --------------------- | -------------------------------------------------- |
+| `before`              | Render HTML before the input and/or leading addons |
+| `after`               | Render HTML after the input and/or trailing addons |
+| `leadingAddon`        | Render text on the left of the input               |
+| `leadingIcon`         | Render an icon on the left of the input            |
+| `inlineAddon`         | Render text inside the input on the left           |
+| `trailingAddon`       | Render text on the right of the input              |
+| `trailingInlineAddon` | Render text inside the input on the right          |
+| `trailingIcon`        | Render an icon on the right of the input           |
 
 ### config
 
@@ -111,7 +115,7 @@ you may want for the password element.
 'defaults' => [
     'global' => [
         // Show error states by default.
-        'show_errors' => true,    
+        'show_errors' => true,
     ],
 
     'input' => [
@@ -126,7 +130,7 @@ you may want for the password element.
         // Base input classes applied by default.
         'input_class' => null,
     ],
-    
+
     'password' => [
         // Show the password reveal button by default.
         'show_toggle' => true,

@@ -76,9 +76,10 @@ Now `file` input fields will be able to be submitted with the form.
 ## API Reference
 
 ### props
-| prop | description                                                                                                                                     |
-| --- |-------------------------------------------------------------------------------------------------------------------------------------------------|
-| `action` | Server endpoint to submit the form to                                                                                                           |
-| `method` | Request method to use for the submission. Defaults to `POST`                                                                                    |
-| `hasFiles` | A boolean indicating the form should submit files. Defaults to `false`                                                                          |
+
+| prop         | description                                                                                                                                     |
+| ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| `action`     | Server endpoint to submit the form to                                                                                                           |
+| `method`     | Request method to use for the submission. Defaults to `POST`                                                                                    |
+| `hasFiles`   | A boolean indicating the form should submit files. Defaults to `false`                                                                          |
 | `spellcheck` | A boolean indicating the form should allow the browser to spellcheck the inputs inside of it. Defaults to `false` (spellcheck disabled on form) |

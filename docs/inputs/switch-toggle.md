@@ -13,7 +13,7 @@ switch toggle acts like a checkbox, however it's mostly used for an on/off state
 
 The `switch-toggle` component requires the following third-party libraries to work properly:
 
-- Alpine.js
+-   Alpine.js
 
 See [Third-Party Assets](/docs/laravel-form-components/{version}/installation#user-content-third-party-assets) on the installation guide for further setup information.
 
@@ -42,9 +42,7 @@ This will render a label containing the text "Notifications on" to the right sid
 to render the label as well:
 
 ```html
-<x-switch-toggle>
-    Notifications on
-</x-switch-toggle>
+<x-switch-toggle> Notifications on </x-switch-toggle>
 ```
 
 ### Left aligned labels
@@ -151,7 +149,7 @@ You may also render the icons via slot instead if you prefer:
     <x-slot:on-icon>
         <x-heroicon-m-check />
     </x-slot:on-icon>
-    
+
     <x-slot:off-icon>
         <x-heroicon-m-x-mark />
     </x-slot:off-icon>
@@ -173,32 +171,32 @@ file, you will be able to use any of your application's configured colors for th
 
 ### props
 
-| prop | description                                                                       |
-| --- |-----------------------------------------------------------------------------------|
-| `name` | The name of the input                                                             |
-| `id` | The id of the input. Defaults to `name`                                           |
-| `value` | The initial value of the input. Disregarded if `wire:model` or `x-model` present. |
-| `onValue` | The value for when the switch is "on". Defaults to `true` |
-| `offValue` | The value for when the switch is "off". Defaults to `false` |
-| `label` | Text to display to the right of the switch. |
-| `labelLeft` | Text to display to the left of the switch. |
-| `containerClass` | A CSS class to apply to the **container** of the switch. |
-| `disabled` | Disable the switch |
-| `size` | The size of the switch. Defaults to `md` |
-| `color` | The color of the switch when it is "on". Defaults to blue |
-| `onIcon` | An icon to display on the switch when it is in an "on" state |
-| `offIcon` | An icon to display on the switch when it is in an "off" state |
-| `short` | Display switch as the "short" style. Sizing does not apply to this style. |
-| `extraAttributes` | Pass an array of attributes to apply to the input |
+| prop              | description                                                                       |
+| ----------------- | --------------------------------------------------------------------------------- |
+| `name`            | The name of the input                                                             |
+| `id`              | The id of the input. Defaults to `name`                                           |
+| `value`           | The initial value of the input. Disregarded if `wire:model` or `x-model` present. |
+| `onValue`         | The value for when the switch is "on". Defaults to `true`                         |
+| `offValue`        | The value for when the switch is "off". Defaults to `false`                       |
+| `label`           | Text to display to the right of the switch.                                       |
+| `labelLeft`       | Text to display to the left of the switch.                                        |
+| `containerClass`  | A CSS class to apply to the **container** of the switch.                          |
+| `disabled`        | Disable the switch                                                                |
+| `size`            | The size of the switch. Defaults to `md`                                          |
+| `color`           | The color of the switch when it is "on". Defaults to blue                         |
+| `onIcon`          | An icon to display on the switch when it is in an "on" state                      |
+| `offIcon`         | An icon to display on the switch when it is in an "off" state                     |
+| `short`           | Display switch as the "short" style. Sizing does not apply to this style.         |
+| `extraAttributes` | Pass an array of attributes to apply to the input                                 |
 
 ### slots
 
-| slot | description |
-| --- | --- |
-| `label` | Text to display to the right of the switch. |
-| `labelLeft` | Text to display to the left of the switch. |
-| `onIcon` | An icon to display on the switch when it is in an "on" state |
-| `offIcon` | An icon to display on the switch when it is in an "off" state |
+| slot        | description                                                   |
+| ----------- | ------------------------------------------------------------- |
+| `label`     | Text to display to the right of the switch.                   |
+| `labelLeft` | Text to display to the left of the switch.                    |
+| `onIcon`    | An icon to display on the switch when it is in an "on" state  |
+| `offIcon`   | An icon to display on the switch when it is in an "off" state |
 
 ### config
 
@@ -209,7 +207,7 @@ you may want for the switch-toggle element.
 'defaults' => [
     'global' => [
         // Show error states by default.
-        'show_errors' => true,    
+        'show_errors' => true,
     ],
 
     'switch_toggle' => [

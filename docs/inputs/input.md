@@ -107,12 +107,12 @@ variables:
 
 ```css
 :root {
-    --input-padding-y: theme('spacing[2.5]');
-    --input-padding-x: theme('spacing.3');
-    --input-padding-y-sm: theme('spacing.2');
-    --input-padding-x-sm: theme('spacing.2');
-    --input-padding-y-lg: theme('spacing.4');
-    --input-padding-x-lg: theme('spacing.4');
+    --input-padding-y: theme("spacing[2.5]");
+    --input-padding-x: theme("spacing.3");
+    --input-padding-y-sm: theme("spacing.2");
+    --input-padding-x-sm: theme("spacing.2");
+    --input-padding-y-lg: theme("spacing.4");
+    --input-padding-x-lg: theme("spacing.4");
 }
 ```
 
@@ -120,35 +120,35 @@ variables:
 
 ### props
 
-| prop  | description                                                                               |
-|-------|-------------------------------------------------------------------------------------------|
-| `name` | Name of the input                                                                         |
-| `id` | Id of the input. Defaults to `name`.                                                        |
-| `type` | Type of input. Defaults to `text`                                                         |
-| `value` | Value of the input. Gets omitted if `wire:model` or `x-model` is present                  |
-| `containerClass` | Defines a CSS class to apply to the **container** of the input                            |
-| `size` | Define a size for the input. Default size is `md`                                         |
-| `showErrors` | If a validation error is present for the input, it will show the error state on the input |
-| `extraAttributes` | Pass an array of HTML attributes to render on the input                                   |
-| `leadingAddon` | Render text on the left of the input |
-| `leadingIcon` | Render an icon on the left of the input |
-| `inlineAddon` | Render text inside the input on the left |
-| `trailingAddon` | Render text on the right of the input |
-| `trailingInlineAddon` | Render text inside the input on the right |
-| `trailingIcon` | Render an icon on the right of the input |
+| prop                  | description                                                                               |
+| --------------------- | ----------------------------------------------------------------------------------------- |
+| `name`                | Name of the input                                                                         |
+| `id`                  | Id of the input. Defaults to `name`.                                                      |
+| `type`                | Type of input. Defaults to `text`                                                         |
+| `value`               | Value of the input. Gets omitted if `wire:model` or `x-model` is present                  |
+| `containerClass`      | Defines a CSS class to apply to the **container** of the input                            |
+| `size`                | Define a size for the input. Default size is `md`                                         |
+| `showErrors`          | If a validation error is present for the input, it will show the error state on the input |
+| `extraAttributes`     | Pass an array of HTML attributes to render on the input                                   |
+| `leadingAddon`        | Render text on the left of the input                                                      |
+| `leadingIcon`         | Render an icon on the left of the input                                                   |
+| `inlineAddon`         | Render text inside the input on the left                                                  |
+| `trailingAddon`       | Render text on the right of the input                                                     |
+| `trailingInlineAddon` | Render text inside the input on the right                                                 |
+| `trailingIcon`        | Render an icon on the right of the input                                                  |
 
 ### slots
 
-| slot | description |
-| --- | --- |
-| `before` | Render HTML before the input and/or leading addons |
-| `after` | Render HTML after the input and/or trailing addons |
-| `leadingAddon` | Render text on the left of the input |
-| `leadingIcon` | Render an icon on the left of the input |
-| `inlineAddon` | Render text inside the input on the left |
-| `trailingAddon` | Render text on the right of the input |
-| `trailingInlineAddon` | Render text inside the input on the right |
-| `trailingIcon` | Render an icon on the right of the input |
+| slot                  | description                                        |
+| --------------------- | -------------------------------------------------- |
+| `before`              | Render HTML before the input and/or leading addons |
+| `after`               | Render HTML after the input and/or trailing addons |
+| `leadingAddon`        | Render text on the left of the input               |
+| `leadingIcon`         | Render an icon on the left of the input            |
+| `inlineAddon`         | Render text inside the input on the left           |
+| `trailingAddon`       | Render text on the right of the input              |
+| `trailingInlineAddon` | Render text inside the input on the right          |
+| `trailingIcon`        | Render an icon on the right of the input           |
 
 ### config
 
@@ -159,7 +159,7 @@ you may want for the input element.
 'defaults' => [
     'global' => [
         // Show error states by default.
-        'show_errors' => true,    
+        'show_errors' => true,
     ],
 
     'input' => [

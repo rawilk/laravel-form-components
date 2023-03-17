@@ -12,7 +12,7 @@ as well just by adding a `wire:model` to the input.
 
 To take advantage of the upload progress offered by the `file-upload` component, the following third-party libraries are required:
 
-- Alpine.js
+-   Alpine.js
 
 See [Third-Party Assets](/docs/laravel-form-components/{version}/installation#user-content-third-party-assets) on the installation guide for further setup information.
 
@@ -104,44 +104,43 @@ sure your model is an array to handle the uploads.
 For convenience, you may specify a `type` attribute that will limit the types of files that can be selected. If a supported type is entered, the component
 will set the `accept` attribute on the file input. The following types are supported:
 
-| type | rendered accept value |
-| --- |-----------------------|
-| audio | audio/*               |
-| image | image/*               |
-| video | video/*               |
-| pdf | .pdf                  |
-| csv | .csv                  |
+| type        | rendered accept value                                                                           |
+| ----------- | ----------------------------------------------------------------------------------------------- |
+| audio       | audio/\*                                                                                        |
+| image       | image/\*                                                                                        |
+| video       | video/\*                                                                                        |
+| pdf         | .pdf                                                                                            |
+| csv         | .csv                                                                                            |
 | spreadsheet | .csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet |
-| excel | .csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet |
-| text | text/plain |
-| html | text/html |
+| excel       | .csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet |
+| text        | text/plain                                                                                      |
+| html        | text/html                                                                                       |
 
 If the type you need isn't listed here, or you need to limit the type further, you are free to specify a value for the `accept` attribute yourself.
-
 
 ## API Reference
 
 ### props
 
-| prop | description                                                                                 |
-| --- |---------------------------------------------------------------------------------------------|
-| `name` | The name of the file input                                                                  |
-| `id` | The ID of the file input. Defaults to `name`                                                |
-| `multiple` | A boolean indicating the file input supports multi-file upload                              |
-| `type` | The type of file the input accepts                                                          |
-| `showErrors` | If a validation error is present for the input, it will show the error state on the input   |
+| prop                    | description                                                                                 |
+| ----------------------- | ------------------------------------------------------------------------------------------- | --- |
+| `name`                  | The name of the file input                                                                  |
+| `id`                    | The ID of the file input. Defaults to `name`                                                |
+| `multiple`              | A boolean indicating the file input supports multi-file upload                              |
+| `type`                  | The type of file the input accepts                                                          |
+| `showErrors`            | If a validation error is present for the input, it will show the error state on the input   |
 | `displayUploadProgress` | A boolean value indicating if the progress bar should be displayed on livewire file uploads |
-| `size` | Define a size for the input. Default size is `md`                                           |
-| `containerClass` | Defines a CSS class to apply to the **container** of the input                                                                                            |
-| `useNativeProgressBar` | A boolean value indicating if a native progress bar should be used. Default is `false`       |+
-| `extraAttributes` | Pass an array of HTML attributes to render on the input                                                       |
+| `size`                  | Define a size for the input. Default size is `md`                                           |
+| `containerClass`        | Defines a CSS class to apply to the **container** of the input                              |
+| `useNativeProgressBar`  | A boolean value indicating if a native progress bar should be used. Default is `false`      | +   |
+| `extraAttributes`       | Pass an array of HTML attributes to render on the input                                     |
 
 ### slots
 
-| slot | description |
-| --- | --- |
-| `after` | Place to put markup for a file preview on the right side of the input |
-| `afterInput` | Allows custom markup inside of the `x-data` scope |
+| slot         | description                                                           |
+| ------------ | --------------------------------------------------------------------- |
+| `after`      | Place to put markup for a file preview on the right side of the input |
+| `afterInput` | Allows custom markup inside of the `x-data` scope                     |
 
 ### config
 
@@ -152,7 +151,7 @@ you may want for the file upload element.
 'defaults' => [
     'global' => [
         // Show error states by default.
-        'show_errors' => true,    
+        'show_errors' => true,
     ],
 
     'input' => [
@@ -160,7 +159,7 @@ you may want for the file upload element.
         // Applies to all input types except for checkbox/radios and custom select.
         'size' => 'md',
     ],
-    
+
     'file_upload' => [
         // Display a file upload progress bar by default.
         // Only shows if a "wire:model" is present.

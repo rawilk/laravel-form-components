@@ -60,7 +60,11 @@ To modify the padding, you should use a custom class on the input. Since this pa
 you could just use an [arbitrary value](https://tailwindcss.com/docs/adding-custom-styles#using-arbitrary-values) in a custom class name:
 
 ```html
-<x-input name="url" inline-addon="https://" class="![--inline-addon-pl:theme(spacing.4)]" />
+<x-input
+    name="url"
+    inline-addon="https://"
+    class="![--inline-addon-pl:theme(spacing.4)]"
+/>
 ```
 
 This is the equivalent of `pl-4` on the input. However, it's recommended to override the variable value instead. If you do it this way, you need to be sure to make the rule

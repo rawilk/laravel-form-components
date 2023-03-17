@@ -109,26 +109,26 @@ your checkboxes to normally be the "sm" size, but on medium size screens and up,
 
 ### props
 
-| prop | description                                                                                              |
-| --- |----------------------------------------------------------------------------------------------------------|
-| `name` | Name of the input                                                                                        |
-| `id` | Id of the input. Defaults to name.                                                                       |
-| `value` | Initial value of the input                                                                               |
-| `label` | A label to display next to the checkbox                                                                  |
-| `description` | Help text to display underneath the label                                                                |
-| `checked` | A boolean value to indicate the checkbox should be checked                                               |
-| `containerClass` | Defines a CSS class to apply to the **container** of the input                                           |
-| `size` | Set the size of the checkbox element. Supported: `sm`, `md`, `lg`. Defaults to `sm`                      |
+| prop                | description                                                                                              |
+| ------------------- | -------------------------------------------------------------------------------------------------------- |
+| `name`              | Name of the input                                                                                        |
+| `id`                | Id of the input. Defaults to name.                                                                       |
+| `value`             | Initial value of the input                                                                               |
+| `label`             | A label to display next to the checkbox                                                                  |
+| `description`       | Help text to display underneath the label                                                                |
+| `checked`           | A boolean value to indicate the checkbox should be checked                                               |
+| `containerClass`    | Defines a CSS class to apply to the **container** of the input                                           |
+| `size`              | Set the size of the checkbox element. Supported: `sm`, `md`, `lg`. Defaults to `sm`                      |
 | `inlineDescription` | A boolean value indicating the description should be inline with the label. Defaults to `false`          |
-| `labelLeft` | A boolean value indicating the label should be rendered to the left of the checkbox. Defaults to `false` |
-| `extraAttributes` | Pass an array of HTML attributes to render on the checkbox                                               |
+| `labelLeft`         | A boolean value indicating the label should be rendered to the left of the checkbox. Defaults to `false` |
+| `extraAttributes`   | Pass an array of HTML attributes to render on the checkbox                                               |
 
 ### slots
 
-| slot | description                                                                    |
-| --- |--------------------------------------------------------------------------------|
-| `label` | A label to display next to the checkbox. Default slot accomplishes same thing. |
-| `description` | Help text to display underneath the label. |
+| slot          | description                                                                    |
+| ------------- | ------------------------------------------------------------------------------ |
+| `label`       | A label to display next to the checkbox. Default slot accomplishes same thing. |
+| `description` | Help text to display underneath the label.                                     |
 
 ### config
 

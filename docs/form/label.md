@@ -48,6 +48,6 @@ provide your own label in the default slot:
 
 ### props
 
-| prop | description |
-| --- | --- |
+| prop  | description                                             |
+| ----- | ------------------------------------------------------- |
 | `for` | The name (or id) of the input element the label is for. |

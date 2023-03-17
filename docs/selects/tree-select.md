@@ -13,9 +13,9 @@ to reveal any children options they have.
 
 The following third-party libraries are required for `tree-select` to work properly:
 
-- Alpine.js
-- Alpine [Focus Plugin](https://alpinejs.dev/plugins/focus)
-- Popper
+-   Alpine.js
+-   Alpine [Focus Plugin](https://alpinejs.dev/plugins/focus)
+-   Popper
 
 See [Third-Party Assets](/docs/laravel-form-components/{version}/installation#user-content-third-party-assets) on the installation guide for further setup information.
 
@@ -68,7 +68,7 @@ same data structure as the parent option. If you need to customize the key for c
 ### Customizing the option display
 
 We have provided a slot called `optionTemplate` to customize how each option is rendered in the menu, however you'll need to use JavaScript
-to customize this since the `<x-tree-select-option>` component is rendered recursively when parent options are present. The content of each 
+to customize this since the `<x-tree-select-option>` component is rendered recursively when parent options are present. The content of each
 option is wrapped in an `x-data` directive that contains a variable called `option` containing all the properties present on the option.
 
 Assuming you have a property called "foo" on the option, we'll render that property out in a span tag and make the text italic:
@@ -149,12 +149,12 @@ You can use a different key for `disabled` on the option, by specifying it via t
 If you prefer to render options yourself, you can do so in the default slot using the `<x-tree-select-option>` component. The option component
 will automatically be aware of the following fields from `tree-select`.
 
-- valueField
-- labelField
-- disabledField
-- childrenField
-- optionSelectedIcon
-- hasChildIcon
+-   valueField
+-   labelField
+-   disabledField
+-   childrenField
+-   optionSelectedIcon
+-   hasChildIcon
 
 Because of this, the `tree-select-option` must be placed inside a `tree-select` component.
 
@@ -164,7 +164,7 @@ the component will recursively render and children underneath the parent option.
 ```html
 <x-tree-select ...>
     @foreach ($options as $option)'
-        <x-tree-select-option :value="$option" />
+    <x-tree-select-option :value="$option" />
     @endforeach
 </x-tree-select>
 ```
@@ -189,11 +189,7 @@ This will provide basic search functionality, which will hide any non-matching o
 If you use Livewire, you can easily add server-side filtering of options via the `livewire-search` prop on the component.
 
 ```html
-<x-tree-select
-    :options="$options"
-    searchable
-    livewire-search="handleSearch"
-/>
+<x-tree-select :options="$options" searchable livewire-search="handleSearch" />
 ```
 
 In this example, this will require you to have a method called `handleSearch` on your livewire component. Our JavaScript will
@@ -252,7 +248,7 @@ If absolute positioning is breaking your layout, you can force Popper to use fix
 All you need to do is passed a `fixed` attribute to the component.
 
 ```html
-<x-tree-select fixed .../>
+<x-tree-select fixed ... />
 ```
 
 ## Orientation
@@ -280,69 +276,69 @@ for an in-depth guide on how to use them.
 
 ## Keyboard Shortcuts
 
-| key              | description |
-|------------------| --- |
-| `[Enter/Space]`  | Open the select when it's closed or select the focused option when the select is open. Will not select an option if select is set to `searchable` and the search input is focused |
-| `[Escape]`       | Close the select |
-| `[Arrow Keys]`   | Focuses the next/previous non-disabled option |
-| `[Right Arrow Key]` | Expand children options on an active option |
-| `[Left Arrow Key]` | Collapse children options on an active option |
-| `[Home/PageUp]`  | Focuses the first non-disabled option |
-| `[End/PageDown]` | Focuses the last non-disabled option |
-| `[A-z]`          | Focuses the first option matching the keyboard input. Only triggers when select is not set to `searchable`, or the search input is not focused |
-| `[Backspace]` | In a multi-select, when the menu is closed and there are selected options, it will de-select the last selected option |
+| key                 | description                                                                                                                                                                       |
+| ------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `[Enter/Space]`     | Open the select when it's closed or select the focused option when the select is open. Will not select an option if select is set to `searchable` and the search input is focused |
+| `[Escape]`          | Close the select                                                                                                                                                                  |
+| `[Arrow Keys]`      | Focuses the next/previous non-disabled option                                                                                                                                     |
+| `[Right Arrow Key]` | Expand children options on an active option                                                                                                                                       |
+| `[Left Arrow Key]`  | Collapse children options on an active option                                                                                                                                     |
+| `[Home/PageUp]`     | Focuses the first non-disabled option                                                                                                                                             |
+| `[End/PageDown]`    | Focuses the last non-disabled option                                                                                                                                              |
+| `[A-z]`             | Focuses the first option matching the keyboard input. Only triggers when select is not set to `searchable`, or the search input is not focused                                    |
+| `[Backspace]`       | In a multi-select, when the menu is closed and there are selected options, it will de-select the last selected option                                                             |
 
 ## API Reference
 
 ### props
 
-| prop | description                                                                                                                      |
-| --- |----------------------------------------------------------------------------------------------------------------------------------|
-| `name` | Name of the select                                                                                                               |
-| `id` | Id of the select. Defaults to `name`.                                                                                            |
-| `value` | Value of the select. Gets ignored if `wire:model` or `x-model` is present                                                        |
-| `showErrors` | If a validation error is present for the select, it will show the error state on the select                                      |
-| `multiple` | Allow multiple options to be selected                                                                                            |
-| `options` | An array or Collection of options to be rendered                                                                                 |
-| `size` | Define a size for the select. Default size is `md`                                                                               |
-| `valueField` | Property on an option to use for the value                                                                                       |
-| `labelField` | Property on an option to use for the text                                                                                        |
+| prop                 | description                                                                                                                      |
+| -------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
+| `name`               | Name of the select                                                                                                               |
+| `id`                 | Id of the select. Defaults to `name`.                                                                                            |
+| `value`              | Value of the select. Gets ignored if `wire:model` or `x-model` is present                                                        |
+| `showErrors`         | If a validation error is present for the select, it will show the error state on the select                                      |
+| `multiple`           | Allow multiple options to be selected                                                                                            |
+| `options`            | An array or Collection of options to be rendered                                                                                 |
+| `size`               | Define a size for the select. Default size is `md`                                                                               |
+| `valueField`         | Property on an option to use for the value                                                                                       |
+| `labelField`         | Property on an option to use for the text                                                                                        |
 | `selectedLabelField` | Property on an option to use in the select trigger for display. Defaults to `labelField`                                         |
-| `disabledField` | Property on an option to use to determine if it is disabled                                                                      |
-| `childrenField` | Property on an option to determine if it has children. Will render as an "opt group" option if children is present and not empty |
-| `minSelected` | A minimum amount of options that must be selected in a multi-select                                                              |
-| `maxSelected` | A maximum amount of options that may be selected in a multi-select                                                               |
-| `optional` | A boolean value indicating the user may clear the selected value(s).                                                             |
-| `buttonIcon` | A name of an icon component to use for the arrows on the right of the trigger                                                    |
-| `searchable` | A boolean value indicating that a search box should be rendered in the menu |
-| `livewireSearch` | A name of a Livewire component method to handle a server-side search |
-| `clearable` | Allows a clear button to show on the select trigger. Will not show if `optional` is set to `false` |
-| `clearIcon` | A name of an icon component to render in the clear button |
-| `optionSelectedIcon` | A name of an icon component to render next to an option in the menu when it is selected |
-| `placeholder` | Placeholder text to show in the trigger when no option is selected. |
-| `noResultsText` | Text to display in the menu when a search term is present, but no matching options found |
-| `noOptionsText` | Text to display in the menu when no options are found and no search term is present |
-| `alwaysOpen` | A boolean value indicating that the menu should always be open |
-| `containerClass` | A CSS class to apply to the container of the select menu |
-| `extraAttributes` | Pass an array of HTML attributes to render on the select                                                                         |
-| `leadingAddon` | Render text on the left of the select                                                                                            |
-| `leadingIcon` | Render an icon on the left of the select                                                                                         |
-| `inlineAddon` | Render text inside the select on the left                                                                                        |
-| `trailingAddon` | Render text on the right of the select                                                                                           |
-| `hasChildIcon` | A name of an icon component to render next to a parent option indicating it has child options |
+| `disabledField`      | Property on an option to use to determine if it is disabled                                                                      |
+| `childrenField`      | Property on an option to determine if it has children. Will render as an "opt group" option if children is present and not empty |
+| `minSelected`        | A minimum amount of options that must be selected in a multi-select                                                              |
+| `maxSelected`        | A maximum amount of options that may be selected in a multi-select                                                               |
+| `optional`           | A boolean value indicating the user may clear the selected value(s).                                                             |
+| `buttonIcon`         | A name of an icon component to use for the arrows on the right of the trigger                                                    |
+| `searchable`         | A boolean value indicating that a search box should be rendered in the menu                                                      |
+| `livewireSearch`     | A name of a Livewire component method to handle a server-side search                                                             |
+| `clearable`          | Allows a clear button to show on the select trigger. Will not show if `optional` is set to `false`                               |
+| `clearIcon`          | A name of an icon component to render in the clear button                                                                        |
+| `optionSelectedIcon` | A name of an icon component to render next to an option in the menu when it is selected                                          |
+| `placeholder`        | Placeholder text to show in the trigger when no option is selected.                                                              |
+| `noResultsText`      | Text to display in the menu when a search term is present, but no matching options found                                         |
+| `noOptionsText`      | Text to display in the menu when no options are found and no search term is present                                              |
+| `alwaysOpen`         | A boolean value indicating that the menu should always be open                                                                   |
+| `containerClass`     | A CSS class to apply to the container of the select menu                                                                         |
+| `extraAttributes`    | Pass an array of HTML attributes to render on the select                                                                         |
+| `leadingAddon`       | Render text on the left of the select                                                                                            |
+| `leadingIcon`        | Render an icon on the left of the select                                                                                         |
+| `inlineAddon`        | Render text inside the select on the left                                                                                        |
+| `trailingAddon`      | Render text on the right of the select                                                                                           |
+| `hasChildIcon`       | A name of an icon component to render next to a parent option indicating it has child options                                    |
 
 ### slots
 
-| slot | description                                         |
-| --- |-----------------------------------------------------|
+| slot               | description                                         |
+| ------------------ | --------------------------------------------------- |
 | `selectedTemplate` | Customize how the selected option is displayed      |
-| `optionTemplate` | Customize how each option is displayed in the menu  |
-| `before` | Render HTML before the select and/or leading addons |
-| `after` | Render HTML after the select and/or trailing addons |
-| `leadingAddon` | Render text on the left of the select               |
-| `leadingIcon` | Render an icon on the left of the select            |
-| `inlineAddon` | Render text inside the select on the left           |
-| `trailingAddon` | Render text on the right of the select              |
+| `optionTemplate`   | Customize how each option is displayed in the menu  |
+| `before`           | Render HTML before the select and/or leading addons |
+| `after`            | Render HTML after the select and/or trailing addons |
+| `leadingAddon`     | Render text on the left of the select               |
+| `leadingIcon`      | Render an icon on the left of the select            |
+| `inlineAddon`      | Render text inside the select on the left           |
+| `trailingAddon`    | Render text on the right of the select              |
 
 ### config
 
@@ -353,8 +349,8 @@ you may want for the tree-select element.
 'defaults' => [
     'global' => [
         // Show error states by default.
-        'show_errors' => true,    
-        
+        'show_errors' => true,
+
         // Set the fields to use by default for properties on options in select components.
         'value_field' => 'id',
         'label_field' => 'name',
@@ -369,7 +365,7 @@ you may want for the tree-select element.
         // Applies to all input types except for checkbox/radios.
         'size' => 'md',
     ],
-    
+
     'custom_select' => [
         // Apply a CSS class by default to the root element of the custom select.
         // Note: this will also apply to tree-select as well.
@@ -413,7 +409,7 @@ you may want for the tree-select element.
         // Set to null to disable it.
         'max_selected' => null,
     ],
-    
+
     'tree_select' => [
         // Set the default icon to use to show that an option has children.
         // Icon will be rotated to indicate when the option is expanded.
@@ -434,30 +430,30 @@ These are the events that our JavaScript will emit.
 
 A magic variable that exposes information about the current state of the select menu (element containing `x-data="treeSelect(...)`)
 
-| property | description |
-| --- | --- |
-| `isOpen` | Select menu is open or not |
-| `isDisabled` | Select menu is disabled or not |
-| `isSearchable` | Select menu is searchable or not |
-| `selected` | Currently selected raw value |
-| `active` | Currently active (highlighted) option |
-| `selectedObject` | Object representation of the selected value. Will be an array of objects in multi-select mode |
-| `hasValue` | Whether or not select has a selected option |
-| `shouldShowClear` | Are conditions right to show the clear button |
-| `canSelectMore` | Can more options be selected in a multi-select |
-| `canDeselectOptions` | Can an option(s) be de-selected |
-| `hasOptions` | Does the menu have any registered options |
-| `hasSearch` | Is there a current search query |
-| `hasExpandableOptions` | Are there any parent options registered |
+| property               | description                                                                                   |
+| ---------------------- | --------------------------------------------------------------------------------------------- |
+| `isOpen`               | Select menu is open or not                                                                    |
+| `isDisabled`           | Select menu is disabled or not                                                                |
+| `isSearchable`         | Select menu is searchable or not                                                              |
+| `selected`             | Currently selected raw value                                                                  |
+| `active`               | Currently active (highlighted) option                                                         |
+| `selectedObject`       | Object representation of the selected value. Will be an array of objects in multi-select mode |
+| `hasValue`             | Whether or not select has a selected option                                                   |
+| `shouldShowClear`      | Are conditions right to show the clear button                                                 |
+| `canSelectMore`        | Can more options be selected in a multi-select                                                |
+| `canDeselectOptions`   | Can an option(s) be de-selected                                                               |
+| `hasOptions`           | Does the menu have any registered options                                                     |
+| `hasSearch`            | Is there a current search query                                                               |
+| `hasExpandableOptions` | Are there any parent options registered                                                       |
 
 ### $treeSelectOption
 
 A magic variable that exposes information about the current state of an option (element containing `x-tree-select:option`)
 
-| property | description |
-| --- | --- |
-| `isActive` | A boolean used to determine whether or not an option is currently active (hovered over) |
-| `isSelected` | A boolean used to determine whether or not an option is currently selected |
-| `isDisabled` | A boolean used to determine whether or not an option is currently disabled |
-| `hasChildren` | A boolean used to determine whether or not the option has child options |
-| `isExpanded` | A boolean used to determine whether or not the option has been expanded to show its children |
+| property      | description                                                                                  |
+| ------------- | -------------------------------------------------------------------------------------------- |
+| `isActive`    | A boolean used to determine whether or not an option is currently active (hovered over)      |
+| `isSelected`  | A boolean used to determine whether or not an option is currently selected                   |
+| `isDisabled`  | A boolean used to determine whether or not an option is currently disabled                   |
+| `hasChildren` | A boolean used to determine whether or not the option has child options                      |
+| `isExpanded`  | A boolean used to determine whether or not the option has been expanded to show its children |

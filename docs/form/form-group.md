@@ -12,7 +12,7 @@ automatically and consistently for you.
 
 To take full advantage of the `form-group` component, the following third-party libraries are required:
 
-- Alpine.js
+-   Alpine.js
 
 See [Third-Party Assets](/docs/laravel-form-components/{version}/installation#user-content-third-party-assets) on the installation guide for further setup information.
 
@@ -99,9 +99,7 @@ optional.
 You can also have the component render the text `Optional` automatically for you by passing in `true` for the `optional` attribute.
 
 ```html
-<x-form-group label="First name" name="first_name" optional>
-    ...
-</x-form-group>
+<x-form-group label="First name" name="first_name" optional> ... </x-form-group>
 ```
 
 You can customize this text by modifying the config value for `optional_hint_text`.
@@ -153,9 +151,7 @@ The form-group component will now add a `mb-5` margin utility class to each form
 bit of breathing room from each other. The last form-group child in a container will have no margin bottom because of the `last:mb-0` utility class. If you don't want margins to be added to each form-group, you can do the following:
 
 ```html
-<x-form-group label="First name" :margin-bottom="false">
-    ...
-</x-form-group>
+<x-form-group label="First name" :margin-bottom="false"> ... </x-form-group>
 ```
 
 > {tip} To help space your form elements evenly in a form, you could also use a `space-y-*` utility class
@@ -173,9 +169,7 @@ the label's id:
 
 ```html
 <x-form-group label="Foo">
-    <div :aria-labelledby="$id('fc-label')">
-        ...
-    </div>
+    <div :aria-labelledby="$id('fc-label')">...</div>
 </x-form-group>
 ```
 
@@ -186,7 +180,7 @@ Both the label, and the aria-labelledby attribute will have `fc-label-1` for the
 ### props
 
 | prop              | description                                                                                                                          |
-|-------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | `name`            | The name of the input element inside the form group                                                                                  |
 | `inputId`         | The ID of the input element inside the form group. Defaults to `name` if not set. Will be used for the `for` attribute on the label. |
 | `label`           | Text for a label to render in the form group. Set value to `false` to hide the label                                                 |
@@ -195,17 +189,17 @@ Both the label, and the aria-labelledby attribute will have `fc-label-1` for the
 | `helpText`        | Helper text to display underneath the input and errors (if shown)                                                                    |
 | `isCheckboxGroup` | A boolean value, that if set to `true`, will remove all padding from the top of the input element area. Defaults to `false`          |
 | `marginBottom`    | A boolean value to indicate the form group should apply a margin bottom if it is not the last child. Defaults to `true`              |
-| `border` | A boolean value to indicate that an inline form group should show a border if it is not the first child. Defaults to `true`          |
-| `hint` | Provide a "hint" text, such as "Optional" for the user.                                                                              |
-| `optional` | Provides an indication to the user that the input is optional. Will set the `hint` attribute to "Optional" if not explicitly set     |
+| `border`          | A boolean value to indicate that an inline form group should show a border if it is not the first child. Defaults to `true`          |
+| `hint`            | Provide a "hint" text, such as "Optional" for the user.                                                                              |
+| `optional`        | Provides an indication to the user that the input is optional. Will set the `hint` attribute to "Optional" if not explicitly set     |
 
 ### slots
 
-| slot | description |
-| --- | --- |
-| `hint` | Provide a "hint" text, such as "Optional" for the user. |
-| `helpText` | Helper text to display underneath the input and errors (if shown) |
-| `after` | Provides a place to put any custom markup towards the end of the main content area |
+| slot       | description                                                                        |
+| ---------- | ---------------------------------------------------------------------------------- |
+| `hint`     | Provide a "hint" text, such as "Optional" for the user.                            |
+| `helpText` | Helper text to display underneath the input and errors (if shown)                  |
+| `after`    | Provides a place to put any custom markup towards the end of the main content area |
 
 ### config
 
@@ -216,7 +210,7 @@ you may want for the form-group element.
 'defaults' => [
     'global' => [
         // Show error states by default.
-        'show_errors' => true,    
+        'show_errors' => true,
     ],
 
     'form_group' => [

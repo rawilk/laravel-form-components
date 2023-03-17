@@ -50,11 +50,7 @@ This will output the following HTML (omitting JS):
 ```html
 <div>
     <div wire:ignore x-data="filepond(...)">
-        <input 
-            x-ref="input"
-            type="file"
-            ...
-        />
+        <input x-ref="input" type="file" ... />
     </div>
 </div>
 ```
@@ -117,21 +113,17 @@ specify an option callbacks, such as `onaddfile`, that you need to:
 
 ```html
 <x-file-pond wire:model="avatar">
-    <x-slot:config>
-        onaddfile(error, file) {
-            // do stuff
-        },
-    </x-slot:config>
+    <x-slot:config> onaddfile(error, file) { // do stuff }, </x-slot:config>
 </x-file-pond>
 ```
 
 This slot is inside a function that returns an object. You'll have access to the following variables:
 
-| variable | description                                                                                                   |
-| --- |---------------------------------------------------------------------------------------------------------------|
-| `instance` | The x-data instance for `filepond`. If you need the filepond instance, you can access it via `instance.__pond` |
-| `options` | The options object generated for FilePond by the component |
-| `pondOptions` | The options for FilePond our JavaScript generated before calling the config slot |
+| variable      | description                                                                                                    |
+| ------------- | -------------------------------------------------------------------------------------------------------------- |
+| `instance`    | The x-data instance for `filepond`. If you need the filepond instance, you can access it via `instance.__pond` |
+| `options`     | The options object generated for FilePond by the component                                                     |
+| `pondOptions` | The options for FilePond our JavaScript generated before calling the config slot                               |
 
 ## Plugins
 
@@ -144,7 +136,7 @@ of loading the file type validation plugin in an inline script:
 
 ```html
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
+    document.addEventListener("DOMContentLoaded", () => {
         FilePond.registerPlugin(FilePondPluginFileValidateType);
     });
 </script>
@@ -189,9 +181,7 @@ You can also dispatch an event via JavaScript to clear out a filepond instance a
 components rendered on the page, you may pass in the id of the component as an argument.
 
 ```html
-<button
-    @click="$dispatch('file-pond-clear', { id: 'avatar' })"
->
+<button @click="$dispatch('file-pond-clear', { id: 'avatar' })">
     Clear avatar
 </button>
 ```
@@ -201,17 +191,17 @@ components rendered on the page, you may pass in the id of the component as an a
 For convenience, you may specify a `type` attribute that will limit the types of files that can be selected. If a supported type is entered, the component
 will set the `acceptedFileTypes` FilePond option for you.
 
-| type | rendered accept value |
-| --- |-----------------------|
-| audio | audio/*               |
-| image | image/*               |
-| video | video/*               |
-| pdf | .pdf                  |
-| csv | .csv                  |
+| type        | rendered accept value                                                                           |
+| ----------- | ----------------------------------------------------------------------------------------------- |
+| audio       | audio/\*                                                                                        |
+| image       | image/\*                                                                                        |
+| video       | video/\*                                                                                        |
+| pdf         | .pdf                                                                                            |
+| csv         | .csv                                                                                            |
 | spreadsheet | .csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet |
-| excel | .csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet |
-| text | text/plain |
-| html | text/html |
+| excel       | .csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet |
+| text        | text/plain                                                                                      |
+| html        | text/html                                                                                       |
 
 > {note} For this to work, you must have the [File Type Validation](https://pqina.nl/filepond/docs/api/plugins/file-validate-type/) plugin installed.
 > See [Plugins](#user-content-plugins) for more information.
@@ -220,23 +210,23 @@ will set the `acceptedFileTypes` FilePond option for you.
 
 ### props
 
-| prop | description                                                                                               |
-| --- |-----------------------------------------------------------------------------------------------------------|
-| `name` | Name of the input                                                                                         |
-| `id` | Id of the input. Defaults to `name`.                                                                      |
-| `multiple` | A boolean value indicating that multiple files can be uploaded. Defaults to `false`                       |
-| `disabled` | A boolean value indicating the input is disabled                                                          |
-| `maxFiles` | The maximum amount of files allowed to be uploaded. Only applies if `multiple` is set to `true`           |
-| `options` | An optional array of FilePond options to set                                                              |
-| `description` | Set a description inside the filepond markup                                                              |
-| `type` | Set a type of files that are only allowed to be uploaded. Requires the File Validate plugin from FilePond |
-| `showErrors` | If a validation error is present for the input, it will show the error state on the input                                                                                                          |
+| prop              | description                                                                                               |
+| ----------------- | --------------------------------------------------------------------------------------------------------- |
+| `name`            | Name of the input                                                                                         |
+| `id`              | Id of the input. Defaults to `name`.                                                                      |
+| `multiple`        | A boolean value indicating that multiple files can be uploaded. Defaults to `false`                       |
+| `disabled`        | A boolean value indicating the input is disabled                                                          |
+| `maxFiles`        | The maximum amount of files allowed to be uploaded. Only applies if `multiple` is set to `true`           |
+| `options`         | An optional array of FilePond options to set                                                              |
+| `description`     | Set a description inside the filepond markup                                                              |
+| `type`            | Set a type of files that are only allowed to be uploaded. Requires the File Validate plugin from FilePond |
+| `showErrors`      | If a validation error is present for the input, it will show the error state on the input                 |
 | `extraAttributes` | Pass an array of HTML attributes to render on the input                                                   |
 
 ### slots
 
-| slot | description |
-| --- | --- |
+| slot     | description                                                                                                 |
+| -------- | ----------------------------------------------------------------------------------------------------------- |
 | `config` | Provides a place for a JavaScript configuration object for FilePond. Most useful for defining JS callbacks. |
 
 ### config
@@ -248,7 +238,7 @@ you may want for the filepond element.
 'defaults' => [
     'global' => [
         // Show error states by default.
-        'show_errors' => true,    
+        'show_errors' => true,
     ],
 
     'file_pond' => [

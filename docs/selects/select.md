@@ -38,7 +38,7 @@ key/value pairs. This will allow the select component to automatically determine
 You can also provide more complex arrays for the options too.
 
 ```html
-<x-select 
+<x-select
     name="user"
     :options="[
         ['id' => 1, 'name' => 'User 1'],
@@ -52,7 +52,7 @@ This will set each option's value to the `id`, and the text of the option to the
 `valueField` and `labelField` attributes:
 
 ```html
-<x-select 
+<x-select
     name="user"
     :options="[
         ['value' => 1, 'text' => 'User 1'],
@@ -77,7 +77,9 @@ Another way to provide options is to use the default slot on the component:
 ```html
 <x-select name="state">
     <option value="al" @selected($component->isSelected('al'))>Alabama</option>
-    <option value="wi" @selected($component->isSelected('wi'))>Wisconsin</option>
+    <option value="wi" @selected($component->
+        isSelected('wi'))>Wisconsin
+    </option>
 </x-select>
 ```
 
@@ -130,7 +132,7 @@ If it is present, and is not an empty array, the component will render the paren
 each of the children and render them as normal options.
 
 > {note} The children options should have the same property structure as the parent option does.
- 
+
 ## Addons
 
 The select component supports most of the available addons this package offers. Header over to the [Addons](/docs/laravel-form-components/{version}/advanced-usage/addons) documentation
@@ -140,41 +142,41 @@ for an in-depth guide on how to use them.
 
 ### props
 
-| prop | description                                                                                |
-| --- |--------------------------------------------------------------------------------------------|
-| `name` | Name of the select                                                                         |
-| `id` | Id of the select. Defaults to `name`.                                                      |
-| `value` | Value of the select. Gets omitted if `wire:model` or `x-model` is present                  |
-| `containerClass` | Defines a CSS class to apply to the **container** of the select                            |
-| `size` | Define a size for the select. Default size is `md`                                         |
-| `showErrors` | If a validation error is present for the select, it will show the error state on the input |
-| `extraAttributes` | Pass an array of HTML attributes to render on the select                                   |
-| `leadingAddon` | Render text on the left of the select                                                      |
-| `leadingIcon` | Render an icon on the left of the select                                                   |
-| `inlineAddon` | Render text inside the input on the select                                                 |
-| `trailingAddon` | Render text on the right of the select                                                     |
-| `trailingInlineAddon` | Render text inside the input on the select                                                 |
-| `trailingIcon` | Render an icon on the right of the select                                                  |
-| `multiple` | Allow muti-select mode |
-| `options` | An array or Collection of options to render |
-| `valueField` | Property on an option to use for the value |
-| `labelField` | Property on an option to use for the text |
-| `disabledField` | Property on an option to use to determine if it is disabled |
-| `childrenField` | Property on an option to determine if it has children. Will render as an `<optgroup>` if children is present and not empty |
+| prop                  | description                                                                                                                |
+| --------------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| `name`                | Name of the select                                                                                                         |
+| `id`                  | Id of the select. Defaults to `name`.                                                                                      |
+| `value`               | Value of the select. Gets omitted if `wire:model` or `x-model` is present                                                  |
+| `containerClass`      | Defines a CSS class to apply to the **container** of the select                                                            |
+| `size`                | Define a size for the select. Default size is `md`                                                                         |
+| `showErrors`          | If a validation error is present for the select, it will show the error state on the input                                 |
+| `extraAttributes`     | Pass an array of HTML attributes to render on the select                                                                   |
+| `leadingAddon`        | Render text on the left of the select                                                                                      |
+| `leadingIcon`         | Render an icon on the left of the select                                                                                   |
+| `inlineAddon`         | Render text inside the input on the select                                                                                 |
+| `trailingAddon`       | Render text on the right of the select                                                                                     |
+| `trailingInlineAddon` | Render text inside the input on the select                                                                                 |
+| `trailingIcon`        | Render an icon on the right of the select                                                                                  |
+| `multiple`            | Allow muti-select mode                                                                                                     |
+| `options`             | An array or Collection of options to render                                                                                |
+| `valueField`          | Property on an option to use for the value                                                                                 |
+| `labelField`          | Property on an option to use for the text                                                                                  |
+| `disabledField`       | Property on an option to use to determine if it is disabled                                                                |
+| `childrenField`       | Property on an option to determine if it has children. Will render as an `<optgroup>` if children is present and not empty |
 
-### slots 
+### slots
 
-| slot | description                                               |
-| --- |-----------------------------------------------------------|
-| `append` | Render options after passed in options have been rendered |
-| `before` | Render HTML before the select and/or leading addons       |
-| `after` | Render HTML after the select and/or trailing addons       |
-| `leadingAddon` | Render text on the left of the select                     |
-| `leadingIcon` | Render an icon on the left of the select                  |
-| `inlineAddon` | Render text inside the select on the left                 |
-| `trailingAddon` | Render text on the right of the select                    |
+| slot                  | description                                               |
+| --------------------- | --------------------------------------------------------- |
+| `append`              | Render options after passed in options have been rendered |
+| `before`              | Render HTML before the select and/or leading addons       |
+| `after`               | Render HTML after the select and/or trailing addons       |
+| `leadingAddon`        | Render text on the left of the select                     |
+| `leadingIcon`         | Render an icon on the left of the select                  |
+| `inlineAddon`         | Render text inside the select on the left                 |
+| `trailingAddon`       | Render text on the right of the select                    |
 | `trailingInlineAddon` | Render text inside the select on the right                |
-| `trailingIcon` | Render an icon on the right of the select                 |
+| `trailingIcon`        | Render an icon on the right of the select                 |
 
 ### config
 
@@ -185,8 +187,8 @@ you may want for the select element.
 'defaults' => [
     'global' => [
         // Show error states by default.
-        'show_errors' => true,    
-        
+        'show_errors' => true,
+
         // Set the fields to use by default for properties on options in select components.
         'value_field' => 'id',
         'label_field' => 'name',
@@ -203,7 +205,7 @@ you may want for the select element.
         // Will also apply to select.
         'container_class' => null,
     ],
-    
+
     'select' => [
         // Automatically apply a CSS class to each select.
         'input_class' => null,

@@ -28,7 +28,7 @@ By default, the `checkbox-group` is designed to stack your checkboxes and radio 
 with each other, by setting the `stacked` attribute to `false`. This will display the checkboxes in rows of 3 columns.
 
 ```html
-<x-checkbox-group :stacked="false"> 
+<x-checkbox-group :stacked="false">
     <x-checkbox />
     <x-checkbox />
 </x-checkbox-group>
@@ -57,11 +57,11 @@ For more information on the sizing, checkout the [Sizing](/docs/laravel-form-com
 
 ### props
 
-| prop | description                                                                                                |
-| --- |------------------------------------------------------------------------------------------------------------|
-| `stacked` | A boolean value indicating if the elements should be stacked, or placed in grid columns. Defaults to `true` |
-| `gridCols` | The number of grid columns to use for the elements. Requires `stacked` to be `true`. Defaults to `3` |
-| `inputSize` | The size to make all child inputs. Defaults to the config size for choice. |
+| prop        | description                                                                                                 |
+| ----------- | ----------------------------------------------------------------------------------------------------------- |
+| `stacked`   | A boolean value indicating if the elements should be stacked, or placed in grid columns. Defaults to `true` |
+| `gridCols`  | The number of grid columns to use for the elements. Requires `stacked` to be `true`. Defaults to `3`        |
+| `inputSize` | The size to make all child inputs. Defaults to the config size for choice.                                  |
 
 ### config
 

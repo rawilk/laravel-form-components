@@ -32,14 +32,13 @@ php artisan vendor:publish --tag="form-components-config"
 ## Assets
 
 ### Package JavaScript
+
 To take advantage of some components offered by the package, you will need to include the package's JavaScript (on every page that will be using them).
 Add the following before the end `body` tag in your template.
 
 ```html
 <body>
-    ...
-
-    @fcScripts
+    ... @fcScripts
 </body>
 ```
 
@@ -77,12 +76,12 @@ npm install -D tailwindcss
 In your project's JavaScript, do the following:
 
 ```js
-import Alpine from 'alpinejs';
-import flatpickr from 'flatpickr';
-import Quill from 'quill';
-import * as FilePond from 'filepond';
-import { createPopper } from '@popperjs/core';
-import focus from '@alpinejs/focus';
+import Alpine from "alpinejs";
+import flatpickr from "flatpickr";
+import Quill from "quill";
+import * as FilePond from "filepond";
+import { createPopper } from "@popperjs/core";
+import focus from "@alpinejs/focus";
 
 Alpine.plugin(focus);
 
@@ -98,9 +97,9 @@ window.Alpine.start();
 In your project's CSS, do the following for styling:
 
 ```css
-@import 'filepond/dist/filepond.min.css';
-@import 'flatpickr/dist/flatpickr.min.css';
-@import 'quill/dist/quill.snow.css';
+@import "filepond/dist/filepond.min.css";
+@import "flatpickr/dist/flatpickr.min.css";
+@import "quill/dist/quill.snow.css";
 
 @tailwind base;
 @tailwind components;
@@ -110,11 +109,13 @@ In your project's CSS, do the following for styling:
 > {tip} You are free to use a CDN version of any third-party assets as an alternative to loading them through npm.
 
 ### Package Styles
+
 Assuming your app CSS file is located in `/resources/css/app.css`, you can load in the package's styles like this:
 
 ```css
 ...
-@import '../../vendor/rawilk/laravel-form-components/resources/css/index.css';
+    @import
+    "../../vendor/rawilk/laravel-form-components/resources/css/index.css";
 ```
 
 This will import all the package's styles into your stylesheet, however you are free to import only the stylesheets you need as well; they are all
@@ -133,7 +134,7 @@ php artisan vendor:publish --tag="form-components-views"
 
 ### Tailwind Configuration
 
-Some custom configuration is necessary for the package's CSS to compile correctly, and for some components to be styled correctly. Head over to the 
+Some custom configuration is necessary for the package's CSS to compile correctly, and for some components to be styled correctly. Head over to the
 [customizing CSS](/docs/laravel-form-components/{version}/advanced-usage/customizing-css) docs for more information on configuring Tailwind.
 
 ## Components

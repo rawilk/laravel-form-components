@@ -170,23 +170,18 @@ a key (id) for the button and optionally an array of options if it is a dropdown
 You will then need to utilize the `config` slot on the component to define a JavaScript handler for the toolbar button:
 
 ```html
-<x-quill :quill-options="QuillOptions::defaults()->withToolbarButton('variables', [
+<x-quill
+    :quill-options="QuillOptions::defaults()->withToolbarButton('variables', [
         'Option 1',
         'Option 2',
     ])"
-     ...
+    ...
 >
     <x-slot:config>
-        toolbarHandlers: {
-            variables: function (value) {
-                value = `[[ ${value} ]]`;
-        
-                const quill = instance.__quill;
-                const cursorPosition = quill.getSelection().index;
-                quill.insertText(cursorPosition, value);
-                quill.setSelection(cursorPosition + value.length);
-            },
-        },
+        toolbarHandlers: { variables: function (value) { value = `[[ ${value}
+        ]]`; const quill = instance.__quill; const cursorPosition =
+        quill.getSelection().index; quill.insertText(cursorPosition, value);
+        quill.setSelection(cursorPosition + value.length); }, },
     </x-slot:config>
 </x-quill>
 ```
@@ -231,9 +226,8 @@ Here's an example of how you could hook into the `selection-change` event that Q
 ```html
 <x-quill ...>
     <x-slot:on-init>
-        instance.__quill.on('selection-change', function (range, oldRange, source) {
-            // do something
-        });
+        instance.__quill.on('selection-change', function (range, oldRange,
+        source) { // do something });
     </x-slot:on-init>
 </x-quill>
 ```
@@ -250,8 +244,7 @@ editor instance, you can do so via `instance.__quill`.
 ```html
 <x-quill ...>
     <x-slot:on-text-change>
-        let value = instance.__quill.root.innerHTML;
-        console.log(value);
+        let value = instance.__quill.root.innerHTML; console.log(value);
     </x-slot:on-text-change>
 </x-quill>
 ```
@@ -259,33 +252,31 @@ editor instance, you can do so via `instance.__quill`.
 If you want to prevent our component from updating the value, or dispatching an `input` event, you may return `false` from the slot:
 
 ```html
-<x-slot:on-text-change>
-    return false;
-</x-slot:on-text-change>
+<x-slot:on-text-change> return false; </x-slot:on-text-change>
 ```
 
 ## API Reference
 
 ### props
 
-| prop | description |
-| --- | --- |
-| `name` | Name of the input                                                                         |
-| `id` | Id of the input. Defaults to `name`.                                                        |
-| `value` | The initial value for the input |
-| `showErrors` | If a validation error is present for the input, it will show the error state on the input |
-| `autoFocus` | Give focus to the input on page load |
-| `readonly` | Makes the editor readonly |
-| `placeholder` | Sets a placeholder text in the editor |
-| `quillOptions` | The `QuillOptions` configuration object |
+| prop           | description                                                                               |
+| -------------- | ----------------------------------------------------------------------------------------- |
+| `name`         | Name of the input                                                                         |
+| `id`           | Id of the input. Defaults to `name`.                                                      |
+| `value`        | The initial value for the input                                                           |
+| `showErrors`   | If a validation error is present for the input, it will show the error state on the input |
+| `autoFocus`    | Give focus to the input on page load                                                      |
+| `readonly`     | Makes the editor readonly                                                                 |
+| `placeholder`  | Sets a placeholder text in the editor                                                     |
+| `quillOptions` | The `QuillOptions` configuration object                                                   |
 
 ### slots
 
-| slot | description |
-| --- | --- |
-| `config` | Set JavaScript configuration options and toolbar handlers |
-| `onTextChange` | Hook into the `text-change` event fired by Quill |
-| `onInit` | Place to define custom JavaScript event listeners for Quill |
+| slot           | description                                                 |
+| -------------- | ----------------------------------------------------------- |
+| `config`       | Set JavaScript configuration options and toolbar handlers   |
+| `onTextChange` | Hook into the `text-change` event fired by Quill            |
+| `onInit`       | Place to define custom JavaScript event listeners for Quill |
 
 ### config
 
@@ -296,7 +287,7 @@ you may want for the quill element.
 'defaults' => [
     'global' => [
         // Show error states by default.
-        'show_errors' => true,    
+        'show_errors' => true,
     ],
 
     'quill' => [

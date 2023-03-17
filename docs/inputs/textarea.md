@@ -42,7 +42,9 @@ re-rendering the form, the `textarea` component will remember the old value:
 
 ```html
 <div class="form-text-container ...">
-    <textarea name="about" id="about" class="form-input form-text ..." rows="3">About me text</textarea>
+    <textarea name="about" id="about" class="form-input form-text ..." rows="3">
+About me text</textarea
+    >
 </div>
 ```
 
@@ -64,36 +66,36 @@ textarea for you.
 
 ### props
 
-| prop  | description                                                                               |
-|-------|-------------------------------------------------------------------------------------------|
-| `name` | Name of the textarea                                                                      |
-| `id` | Id of the input. Defaults to name.                                                        |
-| `type` | Type of input. Defaults to `text`                                                         |
-| `value` | Value of the input. Gets omitted if `wire:model` or `x-model` is present                  |
-| `containerClass` | Defines a CSS class to apply to the **container** of the input                            |
-| `size` | Define a size for the textarea. Default size is `md`                                      |
-| `showErrors` | If a validation error is present for the input, it will show the error state on the input |
-| `extraAttributes` | Pass an array of HTML attributes to render on the textarea                                |
-| `leadingAddon` | Render text on the left of the textarea                                                   |
-| `leadingIcon` | Render an icon on the left of the textarea                                                |
-| `inlineAddon` | Render text inside the textarea on the left                                               |
-| `trailingAddon` | Render text on the right of the textarea                                                  |
+| prop                  | description                                                                               |
+| --------------------- | ----------------------------------------------------------------------------------------- |
+| `name`                | Name of the textarea                                                                      |
+| `id`                  | Id of the input. Defaults to name.                                                        |
+| `type`                | Type of input. Defaults to `text`                                                         |
+| `value`               | Value of the input. Gets omitted if `wire:model` or `x-model` is present                  |
+| `containerClass`      | Defines a CSS class to apply to the **container** of the input                            |
+| `size`                | Define a size for the textarea. Default size is `md`                                      |
+| `showErrors`          | If a validation error is present for the input, it will show the error state on the input |
+| `extraAttributes`     | Pass an array of HTML attributes to render on the textarea                                |
+| `leadingAddon`        | Render text on the left of the textarea                                                   |
+| `leadingIcon`         | Render an icon on the left of the textarea                                                |
+| `inlineAddon`         | Render text inside the textarea on the left                                               |
+| `trailingAddon`       | Render text on the right of the textarea                                                  |
 | `trailingInlineAddon` | Render text inside the textarea on the right                                              |
-| `trailingIcon` | Render an icon on the right of the textarea                                               |
-| `autoResize` | Resize the textarea automatically as the user types into it. Defaults to config value.    |
+| `trailingIcon`        | Render an icon on the right of the textarea                                               |
+| `autoResize`          | Resize the textarea automatically as the user types into it. Defaults to config value.    |
 
 ### slots
 
-| slot | description                                           |
-| --- |-------------------------------------------------------|
-| `before` | Render HTML before the textarea and/or leading addons |
-| `after` | Render HTML after the textarea and/or trailing addons |
-| `leadingAddon` | Render text on the left of the textarea               |
-| `leadingIcon` | Render an icon on the left of the textarea            |
-| `inlineAddon` | Render text inside the textarea on the left           |
-| `trailingAddon` | Render text on the right of the textarea              |
+| slot                  | description                                           |
+| --------------------- | ----------------------------------------------------- |
+| `before`              | Render HTML before the textarea and/or leading addons |
+| `after`               | Render HTML after the textarea and/or trailing addons |
+| `leadingAddon`        | Render text on the left of the textarea               |
+| `leadingIcon`         | Render an icon on the left of the textarea            |
+| `inlineAddon`         | Render text inside the textarea on the left           |
+| `trailingAddon`       | Render text on the right of the textarea              |
 | `trailingInlineAddon` | Render text inside the textarea on the right          |
-| `trailingIcon` | Render an icon on the right of the textarea           |
+| `trailingIcon`        | Render an icon on the right of the textarea           |
 
 ### config
 
@@ -104,7 +106,7 @@ you may want for the textarea element.
 'defaults' => [
     'global' => [
         // Show error states by default.
-        'show_errors' => true,    
+        'show_errors' => true,
     ],
 
     'input' => [
@@ -119,7 +121,7 @@ you may want for the textarea element.
         // Base input classes applied by default.
         'input_class' => null,
     ],
-    
+
     'textarea' => [
         // How many rows should the textarea have by default.
         'rows' => 3,

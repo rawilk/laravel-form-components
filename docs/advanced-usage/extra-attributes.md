@@ -23,7 +23,7 @@ public function getInputAttributesProperty(): array
     return array_filter([
         '@click' => "console.log('hi')",
         'data-name' => $this->name,
-        'data-foo' => $this->name === 'foo' ? 'true' : null,    
+        'data-foo' => $this->name === 'foo' ? 'true' : null,
     ]);
 }
 ```
