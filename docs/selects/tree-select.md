@@ -81,7 +81,7 @@ Assuming you have a property called "foo" on the option, we'll render that prope
 </x-tree-select>
 ```
 
-> {tip} You may want to apply different formatting to your parent options, which can be checked for via `$treeSelectOption.hasChildren`. See [$treeSelectOption](#user-content-$treeSelectOption)
+> {tip} You may want to apply different formatting to your parent options, which can be checked for via `$treeSelectOption.hasChildren`. See [$treeSelectOption](#user-content-treeselectoption)
 
 ### Customizing the selected option display
 
@@ -104,7 +104,7 @@ In the example above, when an option is selected, the value for the option's `sh
 of the option's `name` field.
 
 We have also provided a slot called `selectedTemplate` which will allow you to further customize how you are displaying the selected option's value. You
-will need to use the `selectedObject` property on our `$treeSelect` [magic property](#user-content-$treeSelect).
+will need to use the `selectedObject` property on our `$treeSelect` [magic property](#user-content-treeselect).
 
 ```html
 <x-tree-select ...>
