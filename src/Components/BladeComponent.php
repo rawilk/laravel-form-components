@@ -23,7 +23,7 @@ abstract class BladeComponent extends IlluminateComponent
 
     public static function viewName(): string
     {
-        return 'form-components::components.' . static::getName();
+        return 'form-components::components.'.static::getName();
     }
 
     /*
