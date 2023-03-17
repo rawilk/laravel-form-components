@@ -20,7 +20,7 @@ You can import the `index.css` and run every `@apply` rule through your own `tai
 /* override our styles here */
 ```
 
-> {note} If you choose this option, make sure you have the [required variants](#required-variants) included in your `tailwind.config.js` configuration.
+> {note} If you choose this option, make sure you have the [required variants](#user-content-required-variants) included in your `tailwind.config.js` configuration.
 
 You may also import only the stylesheets you need instead of everything in the index.css file. Most components have their own stylesheets (i.e. `input.css` for input elements).
 
@@ -54,7 +54,7 @@ select[disabled] {
 ```
 
 ## Required Variants
-If you choose [Option 1](#option-1-use-your-own-tailwind-css-configuration), you will need the following color variants added inside your `tailwind.config.js` file:
+If you choose [Option 1](#user-content-option-1-use-your-own-tailwind-css-configuration), you will need the following color variants added inside your `tailwind.config.js` file:
 
 ```js
 // tailwind.config.js

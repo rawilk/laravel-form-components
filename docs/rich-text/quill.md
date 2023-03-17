@@ -9,7 +9,7 @@ The `quill` component provides a rich text editor. Before using this component, 
 
 ## Installation
 
-While the `quill` component works out-of-the-box when you've [set the directive](/docs/laravel-form-components/{version}/installation#directives), we recommend that you install and compile the JavaScript libraries before you deploy to production:
+While the `quill` component works out-of-the-box when you've [set the directive](/docs/laravel-form-components/{version}/installation#user-content-directives), we recommend that you install and compile the JavaScript libraries before you deploy to production:
 
 - [Alpine.js](https://github.com/alpinejs/alpine) `^3.9`
 - [Quill](https://quilljs.com) `^1.3`
@@ -125,7 +125,7 @@ a key (id) for the button, a JavaScript handler, and optionally an array of opti
 a string to a JavaScript function by the quill component JS, and will be provided a `value` variable from the quill editor.
 
 ```html
-<x-quill :quill-options="QuillOptions::defaults()->withToolbarButton('variables', <<<HTML
+<x-quill :quill-options="QuillOptions::defaults()->withToolbarButton('variables', <<<'HTML'
     const cursorPosition = this.quill.getSelection().index;
     this.quill.insertText(cursorPosition, value);
     this.quill.setSelection(cursorPosition + value.length);

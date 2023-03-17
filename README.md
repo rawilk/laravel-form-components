@@ -3,8 +3,10 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/rawilk/laravel-form-components.svg?style=flat-square)](https://packagist.org/packages/rawilk/laravel-form-components)
 ![Tests](https://github.com/rawilk/laravel-form-components/workflows/Tests/badge.svg?style=flat-square)
 [![Total Downloads](https://img.shields.io/packagist/dt/rawilk/laravel-form-components.svg?style=flat-square)](https://packagist.org/packages/rawilk/laravel-form-components)
+[![PHP from Packagist](https://img.shields.io/packagist/php-v/rawilk/laravel-form-components?style=flat-square)](https://packagist.org/packages/rawilk/laravel-form-components)
+[![License](https://img.shields.io/github/license/rawilk/laravel-form-components?style=flat-square)](https://github.com/rawilk/laravel-form-components/blob/main/LICENSE.md)
 
-![social image](https://banners.beyondco.de/Laravel%20Form%20Components.png?theme=light&packageManager=composer+require&packageName=rawilk%2Flaravel-form-components&pattern=diagonalStripes&style=style_1&description=Form+components+built+for+tailwind+%26+Livewire&md=1&showWatermark=0&fontSize=100px&images=code)
+![social image](https://banners.beyondco.de/Form%20Components%20for%20Laravel.png?theme=light&packageManager=composer+require&packageName=rawilk%2Flaravel-form-components&pattern=diagonalStripes&style=style_1&description=Form+components+built+for+tailwind+%26+Livewire&md=1&showWatermark=0&fontSize=100px&images=code)
 
 Laravel form components provides common form components to help build forms faster using Tailwind CSS. Supports validation, old form values, and wire:model.
 
@@ -69,6 +71,10 @@ try one of these alternatives if your needs differ:
 
 - [Blade UI Kit](https://blade-ui-kit.com/)
 - [Laravel Form Components](https://github.com/protonemedia/laravel-form-components)
+
+## Disclaimer
+
+This package is not affiliated with, maintained, authorized, endorsed or sponsored by Laravel, TailwindCSS, Laravel Livewire, Alpine.js, or any of its affiliates.
 
 ## License
 

@@ -12,13 +12,13 @@ to reveal any children options they have.
 ## Installation
 
 Like the custom select, the tree select component requires Alpine.js and Popper.js, as well as some custom JavaScript written into the package to work.
-Ensure you have the proper [directives](/docs/laravel-form-components/installation#directives) in your layout file.
+Ensure you have the proper [directives](/docs/laravel-form-components/installation#user-content-directives) in your layout file.
 In production, we recommend you install and compile the JavaScript libraries before you deploy:
 
 - [Alpine.js](https://github.com/alpinejs/alpine) `^3.8`
 - [Popper.js](https://popper.js.org) `^2.9.1`
 
-> {tip} See the [JavaScript Dependencies section](/docs/laravel-form-components/{version}/installation#javascript-dependencies) for more information on installing them.
+> {tip} See the [JavaScript Dependencies section](/docs/laravel-form-components/{version}/installation#user-content-javascript-dependencies) for more information on installing them.
 
 ## Basic Usage
 
