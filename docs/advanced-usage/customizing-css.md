@@ -33,7 +33,9 @@ Beware: you will have to manually keep this CSS in sync with changes in future p
 ```css
 /* app.css */
 
-... @import "custom/laravel-form-components.css";
+... 
+
+@import "custom/laravel-form-components.css";
 ```
 
 Let's say you wanted to change the spacing in stacked checkbox groups. You could do so like this in the file you just created with the pasted in styles from the package:
@@ -161,7 +163,9 @@ Some styling for components, such as text color and border colors, can be overri
 you could add the following to your app's CSS file:
 
 ```css
-... :root {
+... 
+
+:root {
     --input-border-color: theme("colors.green.300");
     --input-dark-border-color: theme("colors.green.500");
 }

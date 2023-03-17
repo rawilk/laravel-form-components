@@ -178,7 +178,7 @@ the component will automatically render them as well while making the option an 
 ```html
 <x-custom-select ...>
     @foreach ($options as $option)
-    <x-custom-select-option :value="$option" />
+        <x-custom-select-option :value="$option" />
     @endforeach
 </x-custom-select>
 ```

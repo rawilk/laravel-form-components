@@ -13,7 +13,9 @@ and CSRF directives and allows for easier to use syntax than the default HTML fo
 The most basic usage of the `form` component exists in encapsulating some form elements:
 
 ```html
-<x-form action="https://example.com"> Form fields... </x-form>
+<x-form action="https://example.com"> 
+    Form fields...
+</x-form>
 ```
 
 This will output the following HTML:
@@ -53,7 +55,9 @@ As you can see, a `_method` input was added since HTML tags only support `POST` 
 To enable file uploads in a form you can make use of the `has-files` attribute:
 
 ```html
-<x-form action="https://example.com" has-files> Form fields... </x-form>
+<x-form action="https://example.com" has-files>
+    Form fields...
+</x-form>
 ```
 
 This will output the following HTML:

@@ -63,7 +63,7 @@ Now we'll use the component's slot and its `messages()` method to render an unor
 ```html
 <x-form-error tag="ul" name="first_name">
     @foreach ($component->messages($errors) as $error)
-    <li>{{ $error }}</li>
+        <li>{{ $error }}</li>
     @endforeach
 </x-form-error>
 ```

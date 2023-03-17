@@ -145,9 +145,9 @@ You may alternatively pass in your own toolbar if you need to:
 ```html
 <x-quill
     :quill-options="QuillOptions::defaults()->toolbar([
-    ['bold', 'italic'],
-    [['list' => 'ordered'], ['list' => 'bullet']],
-])"
+        ['bold', 'italic'],
+        [['list' => 'ordered'], ['list' => 'bullet']],
+    ])"
 />
 ```
 
@@ -178,10 +178,15 @@ You will then need to utilize the `config` slot on the component to define a Jav
     ...
 >
     <x-slot:config>
-        toolbarHandlers: { variables: function (value) { value = `[[ ${value}
-        ]]`; const quill = instance.__quill; const cursorPosition =
-        quill.getSelection().index; quill.insertText(cursorPosition, value);
-        quill.setSelection(cursorPosition + value.length); }, },
+        toolbarHandlers: { 
+            variables: function (value) { 
+                value = `[[ ${value} ]]`;
+                const quill = instance.__quill;
+                const cursorPosition = quill.getSelection().index;
+                quill.insertText(cursorPosition, value);
+                quill.setSelection(cursorPosition + value.length); 
+            },
+        },
     </x-slot:config>
 </x-quill>
 ```
@@ -226,8 +231,9 @@ Here's an example of how you could hook into the `selection-change` event that Q
 ```html
 <x-quill ...>
     <x-slot:on-init>
-        instance.__quill.on('selection-change', function (range, oldRange,
-        source) { // do something });
+        instance.__quill.on('selection-change', function (range, oldRange, source) {
+            // do something 
+        });
     </x-slot:on-init>
 </x-quill>
 ```
@@ -244,7 +250,8 @@ editor instance, you can do so via `instance.__quill`.
 ```html
 <x-quill ...>
     <x-slot:on-text-change>
-        let value = instance.__quill.root.innerHTML; console.log(value);
+        let value = instance.__quill.root.innerHTML; 
+        console.log(value);
     </x-slot:on-text-change>
 </x-quill>
 ```
@@ -252,7 +259,9 @@ editor instance, you can do so via `instance.__quill`.
 If you want to prevent our component from updating the value, or dispatching an `input` event, you may return `false` from the slot:
 
 ```html
-<x-slot:on-text-change> return false; </x-slot:on-text-change>
+<x-slot:on-text-change> 
+    return false; 
+</x-slot:on-text-change>
 ```
 
 ## API Reference

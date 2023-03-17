@@ -131,7 +131,9 @@ component JavaScript.
 ```html
 <x-date-picker name="birthday">
     <x-slot:config>
-        onChange: (selectedDates, dateStr, instance) => { // ... }
+        onChange: (selectedDates, dateStr, instance) => { 
+            // ...
+        }
     </x-slot:config>
 </x-date-picker>
 ```
@@ -149,8 +151,11 @@ the event.
 ```html
 <x-date-picker name="birthday">
     <x-slot:config>
-        onOpen: [ function (selectedDates, dateStr, instance) { // do something
-        }, ],
+        onOpen: [ 
+            function (selectedDates, dateStr, instance) { 
+                // do something
+            },
+        ],
     </x-slot:config>
 </x-date-picker>
 ```

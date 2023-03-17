@@ -99,7 +99,9 @@ optional.
 You can also have the component render the text `Optional` automatically for you by passing in `true` for the `optional` attribute.
 
 ```html
-<x-form-group label="First name" name="first_name" optional> ... </x-form-group>
+<x-form-group label="First name" name="first_name" optional> 
+    ...
+</x-form-group>
 ```
 
 You can customize this text by modifying the config value for `optional_hint_text`.
@@ -151,7 +153,9 @@ The form-group component will now add a `mb-5` margin utility class to each form
 bit of breathing room from each other. The last form-group child in a container will have no margin bottom because of the `last:mb-0` utility class. If you don't want margins to be added to each form-group, you can do the following:
 
 ```html
-<x-form-group label="First name" :margin-bottom="false"> ... </x-form-group>
+<x-form-group label="First name" :margin-bottom="false">
+    ...
+</x-form-group>
 ```
 
 > {tip} To help space your form elements evenly in a form, you could also use a `space-y-*` utility class
