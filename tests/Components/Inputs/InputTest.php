@@ -59,7 +59,7 @@ class InputTest extends ComponentTestCase
     /** @test */
     public function leading_addon_can_be_slotted(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-input name="search">
             <x-slot name="leadingAddon">foo</x-slot>
         </x-input>
@@ -87,7 +87,7 @@ class InputTest extends ComponentTestCase
     /** @test */
     public function inline_addon_can_be_slotted(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-input name="search">
             <x-slot name="inlineAddon">foo</x-slot>
         </x-input>
@@ -99,7 +99,7 @@ class InputTest extends ComponentTestCase
     /** @test */
     public function can_have_leading_icon(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-input name="search">
             <x-slot name="leadingIcon">icon here</x-slot>
         </x-input>
@@ -112,7 +112,7 @@ class InputTest extends ComponentTestCase
     public function only_renders_one_type_of_leading_addon(): void
     {
         // leading-addon should be the only one rendered.
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-input name="search" leading-addon="foo" inline-addon="bar">
             <x-slot name="leadingIcon">icon here</x-slot>
         </x-input>
@@ -140,7 +140,7 @@ class InputTest extends ComponentTestCase
     /** @test */
     public function trailing_addon_can_be_slotted(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-input name="search" trailing-addon-padding="pr-20">
             <x-slot name="trailingAddon">
                 foo slotted
@@ -154,7 +154,7 @@ class InputTest extends ComponentTestCase
     /** @test */
     public function can_have_trailing_icon(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-input name="search">
             <x-slot name="trailingIcon">icon here</x-slot>
         </x-input>
@@ -167,7 +167,7 @@ class InputTest extends ComponentTestCase
     public function will_only_render_one_type_of_trailing_addon(): void
     {
         // should only render the trailing-addon.
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-input name="search" trailing-addon="foo">
             <x-slot name="trailingIcon">icon here</x-slot>
         </x-input>
@@ -179,7 +179,7 @@ class InputTest extends ComponentTestCase
     /** @test */
     public function can_have_both_leading_and_trailing_addons(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-input name="search" leading-addon="foo">
             <x-slot name="trailingIcon">icon here</x-slot>
         </x-input>
@@ -250,7 +250,7 @@ class InputTest extends ComponentTestCase
     /** @test */
     public function can_have_custom_trailing_addon_markup(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-input name="foo">
             <x-slot name="after">
                 <div class="my-custom-trailing-addon">

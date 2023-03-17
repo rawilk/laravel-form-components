@@ -11,7 +11,7 @@ class FormGroupTest extends ComponentTestCase
     /** @test */
     public function can_be_rendered(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-form-group label="First name" name="first_name">
             Name input
         </x-form-group>
@@ -25,7 +25,7 @@ class FormGroupTest extends ComponentTestCase
     /** @test */
     public function can_have_help_text(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-form-group label="First name" name="first_name" help-text="Some help text">
             Name field
         </x-form-group>
@@ -39,7 +39,7 @@ class FormGroupTest extends ComponentTestCase
     /** @test */
     public function help_text_can_be_slotted(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-form-group label="First name" name="first_name">
             Name field
 
@@ -57,7 +57,7 @@ class FormGroupTest extends ComponentTestCase
     /** @test */
     public function can_be_inline(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-form-group label="First name" name="first_name" inline>
             Name field
         </x-form-group>
@@ -83,7 +83,7 @@ class FormGroupTest extends ComponentTestCase
     {
         $this->withViewErrors(['name' => 'Name is required.']);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-form-group label="First name" name="name">
             Name field
         </x-form-group>
@@ -97,7 +97,7 @@ class FormGroupTest extends ComponentTestCase
     /** @test */
     public function inline_checkbox_form_groups_labels_have_no_top_padding(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-form-group label="First name" name="name" inline is-checkbox-group>
             Name field
         </x-form-group>
@@ -111,8 +111,8 @@ class FormGroupTest extends ComponentTestCase
     /** @test */
     public function label_can_be_omitted(): void
     {
-        $template = <<<HTML
-        <x-form-group :label="\$label" name="name">
+        $template = <<<'HTML'
+        <x-form-group :label="$label" name="name">
             Name field
         </x-form-group>
         HTML;
@@ -127,7 +127,7 @@ class FormGroupTest extends ComponentTestCase
     {
         config()->set('form-components.optional_hint_text', 'Optional');
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-form-group name="foo" optional>
             <x-input name="foo" aria-describedby="foo-hint" />
         </x-form-group>
@@ -141,7 +141,7 @@ class FormGroupTest extends ComponentTestCase
     {
         config()->set('form-components.optional_hint_text', 'Optional');
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-form-group name="foo" optional inline>
             <x-input name="foo" aria-describedby="foo-hint foo-hint-inline" />
         </x-form-group>
@@ -153,7 +153,7 @@ class FormGroupTest extends ComponentTestCase
     /** @test */
     public function can_have_custom_hint_text(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-form-group name="foo" hint="My hint text">
             <x-input name="foo" aria-describedby="foo-hint" />
         </x-form-group>

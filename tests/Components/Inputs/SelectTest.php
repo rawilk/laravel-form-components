@@ -33,7 +33,7 @@ class SelectTest extends ComponentTestCase
     {
         $this->flashOld(['country' => 'usa']);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-select name="country" :options="['can' => 'Canada', 'usa' => 'United States']" />
         HTML;
 
@@ -60,7 +60,7 @@ class SelectTest extends ComponentTestCase
         $this->flashOld(['country' => 'usa']);
 
         // The "value" should be overridden by the flashed old input.
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-select name="country" id="country_code" class="px-4" value="can" :options="['can' => 'Canada', 'usa' => 'United States']" />
         HTML;
 
@@ -72,7 +72,7 @@ class SelectTest extends ComponentTestCase
     {
         $this->flashOld(['country' => ['usa', 'mex']]);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-select name="country" multiple :options="['can' => 'Canada', 'usa' => 'United States', 'mex' => 'Mexico']" />
         HTML;
 
@@ -84,7 +84,7 @@ class SelectTest extends ComponentTestCase
     {
         $this->withViewErrors(['country' => 'required']);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-select name="country" :options="['can' => 'Canada', 'usa' => 'United States']" />
         HTML;
 
@@ -96,7 +96,7 @@ class SelectTest extends ComponentTestCase
     {
         $this->flashOld(['country' => 'usa']);
 
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-select name="country" :options="['can' => 'Canada', 'usa' => 'United States']">
             <option value="ger">Germany</option>
 

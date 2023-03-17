@@ -28,7 +28,7 @@ class CheckboxGroupTest extends ComponentTestCase
     /** @test */
     public function can_have_a_custom_amount_of_grid_columns(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-checkbox-group :stacked="false" grid-cols="6">
             <div>checkbox 1</div>
             <div>checkbox 2</div>

@@ -28,7 +28,7 @@ If you choose to import the compiled styles for this package into your own style
 @import "../../vendor/rawilk/laravel-form-components/resources/js/laravel-form-components-styles/dist/styles.min.css";
 ```
 
-See [customizing css](/docs/laravel-form-components/{version}/advanced-usage/customizing-css#option-2-override-only-portions-in-your-css) for more information.
+See [customizing css](/docs/laravel-form-components/{version}/advanced-usage/customizing-css#user-content-option-2-override-only-portions-in-your-css) for more information.
 
 ## Upgrading from v3 to v4
 
@@ -48,7 +48,7 @@ For more info on styling, please see [the Customizing CSS section](/docs/laravel
 
 Some components, such as the `custom-select` component, have a dependency on `Popper.js` now for positioning the menu. This will require you to ensure that dependency is installed in your project. If you customized the package's configuration file, you should make sure you pull in any updates to the configuration as well.
 
-See [the custom select docs](/docs/laravel-form-components/{version}/selects/custom-select#installation) for more information.
+See [the custom select docs](/docs/laravel-form-components/{version}/selects/custom-select#user-content-installation) for more information.
 
 ### Custom Select
 

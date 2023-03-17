@@ -108,7 +108,7 @@ class Timezone
      */
     private function normalizeOffset(string $timezone, $offset): bool|string
     {
-        return match($timezone) {
+        return match ($timezone) {
             'Africa/Juba' => '+02:00',
             'Europe/Volgograd' => '+03:00',
             'Australia/Currie' => false,

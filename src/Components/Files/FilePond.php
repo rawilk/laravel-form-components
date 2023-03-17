@@ -45,7 +45,7 @@ class FilePond extends BladeComponent
         ]);
 
         if (isset($label[1])) {
-            $label[1] = '<span class="fc-filepond--sub-desc">' . $label[1] . '</span>';
+            $label[1] = '<span class="fc-filepond--sub-desc">'.$label[1].'</span>';
         }
 
         $defaultOptions = [
@@ -55,7 +55,7 @@ class FilePond extends BladeComponent
         ] + array_filter([
             'maxFiles' => $this->multiple && $this->maxFiles ? $this->maxFiles : null,
             'name' => $this->name,
-            'labelIdle' => '<span class="fc-filepond--desc">' . implode('<br>', $label) . '</span>',
+            'labelIdle' => '<span class="fc-filepond--desc">'.implode('<br>', $label).'</span>',
         ]);
 
         return array_merge($defaultOptions, $this->options);
@@ -67,7 +67,7 @@ class FilePond extends BladeComponent
             return '';
         }
 
-        return '...' . json_encode((object) $this->options()) . ',';
+        return '...'.json_encode((object) $this->options()).',';
     }
 
     public function shouldWatch($attributes): bool

@@ -29,8 +29,6 @@ class TestView
     /**
      * Assert that the given string is contained within the view.
      *
-     * @param string $value
-     * @param bool $escaped
      * @return $this
      */
     public function assertSee(string $value, bool $escaped = true): self
@@ -45,13 +43,11 @@ class TestView
     /**
      * Assert that the given strings are contained in order within the view.
      *
-     * @param array $values
-     * @param bool $escape
      * @return $this
      */
     public function assertSeeInOrder(array $values, bool $escape = true): self
     {
-        $values = $escape ? array_map('e', ($values)): $values;
+        $values = $escape ? array_map('e', ($values)) : $values;
 
         PHPUnit::assertThat($values, new SeeInOrder($this->rendered));
 
@@ -61,8 +57,6 @@ class TestView
     /**
      * Assert that the given string is contained within the view text.
      *
-     * @param string $value
-     * @param bool $escape
      * @return $this
      */
     public function assertSeeText(string $value, bool $escape = true): self
@@ -77,8 +71,6 @@ class TestView
     /**
      * Assert that the given strings are contained in order within the view text.
      *
-     * @param array $values
-     * @param bool $escape
      * @return $this
      */
     public function assertSeeTextInOrder(array $values, bool $escape = true): self
@@ -93,8 +85,6 @@ class TestView
     /**
      * Assert that the given string is not contained within the view.
      *
-     * @param string $value
-     * @param bool $escape
      * @return $this
      */
     public function assertDontSee(string $value, bool $escape = true): self
@@ -109,8 +99,6 @@ class TestView
     /**
      * Assert that the given string is not contained within the view text.
      *
-     * @param string $value
-     * @param bool $escape
      * @return $this
      */
     public function assertDontSeeText(string $value, bool $escape = true): self

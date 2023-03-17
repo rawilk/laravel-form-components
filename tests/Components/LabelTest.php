@@ -19,7 +19,7 @@ class LabelTest extends ComponentTestCase
     /** @test */
     public function a_custom_label_can_be_used(): void
     {
-        $template = <<<HTML
+        $template = <<<'HTML'
         <x-label for="first_name">
             My custom label
         </x-label>

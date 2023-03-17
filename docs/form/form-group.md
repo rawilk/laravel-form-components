@@ -127,7 +127,7 @@ set the `is-checkbox-group` attribute to `true`, and it will not add padding to 
 
 ## Margins
 
-As of v4, the form-group component will now add a `mb-5` margin utility class to each form-group component, so each form-group has a little
+As of v4, the form-group component will now add a `mb-5` margin utility class to each form-group component, so each form-group has a
 bit of breathing room from each other. The last form-group child in a container will have no margin bottom because of the `last:mb-0` utility class. If you don't want margins to be added to each form-group, you can do the following:
 
 ```html

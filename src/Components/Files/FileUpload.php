@@ -16,6 +16,7 @@ class FileUpload extends BladeComponent
     protected static array $assets = ['alpine'];
 
     protected null|bool $canShowUploadProgress = null;
+
     public null|string $label;
 
     public function __construct(

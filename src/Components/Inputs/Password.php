@@ -7,6 +7,7 @@ namespace Rawilk\FormComponents\Components\Inputs;
 class Password extends Input
 {
     protected static array $assets = ['alpine'];
+
     protected bool $ignoreAddons = true;
 
     public function __construct(
@@ -69,7 +70,7 @@ class Password extends Input
             $this->getContainerClass(),
             'group',
             'password-input-container',
-            $this->showToggle ? "focus-within:ring-4 focus-within:ring-opacity-50 rounded-lg" : null,
+            $this->showToggle ? 'focus-within:ring-4 focus-within:ring-opacity-50 rounded-lg' : null,
             $this->showToggle ? $colorClasses : null,
         ])->filter()->implode(' ');
     }
