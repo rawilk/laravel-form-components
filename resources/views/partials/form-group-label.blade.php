@@ -8,7 +8,6 @@
         @unless ($label === false)
             <x-form-components::label
                 :for="$inputId"
-                :id="$labelId"
                 x-form-group:label=""
             >
                 {{ $label }}

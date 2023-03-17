@@ -29,7 +29,6 @@ class FileUpload extends BladeComponent
         ?string $type = null,
         ?bool $showErrors = null,
         public ?bool $displayUploadProgress = null,
-        public ?string $label = null,
         public ?string $size = null,
         public ?string $containerClass = null,
         public ?bool $useNativeProgressBar = null,
@@ -41,8 +40,6 @@ class FileUpload extends BladeComponent
         $this->type = $type;
         $this->showErrors = $showErrors ?? config('form-components.defaults.global.show_errors', true);
         $this->size = $size ?? config('form-components.defaults.input.size', 'md');
-
-        $this->label = $label ?? __('form-components::messages.file_upload_label');
 
         $this->displayUploadProgress = $displayUploadProgress ?? config('form-components.defaults.file_upload.display_upload_progress', true);
         $this->useNativeProgressBar = $useNativeProgressBar ?? config('form-components.defaults.file_upload.use_native_progress_bar', false);

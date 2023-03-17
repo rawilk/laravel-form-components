@@ -17,4 +17,4 @@ try one of these alternatives if your needs differ:
 
 ## Disclaimer
 
-This package is not affiliated with, maintained, authorized, endorsed or sponsored by Laravel, TailwindCSS, Laravel Livewire, or any of its affiliates.
+This package is not affiliated with, maintained, authorized, endorsed or sponsored by Laravel, TailwindCSS, Laravel Livewire, Alpine.js, or any of its affiliates.

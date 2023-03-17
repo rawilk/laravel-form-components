@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Rawilk\FormComponents\Components\Inputs;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
@@ -79,7 +80,7 @@ class CustomSelect extends BladeComponent
 
         $this->valueField = $valueField ?? config('form-components.defaults.global.value_field', 'id');
         $this->labelField = $labelField ?? config('form-components.defaults.global.label_field', 'name');
-        $this->selectedLabelField = $selectedLabelField ?? config('form-components.defaults.global.selected_label_field') ?? $labelField;
+        $this->selectedLabelField = $selectedLabelField ?? config('form-components.defaults.global.selected_label_field') ?? $this->labelField;
         $this->disabledField = $disabledField ?? config('form-components.defaults.global.disabled_field', 'disabled');
         $this->childrenField = $childrenField ?? config('form-components.defaults.global.children_field', 'children');
 
@@ -134,6 +135,14 @@ class CustomSelect extends BladeComponent
                 if (! is_numeric($key)) {
                     return [
                         $this->valueField => $key,
+                        $this->labelField => $value,
+                    ];
+                }
+
+                // If the value is a simple value, we need to convert it to an array.
+                if (! is_iterable($value) && ! $value instanceof Model) {
+                    return [
+                        $this->valueField => $value,
                         $this->labelField => $value,
                     ];
                 }

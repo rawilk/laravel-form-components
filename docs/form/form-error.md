@@ -63,7 +63,7 @@ Now we'll use the component's slot and its `messages()` method to render an unor
 ```html
 <x-form-error tag="ul" name="first_name">
     @foreach ($component->messages($errors) as $error)
-        <li>{{ $error }}</li>
+    <li>{{ $error }}</li>
     @endforeach
 </x-form-error>
 ```
@@ -82,3 +82,41 @@ This will output:
 As you can see we need to pass in the `$errors` message bag to the `messages()`
 method of the component to grab all the messages for our field. Then we loop over
 them and render them.
+
+## API Reference
+
+### props
+
+| prop      | description                                                                                                              |
+| --------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `name`    | The name of the input to render errors for                                                                               |
+| `inputId` | The ID of the input element to render errors for. This is useful for using `aria-describedby` attributes on the element. |
+| `bag`     | The name of the validation error bag. Defaults to `default`                                                              |
+| `tag`     | The tag name of the element to wrap the error(s) in. Defaults to `<p>`                                                   |
+
+### methods
+
+The following methods can be accessed in the default slot of the component:
+
+#### messages
+
+Access the errors in the error bag based on the name provided to the component. This method requires you to pass the `$errors`
+object from the blade template.
+
+```php
+public function messages(\Illuminate\Support\ViewErrorBag $errors): array
+```
+
+### config
+
+The following configuration keys and values can be adjusted for common default behavior
+you may want for the form-error component.
+
+```php
+'defaults' => [
+    'form_error' => [
+        // Define which HTML tag to use for the error message by default.
+        'tag' => 'p',
+    ],
+],
+```

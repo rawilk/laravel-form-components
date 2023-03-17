@@ -1,6 +1,6 @@
 ---
 title: Overriding Classes
-sort: 3
+sort: 4
 ---
 
 ## Overriding Classes
@@ -9,6 +9,7 @@ When you override a component class with your own, you will need to update the c
 For the `select` component, it would look like this:
 
 **Custom Class:**
+
 ```php
 <?php
 
@@ -19,24 +20,28 @@ use Rawilk\FormComponents\Components\Inputs\Select;
 class MySelect extends Select
 {
     // Override stuff here...
-    
-    /*
+
+    /**
      * You will need to override this method to
      * let the BladeComponent parent class
      * know where to look for this component's
      * view.
-     * 
+     *
      * Alternatively, you can override the
      * "render" method.
      */
     public static function getName(): string
     {
+        // 'inputs.select' is the directory structure in the package's view
+        // files. If you're using your own view, you should override the `render`
+        // method instead.
         return 'inputs.select';
     }
 }
 ```
 
 **Config:**
+
 ```php
 <?php
 
@@ -68,7 +73,7 @@ use Rawilk\FormComponents\Components\Label;
 
 class AppServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): void
     {
         $this->app->bind(Label::class, MyCustomLabelClass::class);
     }

@@ -109,7 +109,7 @@ return [
         // Defaults for the date picker component.
         'date_picker' => [
             // Allow date picker to open from clicking on the input by default.
-            'click_opens' => true,
+            'click_opens' => false,
 
             // Allow user to modify the text of the input by default.
             'allow_input' => true,
