@@ -9,10 +9,10 @@ The `quill` component provides a rich text editor. Before using this component, 
 
 ## Installation
 
-While the `quill` component works out-of-the-box when you've [set the directive](/docs/laravel-form-components/{version}/installation#directives), we recommend that you install and compile the JavaScript libraries before you deploy to production:
+The `quill` component requires the following third-party libraries to work properly:
 
--   [Alpine.js](https://github.com/alpinejs/alpine) `^3.9`
--   [Quill](https://quilljs.com) `^1.3`
+-   Alpine.js
+-   Quill
 
 You may install Quill via npm:
 
@@ -24,6 +24,8 @@ You can then import it in your project using imports:
 
 ```js
 import Quill from "quill";
+
+window.Quill = Quill;
 ```
 
 You will also need to import the theme styles you are using into your stylesheets:
@@ -41,6 +43,8 @@ You are of course free to use the cdn links alternatively if that's more your st
 
 Be sure to replace `1.0.0` with the version you are planning on using.
 
+See [Third-Party Assets](/docs/laravel-form-components/{version}/installation#user-content-third-party-assets) on the installation guide for further setup information.
+
 ## Basic Usage
 
 The most basic usage of the `quill` component involves just adding a self-closing tag:
@@ -49,7 +53,8 @@ The most basic usage of the `quill` component involves just adding a self-closin
 <x-quill />
 ```
 
-This will create a new quill editor inside of a content editable div.
+This will create a new quill editor inside of a content editable div. If a `name` attribute is provided, we will render a hidden input for regular
+form submissions, which will keep its value in sync with the value of the quill editor.
 
 ## Livewire Integration
 
@@ -63,19 +68,19 @@ The `quill` component integrates easily with livewire out-of-the-box and just re
 
 ## X-Model Usage
 
-You may use `x-model` on the component as well, however there is one caveat to it. You will need to listen for a `quill-input` event on your alpine component and update your
-model accordingly. We dispatch that custom event instead of `input` because the quill editor also dispatches the input event, but it doesn't give you the actual value
-of the input. With the custom event, you can more reliably update your alpine models.
+You may use `x-model` on the component as well.
 
 ```html
-<div x-data="{ content: '' }" x-on:quill-input="content = $event.detail">
+<div x-data="{ content: '' }">
     <x-quill x-model="content" />
 </div>
 ```
 
+You may also use modifiers to x-model, such as `debounce`.
+
 ## Options
 
-The `quill` component accepts most of the options that the quill editor provides, however some options will require you to provide a `Rawilk\LaravelFormComponents\Dto\QuillOptions` object to set them.
+The `quill` component accepts most of the options that the quill editor provides, however some options will require you to provide a `\Rawilk\LaravelFormComponents\Dto\QuillOptions` object to set them.
 
 ### Readonly
 
@@ -103,6 +108,26 @@ For all other options, you should pass in an instance of the `QuillOptions` obje
 
 The `QuillOptions` object is mostly useful for customizing the toolbar of the editor.
 
+You may set some default options in a service provider. For example, if you always want to hide the bold toolbar button, you may do
+so like this in your AppServiceProvider:
+
+```php
+namespace App\Providers;
+
+use Illuminate\Support\ServiceProvider;
+use Rawilk\FormComponents\Dto\QuillOptions;
+
+class AppServiceProvider extends ServiceProvider
+{
+    public function boot(): void
+    {
+        QuillOptions::defaults(function () {
+            return (new QuillOptions)->hideBold();
+        });
+    }
+}
+```
+
 ### Custom Toolbar
 
 By default, most of the buttons available to quill will be rendered onto the editor. Using the `QuillOptions` object, you may specify which buttons should be hidden and also provide custom buttons as well.
@@ -113,7 +138,7 @@ By default, most of the buttons available to quill will be rendered onto the edi
 />
 ```
 
-The above example will hide the bold and ordered list buttons from the editor. For a full list of available methods, you can refer to the source class: https://github.com/rawilk/laravel-form-components/blob/main/src/Dto/QuillOptions.php
+The above example will hide the bold and ordered list buttons from the editor. For a full list of available methods, you can refer to the source class: https://github.com/rawilk/laravel-form-components/blob/{branch}/src/Dto/QuillOptions.php
 
 You may alternatively pass in your own toolbar if you need to:
 
@@ -131,17 +156,39 @@ In this example, only buttons for bold, italic, and ordered/unordered lists will
 ### Custom Toolbar Button
 
 If you need a custom toolbar button/dropdown list, you may provide one with the `withToolbarButton` method on `QuillOptions`. You will need to provide
-a key (id) for the button, a JavaScript handler, and optionally an array of options if it is a dropdown button. Your handler will automatically be converted from
-a string to a JavaScript function by the quill component JS, and will be provided a `value` variable from the quill editor.
+a key (id) for the button and optionally an array of options if it is a dropdown button.
 
 ```html
 <x-quill
-    :quill-options="QuillOptions::defaults()->withToolbarButton('variables', <<<HTML
-    const cursorPosition = this.quill.getSelection().index;
-    this.quill.insertText(cursorPosition, value);
-    this.quill.setSelection(cursorPosition + value.length);
-HTML, ['Option 1', 'Option 2']"
+    :quill-options="QuillOptions::defaults()->withToolbarButton('variables', [
+        'Option 1',
+        'Option 2',
+    ])"
 />
+```
+
+You will then need to utilize the `config` slot on the component to define a JavaScript handler for the toolbar button:
+
+```html
+<x-quill :quill-options="QuillOptions::defaults()->withToolbarButton('variables', [
+        'Option 1',
+        'Option 2',
+    ])"
+     ...
+>
+    <x-slot:config>
+        toolbarHandlers: {
+            variables: function (value) {
+                value = `[[ ${value} ]]`;
+        
+                const quill = instance.__quill;
+                const cursorPosition = quill.getSelection().index;
+                quill.insertText(cursorPosition, value);
+                quill.setSelection(cursorPosition + value.length);
+            },
+        },
+    </x-slot:config>
+</x-quill>
 ```
 
 This example will provide a custom dropdown menu with two options, and when each one is clicked on, it will insert the text of the option into the editor at the current cursor position of the user. Your work is not done yet, however. Quill editor uses CSS styling to render the text into the toolbar buttons, so you will need to add some styles to your stylesheet:
@@ -161,3 +208,100 @@ This example will provide a custom dropdown menu with two options, and when each
 ```
 
 > {tip} Quill creates a css class on your button depending on the key you provide it. You will need to change `.ql-variables` to whatever key name you provide it.
+
+## Config Slot
+
+If you need to define JavaScript handlers for a [custom toolbar button](#user-content-custom-toolbar-button), you may use the `config`
+slot to do this. The config slot is inside a JavaScript function that returns an object and has access to the following variables:
+
+| variable | description |
+| `instance` | The Alpine data instance for the quill component. To access to the quill editor instance, you can do so via `instance.__quill` |
+| `quillOptions` | An object containing the options generated by the component |
+
+For a complete list of quill configuration options, see [Quill Configuration](https://quilljs.com/docs/configuration/).
+
+## onInit Slot
+
+If you need to define your own JavaScript callbacks for Quill, you may use the `onInit` slot. This slot is rendered inside a JavaScript
+function that has access to an `instance` variable, which provides you access to the Alpine data object for the `quill` component. If you need
+access to the quill editor instance, you can do so via `instance.__quill`.
+
+Here's an example of how you could hook into the `selection-change` event that Quill fires:
+
+```html
+<x-quill ...>
+    <x-slot:on-init>
+        instance.__quill.on('selection-change', function (range, oldRange, source) {
+            // do something
+        });
+    </x-slot:on-init>
+</x-quill>
+```
+
+> {note} If you need to hook into the `text-change` event fired by Quill, you should use the [onTextChange](#user-content-onTextChange-slot) slot instead.
+
+## onTextChange Slot
+
+Whenever the text content of the quill editor is changed, Quill will fire a `text-change` event that can be listened for. Since our component's JavaScript
+already listens for that event, we've provided a slot that can be used to perform additional actions if needed. The slot is rendered inside a function
+that has access to an `instance variable`, which provides you access to the Alpine data object for the `quill` component. If you need access to the quill
+editor instance, you can do so via `instance.__quill`.
+
+```html
+<x-quill ...>
+    <x-slot:on-text-change>
+        let value = instance.__quill.root.innerHTML;
+        console.log(value);
+    </x-slot:on-text-change>
+</x-quill>
+```
+
+If you want to prevent our component from updating the value, or dispatching an `input` event, you may return `false` from the slot:
+
+```html
+<x-slot:on-text-change>
+    return false;
+</x-slot:on-text-change>
+```
+
+## API Reference
+
+### props
+
+| prop | description |
+| --- | --- |
+| `name` | Name of the input                                                                         |
+| `id` | Id of the input. Defaults to `name`.                                                        |
+| `value` | The initial value for the input |
+| `showErrors` | If a validation error is present for the input, it will show the error state on the input |
+| `autoFocus` | Give focus to the input on page load |
+| `readonly` | Makes the editor readonly |
+| `placeholder` | Sets a placeholder text in the editor |
+| `quillOptions` | The `QuillOptions` configuration object |
+
+### slots
+
+| slot | description |
+| --- | --- |
+| `config` | Set JavaScript configuration options and toolbar handlers |
+| `onTextChange` | Hook into the `text-change` event fired by Quill |
+| `onInit` | Place to define custom JavaScript event listeners for Quill |
+
+### config
+
+The following configuration keys and values can be adjusted for common default behavior
+you may want for the quill element.
+
+```php
+'defaults' => [
+    'global' => [
+        // Show error states by default.
+        'show_errors' => true,    
+    ],
+
+    'quill' => [
+        // Automatically focus the editor on page load by default.
+        'auto_focus' => false,
+    ],
+],
+```

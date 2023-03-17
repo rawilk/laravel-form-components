@@ -1,6 +1,6 @@
 ---
 title: Overriding Classes
-sort: 3
+sort: 4
 ---
 
 ## Overriding Classes
@@ -21,7 +21,7 @@ class MySelect extends Select
 {
     // Override stuff here...
 
-    /*
+    /**
      * You will need to override this method to
      * let the BladeComponent parent class
      * know where to look for this component's
@@ -32,6 +32,9 @@ class MySelect extends Select
      */
     public static function getName(): string
     {
+        // 'inputs.select' is the directory structure in the package's view
+        // files. If you're using your own view, you should override the `render`
+        // method instead.
         return 'inputs.select';
     }
 }
@@ -70,7 +73,7 @@ use Rawilk\FormComponents\Components\Label;
 
 class AppServiceProvider extends ServiceProvider
 {
-    public function register()
+    public function register(): void
     {
         $this->app->bind(Label::class, MyCustomLabelClass::class);
     }

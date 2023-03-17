@@ -35,18 +35,54 @@ key/value pairs. This will allow the select component to automatically determine
 <x-select name="state" :options="['al' => 'Alabama', 'wi' => 'Wisconsin']" />
 ```
 
-### Via Default Slot
-
-Another way is to use the default slot on the component:
+You can also provide more complex arrays for the options too.
 
 ```html
-<x-select name="state">
-    <option value="al">Alabama</option>
-    <option value="wi">Wisconsin</option>
+<x-select 
+    name="user"
+    :options="[
+        ['id' => 1, 'name' => 'User 1'],
+        ['id' => 2, 'name' => 'User 2'],
+    ]"
+>
 </x-select>
 ```
 
-> {note} When using the default slot, the select component will not be able to determine if the options in the slot are selected or not automatically for you.
+This will set each option's value to the `id`, and the text of the option to the `name`. You can of course customize these fields for each select with the
+`valueField` and `labelField` attributes:
+
+```html
+<x-select 
+    name="user"
+    :options="[
+        ['value' => 1, 'text' => 'User 1'],
+        ['value' => 2, 'text' => 'User 2'],
+    ]"
+    value-field="value"
+    label-field="text"
+>
+</x-select>
+```
+
+You are also able to pass in an array of Eloquent Models to the select as well:
+
+```html
+<x-select name="user" :options="\App\Models\User::all()" />
+```
+
+### Via Default Slot
+
+Another way to provide options is to use the default slot on the component:
+
+```html
+<x-select name="state">
+    <option value="al" @selected($component->isSelected('al'))>Alabama</option>
+    <option value="wi" @selected($component->isSelected('wi'))>Wisconsin</option>
+</x-select>
+```
+
+> {note} When using the default slot, the select component will not be able to determine if the options in the slot are selected or not automatically for you. You may
+> use the `isSelected` method on the component though for convenience.
 
 ### Via The Append Slot
 
@@ -55,10 +91,10 @@ add your slotted options **after** the passed in options:
 
 ```html
 <x-select name="state" :options="['ny' => 'New York']">
-    <x-slot name="append">
+    <x-slot:append>
         <option value="al">Alabama</option>
         <option value="wi">Wisconsin</option>
-    </x-slot>
+    </x-slot:append>
 </x-select>
 ```
 
@@ -86,7 +122,91 @@ You can easily create a multiple select by setting `multiple` to `true`:
 />
 ```
 
-## Reference
+## Opt Groups
 
-Since the select component extends the [input component](/docs/laravel-form-components/{version}/inputs/input), you are able
-to do a lot of the same things you can with the input element, such as error handling and addons.
+The select component can automatically render options as an `<optgroup>` for you without you needing to manually
+render the options yourself. The component will check for a `children` property on the option (name of property is configurable).
+If it is present, and is not an empty array, the component will render the parent option as an `<optgroup>`, and then loop through
+each of the children and render them as normal options.
+
+> {note} The children options should have the same property structure as the parent option does.
+ 
+## Addons
+
+The select component supports most of the available addons this package offers. Header over to the [Addons](/docs/laravel-form-components/{version}/advanced-usage/addons) documentation
+for an in-depth guide on how to use them.
+
+## API Reference
+
+### props
+
+| prop | description                                                                                |
+| --- |--------------------------------------------------------------------------------------------|
+| `name` | Name of the select                                                                         |
+| `id` | Id of the select. Defaults to `name`.                                                      |
+| `value` | Value of the select. Gets omitted if `wire:model` or `x-model` is present                  |
+| `containerClass` | Defines a CSS class to apply to the **container** of the select                            |
+| `size` | Define a size for the select. Default size is `md`                                         |
+| `showErrors` | If a validation error is present for the select, it will show the error state on the input |
+| `extraAttributes` | Pass an array of HTML attributes to render on the select                                   |
+| `leadingAddon` | Render text on the left of the select                                                      |
+| `leadingIcon` | Render an icon on the left of the select                                                   |
+| `inlineAddon` | Render text inside the input on the select                                                 |
+| `trailingAddon` | Render text on the right of the select                                                     |
+| `trailingInlineAddon` | Render text inside the input on the select                                                 |
+| `trailingIcon` | Render an icon on the right of the select                                                  |
+| `multiple` | Allow muti-select mode |
+| `options` | An array or Collection of options to render |
+| `valueField` | Property on an option to use for the value |
+| `labelField` | Property on an option to use for the text |
+| `disabledField` | Property on an option to use to determine if it is disabled |
+| `childrenField` | Property on an option to determine if it has children. Will render as an `<optgroup>` if children is present and not empty |
+
+### slots 
+
+| slot | description                                               |
+| --- |-----------------------------------------------------------|
+| `append` | Render options after passed in options have been rendered |
+| `before` | Render HTML before the select and/or leading addons       |
+| `after` | Render HTML after the select and/or trailing addons       |
+| `leadingAddon` | Render text on the left of the select                     |
+| `leadingIcon` | Render an icon on the left of the select                  |
+| `inlineAddon` | Render text inside the select on the left                 |
+| `trailingAddon` | Render text on the right of the select                    |
+| `trailingInlineAddon` | Render text inside the select on the right                |
+| `trailingIcon` | Render an icon on the right of the select                 |
+
+### config
+
+The following configuration keys and values can be adjusted for common default behavior
+you may want for the select element.
+
+```php
+'defaults' => [
+    'global' => [
+        // Show error states by default.
+        'show_errors' => true,    
+        
+        // Set the fields to use by default for properties on options in select components.
+        'value_field' => 'id',
+        'label_field' => 'name',
+        'disabled_field' => 'disabled',
+        'children_field' => 'children',
+    ],
+
+    'input' => [
+        // Supported: 'sm', 'md', 'lg'
+        // Applies to all input types except for checkbox/radios and custom select.
+        'size' => 'md',
+
+        // Classes applied by default to input parent div.
+        // Will also apply to select.
+        'container_class' => null,
+    ],
+    
+    'select' => [
+        // Automatically apply a CSS class to each select.
+        'input_class' => null,
+    ],
+],
+```

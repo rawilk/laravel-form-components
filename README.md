@@ -21,16 +21,22 @@ composer require rawilk/laravel-form-components
 You can publish the config file with:
 
 ```bash
-php artisan fc:publish
-```
-
-**Tip:** You can also publish the package views by adding the `--views` flag to the command:
-
-```bash
-php artisan fc:publish --views
+php artisan vendor:publish --tag="form-components-config"
 ```
 
 You can view the default configuration here: https://github.com/rawilk/laravel-form-components/blob/main/config/form-components.php
+
+You can publish the package's views with this command:
+
+```bash
+php artisan vendor:publish --tag="form-components-views"
+```
+
+If you want to override the package's language lines, you can publish them with this command:
+
+```bash
+php artisan vendor:publish --tag="form-components-translations"
+```
 
 ## Documentation
 

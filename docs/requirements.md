@@ -9,6 +9,7 @@ sort: 2
 -   Laravel **9.0** or greater
 -   TailwindCSS for styling
 -   [Alpine.js](https://alpinejs.dev/) **3.0** or greater
+-   [Alpine Focus Plugin](https://alpinejs.dev/plugins/focus) (used in the custom-select components)
 -   [Popper.js](https://popper.js.org/) (when using components like custom-select)
 -   Blade Heroicons (can easily swap for other icon libraries)
 -   [Flatpickr](https://flatpickr.js.org/) (when using the date picker component)

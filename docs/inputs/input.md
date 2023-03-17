@@ -43,7 +43,7 @@ When re-rendering the form, the `input` component will remember the old value.
 />
 ```
 
-> {note} This doesn't apply when using `wire:model`, as livewire will take care of setting the value instead
+> {note} This doesn't apply when using `wire:model` or `x-model`, as livewire or alpine will take care of setting the value instead
 > and the component will not set the `value` attribute itself.
 
 ## Error Handling
@@ -66,7 +66,7 @@ When there are errors for a field, the `aria-invalid` and `aria-describedby` att
 ```
 
 The actual error message won't be rendered from the input component itself, but it can be automatically rendered for you
-by wrapping the `<x-input />` component inside of a `<x-form-group />` component. Please refer to the [form-group documentation](/docs/laravel-form-components/{version}/form/form-group#error-handling) for more information.
+by wrapping the `<x-input />` component inside an `<x-form-group />` component. Please refer to the [form-group documentation](/docs/laravel-form-components/{version}/form/form-group#user-content-error-handling) for more information.
 
 The `aria-describedby` attribute takes the `name` attribute and appends `-error` to it, which will be the id given to the error message rendered by the `<x-form-group />` component. If you already have `aria-describedby` set on the input, the attribute
 value will be merged with the error attribute value.
@@ -77,97 +77,102 @@ If you don't want error attributes to be added to the input, you may disable the
 <x-input name="search" :show-errors="false" />
 ```
 
+> {tip} If you find yourself setting the `show-errors` prop to `false` every time, you may set the global `show_errors` config setting to `false` under the `defaults`
+> configuration key.
+
 ## Addons
 
-Both leading and trailing addons can easily be added to the input either by use of props or slots. When rendering the input,
-only one type of leading addon and one type of trailing addon will be rendered at a time.
+The input component supports all the available addons this package offers. Header over to the [Addons](/docs/laravel-form-components/{version}/advanced-usage/addons) documentation
+for an in-depth guide on how to use them.
 
-### Leading Addon
+## Sizing
 
-A leading addon will be rendered as text on top of a light gray background at the beginning of the input. To render a leading
-addon, specify the text either in the `leading-addon` attribute or the `leadingAddon` slot.
-
-Via prop:
-
-```html
-<x-input name="url" leading-addon="https://" />
-```
-
-Via slot:
+The package offers three input sizes configured for you out-of-the-box: sm, md, and lg. Inputs by default are configured to render as a "md" sized input, but this can be changed
+globally in the config file under `defaults.input.size`. This setting will also affect textareas, native selects, native file upload, and the date picker element. You can also
+set the size on a per-element basis using the `size` prop:
 
 ```html
-<x-input name="url">
-    <x-slot name="leadingAddon">https://</x-slot>
-</x-input>
+<x-input size="lg" />
 ```
 
-### Inline Addon
-
-Inline addon is similar to leading addon, however there is no background behind the text. You are also responsible
-for setting the left padding of the input to allow for enough room for your text to fit at the beginning of the
-input (defaults to `pl-16 sm:pl-14`) by setting the `inline-addon-padding` attribute.
-
-You can set the inline addon by using the `inline-addon` attribute or the `inlineAddon` slot.
-
-Via prop:
+The input sizes are utility classes, which means you can prefix them with screen size breakpoints for further flexibility on sizing your inputs. For example, if you want
+your inputs to normally be the "md" size, but on medium size screens and up, you want them to be "lg", you can set your size on the `container-class` prop:
 
 ```html
-<x-input name="url" inline-addon="https://" />
+<x-input container-class="md:form-input--lg" />
 ```
 
-Via slot:
+If you want to use your own size utility classes, you will need to define them in your app's CSS. For a quick override on the amount of padding given to each size, you can override the following CSS
+variables:
 
-```html
-<x-input name="url">
-    <x-slot name="inlineAddon">https://</x-slot>
-</x-input>
+```css
+:root {
+    --input-padding-y: theme('spacing[2.5]');
+    --input-padding-x: theme('spacing.3');
+    --input-padding-y-sm: theme('spacing.2');
+    --input-padding-x-sm: theme('spacing.2');
+    --input-padding-y-lg: theme('spacing.4');
+    --input-padding-x-lg: theme('spacing.4');
+}
 ```
 
-### Leading Icon
+## API Reference
 
-Instead of text, you can prepend an icon to the input instead. The package is styled for
-[blade heroicon svgs](https://github.com/blade-ui-kit/blade-heroicons), but you are free
-to use whatever icons you want to.
+### props
 
-To prepend an icon, use the `leadingIcon` slot:
+| prop  | description                                                                               |
+|-------|-------------------------------------------------------------------------------------------|
+| `name` | Name of the input                                                                         |
+| `id` | Id of the input. Defaults to `name`.                                                        |
+| `type` | Type of input. Defaults to `text`                                                         |
+| `value` | Value of the input. Gets omitted if `wire:model` or `x-model` is present                  |
+| `containerClass` | Defines a CSS class to apply to the **container** of the input                            |
+| `size` | Define a size for the input. Default size is `md`                                         |
+| `showErrors` | If a validation error is present for the input, it will show the error state on the input |
+| `extraAttributes` | Pass an array of HTML attributes to render on the input                                   |
+| `leadingAddon` | Render text on the left of the input |
+| `leadingIcon` | Render an icon on the left of the input |
+| `inlineAddon` | Render text inside the input on the left |
+| `trailingAddon` | Render text on the right of the input |
+| `trailingInlineAddon` | Render text inside the input on the right |
+| `trailingIcon` | Render an icon on the right of the input |
 
-```html
-<x-input name="url">
-    <x-slot name="leadingIcon"> icon svg... </x-slot>
-</x-input>
+### slots
+
+| slot | description |
+| --- | --- |
+| `before` | Render HTML before the input and/or leading addons |
+| `after` | Render HTML after the input and/or trailing addons |
+| `leadingAddon` | Render text on the left of the input |
+| `leadingIcon` | Render an icon on the left of the input |
+| `inlineAddon` | Render text inside the input on the left |
+| `trailingAddon` | Render text on the right of the input |
+| `trailingInlineAddon` | Render text inside the input on the right |
+| `trailingIcon` | Render an icon on the right of the input |
+
+### config
+
+The following configuration keys and values can be adjusted for common default behavior
+you may want for the input element.
+
+```php
+'defaults' => [
+    'global' => [
+        // Show error states by default.
+        'show_errors' => true,    
+    ],
+
+    'input' => [
+        // Supported: 'sm', 'md', 'lg'
+        // Applies to all input types except for checkbox/radios and custom select.
+        'size' => 'md',
+
+        // Classes applied by default to input parent div.
+        // Will also apply to select.
+        'container_class' => null,
+
+        // Base input classes applied by default.
+        'input_class' => null,
+    ],
+],
 ```
-
-### Trailing Addon
-
-Like the inline addon, the trailing addon will add text directly inside of the input, but this time at the right
-side of the input. Also like the inline addon, you will need to specify the padding yourself (defaults to `pr-12`)
-by using the `trailing-addon-padding` attribute.
-
-You can add a trailing addon by using either the `trailing-addon` attribute or the `trailingAddon` slot.
-
-Via prop:
-
-```html
-<x-input name="amount" trailing-addon="USD" />
-```
-
-Via slot:
-
-```html
-<x-input name="amount">
-    <x-slot name="trailingAddon">USD</x-slot>
-</x-input>
-```
-
-### Trailing Icon
-
-You can append an icon to an input similar to prepending one. You can do so using the `trailingIcon` slot:
-
-```html
-<x-input name="search">
-    <x-slot name="trailingIcon">search icon...</x-slot>
-</x-input>
-```
-
-> {tip} The leading and trailing addons can also be applied the same way to the textarea, select, email, and password
-> inputs provided by this package.

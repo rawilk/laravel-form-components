@@ -1,6 +1,6 @@
 ---
 title: Customizing CSS
-sort: 1
+sort: 2
 ---
 
 If you want to change the look of the Laravel Form Components to match the style of your own app, you have multiple options.
@@ -21,7 +21,7 @@ You can import the `index.css` and run every `@apply` rule through your own `tai
 /* override our styles here */
 ```
 
-> {note} If you choose this option, make sure you have the [required variants](#required-variants) included in your `tailwind.config.js` configuration.
+> {note} If you choose this option, make sure you have the [required variants](#user-content-required-variants) included in your `tailwind.config.js` configuration.
 
 You may also import only the stylesheets you need instead of everything in the index.css file. Most components have their own stylesheets (i.e. `input.css` for input elements).
 
@@ -33,29 +33,32 @@ Beware: you will have to manually keep this CSS in sync with changes in future p
 ```css
 /* app.css */
 
-... @import "custom/laravel-form-components.css";
+... 
+@import "custom/laravel-form-components.css";
 ```
 
-Let's say you wanted to change the background color of disabled inputs. You could do so like this in the file you just created with the pasted in styles from the package:
+Let's say you wanted to change the spacing in stacked checkbox groups. You could do so like this in the file you just created with the pasted in styles from the package:
 
 ```css
 /* custom/laravel-form-components.css */
 
-input[disabled],
-textarea[disabled],
-select[disabled] {
-    @apply bg-gray-100;
-
-    /* default styles from the package */
-    /*@apply bg-slate-50 cursor-not-allowed;*/
+.form-checkbox-group--stacked {
+    @apply space-y-2;
+    
+    /* styles from the package */
+    /*@apply space-y-4;*/
 }
 
 ...
 ```
 
-## Required Variants
+## Tailwind Configuration
 
-If you choose [Option 1](#option-1-use-your-own-tailwind-css-configuration), you will need the following color variants added inside your `tailwind.config.js` file:
+Some custom configuration is necessary to ensure our package's CSS compiles correctly, and that the components are styled correctly.
+
+### Required Variants
+
+If you choose [Option 1](#user-content-option-1-use-your-own-tailwind-css-configuration), you will need the following color variants added inside your `tailwind.config.js` file:
 
 ```js
 // tailwind.config.js
@@ -74,23 +77,30 @@ module.exports = {
 };
 ```
 
-This will extend the default tailwind color palette to include the `slate` color variant.
+This will extend the default tailwind color palette to include the `slate` color variant. There are a few other colors you'll want to make sure you have in your color palette,
+such as `blue` and `red`, so if you're using a custom color palette, make sure those colors are included in it. For a comprehensive overview of what colors and utility classes
+you'll need in your Tailwind configuration for the package's styles to compile, you can refer to the [variables.css](https://github.com/rawilk/laravel-form-components/blob/{branch}/resources/css/variables.css) file.
 
-> {note} If you have a custom color palette configured, you will need to make sure you have the `blue` and `red` colors configured as well, with all
-> levels available (`50` through `900`).
+### Plugins
 
-Certain components make use of a custom utility class called `outline-slate`, which adds a 2px dotted outline around the element when focused. If you opt to not add this outline variant to your configuration, it will not affect building the CSS since the package's stylesheet does not reference it; the outline variant is only rendered directly onto the elements it's used for. If you want the outline to show up, you can add the following to a stylesheet in a `@layer utilities`:
+The `@tailwindcss/forms` plugin is necessary to for some base styles to be applied to the form components. If you are using the
+[switch-toggle](/docs/laravel-form-components/{version}/inputs/switch-toggle) component, you will want to include our custom `switch-toggle` plugin if you plan on rendering it with custom colors.
 
-```css
-@layer utilities {
-    .outline-slate {
-        outline: 2px dotted theme("colors.slate.400");
-        outline-offset: 2px;
-    }
-}
+```js
+// tailwind.config.js
+
+module.exports = {
+    // ...
+    plugins: [
+        require('@tailwindcss/forms'),
+        
+        // Only necessary if you're going to use the switch-toggle component with different colors
+        require('./vendor/rawilk/laravel-form-components/resources/js/tailwind-plugins/switch-toggle'),
+    ]
+};
 ```
 
-## Purge CSS/Tailwind JIT
+### Purge CSS/Tailwind JIT
 
 Purge CSS is useful for trimming out unused styles from your stylesheets to reduce your overall build size. To ensure
 the class styles from this package don't get purged from your production build, you should add the following to your
@@ -101,29 +111,71 @@ purge css content configuration:
 ```js
 module.exports = {
     // ...
-    purge: {
-        content: [
-            // Typical laravel app purge css content
-            "./app/**/*.php",
-            "./resources/**/*.php",
-            "./resources/**/*.js",
+    content: [
+        // Typical laravel app purge css content
+        "./app/**/*.php",
+        "./resources/**/*.php",
+        "./resources/**/*.js",
 
-            // Make sure you add these lines
-            "./vendor/rawilk/laravel-form-components/src/**/*.php",
-            "./vendor/rawilk/laravel-form-components/resources/**/*.php",
-            "./vendor/rawilk/laravel-form-components/resources/js/*.js",
-        ],
-    },
+        // Make sure you add these lines
+        "./vendor/rawilk/laravel-form-components/src/**/*.php",
+        "./vendor/rawilk/laravel-form-components/resources/**/*.php",
+        "./vendor/rawilk/laravel-form-components/resources/js/*.js",
+    ],
 };
 ```
 
-This configuration should also work when using the JIT compiler from Tailwind.
+Due to the dynamic nature of how some classes are rendered onto the markup, you may still find some of them being purged by Tailwind. Here's a few you may want to 
+add to your `safelist` to prevent from being purged:
 
-If some styles are still being purged, it may be useful to wrap the import statement of the package's stylesheet
-in a `/* purgecss start ignore */`:
+```js
+module.exports = {
+    // ...
+    safelist: [
+        {
+            pattern: /file-upload__input--*/,
+        },
+        {
+            pattern: /switch-toggle--*/,
+        },
+        {
+            pattern: /custom-select__button--*/,
+        },
+        {
+            // For sizing, e.g. form-input--sm
+            pattern: /form-input--*/,
+        },
+        {
+            // For checkbox/radio sizing
+            pattern: /form-choice--*/,
+        },
+    ],
+};
+```
+
+You can of course be more selective in what you safelist. For example, instead of using a pattern for the `.form-input--` sizing classes, you could just explicitly add
+`form-input--lg` to the safelist array instead of using a regex pattern.
+
+## Variables
+
+Some styling for components, such as text color and border colors, can be overridden with CSS variables. For example, if you wanted to override the border color for inputs,
+you could add the following to your app's CSS file:
 
 ```css
-/* purgecss start ignore */
-@import "../../vendor/rawilk/laravel-form-components/resources/css/index.css";
-/* purgecss end ignore */
+...
+:root {
+    --input-border-color: theme('colors.green.300');
+    --input-dark-border-color: theme('colors.green.500');
+}
 ```
+
+> {note} Make sure to override any variables **after** you've imported the package's CSS.
+
+For a full reference of the variables you can set in your CSS, please refer to the [variables.css](https://github.com/rawilk/laravel-form-components/blob/{branch}/resources/css/variables.css) file.
+
+## Dark Mode
+
+The package's components have also been styled for dark mode and will work with both the class based and OS based strategies. If you are using the class based dark mode 
+strategy, be sure to use the default `dark` class for dark mode.
+
+For more information, please refer to [Tailwind's Dark Mode Documentation](https://tailwindcss.com/docs/dark-mode).
