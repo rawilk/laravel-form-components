@@ -16,7 +16,7 @@ Purchase a license here: [https://tailwindui.com/](https://tailwindui.com)
 You can install the package via composer:
 
 ```bash
-composer require rawilk/laravel-form-components
+composer require rawilk/laravel-form-components:5.0
 ```
 
 ## Configuration
