@@ -211,7 +211,7 @@ In your layouts:
 ## Prefixing
 
 Using components from this library might conflict with other ones from a different
-library or components from our own app. To prevent this you can opt to prefixing
+library or components from your own app. To prevent this you can opt to prefixing
 FormComponents components by default to prevent these collisions. You can do this by
 setting the `prefix` option in the config file:
 
