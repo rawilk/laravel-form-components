@@ -27,7 +27,7 @@ You may also import only the stylesheets you need instead of everything in the i
 
 ## Option 2: Copy the CSS To Your Own Project
 
-If you want full-control, you can always copy the each of the stylesheets from `resources/css` to your own project and go wild. In this example, we renamed the file to `custom/laravel-form-components.css`.
+If you want full-control, you can always copy each of the stylesheets from `resources/css` to your own project and go wild. In this example, we renamed the file to `custom/laravel-form-components.css`.
 Beware: you will have to manually keep this CSS in sync with changes in future package updates:
 
 ```css
