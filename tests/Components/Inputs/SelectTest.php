@@ -307,3 +307,34 @@ it('can prepend and append options', function () {
         })
         ->assertSeeInOrder(['Germany', 'Canada', 'United States', 'France']);
 });
+
+test('simple array options are supported', function () {
+    $options = [
+        'option_1',
+        'option_2',
+    ];
+
+    $template = <<<'HTML'
+    <form>
+        <x-select name="my_options" :options="$options" />
+    </form>
+    HTML;
+
+    Route::get('/test', fn () => Blade::render($template, ['options' => $options]));
+
+    get('/test')
+        ->assertFormExists('form', function (AssertForm $form) {
+            $form->findSelect('select', function (AssertSelect $select) {
+                $select->containsOptions(
+                    [
+                        'value' => 'option_1',
+                        'text' => 'option_1',
+                    ],
+                    [
+                        'value' => 'option_2',
+                        'text' => 'option_2',
+                    ],
+                );
+            });
+        });
+});
