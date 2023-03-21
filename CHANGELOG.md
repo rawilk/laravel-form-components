@@ -2,6 +2,17 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## v8.0.1 - 2023-03-21
+
+### What's Changed
+
+- Bump creyD/prettier_action from 4.2 to 4.3 by @dependabot in https://github.com/rawilk/laravel-form-components/pull/86
+- Bump aglipanci/laravel-pint-action from 2.1.0 to 2.2.0 by @dependabot in https://github.com/rawilk/laravel-form-components/pull/87
+- Bump actions/stale from 5 to 7 by @dependabot in https://github.com/rawilk/laravel-form-components/pull/85
+- Support simple array options in x-select by @rawilk in https://github.com/rawilk/laravel-form-components/pull/89
+
+**Full Changelog**: https://github.com/rawilk/laravel-form-components/compare/v8.0.0...v8.0.1
+
 ## v8.0.0 - 2023-03-17
 
 ### What's Changed
