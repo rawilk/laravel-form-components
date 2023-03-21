@@ -2,7 +2,7 @@
 
 namespace Rawilk\FormComponents\Components\Inputs;
 
-use function config;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\HtmlString;
@@ -62,18 +62,7 @@ class Select extends Input
         $this->disabledField = $disabledField ?? config('form-components.defaults.global.disabled_field', 'disabled');
         $this->childrenField = $childrenField ?? config('form-components.defaults.global.children_field', 'children');
 
-        $this->options = collect($options)
-            ->map(function ($value, $key) {
-                // If the key is not numeric, we're going to assume this is the value.
-                if (! is_numeric($key)) {
-                    return [
-                        $this->valueField => $key,
-                        $this->labelField => $value,
-                    ];
-                }
-
-                return $value;
-            })->values();
+        $this->options = $this->normalizeOptions($options);
     }
 
     /**
@@ -98,5 +87,29 @@ class Select extends Input
             config('form-components.defaults.select.input_class', ''),
             'input-error' => $this->hasErrorsAndShow($this->name),
         ]);
+    }
+
+    protected function normalizeOptions(array|Collection $options): Collection
+    {
+        return collect($options)
+            ->map(function ($value, $key) {
+                // If the key is not numeric, we're going to assume this is the value.
+                if (! is_numeric($key)) {
+                    return [
+                        $this->valueField => $key,
+                        $this->labelField => $value,
+                    ];
+                }
+
+                // If the value is a simple value, we need to convert it to an array.
+                if (! is_iterable($value) && ! $value instanceof Model) {
+                    return [
+                        $this->valueField => $value,
+                        $this->labelField => $value,
+                    ];
+                }
+
+                return $value;
+            });
     }
 }
