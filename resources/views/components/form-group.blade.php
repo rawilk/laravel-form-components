@@ -1,6 +1,10 @@
-<div {{ $attributes->only('class')->class($groupClass()) }}>
+<div @class([
+    'form-group',
+    'form-group--mb' => $marginBottom,
+    'form-group--border' => $border && $inline,
+])>
     <div wire:ignore.self x-data x-form-group>
-        <div {{ $attributes->except('class') }}>
+        <div {{ $attributes->class($groupClass()) }}>
             @include('form-components::partials.form-group-label')
 
             <div @class([

@@ -38,12 +38,9 @@ class FormGroup extends BladeComponent
     public function groupClass(): string
     {
         return Arr::toCssClasses([
-            'form-group',
             'has-error' => $this->hasErrorsAndShow($this->name),
             config('form-components.defaults.form_group.class'),
             'form-group--inline' => $this->inline,
-            'form-group--mb' => $this->marginBottom,
-            'form-group--border' => $this->border && $this->inline,
         ]);
     }
 }
