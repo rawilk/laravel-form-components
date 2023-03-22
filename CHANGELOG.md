@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## v8.0.2 - 2023-03-22
+
+### What's Changed
+
+- Fix styling for inline form groups
+
+**Full Changelog**: https://github.com/rawilk/laravel-form-components/compare/v8.0.1...v8.0.2
+
 ## v8.0.1 - 2023-03-21
 
 ### What's Changed
