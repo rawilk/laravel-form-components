@@ -2,6 +2,15 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## v8.0.3 - 2023-03-22
+
+### What's Changed
+
+- Prevent textarea from resizing when hidden
+- Prevent false positives for "has children" checks on select options when an empty collection is used for children
+
+**Full Changelog**: https://github.com/rawilk/laravel-form-components/compare/v8.0.2...v8.0.3
+
 ## v8.0.2 - 2023-03-22
 
 ### What's Changed
