@@ -78,11 +78,16 @@ it('can have label inline with inputs', function () {
     Route::get('/test', fn () => Blade::render($template));
 
     get('/test')
-        ->assertElementExists('div', function (AssertElement $div) {
-            $div->has('class', 'form-group--inline')
-                ->contains('div', [
+        ->assertElementExists('.form-group', function (AssertElement $div) {
+            $div->contains('div', [
+                'class' => 'form-group--inline',
+            ]);
+
+            $div->find('.form-group--inline', function (AssertElement $content) {
+                $content->contains('div', [
                     'class' => 'form-group__content--inline',
                 ]);
+            });
         });
 });
 
