@@ -105,3 +105,26 @@ it('renders children options', function () {
             });
         });
 });
+
+it('will not show child indicators on empty collections', function () {
+    $option = [
+        'id' => 'foo',
+        'name' => 'Foo',
+        'children' => collect(),
+    ];
+
+    $template = <<<'HTML'
+    <x-tree-select>
+        <x-tree-select-option :value="$option" />
+    </x-tree-select>
+    HTML;
+
+    Route::get('/test', fn () => Blade::render($template, ['option' => $option]));
+
+    get('/test')
+        ->assertElementExists('.tree-select__option-li', function (AssertElement $option) {
+            $option->doesntContain('ul', [
+                'class' => 'tree-select__children',
+            ]);
+        });
+});

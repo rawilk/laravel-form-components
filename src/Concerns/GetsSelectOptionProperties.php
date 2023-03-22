@@ -4,6 +4,7 @@ namespace Rawilk\FormComponents\Concerns;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Collection;
 
 /**
  * @property string $childrenField
@@ -54,7 +55,9 @@ trait GetsSelectOptionProperties
         // We will consider an option an "opt group" if it has children.
         $children = $this->optionChildren($option, $childrenField);
 
-        return ! empty($children);
+        return $children instanceof Collection
+            ? $children->isNotEmpty()
+            : ! empty($children);
     }
 
     protected function optionProperty($option, $field, $default = null)

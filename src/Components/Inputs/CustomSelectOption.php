@@ -84,6 +84,10 @@ class CustomSelectOption extends BladeComponent
             return $this->hasChildren;
         }
 
-        return $this->hasChildren = ! empty($this->optionChildren($childrenField));
+        $children = $this->optionChildren($childrenField);
+
+        return $children instanceof Collection
+            ? $this->hasChildren = $children->isNotEmpty()
+            : $this->hasChildren = ! empty($children);
     }
 }
