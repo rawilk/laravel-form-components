@@ -84,11 +84,10 @@ Here is an example of how you could define a handler for a custom toolbar button
 ```html
 <x-slot:config>
     toolbarHandlers: { 
-        variables: function(value) { 
-            const quill = instance.__quill;
-            const cursorPosition = quill.getSelection().index;
-            quill.insertText(cursorPosition, value);
-            quill.setSelection(cursorPosition +value.length);
+        variables: function (value) {
+            const cursorPosition = this.quill.getSelection().index;
+            this.quill.insertText(cursorPosition, value);
+            this.quill.setSelection(cursorPosition +value.length);
         },
     },
 </x-slot:config>
