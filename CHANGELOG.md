@@ -2,6 +2,14 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## v8.0.4 - 2023-03-23
+
+### What's Changed
+
+- Ensure a value is always rendered onto checkbox/radios if one is set
+
+**Full Changelog**: https://github.com/rawilk/laravel-form-components/compare/v8.0.3...v8.0.4
+
 ## v8.0.3 - 2023-03-22
 
 ### What's Changed
