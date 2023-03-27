@@ -2,6 +2,16 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## v8.1.0 - 2023-03-27
+
+### What's Changed
+
+- NPM: Bump fs-extra from 11.1.0 to 11.1.1 by @dependabot in https://github.com/rawilk/laravel-form-components/pull/91
+- Bump actions/stale from 7 to 8 by @dependabot in https://github.com/rawilk/laravel-form-components/pull/92
+- Provide better dark mode support by @rawilk in https://github.com/rawilk/laravel-form-components/pull/93
+
+**Full Changelog**: https://github.com/rawilk/laravel-form-components/compare/v8.0.4...v8.1.0
+
 ## v8.0.4 - 2023-03-23
 
 ### What's Changed
