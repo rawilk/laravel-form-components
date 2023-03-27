@@ -3,6 +3,27 @@ title: Upgrade
 sort: 4
 ---
 
+## Upgrading from v8 to v8.1.0
+
+Although technically there is a breaking change in this version of v8, I've decided against bumping a major version number since the change does not affect functionality of the package.
+
+### Dark Mode
+
+To allow for more flexibility for dark mode configuration in Tailwind, a new `dark-mode` Tailwind plugin has been added, which you will need to add to your project's Tailwind config file.
+If your app does not support dark mode, you don't need to worry about this change.
+
+```js
+// tailwind.config.js
+module.exports = {
+    plugins: [
+        // ...
+        require('./vendor/rawilk/laravel-form-components/resources/js/tailwind-plugins/dark-mode'),
+    ],
+};
+```
+
+The `dark-mode.css` file has also been removed, so if you were manually pulling that into your stylesheets, you will need to remove the reference to it.
+
 ## Upgrading from v7 to v8
 
 Several breaking changes were introduced in v8. Please read the following carefully before upgrading. This list may not be fully comprehensive, so be sure to check the

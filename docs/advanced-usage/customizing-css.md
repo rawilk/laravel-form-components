@@ -97,6 +97,9 @@ module.exports = {
 
         // Only necessary if you're going to use the switch-toggle component with different colors
         require("./vendor/rawilk/laravel-form-components/resources/js/tailwind-plugins/switch-toggle"),
+        
+        // Only necessary if you're going to support dark mode
+        require("./vendor/rawilk/laravel-form-components/resources/js/tailwind-plugins/dark-mode"),
     ],
 };
 ```
@@ -150,6 +153,14 @@ module.exports = {
             // For checkbox/radio sizing
             pattern: /form-choice--*/,
         },
+        
+        // For dark mode...
+        {
+            // quill editor classes
+            pattern: /ql--*/,
+        },
+        'filepond--panel-root',
+        'filepond--root',
     ],
 };
 ```
@@ -177,7 +188,25 @@ For a full reference of the variables you can set in your CSS, please refer to t
 
 ## Dark Mode
 
-The package's components have also been styled for dark mode and will work with both the class based and OS based strategies. If you are using the class based dark mode
-strategy, be sure to use the default `dark` class for dark mode.
+The package's components have also been styled for dark mode and will work with both the class based and OS based strategies. A custom dark mode selector is also supported too.
+
+To opt in to dark mode, you will need to add the `dark-mode` plugin to your Tailwind configuration file. See [Plugins](#user-content-plugins) for more information. By default, all
+components are styled for dark mode in this plugin. You may opt out of certain components being styled here if you're not using them. Here is an example of all the options you can
+pass to the plugin:
+
+```js
+// tailwind.config.js
+
+module.exports = {
+    plugins: [
+        // ...
+        require("./vendor/rawilk/laravel-form-components/resources/js/tailwind-plugins/dark-mode")({
+            quill: false,
+            filepond: false,
+        }),
+    ]
+};
+```
 
 For more information, please refer to [Tailwind's Dark Mode Documentation](https://tailwindcss.com/docs/dark-mode).
+
