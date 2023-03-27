@@ -44,24 +44,3 @@
 :is(.has-error, .input-error) .filepond--root:hover .filepond--panel-root {
     background-color: var(--input-error-bg-color);
 }
-
-/* dark mode */
-.dark .filepond--panel-root {
-    border-color: var(--input-dark-border-color);
-    background-color: var(--input-dark-background-color);
-}
-
-.dark .filepond--root:hover .filepond--panel-root {
-    background-color: var(--filepond-dark-hover-bg);
-}
-
-@media (prefers-color-scheme: dark) {
-    .filepond--panel-root {
-        border-color: var(--input-dark-border-color);
-        background-color: var(--input-dark-background-color);
-    }
-
-    .filepond--root:hover .filepond--panel-root {
-        background-color: var(--filepond-dark-hover-bg);
-    }
-}
