@@ -53,6 +53,7 @@
     --custom-select-selected-icon-color: theme('colors.green.500');
     --custom-select-selected-icon-hover-color: theme('colors.green.600');
     --custom-select-search-border-color: theme('colors.slate.300');
+    --custom-select-menu-z-index: 30;
 
     --custom-select-dark-menu-color: theme('colors.slate.400');
     --custom-select-dark-menu-bg: theme('colors.slate.700');
