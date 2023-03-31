@@ -2,6 +2,15 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## v8.1.1 - 2023-03-31
+
+### What's Changed
+
+- Bump up custom-select z-index to 30 by default
+- Make custom-select z-index configurable via the css variable `--custom-select-z-index`
+
+**Full Changelog**: https://github.com/rawilk/laravel-form-components/compare/v8.1.0...v8.1.1
+
 ## v8.1.0 - 2023-03-27
 
 ### What's Changed
