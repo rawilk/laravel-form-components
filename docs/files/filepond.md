@@ -113,11 +113,7 @@ specify an option callbacks, such as `onaddfile`, that you need to:
 
 ```html
 <x-file-pond wire:model="avatar">
-    <x-slot:config> 
-        onaddfile(error, file) {
-            // do stuff
-        },
-    </x-slot:config>
+    <x-slot:config> onaddfile(error, file) { // do stuff }, </x-slot:config>
 </x-file-pond>
 ```
 

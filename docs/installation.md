@@ -38,9 +38,7 @@ Add the following before the end `body` tag in your template.
 
 ```html
 <body>
-    ...
-    
-    @fcScripts
+    ... @fcScripts
 </body>
 ```
 
@@ -115,9 +113,9 @@ In your project's CSS, do the following for styling:
 Assuming your app CSS file is located in `/resources/css/app.css`, you can load in the package's styles like this:
 
 ```css
-...  
-
-@import "../../vendor/rawilk/laravel-form-components/resources/css/index.css";
+...
+    @import
+    "../../vendor/rawilk/laravel-form-components/resources/css/index.css";
 ```
 
 This will import all the package's styles into your stylesheet, however you are free to import only the stylesheets you need as well; they are all

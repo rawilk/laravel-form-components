@@ -59,12 +59,12 @@ This slot is completely optional, and can be omitted if you don't need to show a
 <x-file-upload name="avatar" wire:model="avatar">
     <div>
         @if ($avatar)
-            <span class="block w-20 h-20">
-                <img
-                    class="rounded-full w-full"
-                    src="{{ $avatar->temporaryUrl() }}"
-                />
-            </span>
+        <span class="block w-20 h-20">
+            <img
+                class="rounded-full w-full"
+                src="{{ $avatar->temporaryUrl() }}"
+            />
+        </span>
         @endif
     </div>
 </x-file-upload>

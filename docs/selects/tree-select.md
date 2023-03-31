@@ -164,7 +164,7 @@ the component will recursively render and children underneath the parent option.
 ```html
 <x-tree-select ...>
     @foreach ($options as $option)'
-        <x-tree-select-option :value="$option" />
+    <x-tree-select-option :value="$option" />
     @endforeach
 </x-tree-select>
 ```

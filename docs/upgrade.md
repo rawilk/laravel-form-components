@@ -17,7 +17,7 @@ If your app does not support dark mode, you don't need to worry about this chang
 module.exports = {
     plugins: [
         // ...
-        require('./vendor/rawilk/laravel-form-components/resources/js/tailwind-plugins/dark-mode'),
+        require("./vendor/rawilk/laravel-form-components/resources/js/tailwind-plugins/dark-mode"),
     ],
 };
 ```
@@ -85,11 +85,7 @@ three JS variables: `instance`, `options`, and `pondOptions`. The `instance` var
 options object that is passed to the component. Here's an example of how you could hook into Filepond's `oninit` callback:
 
 ```html
-<x-slot:config> 
-    oninit() {
-        console.log('init', instance); 
-    },
-</x-slot:config>
+<x-slot:config> oninit() { console.log('init', instance); }, </x-slot:config>
 ```
 
 If you were registering plugins in the `plugins` slot, you will need to move that logic somewhere else, as we have removed this slot. See [Plugins](/docs/laravel-form-components/{version}/files/filepond#user-content-plugins) for more information.
@@ -104,13 +100,9 @@ Here is an example of how you could define a handler for a custom toolbar button
 
 ```html
 <x-slot:config>
-    toolbarHandlers: { 
-        variables: function (value) {
-            const cursorPosition = this.quill.getSelection().index;
-            this.quill.insertText(cursorPosition, value);
-            this.quill.setSelection(cursorPosition +value.length);
-        },
-    },
+    toolbarHandlers: { variables: function (value) { const cursorPosition =
+    this.quill.getSelection().index; this.quill.insertText(cursorPosition,
+    value); this.quill.setSelection(cursorPosition +value.length); }, },
 </x-slot:config>
 ```
 
@@ -155,8 +147,7 @@ that is fired by flatpickr, you would do it like this:
 
 ```html
 <x-slot:config>
-    onOpen: function (selectedDates, dateStr, instance) { 
-        // do something here.
+    onOpen: function (selectedDates, dateStr, instance) { // do something here.
     },
 </x-slot:config>
 ```

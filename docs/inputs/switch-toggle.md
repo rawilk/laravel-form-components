@@ -42,9 +42,7 @@ This will render a label containing the text "Notifications on" to the right sid
 to render the label as well:
 
 ```html
-<x-switch-toggle> 
-    Notifications on
-</x-switch-toggle>
+<x-switch-toggle> Notifications on </x-switch-toggle>
 ```
 
 ### Left aligned labels

@@ -30,9 +30,7 @@ Via prop:
 Via slot:
 
 ```html
-<x-checkbox name="remember_me"> 
-    Remember me
-</x-checkbox>
+<x-checkbox name="remember_me"> Remember me </x-checkbox>
 ```
 
 By default, the label will be placed on the **right** if the checkbox, however you can have it placed on the left side instead by setting the `labelLeft` attribute

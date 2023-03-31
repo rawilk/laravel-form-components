@@ -33,9 +33,7 @@ Beware: you will have to manually keep this CSS in sync with changes in future p
 ```css
 /* app.css */
 
-... 
-
-@import "custom/laravel-form-components.css";
+... @import "custom/laravel-form-components.css";
 ```
 
 Let's say you wanted to change the spacing in stacked checkbox groups. You could do so like this in the file you just created with the pasted in styles from the package:
@@ -97,7 +95,7 @@ module.exports = {
 
         // Only necessary if you're going to use the switch-toggle component with different colors
         require("./vendor/rawilk/laravel-form-components/resources/js/tailwind-plugins/switch-toggle"),
-        
+
         // Only necessary if you're going to support dark mode
         require("./vendor/rawilk/laravel-form-components/resources/js/tailwind-plugins/dark-mode"),
     ],
@@ -153,14 +151,14 @@ module.exports = {
             // For checkbox/radio sizing
             pattern: /form-choice--*/,
         },
-        
+
         // For dark mode...
         {
             // quill editor classes
             pattern: /ql--*/,
         },
-        'filepond--panel-root',
-        'filepond--root',
+        "filepond--panel-root",
+        "filepond--root",
     ],
 };
 ```
@@ -174,9 +172,7 @@ Some styling for components, such as text color and border colors, can be overri
 you could add the following to your app's CSS file:
 
 ```css
-... 
-
-:root {
+... :root {
     --input-border-color: theme("colors.green.300");
     --input-dark-border-color: theme("colors.green.500");
 }
@@ -200,13 +196,14 @@ pass to the plugin:
 module.exports = {
     plugins: [
         // ...
-        require("./vendor/rawilk/laravel-form-components/resources/js/tailwind-plugins/dark-mode")({
-            quill: false,
-            filepond: false,
-        }),
-    ]
+        require("./vendor/rawilk/laravel-form-components/resources/js/tailwind-plugins/dark-mode")(
+            {
+                quill: false,
+                filepond: false,
+            }
+        ),
+    ],
 };
 ```
 
 For more information, please refer to [Tailwind's Dark Mode Documentation](https://tailwindcss.com/docs/dark-mode).
-

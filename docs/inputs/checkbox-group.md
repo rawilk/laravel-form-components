@@ -39,9 +39,7 @@ with each other, by setting the `stacked` attribute to `false`. This will displa
 By default, the checkbox-group renders checkboxes in rows with 3 columns when it is rendered inline. To render a different amount of columns, you can specify the `grid-cols` attribute:
 
 ```html
-<x-checkbox-group :stacked="false" grid-cols="5"> 
-    ...
-</x-checkbox-group>
+<x-checkbox-group :stacked="false" grid-cols="5"> ... </x-checkbox-group>
 ```
 
 ## Sizing
@@ -50,9 +48,7 @@ For convenience, you can size all the radio or checkbox elements the same by usi
 the config value for radios and checkboxes.
 
 ```html
-<x-checkbox-group input-size="lg">
-    ...
-</x-checkbox-group>
+<x-checkbox-group input-size="lg"> ... </x-checkbox-group>
 ```
 
 For more information on the sizing, checkout the [Sizing](/docs/laravel-form-components/{version}/inputs/checkbox#user-content-sizing) documentation for checkboxes.
