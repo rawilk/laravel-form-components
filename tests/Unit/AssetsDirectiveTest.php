@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Illuminate\Support\Str;
 use Rawilk\FormComponents\Facades\FormComponents;
 
 it('outputs the script source', function () {
@@ -42,5 +43,14 @@ it('accepts an asset url as an argument', function () {
     $this->assertStringContainsString(
         '<script src="https://example.com/form-components/form-components.js?',
         FormComponents::javaScript(['asset_url' => 'https://example.com']),
+    );
+});
+
+it('can output a nonce on the script tag', function () {
+    $nonce = Str::random(32);
+
+    $this->assertStringContainsString(
+        "nonce=\"{$nonce}\"",
+        FormComponents::javaScript(['nonce' => $nonce]),
     );
 });
