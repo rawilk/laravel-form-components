@@ -38,10 +38,10 @@ it('can show a file upload progress if wire:model is set', function () {
             $div->contains('div', [
                 'x-on:livewire-upload-start' => 'isUploading = true',
             ])
-            ->contains('input', [
-                'type' => 'file',
-                'wire:model' => 'file',
-            ]);
+                ->contains('input', [
+                    'type' => 'file',
+                    'wire:model' => 'file',
+                ]);
         });
 });
 

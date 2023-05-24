@@ -65,9 +65,9 @@ it('applies custom attributes to the input', function () {
                 'data-foo' => 'bar',
                 'id' => 'foo',
             ])
-            ->contains('.switch-toggle', [
-                'class' => 'foo-class',
-            ]);
+                ->contains('.switch-toggle', [
+                    'class' => 'foo-class',
+                ]);
         });
 });
 
@@ -124,9 +124,9 @@ it('can have on and off state icons', function () {
             $div->contains('span.off', [
                 'text' => 'off',
             ])
-            ->contains('span.on', [
-                'text' => 'on',
-            ]);
+                ->contains('span.on', [
+                    'text' => 'on',
+                ]);
         });
 });
 

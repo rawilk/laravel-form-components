@@ -22,11 +22,11 @@ it('does not allow type to be overridden', function () {
     Route::get('/test', fn () => Blade::render('<x-email name="email" type="url" id="my-email" />'));
 
     get('/test')
-         ->assertElementExists('input', function (AssertElement $input) {
-             $input->is('input')
-               ->has('type', 'email')
-               ->has('name', 'email')
-               ->has('id', 'my-email')
-               ->doesntHave('type', 'url');
-         });
+        ->assertElementExists('input', function (AssertElement $input) {
+            $input->is('input')
+                ->has('type', 'email')
+                ->has('name', 'email')
+                ->has('id', 'my-email')
+                ->doesntHave('type', 'url');
+        });
 });

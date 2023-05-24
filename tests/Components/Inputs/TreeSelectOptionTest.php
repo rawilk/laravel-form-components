@@ -84,23 +84,23 @@ it('renders children options', function () {
                             'text' => 'Foo 1',
                             'level' => '1',
                         ])
-                        ->doesntContain('.tree-select__children');
+                            ->doesntContain('.tree-select__children');
                     })
-                    ->find('.tree-select__option-li:last-child', function (AssertElement $option) {
-                        $option->contains('.tree-select__option', [
-                            'text' => 'Foo 2',
-                            'level' => '1',
-                        ])
-                            ->find('.tree-select__children', function (AssertElement $children) {
-                                $children->find('.tree-select__option-li', function (AssertElement $option) {
-                                    $option->contains('.tree-select__option', [
-                                        'text' => 'Foo 2.1',
-                                        'level' => '2',
-                                    ])
-                                        ->doesntContain('.tree-select__children');
+                        ->find('.tree-select__option-li:last-child', function (AssertElement $option) {
+                            $option->contains('.tree-select__option', [
+                                'text' => 'Foo 2',
+                                'level' => '1',
+                            ])
+                                ->find('.tree-select__children', function (AssertElement $children) {
+                                    $children->find('.tree-select__option-li', function (AssertElement $option) {
+                                        $option->contains('.tree-select__option', [
+                                            'text' => 'Foo 2.1',
+                                            'level' => '2',
+                                        ])
+                                            ->doesntContain('.tree-select__children');
+                                    });
                                 });
-                            });
-                    });
+                        });
                 });
             });
         });
