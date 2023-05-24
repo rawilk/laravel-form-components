@@ -2,6 +2,20 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## v8.1.3 - 2023-05-24
+
+### What's Changed
+
+- Add padding-right styling to native selects
+- NPM: Bump @rollup/plugin-commonjs from 24.0.1 to 24.1.0 by @dependabot in https://github.com/rawilk/laravel-form-components/pull/101
+- Bump dependabot/fetch-metadata from 1.3.6 to 1.4.0 by @dependabot in https://github.com/rawilk/laravel-form-components/pull/102
+- NPM: Bump @babel/preset-env from 7.21.4 to 7.21.5 by @dependabot in https://github.com/rawilk/laravel-form-components/pull/103
+- NPM: Bump @babel/core from 7.21.4 to 7.21.5 by @dependabot in https://github.com/rawilk/laravel-form-components/pull/104
+- NPM: Bump @babel/core from 7.21.5 to 7.21.8 by @dependabot in https://github.com/rawilk/laravel-form-components/pull/105
+- NPM: Bump @rollup/plugin-commonjs from 24.1.0 to 25.0.0 by @dependabot in https://github.com/rawilk/laravel-form-components/pull/106
+
+**Full Changelog**: https://github.com/rawilk/laravel-form-components/compare/v8.1.2...v8.1.3
+
 ## v8.1.2 - 2023-04-13
 
 ### What's Changed
