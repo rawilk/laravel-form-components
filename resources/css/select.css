@@ -4,11 +4,22 @@
         overflow: auto;
     }
 
+    .form-select {
+        @apply pr-[--select-padding-right];
+    }
+
     .form-select + :is(.trailing-inline-addon, .trailing-icon) {
         @apply right-5;
     }
 
     .form-select:has(+ .trailing-icon) {
         @apply pr-12;
+    }
+}
+
+/* sizing */
+@layer utilities {
+    .form-input--sm .form-select {
+        @apply pr-[--select-padding-right-sm];
     }
 }
