@@ -22,4 +22,8 @@
     .form-input--sm .form-select {
         @apply pr-[--select-padding-right-sm];
     }
+
+    .form-input--md .form-select {
+        @apply pr-[--select-padding-right];
+    }
 }
