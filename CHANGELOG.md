@@ -2,6 +2,27 @@
 
 All notable changes to `laravel-form-components` will be documented in this file
 
+## v8.1.4 - 2023-07-10
+
+### What's Changed
+
+- Scope md padding to a media query for native form selects so it's not overridden by the input padding right value
+- NPM: Bump @babel/preset-env from 7.21.5 to 7.22.2 by @dependabot in https://github.com/rawilk/laravel-form-components/pull/107
+- NPM: Bump @babel/core from 7.21.8 to 7.22.1 by @dependabot in https://github.com/rawilk/laravel-form-components/pull/108
+- Bump dependabot/fetch-metadata from 1.4.0 to 1.5.1 by @dependabot in https://github.com/rawilk/laravel-form-components/pull/109
+- Bump aglipanci/laravel-pint-action from 2.2.0 to 2.3.0 by @dependabot in https://github.com/rawilk/laravel-form-components/pull/110
+- NPM: Bump @babel/preset-env from 7.22.2 to 7.22.4 by @dependabot in https://github.com/rawilk/laravel-form-components/pull/112
+- NPM: Bump @rollup/plugin-node-resolve from 15.0.2 to 15.1.0 by @dependabot in https://github.com/rawilk/laravel-form-components/pull/113
+- NPM: Bump @rollup/plugin-commonjs from 25.0.0 to 25.0.1 by @dependabot in https://github.com/rawilk/laravel-form-components/pull/114
+- NPM: Bump @babel/core from 7.22.1 to 7.22.5 by @dependabot in https://github.com/rawilk/laravel-form-components/pull/115
+- NPM: Bump @babel/preset-env from 7.22.4 to 7.22.5 by @dependabot in https://github.com/rawilk/laravel-form-components/pull/116
+- NPM: Bump @rollup/plugin-commonjs from 25.0.1 to 25.0.2 by @dependabot in https://github.com/rawilk/laravel-form-components/pull/117
+- Bump dependabot/fetch-metadata from 1.5.1 to 1.6.0 by @dependabot in https://github.com/rawilk/laravel-form-components/pull/118
+- NPM: Bump @babel/preset-env from 7.22.5 to 7.22.7 by @dependabot in https://github.com/rawilk/laravel-form-components/pull/119
+- NPM: Bump @babel/core from 7.22.5 to 7.22.8 by @dependabot in https://github.com/rawilk/laravel-form-components/pull/120
+
+**Full Changelog**: https://github.com/rawilk/laravel-form-components/compare/v8.1.3...v8.1.4
+
 ## v8.1.3 - 2023-05-24
 
 ### What's Changed
