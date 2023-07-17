@@ -10,7 +10,7 @@
     "devDependencies": {
         "@babel/core": "^7.22.8",
         "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
-        "@babel/preset-env": "^7.22.7",
+        "@babel/preset-env": "^7.22.9",
         "@rollup/plugin-babel": "^6.0.3",
         "@rollup/plugin-commonjs": "^25.0.2",
         "@rollup/plugin-node-resolve": "^15.1.0",
