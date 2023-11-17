@@ -14,8 +14,8 @@ use Rawilk\FormComponents\Concerns\HasModels;
 
 class FilePond extends BladeComponent
 {
-    use HandlesValidationErrors;
     use AcceptsFiles;
+    use HandlesValidationErrors;
     use HasExtraAttributes;
     use HasModels;
 
@@ -28,11 +28,11 @@ class FilePond extends BladeComponent
         public ?int $maxFiles = null,
         public ?array $options = null,
         public ?string $description = null,
-        ?string $type = null,
-        ?bool $showErrors = null,
+        string $type = null,
+        bool $showErrors = null,
 
         // Extra attributes
-        null|string|HtmlString|array|Collection $extraAttributes = null,
+        string|HtmlString|array|Collection $extraAttributes = null,
     ) {
         $this->id = $id ?? $name;
 

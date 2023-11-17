@@ -16,9 +16,9 @@ use Rawilk\FormComponents\Concerns\HasModels;
 class Input extends BladeComponent
 {
     use HandlesValidationErrors;
+    use HasAddons;
     use HasExtraAttributes;
     use HasModels;
-    use HasAddons;
 
     /**
      * Normally we want arrays to be encoded, but some components don't need that, like Select.
@@ -32,18 +32,18 @@ class Input extends BladeComponent
         public mixed $value = null,
         public ?string $containerClass = null,
         public ?string $size = null,
-        ?bool $showErrors = null,
+        bool $showErrors = null,
 
         // Extra Attributes
-        null|string|HtmlString|array|Collection $extraAttributes = null,
+        string|HtmlString|array|Collection $extraAttributes = null,
 
         // Addons
-        ?string $leadingAddon = null,
-        ?string $leadingIcon = null,
-        ?string $inlineAddon = null,
-        ?string $trailingAddon = null,
-        ?string $trailingInlineAddon = null,
-        ?string $trailingIcon = null,
+        string $leadingAddon = null,
+        string $leadingIcon = null,
+        string $inlineAddon = null,
+        string $trailingAddon = null,
+        string $trailingInlineAddon = null,
+        string $trailingIcon = null,
     ) {
         $this->id = $this->id ?? $this->name;
         $this->value = $name ? old($name, $value) : $value;

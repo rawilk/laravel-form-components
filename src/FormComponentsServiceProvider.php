@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace Rawilk\FormComponents;
 
-use function app;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
 use Illuminate\View\Compilers\BladeCompiler;
 use Illuminate\View\ComponentAttributeBag;
-use function method_exists;
 use Rawilk\FormComponents\Controllers\FormComponentsJavaScriptAssets;
 use Rawilk\FormComponents\Support\FormComponentsTagCompiler;
 use Rawilk\FormComponents\Support\Timezone;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
+
+use function app;
+use function method_exists;
 
 class FormComponentsServiceProvider extends PackageServiceProvider
 {

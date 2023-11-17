@@ -15,10 +15,10 @@ use Rawilk\FormComponents\Concerns\HasModels;
 
 class FileUpload extends BladeComponent
 {
-    use HandlesValidationErrors;
     use AcceptsFiles;
-    use HasModels;
+    use HandlesValidationErrors;
     use HasExtraAttributes;
+    use HasModels;
 
     protected ?bool $canShowUploadProgress = null;
 
@@ -26,15 +26,15 @@ class FileUpload extends BladeComponent
         public ?string $name = null,
         public ?string $id = null,
         public bool $multiple = false,
-        ?string $type = null,
-        ?bool $showErrors = null,
+        string $type = null,
+        bool $showErrors = null,
         public ?bool $displayUploadProgress = null,
         public ?string $size = null,
         public ?string $containerClass = null,
         public ?bool $useNativeProgressBar = null,
 
         // Extra attributes
-        null|string|HtmlString|array|Collection $extraAttributes = null,
+        string|HtmlString|array|Collection $extraAttributes = null,
     ) {
         $this->id = $id ?? $name;
         $this->type = $type;

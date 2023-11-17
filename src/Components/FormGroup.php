@@ -2,9 +2,10 @@
 
 namespace Rawilk\FormComponents\Components;
 
-use function config;
 use Illuminate\Support\Arr;
 use Rawilk\FormComponents\Concerns\HandlesValidationErrors;
+
+use function config;
 
 class FormGroup extends BladeComponent
 {
@@ -15,7 +16,7 @@ class FormGroup extends BladeComponent
         public ?string $inputId = null,
         public null|bool|string $label = null,
         public ?bool $inline = null,
-        ?bool $showErrors = null,
+        bool $showErrors = null,
         public ?string $helpText = null,
         public bool $isCheckboxGroup = false,
         public ?bool $marginBottom = null,

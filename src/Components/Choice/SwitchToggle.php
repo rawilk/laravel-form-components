@@ -15,8 +15,8 @@ use Rawilk\FormComponents\Concerns\HasModels;
 class SwitchToggle extends BladeComponent
 {
     use HandlesValidationErrors;
-    use HasModels;
     use HasExtraAttributes;
+    use HasModels;
 
     public function __construct(
         public ?string $name = null,
@@ -35,7 +35,7 @@ class SwitchToggle extends BladeComponent
         public bool $short = false,
 
         // Extra Attributes
-        null|string|HtmlString|array|Collection $extraAttributes = null,
+        string|HtmlString|array|Collection $extraAttributes = null,
     ) {
         $this->id = $id ?? $name;
 

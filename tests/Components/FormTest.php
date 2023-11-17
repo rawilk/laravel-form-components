@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
-use function Pest\Laravel\get;
 use Sinnbeck\DomAssertions\Asserts\AssertForm;
+
+use function Pest\Laravel\get;
 
 it('renders a form', function () {
     $template = <<<'HTML'

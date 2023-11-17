@@ -23,7 +23,7 @@ trait HandlesSelectOptions
         $this->search = $search;
     }
 
-    public function options(?string $search = null)
+    public function options(string $search = null)
     {
         return collect();
     }

@@ -16,8 +16,8 @@ class Checkbox extends BladeComponent
     use HandlesValidationErrors {
         ariaDescribedBy as validationAriaDescribedBy;
     }
-    use HasModels;
     use HasExtraAttributes;
+    use HasModels;
 
     public string $type = 'checkbox';
 
@@ -34,7 +34,7 @@ class Checkbox extends BladeComponent
         public ?bool $labelLeft = null,
 
         // Extra Attributes
-        null|string|HtmlString|array|Collection $extraAttributes = null,
+        string|HtmlString|array|Collection $extraAttributes = null,
     ) {
         $this->id = $id ?? $name;
 
@@ -57,7 +57,7 @@ class Checkbox extends BladeComponent
         ]);
     }
 
-    public function containerClass(?string $inputSize = null): string
+    public function containerClass(string $inputSize = null): string
     {
         // Input size from parent has priority over individual defined size.
         if ($inputSize) {

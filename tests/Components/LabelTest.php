@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Route;
-use function Pest\Laravel\get;
 use Sinnbeck\DomAssertions\Asserts\AssertElement;
+
+use function Pest\Laravel\get;
 
 it('can render a label', function () {
     Route::get('/test', fn () => Blade::render('<x-label for="first_name" />'));
