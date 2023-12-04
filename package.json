@@ -8,7 +8,7 @@
     "author": "Randall Wilk",
     "license": "MIT",
     "devDependencies": {
-        "@babel/core": "^7.23.3",
+        "@babel/core": "^7.23.5",
         "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
         "@babel/preset-env": "^7.23.2",
         "@rollup/plugin-babel": "^6.0.4",
