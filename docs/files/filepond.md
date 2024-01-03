@@ -85,7 +85,7 @@ For a full reference of all options, please consult [the FilePond documentation]
 
 ### Multiple
 
-You can accept multiple files by passing in `multiple` as a boolean value. This attribute has been added as a way
+You can accept multiple files by passing in `allowMultiple` as a boolean value. This attribute has been added as a way
 to conveniently set the `allowMultiple` option for FilePond.
 
 ### Max Files
