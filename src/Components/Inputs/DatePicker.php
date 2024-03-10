@@ -11,23 +11,23 @@ use InvalidArgumentException;
 class DatePicker extends Input
 {
     public function __construct(
-        string $name = null,
-        string $id = null,
+        ?string $name = null,
+        ?string $id = null,
         mixed $value = null,
-        string $containerClass = null,
-        string $size = null,
-        bool $showErrors = null,
+        ?string $containerClass = null,
+        ?string $size = null,
+        ?bool $showErrors = null,
 
         // Extra Attributes
-        HtmlString|array|string|Collection $extraAttributes = null,
+        HtmlString|array|string|Collection|null $extraAttributes = null,
 
         // Addons
-        string $leadingAddon = null,
-        string $leadingIcon = null,
-        string $inlineAddon = null,
-        string $trailingAddon = null,
-        string $trailingInlineAddon = null,
-        string $trailingIcon = null,
+        ?string $leadingAddon = null,
+        ?string $leadingIcon = null,
+        ?string $inlineAddon = null,
+        ?string $trailingAddon = null,
+        ?string $trailingInlineAddon = null,
+        ?string $trailingIcon = null,
 
         // Date picker specific
         public array $options = [],

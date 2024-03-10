@@ -35,7 +35,7 @@ class SwitchToggle extends BladeComponent
         public bool $short = false,
 
         // Extra Attributes
-        string|HtmlString|array|Collection $extraAttributes = null,
+        string|HtmlString|array|Collection|null $extraAttributes = null,
     ) {
         $this->id = $id ?? $name;
 

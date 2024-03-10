@@ -10,23 +10,23 @@ use Illuminate\Support\HtmlString;
 class TimezoneSelect extends Select
 {
     public function __construct(
-        string $name = null,
-        string $id = null,
+        ?string $name = null,
+        ?string $id = null,
         mixed $value = null,
-        string $containerClass = null,
-        string $size = null,
-        bool $showErrors = null,
+        ?string $containerClass = null,
+        ?string $size = null,
+        ?bool $showErrors = null,
 
         // Extra Attributes
-        HtmlString|array|string|Collection $extraAttributes = null,
+        HtmlString|array|string|Collection|null $extraAttributes = null,
 
         // Addons
-        string $leadingAddon = null,
-        string $leadingIcon = null,
-        string $inlineAddon = null,
-        string $trailingAddon = null,
-        string $trailingInlineAddon = null,
-        string $trailingIcon = null,
+        ?string $leadingAddon = null,
+        ?string $leadingIcon = null,
+        ?string $inlineAddon = null,
+        ?string $trailingAddon = null,
+        ?string $trailingInlineAddon = null,
+        ?string $trailingIcon = null,
 
         bool $multiple = false,
         array|Collection $options = [],
@@ -45,7 +45,7 @@ class TimezoneSelect extends Select
         public ?string $optionSelectedIcon = null,
 
         // Timezone specific
-        array|string|bool $only = null,
+        array|string|bool|null $only = null,
     ) {
         parent::__construct(
             name: $name,

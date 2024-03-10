@@ -26,15 +26,15 @@ class FileUpload extends BladeComponent
         public ?string $name = null,
         public ?string $id = null,
         public bool $multiple = false,
-        string $type = null,
-        bool $showErrors = null,
+        ?string $type = null,
+        ?bool $showErrors = null,
         public ?bool $displayUploadProgress = null,
         public ?string $size = null,
         public ?string $containerClass = null,
         public ?bool $useNativeProgressBar = null,
 
         // Extra attributes
-        string|HtmlString|array|Collection $extraAttributes = null,
+        string|HtmlString|array|Collection|null $extraAttributes = null,
     ) {
         $this->id = $id ?? $name;
         $this->type = $type;

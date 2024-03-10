@@ -26,7 +26,7 @@ class CustomSelect extends BladeComponent
         public ?string $name = null,
         public ?string $id = null,
         public mixed $value = null,
-        bool $showErrors = null,
+        ?bool $showErrors = null,
         public bool $multiple = false,
         public array|Collection $options = [],
         public ?string $size = null,
@@ -51,13 +51,13 @@ class CustomSelect extends BladeComponent
         public ?string $containerClass = null,
 
         // Extra Attributes
-        string|HtmlString|array|Collection $extraAttributes = null,
+        string|HtmlString|array|Collection|null $extraAttributes = null,
 
         // Addons
-        string $leadingAddon = null,
-        string $leadingIcon = null,
-        string $inlineAddon = null,
-        string $trailingAddon = null,
+        ?string $leadingAddon = null,
+        ?string $leadingIcon = null,
+        ?string $inlineAddon = null,
+        ?string $trailingAddon = null,
     ) {
         $this->id = $id ?? $name;
         $this->value = $name ? old($name, $value) : $value;
