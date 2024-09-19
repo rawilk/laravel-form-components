@@ -1,5 +1,5 @@
 {
-    "name": "rawilk/laravel-form-components",
+    "name": "onepix/laravel-form-components",
     "description": "Set of Blade components for TailwindCSS forms.",
     "keywords": [
         "rawilk",
@@ -25,16 +25,16 @@
         }
     ],
     "require": {
-        "php": "^8.0|^8.1|^8.2",
-        "illuminate/filesystem": "^9.0|^10.0",
-        "illuminate/support": "^9.0|^10.0",
-        "illuminate/view": "^9.0|^10.0",
+        "php": "^8.0|^8.1|^8.2|^8.3",
+        "illuminate/filesystem": "^9.0|^10.0|^11.0",
+        "illuminate/support": "^9.0|^10.0|^11.0",
+        "illuminate/view": "^9.0|^10.0|^11.0",
         "spatie/laravel-package-tools": "^1.14"
     },
     "require-dev": {
         "blade-ui-kit/blade-heroicons": "^2.0",
         "laravel/pint": "^1.5",
-        "livewire/livewire": "^2.8",
+        "livewire/livewire": "^2.8|^3.0",
         "orchestra/testbench": "^7.0|^8.0",
         "pestphp/pest": "^1.22",
         "pestphp/pest-plugin-laravel": "^1.4",
