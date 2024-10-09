@@ -1,9 +1,9 @@
 <div
     x-data="{
         @if ($defer)
-            __wireValue: @entangle('value').defer,
-        @else
             __wireValue: @entangle('value'),
+        @else
+            __wireValue: @entangle('value').live,
         @endif
     }"
     wire:ignore.self
