@@ -12,7 +12,7 @@
         "@babel/plugin-proposal-object-rest-spread": "^7.20.7",
         "@babel/preset-env": "^7.26.0",
         "@rollup/plugin-babel": "^6.0.4",
-        "@rollup/plugin-commonjs": "^25.0.8",
+        "@rollup/plugin-commonjs": "^28.0.2",
         "@rollup/plugin-node-resolve": "^15.3.0",
         "fs-extra": "^11.2.0",
         "md5": "^2.3.0",
