@@ -81,7 +81,7 @@ class FormComponentsServiceProvider extends PackageServiceProvider
         }
     }
 
-    private function bootRoutes(): void
+    protected function bootRoutes(): void
     {
         Route::get('/form-components/form-components.js', [FormComponentsJavaScriptAssets::class, 'source']);
         Route::get('/form-components/form-components.js.map', [FormComponentsJavaScriptAssets::class, 'maps']);
