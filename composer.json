@@ -34,7 +34,7 @@
     "require-dev": {
         "blade-ui-kit/blade-heroicons": "^2.0",
         "laravel/pint": "^1.5",
-        "livewire/livewire": "^2.8",
+        "livewire/livewire": "^3.5",
         "orchestra/testbench": "^7.0|^8.0",
         "pestphp/pest": "^1.22",
         "pestphp/pest-plugin-laravel": "^1.4",
