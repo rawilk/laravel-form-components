@@ -1,3 +1,5 @@
+> Package Abandonment: Since I now use packages like Filament for my UI needs, I no longer have an interest or incentive to maintain this package.
+
 # Form Components for Laravel
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/rawilk/laravel-form-components.svg?style=flat-square)](https://packagist.org/packages/rawilk/laravel-form-components)
