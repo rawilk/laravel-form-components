@@ -13,9 +13,9 @@ to reveal any children options they have.
 
 The following third-party libraries are required for `tree-select` to work properly:
 
--   Alpine.js
--   Alpine [Focus Plugin](https://alpinejs.dev/plugins/focus)
--   Popper
+- Alpine.js
+- Alpine [Focus Plugin](https://alpinejs.dev/plugins/focus)
+- Popper
 
 See [Third-Party Assets](/docs/laravel-form-components/{version}/installation#user-content-third-party-assets) on the installation guide for further setup information.
 
@@ -149,12 +149,12 @@ You can use a different key for `disabled` on the option, by specifying it via t
 If you prefer to render options yourself, you can do so in the default slot using the `<x-tree-select-option>` component. The option component
 will automatically be aware of the following fields from `tree-select`.
 
--   valueField
--   labelField
--   disabledField
--   childrenField
--   optionSelectedIcon
--   hasChildIcon
+- valueField
+- labelField
+- disabledField
+- childrenField
+- optionSelectedIcon
+- hasChildIcon
 
 Because of this, the `tree-select-option` must be placed inside a `tree-select` component.
 

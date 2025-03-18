@@ -12,7 +12,7 @@ automatically and consistently for you.
 
 To take full advantage of the `form-group` component, the following third-party libraries are required:
 
--   Alpine.js
+- Alpine.js
 
 See [Third-Party Assets](/docs/laravel-form-components/{version}/installation#user-content-third-party-assets) on the installation guide for further setup information.
 

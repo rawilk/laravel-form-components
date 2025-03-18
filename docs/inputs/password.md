@@ -11,8 +11,8 @@ The `password` component offers an easy way to set up a password input field for
 
 By default, the component shows a toggle icon, which allows the user to show and hide the password. The use of this feature requires:
 
--   Alpine.js
--   Blade Heroicons (different icons can be specified in the config file)
+- Alpine.js
+- Blade Heroicons (different icons can be specified in the config file)
 
 See [Third-Party Assets](/docs/laravel-form-components/{version}/installation#user-content-third-party-assets) on the installation guide for further setup information.
 

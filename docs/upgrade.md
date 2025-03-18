@@ -37,10 +37,10 @@ v8 of laravel-form-components now requires a minimum Laravel version of `9.0`. B
 
 If you have the package's config file published, be sure to update it to be compatible with the new config. Here are some notable changes to the config file in v8:
 
--   `components` is now just a simple key/value array of component aliases to class names. Any config to a component done here is now moved to the `defaults` key.
--   `defaults` has been added to allow setting default values for common component options. Be sure to refer to the [config file](https://github.com/rawilk/laravel-form-components/blob/main/config/form-components.php) for a complete list of available defaults.
--   the `assets` key has been removed, as the package will no longer load in 3rd party cdn assets anymore. Be sure to load them in yourself if you were relying on this in your project.
--   the `link_vendor_cdn_assets` key has also been removed.
+- `components` is now just a simple key/value array of component aliases to class names. Any config to a component done here is now moved to the `defaults` key.
+- `defaults` has been added to allow setting default values for common component options. Be sure to refer to the [config file](https://github.com/rawilk/laravel-form-components/blob/main/config/form-components.php) for a complete list of available defaults.
+- the `assets` key has been removed, as the package will no longer load in 3rd party cdn assets anymore. Be sure to load them in yourself if you were relying on this in your project.
+- the `link_vendor_cdn_assets` key has also been removed.
 
 ### Blade Directives
 
@@ -66,12 +66,12 @@ The `form-checkbox-group` CSS class is now always applied to the checkbox group 
 
 The custom select component has been re-written in v8. Here are some notable differences:
 
--   Customizing option display in the menu has changed. See [customizing the option display](/docs/laravel-form-components/{version}/selects/custom-select#user-content-customizing-the-option-display) for more info.
--   Customizing the selected option has changed. See [customizing the selected option display](/docs/laravel-form-components/{version}/selects/custom-select#user-content-customizing-the-selected-option-display) for more info.
--   `is_opt_group` has been deprecated for determining if an option is an "opt group" on custom-select. Provide a non-empty array of "children" on the option itself now. See [Opt Groups](/docs/laravel-form-components/{version}/selects/custom-select#user-content-opt-groups) for more info.
--   The `name-value-manually-updated` listener has been removed, as it's not needed.
--   `closeOnSelect` has been removed. The component will now automatically close on single selects, but stay open for multi-selects when selecting an option.
--   If you were rendering "opt groups" for custom select, you should not flatten your array of options anymore. Custom select will now determine opt groups by the presence of `children` on an option now.
+- Customizing option display in the menu has changed. See [customizing the option display](/docs/laravel-form-components/{version}/selects/custom-select#user-content-customizing-the-option-display) for more info.
+- Customizing the selected option has changed. See [customizing the selected option display](/docs/laravel-form-components/{version}/selects/custom-select#user-content-customizing-the-selected-option-display) for more info.
+- `is_opt_group` has been deprecated for determining if an option is an "opt group" on custom-select. Provide a non-empty array of "children" on the option itself now. See [Opt Groups](/docs/laravel-form-components/{version}/selects/custom-select#user-content-opt-groups) for more info.
+- The `name-value-manually-updated` listener has been removed, as it's not needed.
+- `closeOnSelect` has been removed. The component will now automatically close on single selects, but stay open for multi-selects when selecting an option.
+- If you were rendering "opt groups" for custom select, you should not flatten your array of options anymore. Custom select will now determine opt groups by the presence of `children` on an option now.
 
 ### Switch Toggle
 
@@ -202,11 +202,11 @@ reference to something like this:
 The custom select component has been revamped in v7, and as a result some breaking changes were introduced. The following changes should be updated in your own codebase
 to continue using this component:
 
--   `textField` is now called `labelField`
--   The `valueField` and `labelField` default values have changed to `id` and `name`, respectively
--   The `min` and `max` props have changed to `minSelected` and `maxSelected`, respectively
--   "Opt Group" options no longer need to contain the group's options, as they won't be rendered automatically. You should flatten your options to a single level now.
--   `wire-listeners` is no longer included for updating dependant selects. Your dependant selects should be re-rendered to reflect an update to options now.
+- `textField` is now called `labelField`
+- The `valueField` and `labelField` default values have changed to `id` and `name`, respectively
+- The `min` and `max` props have changed to `minSelected` and `maxSelected`, respectively
+- "Opt Group" options no longer need to contain the group's options, as they won't be rendered automatically. You should flatten your options to a single level now.
+- `wire-listeners` is no longer included for updating dependant selects. Your dependant selects should be re-rendered to reflect an update to options now.
 
 ## Upgrading from v5 to v6
 

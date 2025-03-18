@@ -12,8 +12,8 @@ Before using this component, we recommend familiarizing yourself with the FilePo
 
 The following third-party libraries are required for the `file-pond` component to work properly.
 
--   Alpine.js
--   FilePond
+- Alpine.js
+- FilePond
 
 As per the [FilePond docs](https://pqina.nl/filepond/docs/patterns/installation/), you can install FilePond via npm:
 

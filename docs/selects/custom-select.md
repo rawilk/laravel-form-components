@@ -17,9 +17,9 @@ but I've put my own spin on it and added some extra functionality to it.
 
 The following third-party libraries are required for `custom-select` to work properly:
 
--   Alpine.js
--   Alpine [Focus Plugin](https://alpinejs.dev/plugins/focus)
--   Popper
+- Alpine.js
+- Alpine [Focus Plugin](https://alpinejs.dev/plugins/focus)
+- Popper
 
 See [Third-Party Assets](/docs/laravel-form-components/{version}/installation#user-content-third-party-assets) on the installation guide for further setup information.
 
@@ -164,11 +164,11 @@ the option as an "opt group", and recursively render each of its children (1 lev
 If you prefer to render options yourself, you can do so in the default slot using the `<x-custom-select-option>` component. The option component
 will automatically be aware of the following fields from `custom-select`:
 
--   valueField
--   labelField
--   disabledField
--   childrenField
--   optionSelectedIcon
+- valueField
+- labelField
+- disabledField
+- childrenField
+- optionSelectedIcon
 
 Because of this, the `custom-select-option` component must be placed inside a `custom-select` component.
 

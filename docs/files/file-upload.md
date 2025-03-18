@@ -12,7 +12,7 @@ as well just by adding a `wire:model` to the input.
 
 To take advantage of the upload progress offered by the `file-upload` component, the following third-party libraries are required:
 
--   Alpine.js
+- Alpine.js
 
 See [Third-Party Assets](/docs/laravel-form-components/{version}/installation#user-content-third-party-assets) on the installation guide for further setup information.
 

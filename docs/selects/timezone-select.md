@@ -13,9 +13,9 @@ can be done with the timezone select.
 
 If you choose to render the timezone select as a `custom-select`, the following third-party libraries will need to be installed:
 
--   Alpine.js
--   Alpine [Focus Plugin](https://alpinejs.dev/plugins/focus)
--   Popper
+- Alpine.js
+- Alpine [Focus Plugin](https://alpinejs.dev/plugins/focus)
+- Popper
 
 See [Third-Party Assets](/docs/laravel-form-components/{version}/installation#user-content-third-party-assets) on the installation guide for further setup information.
 

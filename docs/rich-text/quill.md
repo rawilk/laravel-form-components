@@ -11,8 +11,8 @@ The `quill` component provides a rich text editor. Before using this component, 
 
 The `quill` component requires the following third-party libraries to work properly:
 
--   Alpine.js
--   Quill
+- Alpine.js
+- Quill
 
 You may install Quill via npm:
 

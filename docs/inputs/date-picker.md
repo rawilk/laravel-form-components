@@ -12,8 +12,8 @@ By using it, you can simply add a date and/or time picker to your form with one 
 
 The `date-picker` component requires the following third-party libraries to work correctly:
 
--   Alpine.js
--   Flatpickr
+- Alpine.js
+- Flatpickr
 
 See [Third-Party Assets](/docs/laravel-form-components/{version}/installation#user-content-third-party-assets) on the installation guide for further setup information.
 

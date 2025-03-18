@@ -13,7 +13,7 @@ switch toggle acts like a checkbox, however it's mostly used for an on/off state
 
 The `switch-toggle` component requires the following third-party libraries to work properly:
 
--   Alpine.js
+- Alpine.js
 
 See [Third-Party Assets](/docs/laravel-form-components/{version}/installation#user-content-third-party-assets) on the installation guide for further setup information.
 

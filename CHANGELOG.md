@@ -264,7 +264,7 @@ All notable changes to `laravel-form-components` will be documented in this file
 - **Breaking Change:** Remove `wire-listeners` from custom select
 - Add various new props to custom select component
 - Change default styling of custom select component
-- Add Laravel 9.* compatibility
+- Add Laravel 9.\* compatibility
 - Add PHP 8.1 compatibility
 - Update Alpine JS CDN version in config
 

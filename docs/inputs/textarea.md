@@ -13,7 +13,7 @@ sure old values are respected.
 
 If you want to take advantage of the auto-resize functionality of the component, you will need the following installed:
 
--   Alpine.js
+- Alpine.js
 
 See [Third-Party Assets](/docs/laravel-form-components/{version}/installation#user-content-third-party-assets) on the installation guide for further setup information.
 

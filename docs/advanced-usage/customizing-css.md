@@ -200,7 +200,7 @@ module.exports = {
             {
                 quill: false,
                 filepond: false,
-            }
+            },
         ),
     ],
 };
