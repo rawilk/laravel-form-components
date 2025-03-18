@@ -20,7 +20,7 @@ class Quill extends BladeComponent
         public ?string $name = null,
         public ?string $id = null,
         public ?string $value = null,
-        bool $showErrors = null,
+        ?bool $showErrors = null,
         public ?bool $autoFocus = null,
         public bool $readonly = false,
         public ?string $placeholder = null,

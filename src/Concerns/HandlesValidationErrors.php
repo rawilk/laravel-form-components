@@ -31,12 +31,12 @@ trait HandlesValidationErrors
             : null;
     }
 
-    public function hasErrorsAndShow(string $name = null, string $bag = 'default'): bool
+    public function hasErrorsAndShow(?string $name = null, string $bag = 'default'): bool
     {
         return $this->showErrors && $this->hasError($name, $bag);
     }
 
-    public function hasError(string $name = null, string $bag = 'default'): bool
+    public function hasError(?string $name = null, string $bag = 'default'): bool
     {
         $errors = View::shared('errors', fn () => session()->get('errors', new ViewErrorBag));
 

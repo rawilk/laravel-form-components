@@ -32,18 +32,18 @@ class Input extends BladeComponent
         public mixed $value = null,
         public ?string $containerClass = null,
         public ?string $size = null,
-        bool $showErrors = null,
+        ?bool $showErrors = null,
 
         // Extra Attributes
-        string|HtmlString|array|Collection $extraAttributes = null,
+        string|HtmlString|array|Collection|null $extraAttributes = null,
 
         // Addons
-        string $leadingAddon = null,
-        string $leadingIcon = null,
-        string $inlineAddon = null,
-        string $trailingAddon = null,
-        string $trailingInlineAddon = null,
-        string $trailingIcon = null,
+        ?string $leadingAddon = null,
+        ?string $leadingIcon = null,
+        ?string $inlineAddon = null,
+        ?string $trailingAddon = null,
+        ?string $trailingInlineAddon = null,
+        ?string $trailingIcon = null,
     ) {
         $this->id = $this->id ?? $this->name;
         $this->value = $name ? old($name, $value) : $value;

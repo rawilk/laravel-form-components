@@ -34,7 +34,7 @@ class Checkbox extends BladeComponent
         public ?bool $labelLeft = null,
 
         // Extra Attributes
-        string|HtmlString|array|Collection $extraAttributes = null,
+        string|HtmlString|array|Collection|null $extraAttributes = null,
     ) {
         $this->id = $id ?? $name;
 
@@ -57,7 +57,7 @@ class Checkbox extends BladeComponent
         ]);
     }
 
-    public function containerClass(string $inputSize = null): string
+    public function containerClass(?string $inputSize = null): string
     {
         // Input size from parent has priority over individual defined size.
         if ($inputSize) {

@@ -13,23 +13,23 @@ class Select extends Input
     use GetsSelectOptionProperties;
 
     public function __construct(
-        string $name = null,
-        string $id = null,
+        ?string $name = null,
+        ?string $id = null,
         mixed $value = null,
-        string $containerClass = null,
-        string $size = null,
-        bool $showErrors = null,
+        ?string $containerClass = null,
+        ?string $size = null,
+        ?bool $showErrors = null,
 
         // Extra attributes
-        HtmlString|array|string|Collection $extraAttributes = null,
+        HtmlString|array|string|Collection|null $extraAttributes = null,
 
         // Addons
-        string $leadingAddon = null,
-        string $leadingIcon = null,
-        string $inlineAddon = null,
-        string $trailingAddon = null,
-        string $trailingInlineAddon = null,
-        string $trailingIcon = null,
+        ?string $leadingAddon = null,
+        ?string $leadingIcon = null,
+        ?string $inlineAddon = null,
+        ?string $trailingAddon = null,
+        ?string $trailingInlineAddon = null,
+        ?string $trailingIcon = null,
 
         // Select specific
         public bool $multiple = false,
